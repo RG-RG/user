@@ -1,4 +1,4 @@
-package kr.co.glog;
+package kr.co.rgrg.user;
 
 import java.text.DateFormat;
 import java.util.Date;

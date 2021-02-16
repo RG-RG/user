@@ -3,8 +3,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>kr.co</groupId>
-	<artifactId>collie</artifactId>
-	<name>collie_user</name>
+	<artifactId>rgrg</artifactId>
+	<name>rgrg_user</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
