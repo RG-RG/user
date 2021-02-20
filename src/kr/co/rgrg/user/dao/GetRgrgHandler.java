@@ -9,18 +9,18 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 public class GetRgrgHandler {
-	private static GetRgrgHandler gch;
+	private static GetRgrgHandler grh;
 	private static SqlSessionFactory ssf;
 	
 	private GetRgrgHandler() {
 		
-	}//CartDAO
+	}//GetRgrgHandler
 	
 	public static GetRgrgHandler getInstance() {
-		if(gch==null) {
-			gch=new GetRgrgHandler();
+		if(grh==null) {
+			grh=new GetRgrgHandler();
 		}//end if
-		return gch;
+		return grh;
 	}//getInstance
 	
 	public SqlSession getSqlSession() {

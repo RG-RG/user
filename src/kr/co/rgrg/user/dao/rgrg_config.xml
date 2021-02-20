@@ -19,5 +19,7 @@
   <!-- 실행할 쿼리문을 가진 XML 설정 -->
   <mappers>
     <mapper resource="kr/co/rgrg/user/mapper/MainMapper.xml"/>
+    <mapper resource="kr/co/rgrg/user/mapper/MemberMapper.xml"/>
+    <mapper resource="kr/co/rgrg/user/mapper/FollowMapper.xml"/>
   </mappers>
 </configuration>
