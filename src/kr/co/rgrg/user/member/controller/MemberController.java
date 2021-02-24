@@ -21,7 +21,7 @@ import kr.co.rgrg.user.member.vo.SocialJoinVO;
 public class MemberController {
 
 	/**
-	 * 회원가입 이용약관 폼? - 소셜 / 일반 둘 다 보여주는건지?
+	 * 회원가입 이용약관 폼 - 소셜 / 일반 둘 다 보여줌
 	 * @return
 	 */
 	@RequestMapping(value="", method=GET)
@@ -106,7 +106,7 @@ public class MemberController {
 	 */
 	@RequestMapping(value="", method=GET)
 	public String socialLoginForm(Model model) {
-		//SocialLoginVO가 뭐예용?
+		//SocialLoginVO? - API 써보면서 확인
 		return "";
 	}//socialLoginForm
 	
@@ -130,22 +130,23 @@ public class MemberController {
 	}//findIdForm
 	
 	/**
-	 * 아이디 찾기를 위해 이메일 인증번호를 확인하는 일
+	 * 아이디 찾기를 위해 입력한 이메일이 DB에 있는지 확인하는 일
 	 * @return
 	 */
 	@RequestMapping(value="", method=GET)
-	public String findIdChkEmail(String email, Model model) {
+	public String findIdChkEmail(String authEmail, Model model) {
 		return "";
 	}//findIdChkEmail
 	
 	/**
 	 * 아이디 찾기
 	 * @param authMsg
+	 * @param request
 	 * @param model
 	 * @return
 	 */
 	@RequestMapping(value="", method=GET)
-	public String findId(String authMsg, Model model) {
+	public String findId(String authMsg, HttpServletRequest request, Model model) {
 		return "";
 	}//findId
 	
@@ -159,7 +160,7 @@ public class MemberController {
 	}//findPassForm
 	
 	/**
-	 * 비밀번호 찾기를 위해 이메일 인증번호를 확인하는 일
+	 * 비밀번호 찾기를 위해 입력한 이메일이 DB에 있는지 확인하는 일
 	 * @param fpVO
 	 * @param model
 	 * @return
@@ -170,13 +171,14 @@ public class MemberController {
 	}//findPassChkEmail
 	
 	/**
-	 * 비밀번호 찾기
-	 * @param authMsg
+	 * 비밀번호 변경
+	 * @param newPass
+	 * @param request
 	 * @return
 	 */
 	@RequestMapping(value="", method=GET)
-	public String findPass(String authMsg) {
+	public String modifyPass(String newPass, HttpServletRequest request) {
 		return "";
-	}//findPass
+	}//modifyPass
 	
 }//MemberController

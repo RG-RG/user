@@ -58,13 +58,13 @@ public class MemberService {
 	}//login
 	
 	/**
-	 * 아이디 찾기를 위해 이메일 인증번호를 확인하는 일
-	 * @param email
+	 * 아이디 찾기를 위해 입력한 이메일이 DB에 있는지 확인하는 일
+	 * @param authEmail
 	 * @return
 	 */
-	public String findIdChkEmail(String email) {
-		String authMsg = "";
-		return authMsg;
+	public String findIdChkEmail(String authEmail) {
+		String email = "";
+		return email;
 	}//findIdChkEmail
 	
 	/**
@@ -78,23 +78,23 @@ public class MemberService {
 	}//findId
 	
 	/**
-	 * 비밀번호 찾기를 위해 인증번호를 확인하는 일
+	 * 비밀번호 찾기를 위해 입력한 이메일이 DB에 있는지 확인하는 일
 	 * @param fpVO
 	 * @return
 	 */
 	public String findPassChkEmail(FindPassVO fpVO) {
-		String authMsg = "";
-		return authMsg;
+		String email = "";
+		return email;
 	}//findPassChkEmail
 	
 	/**
-	 * 비밀번호 찾기
-	 * @param authMsg
+	 * 비밀번호 변경
+	 * @param newPass
 	 * @return
 	 */
-	public String findPass(String authMsg) {
-		String pass = "";
-		return pass;
-	}//findPass
+	public boolean modifyPass(String newPass) {
+		boolean flag = false;
+		return flag;
+	}//modifyPass
 	
 }//MemberService

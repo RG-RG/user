@@ -40,7 +40,7 @@ public class MemberDAO {
 	}//insertSocialMember
 	
 	/**
-	 * 아이디 중복을 체크하는 일???
+	 * 아이디 중복을 체크하는 일
 	 * @param newId
 	 * @return
 	 */
@@ -50,7 +50,7 @@ public class MemberDAO {
 	}//selectId
 	
 	/**
-	 * 이메일 중복을 체크하는 일???
+	 * 이메일 중복을 체크하는 일
 	 * @param newEmail
 	 * @return
 	 */
@@ -60,7 +60,7 @@ public class MemberDAO {
 	}//selectEmail
 	
 	/**
-	 * 로그인을 하는 일 (아이디 가져오는 거 맞나요..????)
+	 * 로그인을 하는 일
 	 * @param lVO
 	 * @return
 	 */
@@ -70,13 +70,13 @@ public class MemberDAO {
 	}//selectLogin
 	
 	/**
-	 * 아이디 찾기를 위해 이메일 인증번호를 확인하는 일?
-	 * @param email
+	 * 아이디 찾기를 위해 입력한 이메일이 DB에 있는지 확인하는 일
+	 * @param authEmail
 	 * @return
 	 */
-	public String selectFindIdChkEmail(String email) {
-		String authMsg = "";
-		return authMsg;
+	public String selectFindIdChkEmail(String authEmail) {
+		String email = "";
+		return email;
 	}//selectFindIdChkEmail
 	
 	/**
@@ -90,25 +90,23 @@ public class MemberDAO {
 	}//selectFindId
 	
 	/**
-	 * 비밀번호 찾기를 위해 이메일 인증번호를 확인하는 일
+	 * 비밀번호 찾기를 위해 입력한 이메일이 DB에 있는지 확인하는 일
 	 * @param fpVO
 	 * @return
 	 */
 	public String selectFindPassChkEmail(FindPassVO fpVO) {
-		String authMsg = "";
-		return authMsg;
+		String email = "";
+		return email;
 	}//selectFindPassChkEmail
 	
 	/**
-	 * 비밀번호 찾기
-	 * @param authMsg
+	 * 비밀번호 변경
+	 * @param newPass
 	 * @return
 	 */
-	public String selectFindPass(String authMsg) {
-		//원래 파라미터는 FindPassVO인데 authMsg가 맞는 거 같아서 바꿨는데 맞나요?
-		String pass = "";
-		return pass;
-		//비밀번호를 바로 알려주나요 아님 바꾸게 하나요 아님 뒷자리만 별표로?
-	}//selectFindPass
+	public int updatePass(String newPass) {
+		int cnt = 0;
+		return cnt;
+	}//updatePass
 	
 }//MemberDAO
