@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.rgrg.user.mypage">
+	<select id="selectMemberData" resultType="kr.co.rgrg.user.mypage.domain.MypageDomain" parameterType="String">
+  		select	nickname, blog_name, alram_flag, github, website, visible_email, profile_img, statement_msg
+  		from	member
+  		where	id = #{id}
+	</select>
+</mapper>
