@@ -21,5 +21,6 @@
     <mapper resource="kr/co/rgrg/user/mapper/MainMapper.xml"/>
     <mapper resource="kr/co/rgrg/user/mapper/MemberMapper.xml"/>
     <mapper resource="kr/co/rgrg/user/mapper/FollowMapper.xml"/>
+    <mapper resource="kr/co/rgrg/user/mapper/MypageMapper.xml"/>
   </mappers>
 </configuration>
