@@ -7,6 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import kr.co.rgrg.user.mypage.domain.MypageDomain;
+import kr.co.rgrg.user.mypage.service.MypageService;
 import kr.co.rgrg.user.mypage.vo.PassChkVO;
 import kr.co.rgrg.user.mypage.vo.UpdateBlogTitleVO;
 import kr.co.rgrg.user.mypage.vo.UpdateEmailVO;
@@ -18,10 +20,16 @@ import kr.co.rgrg.user.mypage.vo.UpdateWebsiteVO;
 @Controller
 public class MypageController {
 	
-	@RequestMapping(value="/", method=RequestMethod.GET)
+	@RequestMapping(value="/mypage/main.do", method=RequestMethod.POST)
 	public String getMypage(HttpSession session, Model model) {
+		String id = "user1";
 		
-		return "";
+		MypageService ms = new MypageService();
+		MypageDomain md = ms.getMypage(id);
+		
+		model.addAttribute("member_data", md);
+		
+		return "mypage/main";
 	}
 	
 	@RequestMapping(value="/", method=RequestMethod.GET)
