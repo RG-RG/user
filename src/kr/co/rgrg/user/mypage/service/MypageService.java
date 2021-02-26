@@ -2,6 +2,7 @@ package kr.co.rgrg.user.mypage.service;
 
 import java.util.List;
 
+import kr.co.rgrg.user.mypage.dao.MypageDAO;
 import kr.co.rgrg.user.mypage.domain.MypageDomain;
 import kr.co.rgrg.user.mypage.domain.StatisticsDomain;
 import kr.co.rgrg.user.mypage.vo.PassChkVO;
@@ -15,9 +16,12 @@ import kr.co.rgrg.user.mypage.vo.UpdateWebsiteVO;
 public class MypageService {
 	
 	public MypageDomain getMypage(String id) {
-		MypageDomain mDomain = null;
+		MypageDomain md = null;
 		
-		return mDomain;
+		MypageDAO mDAO = MypageDAO.getInstance();
+		md = mDAO.selectMypage(id);
+		
+		return md;
 	}
 	
 	public boolean modifyProfileImg(UpdateProfileImgVO upiVO) {
