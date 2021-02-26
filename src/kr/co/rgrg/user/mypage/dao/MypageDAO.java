@@ -2,6 +2,9 @@ package kr.co.rgrg.user.mypage.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+
+import kr.co.rgrg.user.dao.GetRgrgHandler;
 import kr.co.rgrg.user.mypage.domain.MypageDomain;
 import kr.co.rgrg.user.mypage.domain.StatisticsDomain;
 import kr.co.rgrg.user.mypage.vo.PassChkVO;
@@ -28,8 +31,13 @@ public class MypageDAO {
 	}//getInstance
 	
 	public MypageDomain selectMypage(String id) {
-		MypageDomain mpDomain = null;
-		return mpDomain;
+		MypageDomain md = null;
+		
+		SqlSession ss = GetRgrgHandler.getInstance().getSqlSession();
+		md = ss.selectOne("selectMemberData", id);
+		ss.close();
+		
+		return md;
 	}
 	
 	public int updateProfileImg(UpdateProfileImgVO upiVO) {
