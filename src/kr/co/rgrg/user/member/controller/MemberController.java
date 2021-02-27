@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -15,6 +16,7 @@ import kr.co.rgrg.user.member.vo.FindPassVO;
 import kr.co.rgrg.user.member.vo.JoinVO;
 import kr.co.rgrg.user.member.vo.LoginVO;
 import kr.co.rgrg.user.member.vo.SocialJoinVO;
+import kr.co.rgrg.user.member.vo.UpdatePassVO;
 
 @SessionAttributes("id")
 @Controller
@@ -66,6 +68,7 @@ public class MemberController {
 	 * @return
 	 */
 	@RequestMapping(value="", method=GET)
+	@ResponseBody
 	public String dupId(String newId) {
 		return "";
 	}//dupId
@@ -76,6 +79,7 @@ public class MemberController {
 	 * @return
 	 */
 	@RequestMapping(value="", method=GET)
+	@ResponseBody
 	public String dupEmail(String newEmail) {
 		return "";
 	}//dupEmail
@@ -134,19 +138,20 @@ public class MemberController {
 	 * @return
 	 */
 	@RequestMapping(value="", method=GET)
+	@ResponseBody
 	public String findIdChkEmail(String authEmail, Model model) {
 		return "";
 	}//findIdChkEmail
 	
 	/**
 	 * 아이디 찾기
-	 * @param authMsg
+	 * @param authEmail
 	 * @param request
 	 * @param model
 	 * @return
 	 */
 	@RequestMapping(value="", method=GET)
-	public String findId(String authMsg, HttpServletRequest request, Model model) {
+	public String findId(String authEmail, HttpServletRequest request, Model model) {
 		return "";
 	}//findId
 	
@@ -166,18 +171,19 @@ public class MemberController {
 	 * @return
 	 */
 	@RequestMapping(value="", method=GET)
+	@ResponseBody
 	public String findPassChkEmail(FindPassVO fpVO, Model model) {
 		return "";
 	}//findPassChkEmail
 	
 	/**
 	 * 비밀번호 변경
-	 * @param newPass
+	 * @param upVO
 	 * @param request
 	 * @return
 	 */
 	@RequestMapping(value="", method=GET)
-	public String modifyPass(String newPass, HttpServletRequest request) {
+	public String modifyPass(UpdatePassVO upVO, HttpServletRequest request) {
 		return "";
 	}//modifyPass
 	

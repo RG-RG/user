@@ -56,10 +56,10 @@
 </select>
 
 <!-- 비밀번호 변경 -->
-<update id="updatePass" parameterType="String">
+<update id="updatePass" parameterType="kr.co.rgrg.user.member.vo.UpdatePassVO">
 	update member
 	set pass = #{ pass }
-	where id = #{ id }
+	where id = #{ id } and auth_email = #{ auth_email }
 </update>
 
 </mapper>
