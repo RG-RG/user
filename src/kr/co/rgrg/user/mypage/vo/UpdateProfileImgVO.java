@@ -1,7 +1,7 @@
 package kr.co.rgrg.user.mypage.vo;
 
 public class UpdateProfileImgVO {
-	private String id, profile;
+	private String id, profileImg;
 
 	public String getId() {
 		return id;
@@ -11,13 +11,15 @@ public class UpdateProfileImgVO {
 		this.id = id;
 	}
 
-	public String getProfile() {
-		return profile;
+	public String getProfileImg() {
+		return profileImg;
 	}
 
-	public void setProfile(String profile) {
-		this.profile = profile;
+	public void setProfileImg(String profileImg) {
+		this.profileImg = profileImg;
 	}
+
+
 	
 	
 }
