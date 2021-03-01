@@ -30,6 +30,11 @@ public class MypageDAO {
 		return mpDAO;
 	}//getInstance
 	
+	/**
+	 * 마이페이지 첫화면에 필요한 정보 DB에서 조회
+	 * @param id
+	 * @return
+	 */
 	public MypageDomain selectMypage(String id) {
 		MypageDomain md = null;
 		
@@ -38,19 +43,39 @@ public class MypageDAO {
 		ss.close();
 		
 		return md;
-	}
+	}//selectMypage
 	
+	/**
+	 * 프로필 이미지를 변경하는 일
+	 * @param upiVO
+	 * @return
+	 */
 	public int updateProfileImg(UpdateProfileImgVO upiVO) {
 		int result = 0;
 		
+		SqlSession ss = GetRgrgHandler.getInstance().getSqlSession();
+		result = ss.update("updateProfileImg", upiVO);
+		ss.commit();
+		ss.close();
+		
 		return result;
-	}
+	}//updateProfileImg
 	
+	/**
+	 * 닉네임, 상태메세지를 변경하는 일
+	 * @param upVO
+	 * @return
+	 */
 	public int updateProfile(UpdateProfileVO upVO) {
 		int result = 0;
 		
+		SqlSession ss = GetRgrgHandler.getInstance().getSqlSession();
+		result = ss.update("updateProfile", upVO);
+		ss.commit();
+		ss.close();
+		
 		return result;
-	}
+	}//updateProfile
 	
 	public int updateBlogTitle(UpdateBlogTitleVO ubtVO) {
 		int result = 0;
@@ -93,4 +118,17 @@ public class MypageDAO {
 		
 		return list;
 	}
+	
+//	public static void main(String[] args) {
+//		MypageDAO mDAO = MypageDAO.getInstance();
+////		UpdateProfileVO upVO = new UpdateProfileVO();
+////		upVO.setId("user1");
+////		upVO.setNickname("바뀐 닉네임");
+////		upVO.setStatement("바뀐 상태메세지");
+////		int result = mDAO.updateProfileMsg(upVO);
+////		
+//		MypageDomain md = null; 
+//		md = mDAO.selectMypage("user1");
+//		System.out.println(md);
+//	}
 }
