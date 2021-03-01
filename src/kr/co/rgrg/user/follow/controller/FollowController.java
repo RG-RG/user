@@ -18,8 +18,8 @@ public class FollowController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="", method=GET)
-	public String getMyFollower(HttpSession session, Model model) {
+	@RequestMapping(value="/follow/get_follower.do", method=GET)
+	public String getFollower(HttpSession session, Model model) {
 		return "";
 	}//getMyFollower
 	
@@ -29,8 +29,8 @@ public class FollowController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="", method=GET)
-	public String getMyFollowing(HttpSession session, Model model) {
+	@RequestMapping(value="/follow/get_following.do", method=GET)
+	public String getFollowing(HttpSession session, Model model) {
 		return "";
 	}//getMyFollowing
 	
@@ -40,7 +40,7 @@ public class FollowController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="", method=GET)
+	@RequestMapping(value="/follow/follow.do", method=GET)
 	public String follow(HttpSession session, Model model) {
 		return "";
 	}//follow
@@ -51,7 +51,7 @@ public class FollowController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="", method=GET)
+	@RequestMapping(value="/follow/unfollow.do", method=GET)
 	public String unfollow(HttpSession session, Model model) {
 		return "";
 	}//unfollow
