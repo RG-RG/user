@@ -18,6 +18,7 @@ public class MemberService {
 		boolean flag = false;
 		
 		MemberDAO memDAO = MemberDAO.getInstance();
+		jVO.setBlog_name(jVO.getNickname());
 		/////////////////////////비밀번호 암호화 해야함
 		flag = memDAO.insertMember(jVO) == 1;
 		
