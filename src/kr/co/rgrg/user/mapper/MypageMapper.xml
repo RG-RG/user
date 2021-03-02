@@ -16,4 +16,19 @@
 		set		profile_msg = #{statement}, nickname = #{nickname}
 		where	id = #{id}
 	</update>
+	<update id="updateBlogTitle" parameterType="kr.co.rgrg.user.mypage.vo.UpdateBlogTitleVO">
+		update	member
+		set		blog_title = #{blog_name}
+		where	id = #{id}
+	</update>
+	<update id="updateWebsite" parameterType="kr.co.rgrg.user.mypage.vo.UpdateWebsiteVO">
+		update	member
+		set		website = #{website}, github = #{github}
+		where	id = #{id}
+	</update>
+	<update id="updateEmail" parameterType="kr.co.rgrg.user.mypage.vo.UpdateEmailVO">
+		update	member
+		set		visible_email = #{visible_email}, alaram_flag = #{alarm_agree}
+		where	id = #{id}
+	</update>
 </mapper>
