@@ -62,28 +62,58 @@ public class MypageService {
 		return result;
 	}
 	
+	/**
+	 * 블로그 제목을 바꾼 결과를 가공해서 Controller로 넘겨주는 일
+	 * @param ubtVO
+	 * @return
+	 */
 	public boolean modifyBlogTitle(UpdateBlogTitleVO ubtVO) {
 		boolean result = false;
 		
-		
+		MypageDAO mDAO = MypageDAO.getInstance();
+		if(mDAO.updateBlogTitle(ubtVO) == 1) {
+			result = true;
+		}
 		
 		return result;
 	}
 	
+	/**
+	 * 웹사이트, 깃허브 정보를 바꾼 결과를 가공해서 Controller로 전달해주는 일
+	 * @param uwVO
+	 * @return
+	 */
 	public boolean modifyWebsite(UpdateWebsiteVO uwVO) {
 		boolean result = false;
 		
+		MypageDAO mDAO = MypageDAO.getInstance();
+		if(mDAO.updateWebsite(uwVO) == 1) {
+			result = true;
+		}
+		
 		return result;
 	}
 	
+	/**
+	 * 이메일 정보를 변경한 결과를 가공해서 Controller로 넘겨주는 일
+	 * @param ueVO
+	 * @return
+	 */
 	public boolean modifyEmail(UpdateEmailVO ueVO) {
 		boolean result = false;
+		
+		MypageDAO mDAO = MypageDAO.getInstance();
+		if(mDAO.updateEmail(ueVO) == 1) {
+			result = true;
+		}
 		
 		return result;
 	}
 	
 	public boolean removeMemberChk(PassChkVO pcVO) {
 		boolean flag = false;
+		
+		
 		
 		return  flag;
 	}
