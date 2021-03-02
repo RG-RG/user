@@ -77,20 +77,50 @@ public class MypageDAO {
 		return result;
 	}//updateProfile
 	
+	/**
+	 * 블로그 이름을 변경하는 일
+	 * @param ubtVO
+	 * @return
+	 */
 	public int updateBlogTitle(UpdateBlogTitleVO ubtVO) {
 		int result = 0;
 		
+		SqlSession ss = GetRgrgHandler.getInstance().getSqlSession();
+		result = ss.update("updateBlogTitle", ubtVO);
+		ss.commit();
+		ss.close();
+		
 		return result;
-	}
+	}//updateBlogTitle
 	
+	/**
+	 * 웹사이트 정보를 변경하는 일
+	 * @param uwVO
+	 * @return
+	 */
 	public int updateWebsite(UpdateWebsiteVO uwVO) {
 		int result = 0;
+		
+		SqlSession ss = GetRgrgHandler.getInstance().getSqlSession();
+		result = ss.update("updateWebsite", uwVO);
+		ss.commit();
+		ss.close();
 		
 		return result;
 	}
 	
+	/**
+	 * 이메일 정보를 변경하는 일
+	 * @param ueVO
+	 * @return
+	 */
 	public int updateEmail(UpdateEmailVO ueVO) {
 		int result = 0;
+		
+		SqlSession ss = GetRgrgHandler.getInstance().getSqlSession();
+		result = ss.update("updateEmail", ueVO);
+		ss.commit();
+		ss.close();
 		
 		return result;
 	}
