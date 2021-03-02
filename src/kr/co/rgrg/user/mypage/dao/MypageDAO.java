@@ -125,8 +125,16 @@ public class MypageDAO {
 		return result;
 	}
 	
+	/**
+	 * 아이디를 사용해 비밀번호를 조회
+	 * @param pcVO
+	 * @return
+	 */
 	public String selectPass(PassChkVO pcVO) {
 		String pass = "";
+		
+		SqlSession ss = GetRgrgHandler.getInstance().getSqlSession();
+		pass = ss.selectOne("selectPass", pcVO);
 		
 		return pass;
 	}
@@ -148,17 +156,5 @@ public class MypageDAO {
 		
 		return list;
 	}
-	
-//	public static void main(String[] args) {
-//		MypageDAO mDAO = MypageDAO.getInstance();
-////		UpdateProfileVO upVO = new UpdateProfileVO();
-////		upVO.setId("user1");
-////		upVO.setNickname("바뀐 닉네임");
-////		upVO.setStatement("바뀐 상태메세지");
-////		int result = mDAO.updateProfileMsg(upVO);
-////		
-//		MypageDomain md = null; 
-//		md = mDAO.selectMypage("user1");
-//		System.out.println(md);
-//	}
+
 }
