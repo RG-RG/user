@@ -31,4 +31,9 @@
 		set		visible_email = #{visible_email}, alaram_flag = #{alarm_agree}
 		where	id = #{id}
 	</update>
+	<select id="selectPass" resultType="String" parameterType="kr.co.rgrg.user.mypage.vo.PassChkVO">
+  		select	pass
+  		from	member
+  		where	id = #{id}
+	</select>
 </mapper>
