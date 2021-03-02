@@ -2,6 +2,9 @@ package kr.co.rgrg.user.mypage.service;
 
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+
+import kr.co.rgrg.user.dao.GetRgrgHandler;
 import kr.co.rgrg.user.mypage.dao.MypageDAO;
 import kr.co.rgrg.user.mypage.domain.MypageDomain;
 import kr.co.rgrg.user.mypage.domain.StatisticsDomain;
@@ -110,12 +113,20 @@ public class MypageService {
 		return result;
 	}
 	
+	/**
+	 * 비밀번호를 조회한 결과를 가공해서 Controller로 전달하는 일
+	 * @param pcVO
+	 * @return
+	 */
 	public boolean removeMemberChk(PassChkVO pcVO) {
-		boolean flag = false;
+		boolean result = false;
 		
+		MypageDAO mDAO = MypageDAO.getInstance();
+		if(mDAO.selectPass(pcVO).equals(pcVO.getPass())) {
+			result = true;
+		}
 		
-		
-		return  flag;
+		return  result;
 	}
 	
 	public boolean modifyPassChk(PassChkVO pcVO) {
