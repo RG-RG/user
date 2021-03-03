@@ -139,8 +139,16 @@ public class MypageDAO {
 		return pass;
 	}
 	
+	/**
+	 * Å»ÅğÇÏ±â
+	 * @param id
+	 * @return
+	 */
 	public int deleteMember(String id) {
 		int result = 0;
+		
+		SqlSession ss = GetRgrgHandler.getInstance().getSqlSession();
+		result = ss.update("updateMember", id);
 		
 		return result;
 	}
