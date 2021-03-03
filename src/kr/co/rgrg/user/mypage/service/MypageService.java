@@ -114,7 +114,9 @@ public class MypageService {
 	}
 	
 	/**
-	 * 비밀번호를 조회한 결과를 가공해서 Controller로 전달하는 일
+	 * 비밀번호를 비교한 결과를 Controller로 전달
+	 * 일치 - 탈퇴
+	 * 불일치 - 실패메세지
 	 * @param pcVO
 	 * @return
 	 */
@@ -123,7 +125,9 @@ public class MypageService {
 		
 		MypageDAO mDAO = MypageDAO.getInstance();
 		if(mDAO.selectPass(pcVO).equals(pcVO.getPass())) {
-			result = true;
+			if(mDAO.deleteMember(pcVO.getId()) == 1) {
+				result = true;				
+			}
 		}
 		
 		return  result;
