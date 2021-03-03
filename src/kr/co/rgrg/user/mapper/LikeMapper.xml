@@ -3,9 +3,12 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.rgrg.user.like">
-  	<select id="selectTotalCnt" parameterType="kr.co.rgrg.user.pagination.RangeVO"
-  	resultType="kr.co.rgrg.user.blog.domain.LikeDoamin">
-		select 
-		from 
+  	<select id="selectLikeList" parameterType="kr.co.rgrg.user.pagination.RangeVO"
+  	resultType="kr.co.rgrg.user.blog.domain.LikeDomain">
+		select id, post_num, post_title, post_content, thumbnail, to_char(input_date, 'yyyy-mm-dd') input_date
+		from (select post.id, post.post_num, post_title, post_content, thumbnail, like_post.input_date, row_number() over(order by like_post.input_date desc) rnum
+			from like_post, post
+			where post.post_num=like_post.post_num and like_post.id=#{ column_value })
+		where rnum between #{ start_num } and #{ end_num }
 	</select>
 </mapper>

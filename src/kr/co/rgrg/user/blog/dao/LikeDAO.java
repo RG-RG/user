@@ -26,7 +26,7 @@ public class LikeDAO {
 		List<LikeDomain> list=null;
 		
 		SqlSession ss = GetRgrgHandler.getInstance().getSqlSession();
-		list = ss.selectList("kr.co.rgrg.user.item.selectItemList",rVO);
+		list = ss.selectList("kr.co.rgrg.user.like.selectLikeList",rVO);
 		ss.close();
 		
 		return list;

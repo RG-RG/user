@@ -34,7 +34,26 @@ $(function(){
 	<div id="header">
 	</div>
 	<div id="container">
-	보관함
+	좋아한 포스트<br/>
+	<c:if test="${ empty like_list }">
+		<tr>
+		<td colspan="6" style="height: 80px; text-align: center; vertical-align: middle;">좋아한 포스트가 없습니다.</td>
+		</tr>
+	</c:if>
+	<c:forEach var="like" items="${ like_list }">
+	    <tr id="tableContent${ like.post_num }" class="tableContent">
+	      <td style="vertical-align: middle; text-align: center;">
+	      	<a href="${ like.post_num }" style="font-weight: bold;">
+	      	<c:out value="${ like.post_title }"/></a><br/>
+	      	<img alt="미리보기 이미지" src="/common/images/post/${ like.thumbnail }" style="width: 80px"/><br/>
+	      	<c:out value="${ like.id }"/><br/>
+	      	<c:out value="${ like.post_content }"/><br/>
+	      	<c:out value="${ like.input_date }"/><br/>
+	      	<c:out value="${ like.view_cnt }"/><br/>
+	      </td>
+	    </tr>
+	</c:forEach>
+	<a href="like/get_like.do?param_page=">더보기</a>
 	</div>
 	<div id="footer">
 	</div>

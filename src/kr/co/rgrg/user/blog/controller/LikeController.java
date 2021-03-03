@@ -26,7 +26,8 @@ public class LikeController {
 		
 		RangeVO rVO=new RangeVO(current_page);
 		rVO.setColumn_name("id");
-		rVO.setColumn_value((String)session.getAttribute("id"));
+//		rVO.setColumn_value((String)session.getAttribute("id"));
+		rVO.setColumn_value("park");
 		
 		List<LikeDomain> like_list=new LikeService().getLikeList(rVO);
 		model.addAttribute("like_list", like_list);
