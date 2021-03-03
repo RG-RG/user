@@ -27,7 +27,7 @@ public class MypageController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="/mypage/main.do", method=RequestMethod.POST)
+	@RequestMapping(value="/mypage/main.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String getMypage(HttpSession session, Model model) {
 		// 임시변수 ///////////////////
 		String id = "user1";
@@ -70,20 +70,48 @@ public class MypageController {
 		return "";
 	}
 	
+	/**
+	 * 블로그 타이틀 수정
+	 * @param session
+	 * @param ubtVO
+	 * @return
+	 */
 	@RequestMapping(value="/mypage/modify_title.do", method=RequestMethod.GET)
 	public String modifyBlogTitle(HttpSession session, UpdateBlogTitleVO ubtVO) {
 		
-		return "";
-	}
-	
-	@RequestMapping(value="/mypage/modify_website.do", method=RequestMethod.GET)
-	public String modifyWebsite(HttpSession session, UpdateWebsiteVO uwVO) {
+		MypageService ms = new MypageService();
+		boolean result = ms.modifyBlogTitle(ubtVO);
 		
 		return "";
 	}
 	
+	/**
+	 * 웹사이트 정보 수정
+	 * @param session
+	 * @param uwVO
+	 * @return
+	 */
+	@RequestMapping(value="/mypage/modify_website.do", method=RequestMethod.GET)
+	public String modifyWebsite(HttpSession session, UpdateWebsiteVO uwVO) {
+		
+		MypageService ms = new MypageService();
+		boolean result = ms.modifyWebsite(uwVO);
+		
+		
+		return "";
+	}
+	
+	/**
+	 * 이메일 정보 수정
+	 * @param session
+	 * @param ueVO
+	 * @return
+	 */
 	@RequestMapping(value="/mypage/modify_email.do", method=RequestMethod.GET)
 	public String modifyEmail(HttpSession session, UpdateEmailVO ueVO) {
+		
+		MypageService ms = new MypageService();
+		boolean result = ms.modifyEmail(ueVO);
 		
 		return "";
 	}
