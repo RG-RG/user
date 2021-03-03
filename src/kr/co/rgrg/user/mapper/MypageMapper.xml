@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.rgrg.user.mypage">
 	<select id="selectMemberData" resultType="kr.co.rgrg.user.mypage.domain.MypageDomain" parameterType="String">
-  		select	nickname, blog_name, alram_flag, github, website, visible_email, profile_img, statement_msg
+  		select	nickname, blog_name, alarm_flag, github, website, visible_email, profile_img, statement_msg
   		from	member
   		where	id = #{id}
 	</select>
@@ -36,4 +36,9 @@
   		from	member
   		where	id = #{id}
 	</select>
+	<update id="updateMember" parameterType="String">
+		update	member
+		set		member_flag='F', alarm_flag='', website = '', access_token='', platform = '', github='', visible_email='', statement_msg='', profile_img = '', blog_name='', nickname='', auth_email = '', pass=''
+		where	id = #{id}
+	</update>
 </mapper>
