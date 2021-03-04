@@ -24,5 +24,6 @@
     <mapper resource="kr/co/rgrg/user/mapper/FollowMapper.xml"/>
     <mapper resource="kr/co/rgrg/user/mapper/MypageMapper.xml"/>
     <mapper resource="kr/co/rgrg/user/mapper/LikeMapper.xml"/>
+    <mapper resource="kr/co/rgrg/user/mapper/PostMapper.xml"/>
   </mappers>
 </configuration>
