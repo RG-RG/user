@@ -1,4 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.rgrg.user.follow">
+	
+	<!-- 팔로워 목록을 가져오는 일 -->
+	<select id="selectFollower" parameterType="kr.co.rgrg.user.pagination.RangeVO" resultType="kr.co.rgrg.user.follow.domain.FollowerDomain">
+		select ID, NICKNAME, STATEMENT_MSG, PROFILE_IMG
+		from (select m.ID, m.NICKNAME, m.STATEMENT_MSG, m.PROFILE_IMG, row_number() over(order by f.INPUT_DATE desc) rnum
+				from FOLLOWING f, MEMBER m
+				where f.ID = m.ID and #{ column_name } = #{ column_value })
+		where rnum between #{ start_num } and #{ end_num }
+	</select>
+	
+	<!-- 팔로잉 목록을 가져오는 일 -->
+	<select id="selectFollowing" parameterType="kr.co.rgrg.user.pagination.RangeVO" resultType="kr.co.rgrg.user.follow.domain.FollowingDomain">
+		select ID, NICKNAME, STATEMENT_MSG, PROFILE_IMG
+		from (select m.ID, m.NICKNAME, m.STATEMENT_MSG, m.PROFILE_IMG, row_number() over(order by f.INPUT_DATE desc) rnum
+				from FOLLOWER f, MEMBER m
+				where f.ID = m.ID and #{ column_name } = #{ column_value })
+		where rnum between #{ start_num } and #{ end_num }
+	</select>
+	
+	<!-- 팔로우 상태를 확인하는 일 -->
+	
+	<!-- 팔로우를 하는 일 -->
+	<insert id="insertFollow" parameterType="kr.co.rgrg.user.follow.vo.FollowVO">
+	
+	</insert>
+	
+	<!-- 언팔로우를 하는 일 -->
+	<delete id="deleteFollow" parameterType="kr.co.rgrg.user.follow.vo.FollowVO">
+	
+	</delete>
+	
 </mapper>

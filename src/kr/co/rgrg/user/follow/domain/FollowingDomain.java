@@ -2,14 +2,10 @@ package kr.co.rgrg.user.follow.domain;
 
 public class FollowingDomain {
 	
-	private String id, following_id, nickname, statement_msg, profile_img;
+	private String id, nickname, statement_msg, profile_img;
 
 	public String getId() {
 		return id;
-	}
-
-	public String getFollowing_id() {
-		return following_id;
 	}
 
 	public String getNickname() {
@@ -28,10 +24,6 @@ public class FollowingDomain {
 		this.id = id;
 	}
 
-	public void setFollowing_id(String following_id) {
-		this.following_id = following_id;
-	}
-
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
@@ -43,5 +35,5 @@ public class FollowingDomain {
 	public void setProfile_img(String profile_img) {
 		this.profile_img = profile_img;
 	}
-	
+
 }//FollowingDomain
