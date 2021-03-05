@@ -7,8 +7,35 @@
 			select seq_post_num.nextval from dual
 		</selectKey>
 		insert into post 
-		(post_num, thumnail, post_title, post_content, publish_flag, hidden_flag, input_date)  
+		(post_num, thumnail, post_title, post_content, publish_flag, hidden_flag, input_date, id)  
 		values
-		(#{post_num}, #{thumnail}, #{post_title}, #{post_content}, #{publish_flag}, #{hidden_flag}, sysdate)
+		(#{post_num}, #{thumnail}, #{post_title}, #{post_content}, #{publish_flag}, #{hidden_flag}, sysdate, #{id})
+		<selectKey keyProperty = "seq_post_num" resultType="string" order="AFTER">
+			select seq_post_num.currval from dual
+		</selectKey>
 	</insert>
+	<!-- 태그 저장 -->
+	<insert id="insertTag" parameterType="java.util.Map">
+		<foreach item="item" index="index" collection="java.util.List" open="insert all">
+		into tag(
+			post_num, tag_name
+		) values
+		(
+			#{post_num}, #{item.tag_name}
+		)
+		</foreach>
+	
+	</insert>
+	<!-- 저장된 게시글 수정하기 -->
+	<update id="updatePost" parameterType="kr.co.rgrg.vo.ModifyPostVO">
+		update post
+		set	thumbnail = #{thumbnail}, post_title=#{post_title}, post_content = #{post_content}, publish_flag=#{publish_flag}, hidden_flag=#{hidden_flag}
+		where post_num = #{post_num} and id = #{id}
+	</update>
+	<!-- 게시글 삭제 -->
+	<update id="deletePost" parameterType="string">
+		update post
+		set	delete_flag='T', thumbnail = '', post_title='', post_content = '', publish_flag='', hidden_flag=''
+		where post_num = #{post_num} and id = #{id}
+	</update>
 </mapper>
