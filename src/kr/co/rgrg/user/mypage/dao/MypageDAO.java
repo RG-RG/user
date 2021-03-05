@@ -156,7 +156,9 @@ public class MypageDAO {
 	
 	public int updatePass(UpdatePassVO upVO) {
 		int result = 0;
-		
+		SqlSession ss = GetRgrgHandler.getInstance().getSqlSession();
+		result = ss.update("updatePass", upVO);
+		ss.close();
 		return result;
 	}
 	
