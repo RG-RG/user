@@ -37,7 +37,7 @@ public class MypageController {
 		
 		model.addAttribute("member_data", md);
 		
-		return "mypage/main";
+		return "mypage/mypage";
 	}
 	
 	/**
@@ -47,12 +47,14 @@ public class MypageController {
 	 * @return
 	 */
 	@RequestMapping(value="/mypage/modify_profile_img.do", method=RequestMethod.GET)
-	public String modifyProfileImg(HttpSession session, UpdateProfileImgVO upiVO) {
+	public String modifyProfileImg(HttpSession session, UpdateProfileImgVO upiVO, Model model) {
 		
 		MypageService ms = new MypageService();
 		boolean result = ms.modifyProfileImg(upiVO);
 		
-		return "";
+		model.addAttribute("result_flag", result);
+		
+		return "mypage/change_img";
 	}
 	
 	/**
@@ -62,12 +64,14 @@ public class MypageController {
 	 * @return
 	 */
 	@RequestMapping(value="/mypage/modify_profile_msg.do", method=RequestMethod.GET)
-	public String modifyProfile(HttpSession session, UpdateProfileVO upVO) {
+	public String modifyProfile(HttpSession session, UpdateProfileVO upVO, Model model) {
 		
 		MypageService ms = new MypageService();
 		boolean result = ms.modifyProfile(upVO);
 		
-		return "";
+		model.addAttribute("result_flag", result);
+		
+		return "mypage/change_profile";
 	}
 	
 	/**
@@ -77,12 +81,14 @@ public class MypageController {
 	 * @return
 	 */
 	@RequestMapping(value="/mypage/modify_title.do", method=RequestMethod.GET)
-	public String modifyBlogTitle(HttpSession session, UpdateBlogTitleVO ubtVO) {
+	public String modifyBlogTitle(HttpSession session, UpdateBlogTitleVO ubtVO, Model model) {
 		
 		MypageService ms = new MypageService();
 		boolean result = ms.modifyBlogTitle(ubtVO);
 		
-		return "";
+		model.addAttribute("result_flag", result);
+		
+		return "mypage/change_title";
 	}
 	
 	/**
@@ -92,13 +98,13 @@ public class MypageController {
 	 * @return
 	 */
 	@RequestMapping(value="/mypage/modify_website.do", method=RequestMethod.GET)
-	public String modifyWebsite(HttpSession session, UpdateWebsiteVO uwVO) {
+	public String modifyWebsite(HttpSession session, UpdateWebsiteVO uwVO, Model model) {
 		
 		MypageService ms = new MypageService();
 		boolean result = ms.modifyWebsite(uwVO);
+		model.addAttribute("result_flag", result);
 		
-		
-		return "";
+		return "mypage/change_website";
 	}
 	
 	/**
@@ -108,42 +114,51 @@ public class MypageController {
 	 * @return
 	 */
 	@RequestMapping(value="/mypage/modify_email.do", method=RequestMethod.GET)
-	public String modifyEmail(HttpSession session, UpdateEmailVO ueVO) {
+	public String modifyEmail(HttpSession session, UpdateEmailVO ueVO, Model model) {
 		
 		MypageService ms = new MypageService();
 		boolean result = ms.modifyEmail(ueVO);
-		
-		return "";
+		model.addAttribute("result_flag", result);
+		return "mypage/change_email";
 	}
 	
 	@RequestMapping(value="/mypage/remove_member.do", method=RequestMethod.GET)
 	public String getRemoveMember() {
 		
-		return "";
+		return "mypage/remove_member_form";
 	}
 	
 	@RequestMapping(value="/mypage/remove_member_chk.do", method=RequestMethod.GET)
 	public String removeMemberChk(HttpSession session, Model model, PassChkVO pcVO) {
 		
-		return "";
+		MypageService ms = new MypageService();
+		boolean result = ms.removeMemberChk(pcVO);
+		model.addAttribute("result_flag", result);
+		return "mypage/remove_member";
 	}
 	
 	@RequestMapping(value="/mypage/get_modify_pass.do", method=RequestMethod.GET)
 	public String getModifyPassForm() {
 		
-		return "";
+		return "change_pass_form";
 	}
 	
 	@RequestMapping(value="/mypage/modify_pass_chk.do", method=RequestMethod.GET)
-	public String modifyPassChk(PassChkVO pcVO, HttpSession session) {
+	public String modifyPassChk(PassChkVO pcVO, HttpSession session, Model model) {
+		MypageService ms = new MypageService();
+		boolean result = ms.modifyPassChk(pcVO);
+		model.addAttribute("result_flag", result);
 		
-		return "";
+		return "mypage/change_pass_chk";
 	}
 	
 	@RequestMapping(value="/mypage/modify_pass.do", method=RequestMethod.GET)
-	public String modifyPass(UpdatePassVO upVO, HttpSession session) {
+	public String modifyPass(UpdatePassVO upVO, HttpSession session, Model model) {
+		MypageService ms = new MypageService();
+		boolean result = ms.modifyPass(upVO);
+		model.addAttribute("result_flag", result);
 		
-		return "";
+		return "mypage/change_pass";
 	}
 	
 	@RequestMapping(value="/mypage/get_statistics.do", method=RequestMethod.GET)
