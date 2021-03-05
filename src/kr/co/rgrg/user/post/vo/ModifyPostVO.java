@@ -4,7 +4,7 @@ import java.util.List;
 
 public class ModifyPostVO {
 	private int post_num;
-	private String thumbnail, post_title, id, nickname, post_content, publish_flag, hidden_flag;
+	private String thumbnail, post_title, id, post_content, publish_flag, hidden_flag;
 	private List<String> tags;
 	public int getPost_num() {
 		return post_num;
@@ -30,12 +30,6 @@ public class ModifyPostVO {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getNickname() {
-		return nickname;
-	}
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
-	}
 	public String getPost_content() {
 		return post_content;
 	}
@@ -60,6 +54,7 @@ public class ModifyPostVO {
 	public void setTags(List<String> tags) {
 		this.tags = tags;
 	}
+	
 	
 	
 }
