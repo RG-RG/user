@@ -133,14 +133,34 @@ public class MypageService {
 		return  result;
 	}
 	
+	/**
+	 * 비밀번호 수정 전 비밀번호 확인
+	 * @param pcVO
+	 * @return
+	 */
 	public boolean modifyPassChk(PassChkVO pcVO) {
 		boolean flag = false;
+		
+		MypageDAO mDAO = MypageDAO.getInstance();
+		if(pcVO.getPass() == mDAO.selectPass(pcVO)) {
+			flag = true;
+		}
 		
 		return flag;
 	}
 	
+	/**
+	 * 비밀번호 수정
+	 * @param upVO
+	 * @return
+	 */
 	public boolean modifyPass(UpdatePassVO upVO) {
 		boolean flag = false;
+		
+		MypageDAO mDAO = MypageDAO.getInstance();
+		if(mDAO.updatePass(upVO) == 1) {
+			flag = true;
+		}
 		
 		return flag;
 	}
