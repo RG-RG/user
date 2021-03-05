@@ -4,8 +4,9 @@ import java.util.List;
 
 public class PostVO {
 	private int post_num;
-	private String thumnail, post_title, post_content, publish_flag, hidden_flag;
+	private String thumnail, post_title, post_content, publish_flag, hidden_flag, id;
 	private List<String> tags;
+	
 	public int getPost_num() {
 		return post_num;
 	}
@@ -41,6 +42,12 @@ public class PostVO {
 	}
 	public void setHidden_flag(String hidden_flag) {
 		this.hidden_flag = hidden_flag;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	public List<String> getTags() {
 		return tags;
