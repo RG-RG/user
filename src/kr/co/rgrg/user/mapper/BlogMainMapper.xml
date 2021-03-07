@@ -5,9 +5,17 @@
 <mapper namespace="kr.co.rgrg.user.blogmain">
 
   	<select id="selectProfile" parameterType="String" resultType="kr.co.rgrg.user.blog.domain.ProfileDomain">
-		select profile_img, nickname, statement_msg, visible_email, github, website
-		from member
-		where id=#{id}
+		select profile_img, nickname, statement_msg, visible_email, github, website, following_cnt, follower_cnt
+		from member, 
+			(select count(following_id) following_cnt
+			from following
+			where id=#{id}
+			group by id),
+			(select count(follower_id) follower_cnt
+			from follower
+			where id=#{id}
+			group by id)
+		where member.id=#{id}
 	</select>
 	
 	<select id="selectFollowingCnt" parameterType="String" resultType="int">
