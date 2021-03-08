@@ -89,11 +89,11 @@ public class PostDAO {
 	 * @param mpVO
 	 * @return
 	 */
-	public int deleteTag(ModifyPostVO mpVO) {
+	public int deleteTag(String post_num) {
 		int result = 0;
 		
 		SqlSession ss = GetRgrgHandler.getInstance().getSqlSession();
-		result = ss.update("deleteTag", mpVO);
+		result = ss.update("deleteTag", post_num);
 		ss.close();
 		
 		return result;
@@ -101,6 +101,7 @@ public class PostDAO {
 	
 	/**
 	 * 임시저장, 수정할 게시글을 불러옴
+	 *  - 태그 조회 아직 포함안됨
 	 * @param post_num
 	 * @return
 	 */
