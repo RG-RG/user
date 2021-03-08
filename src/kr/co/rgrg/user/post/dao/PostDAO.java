@@ -1,5 +1,7 @@
 package kr.co.rgrg.user.post.dao;
 
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 
 import kr.co.rgrg.user.dao.GetRgrgHandler;
@@ -34,7 +36,6 @@ public class PostDAO {
 		result = ss.insert("insertPost", pVO);
 		ss.commit();
 		ss.close();
-		
 		return result;
 	}
 	
@@ -57,11 +58,11 @@ public class PostDAO {
 	 * @param pVO
 	 * @return
 	 */
-	public int insertTag(PostVO pVO) {
+	public int insertTag(Map<String, Object> map) {
 		int result = 0;
 		
 		SqlSession ss = GetRgrgHandler.getInstance().getSqlSession();
-		result = ss.insert("insertTag", pVO);
+		result = ss.insert("insertTag", map);
 		ss.commit();
 		ss.close();
 		
@@ -84,16 +85,15 @@ public class PostDAO {
 	}
 	
 	/**
-	 * 태그들을 수정
-	 *  - 다 삭제하고 새로 저장해야하나?
+	 * 태그들 삭제
 	 * @param mpVO
 	 * @return
 	 */
-	public int updateTag(ModifyPostVO mpVO) {
+	public int deleteTag(ModifyPostVO mpVO) {
 		int result = 0;
-		// 다 삭제하고 다시 넣는 방식으로 해야하지 않을까....
+		
 		SqlSession ss = GetRgrgHandler.getInstance().getSqlSession();
-		result = ss.update("updateTag", mpVO);
+		result = ss.update("deleteTag", mpVO);
 		ss.close();
 		
 		return result;
