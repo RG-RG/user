@@ -3,13 +3,13 @@ package kr.co.rgrg.user.post.vo;
 import java.util.List;
 
 public class ModifyPostVO {
-	private int post_num;
+	private String post_num;
 	private String thumbnail, post_title, id, post_content, publish_flag, hidden_flag;
-	private List<String> tags;
-	public int getPost_num() {
+	private String[] tags;
+	public String getPost_num() {
 		return post_num;
 	}
-	public void setPost_num(int post_num) {
+	public void setPost_num(String post_num) {
 		this.post_num = post_num;
 	}
 	public String getThumbnail() {
@@ -48,10 +48,10 @@ public class ModifyPostVO {
 	public void setHidden_flag(String hidden_flag) {
 		this.hidden_flag = hidden_flag;
 	}
-	public List<String> getTags() {
+	public String[] getTags() {
 		return tags;
 	}
-	public void setTags(List<String> tags) {
+	public void setTags(String[] tags) {
 		this.tags = tags;
 	}
 	
