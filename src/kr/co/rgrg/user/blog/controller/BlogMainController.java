@@ -12,6 +12,12 @@ import kr.co.rgrg.user.follow.vo.FollowVO;
 @Controller
 public class BlogMainController {
 	
+	@RequestMapping(value="blog/index.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public String getBlogMain() {
+		
+		return "blog/blog_main";
+	}//getBlogMain
+	
 	@RequestMapping(value = "blog/profile.do", method=RequestMethod.POST)
 	public String getProfile(HttpSession s, Model model, String id, FollowVO fVO) {
 		
