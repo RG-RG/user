@@ -3,6 +3,7 @@ package kr.co.rgrg.user.member.controller;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import kr.co.rgrg.user.member.domain.LoginDomain;
+import kr.co.rgrg.user.member.service.MemberService;
 import kr.co.rgrg.user.member.vo.FindPassVO;
 import kr.co.rgrg.user.member.vo.JoinVO;
 import kr.co.rgrg.user.member.vo.LoginVO;
@@ -24,7 +27,7 @@ import kr.co.rgrg.user.member.vo.UpdatePassVO;
 @Controller
 public class MemberController {
 
-	@Autowired
+	@Inject
 	BCryptPasswordEncoder passEncoder;
 	
 	/**
@@ -33,7 +36,7 @@ public class MemberController {
 	 */
 	@RequestMapping(value="/member/join_clause.do", method=GET)
 	public String joinClause() {
-		return "";
+		return "member/join_clause";
 	}//joinClause
 	
 	/**
@@ -42,7 +45,7 @@ public class MemberController {
 	 */
 	@RequestMapping(value="/member/join_form.do", method=GET)
 	public String joinForm() {
-		return "";
+		return "member/join_form";
 	}//joinForm
 	
 	/**
@@ -53,7 +56,15 @@ public class MemberController {
 	 */
 	@RequestMapping(value="/member/join.do", method=GET)
 	public String join(JoinVO jVO, HttpServletRequest request) {
-		return "";
+//		jVO.setId(request.getParameter("id"));
+		jVO.setPass(passEncoder.encode(jVO.getPass()));
+//		jVO.setPass(passEncoder.encode(request.getParameter("pass")));
+//		jVO.setAuth_mail(request.getParameter("auth_mail"));
+//		jVO.setNickname(request.getParameter("nickname"));
+//		jVO.setBlog_name(request.getParameter("nickname"));
+		boolean joinFlag = new MemberService().join(jVO);
+		
+		return "member/join";
 	}//join
 	
 	/**
@@ -64,7 +75,7 @@ public class MemberController {
 	 */
 	@RequestMapping(value="/member/social_join.do", method=GET)
 	public String socialJoin(SocialJoinVO sjVO, HttpServletRequest request) {
-		return "";
+		return "member/social_join";
 	}//socialJoin
 	
 	/**
@@ -75,7 +86,9 @@ public class MemberController {
 	@RequestMapping(value="/member/dup_id.do", method=GET)
 	@ResponseBody
 	public String dupId(String newId) {
-		return "";
+		String json = "";
+		json = new MemberService().dupId(newId);
+		return json;
 	}//dupId
 	
 	/**
@@ -86,7 +99,9 @@ public class MemberController {
 	@RequestMapping(value="/member/dup_email.do", method=GET)
 	@ResponseBody
 	public String dupEmail(String newEmail) {
-		return "";
+		String json = "";
+		json = new MemberService().dupEmail(newEmail);
+		return json;
 	}//dupEmail
 	
 	/**
@@ -95,7 +110,7 @@ public class MemberController {
 	 */
 	@RequestMapping(value="/member/login_form.do", method=GET)
 	public String loginForm() {
-		return "";
+		return "member/login_form";
 	}//loginForm
 	
 	/**
@@ -106,7 +121,20 @@ public class MemberController {
 	 */
 	@RequestMapping(value="/member/login.do", method=GET)
 	public String login(LoginVO lVO, Model model) {
-		return "";
+		LoginDomain ld = null;
+		ld = new MemberService().login(lVO);
+		boolean loginFlag = passEncoder.matches(lVO.getPass(), ld.getPass());
+		
+		String url = "";
+		if (ld != null && loginFlag) {
+			model.addAttribute("id", ld.getId());
+			url = "redirect:index.do";
+		} else {
+			model.addAttribute("login_result", "fail");
+			url = "forward:/member/login_form.do";
+		}//end if
+		
+		return url;
 	}//login
 	
 	/**
@@ -116,7 +144,7 @@ public class MemberController {
 	@RequestMapping(value="/member/social_login_form.do", method=GET)
 	public String socialLoginForm(Model model) {
 		//SocialLoginVO? - API 써보면서 확인
-		return "";
+		return "member/social_login_form";
 	}//socialLoginForm
 	
 	/**
@@ -126,7 +154,8 @@ public class MemberController {
 	 */
 	@RequestMapping(value="/member/logout.do", method=GET)
 	public String logout(SessionStatus ss) {
-		return "";
+		ss.setComplete();
+		return "redirect:index.do";
 	}//logout
 	
 	/**
@@ -135,17 +164,20 @@ public class MemberController {
 	 */
 	@RequestMapping(value="/member/find_id_form.do", method=GET)
 	public String findIdForm() {
-		return "";
+		return "member/find_id_form";
 	}//findIdForm
 	
 	/**
 	 * 아이디 찾기를 위해 입력한 이메일이 DB에 있는지 확인하는 일
+	 * @param authEmail
 	 * @return
 	 */
 	@RequestMapping(value="/member/find_id_chk.do", method=GET)
 	@ResponseBody
-	public String findIdChkEmail(String authEmail, Model model) {
-		return "";
+	public String findIdChkEmail(String authEmail) {
+		String json = "";
+		json = new MemberService().findIdChkEmail(authEmail);
+		return json;
 	}//findIdChkEmail
 	
 	/**
@@ -157,7 +189,10 @@ public class MemberController {
 	 */
 	@RequestMapping(value="/member/find_id.do", method=GET)
 	public String findId(String authEmail, HttpServletRequest request, Model model) {
-		return "";
+		String id = "";
+		id = new MemberService().findId(authEmail);
+		model.addAttribute("id", id);
+		return "member/find_id";
 	}//findId
 	
 	/**
@@ -166,20 +201,30 @@ public class MemberController {
 	 */
 	@RequestMapping(value="/member/find_pass_form.do", method=GET)
 	public String findPassForm() {
-		return "";
+		return "member/find_pass_form";
 	}//findPassForm
 	
 	/**
 	 * 비밀번호 찾기를 위해 입력한 이메일이 DB에 있는지 확인하는 일
 	 * @param fpVO
-	 * @param model
 	 * @return
 	 */
 	@RequestMapping(value="/member/find_pass_chk.do", method=GET)
 	@ResponseBody
-	public String findPassChkEmail(FindPassVO fpVO, Model model) {
-		return "";
+	public String findPassChkEmail(FindPassVO fpVO) {
+		String json = "";
+		json = new MemberService().findPassChkEmail(fpVO);
+		return json;
 	}//findPassChkEmail
+	
+	/**
+	 * 비밀번호 변경 폼을 보여주는 일
+	 * @return
+	 */
+	@RequestMapping(value="/member/modify_pass_form.do", method = GET)
+	public String modifyPassForm() {
+		return "member/modify_pass_form";
+	}//modifyPassForm
 	
 	/**
 	 * 비밀번호 변경
@@ -189,7 +234,11 @@ public class MemberController {
 	 */
 	@RequestMapping(value="/member/modify_pass.do", method=GET)
 	public String modifyPass(UpdatePassVO upVO, HttpServletRequest request) {
-		return "";
+		upVO.setId(request.getParameter("id"));
+		upVO.setAuth_email(request.getParameter("auth_email"));
+		upVO.setPass(passEncoder.encode(upVO.getPass()));
+		boolean passFlag = new MemberService().modifyPass(upVO);
+		return "redirect:index.do";
 	}//modifyPass
 	
 }//MemberController

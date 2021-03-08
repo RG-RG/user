@@ -3,6 +3,7 @@ package kr.co.rgrg.user.member.dao;
 import org.apache.ibatis.session.SqlSession;
 
 import kr.co.rgrg.user.dao.GetRgrgHandler;
+import kr.co.rgrg.user.member.domain.LoginDomain;
 import kr.co.rgrg.user.member.vo.FindPassVO;
 import kr.co.rgrg.user.member.vo.JoinVO;
 import kr.co.rgrg.user.member.vo.LoginVO;
@@ -84,14 +85,14 @@ public class MemberDAO {
 	 * @param lVO
 	 * @return
 	 */
-	public String selectLogin(LoginVO lVO) {
-		String id = "";
+	public LoginDomain selectLogin(LoginVO lVO) {
+		LoginDomain ld = null;
 		
 		SqlSession ss = GetRgrgHandler.getInstance().getSqlSession();
-		id = ss.selectOne("kr.co.rgrg.user.member.selectLogin", lVO);
+		ld = ss.selectOne("kr.co.rgrg.user.member.selectLogin", lVO);
 		ss.close();
 		
-		return id;
+		return ld;
 	}//selectLogin
 	
 	/**

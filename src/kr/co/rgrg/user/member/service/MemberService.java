@@ -1,6 +1,9 @@
 package kr.co.rgrg.user.member.service;
 
+import org.json.simple.JSONObject;
+
 import kr.co.rgrg.user.member.dao.MemberDAO;
+import kr.co.rgrg.user.member.domain.LoginDomain;
 import kr.co.rgrg.user.member.vo.FindPassVO;
 import kr.co.rgrg.user.member.vo.JoinVO;
 import kr.co.rgrg.user.member.vo.LoginVO;
@@ -19,7 +22,6 @@ public class MemberService {
 		
 		MemberDAO memDAO = MemberDAO.getInstance();
 		jVO.setBlog_name(jVO.getNickname());
-		/////////////////////////비밀번호 암호화 해야함
 		flag = memDAO.insertMember(jVO) == 1;
 		
 		return flag;
@@ -45,8 +47,10 @@ public class MemberService {
 		
 		MemberDAO memDAO = MemberDAO.getInstance();
 		id = memDAO.selectId(newId);
+		JSONObject json = new JSONObject();
+		json.put("dup_id", id != null);
 		
-		return id;
+		return json.toJSONString();
 	}//dupId
 	
 	/**
@@ -59,8 +63,10 @@ public class MemberService {
 		
 		MemberDAO memDAO = MemberDAO.getInstance();
 		email = memDAO.selectEmail(newEmail);
+		JSONObject json = new JSONObject();
+		json.put("dup_email", email != null);
 		
-		return email;
+		return json.toJSONString();
 	}//dupEmail
 	
 	/**
@@ -68,14 +74,13 @@ public class MemberService {
 	 * @param lVO
 	 * @return
 	 */
-	public String login(LoginVO lVO) {
-		String id = "";
+	public LoginDomain login(LoginVO lVO) {
+		LoginDomain ld = null;
 		
 		MemberDAO memDAO = MemberDAO.getInstance();
-		/////////////////////////비밀번호 암호화 해야함
-		id = memDAO.selectLogin(lVO);
+		ld = memDAO.selectLogin(lVO);
 		
-		return id;
+		return ld;
 	}//login
 	
 	/**
@@ -88,8 +93,10 @@ public class MemberService {
 		
 		MemberDAO memDAO = MemberDAO.getInstance();
 		email = memDAO.selectFindIdChkEmail(authEmail);
+		JSONObject json = new JSONObject();
+		json.put("id_chk_email", email != null);
 		
-		return email;
+		return json.toJSONString();
 	}//findIdChkEmail
 	
 	/**
@@ -116,8 +123,10 @@ public class MemberService {
 		
 		MemberDAO memDAO = MemberDAO.getInstance();
 		email = memDAO.selectFindPassChkEmail(fpVO);
+		JSONObject json = new JSONObject();
+		json.put("pass_chk_email", email != null);
 		
-		return email;
+		return json.toJSONString();
 	}//findPassChkEmail
 	
 	/**
@@ -129,7 +138,6 @@ public class MemberService {
 		boolean flag = false;
 		
 		MemberDAO memDAO = MemberDAO.getInstance();
-		/////////////////////////비밀번호 암호화 해야함
 		flag = memDAO.updatePass(upVO) == 1;
 		
 		return flag;

@@ -28,8 +28,8 @@
 </select>
 
 <!-- 로그인을 하는 일 -->
-<select id="selectLogin" parameterType="kr.co.rgrg.user.member.vo.LoginVO" resultType="String">
-	select id
+<select id="selectLogin" parameterType="kr.co.rgrg.user.member.vo.LoginVO" resultType="kr.co.rgrg.user.member.domain.LoginDomain">
+	select id, pass
 	from member
 	where id = #{ id } and pass = #{ pass }
 </select>
