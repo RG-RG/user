@@ -5,7 +5,7 @@ import java.util.List;
 public class PostVO {
 	private int post_num;
 	private String thumnail, post_title, post_content, publish_flag, hidden_flag, id;
-	private List<String> tags;
+	private String[] tags;
 	
 	public int getPost_num() {
 		return post_num;
@@ -49,10 +49,10 @@ public class PostVO {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public List<String> getTags() {
+	public String[] getTags() {
 		return tags;
 	}
-	public void setTags(List<String> tags) {
+	public void setTags(String[] tags) {
 		this.tags = tags;
 	}
 	
