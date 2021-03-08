@@ -158,6 +158,6 @@ $(function(){
     </section>
     
 </body>
-<script src="../src/js/control_navbar.js"></script>
+<script src="http://localhost/rgrg_user/js/control_navbar.js"></script>
 
 </html>
