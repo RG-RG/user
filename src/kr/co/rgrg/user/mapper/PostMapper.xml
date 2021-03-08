@@ -3,29 +3,38 @@
 <mapper namespace="kr.co.rgrg.user.post">
 	<!-- 게시글 저장 -->
 	<insert id="insertPost" parameterType="kr.co.rgrg.post.vo.PostVO">
-		<selectKey keyProperty="post_num" resultType="int">
+		<selectKey keyProperty="post_num">
 			select seq_post_num.nextval from dual
 		</selectKey>
-		insert into post 
+		insert all
+		into post 
 		(post_num, thumnail, post_title, post_content, publish_flag, hidden_flag, input_date, id)  
 		values
 		(#{post_num}, #{thumnail}, #{post_title}, #{post_content}, #{publish_flag}, #{hidden_flag}, sysdate, #{id})
-		<selectKey keyProperty = "seq_post_num" resultType="string" order="AFTER">
-			select seq_post_num.currval from dual
-		</selectKey>
+		
+		<foreach collection="tags" item="tag">
+			into tag
+			(post_num, tag_name)
+			values
+			(#{post_num}, #{tag})
+		
+		</foreach>
 	</insert>
 	<!-- 태그 저장 -->
-	<insert id="insertTag" parameterType="java.util.Map">
-		<foreach item="item" index="index" collection="java.util.List" open="insert all">
+	<insert id="insertTag" parameterType="kr.co.rgrg.post.vo.PostVO">
+		<foreach item="tag" index="index" collection="tags" open="insert all">
 		into tag(
 			post_num, tag_name
 		) values
 		(
-			#{post_num}, #{item.tag_name}
+			#{post_num}, #{tag}
 		)
 		</foreach>
-	
 	</insert>
+	<!-- 태그들 전부 삭제 -->
+	<delete id="deleteTag" parameterType="kr.co.rgrg.post.vo.ModifyPostVO">
+		delete from tag where post_num = ${post_num}
+	</delete>
 	<!-- 저장된 게시글 수정하기 -->
 	<update id="updatePost" parameterType="kr.co.rgrg.vo.ModifyPostVO">
 		update post
