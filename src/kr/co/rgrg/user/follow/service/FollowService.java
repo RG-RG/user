@@ -2,31 +2,54 @@ package kr.co.rgrg.user.follow.service;
 
 import java.util.List;
 
-import kr.co.rgrg.user.follow.domain.FollowerDomain;
-import kr.co.rgrg.user.follow.domain.FollowingDomain;
+import kr.co.rgrg.user.follow.dao.FollowDAO;
+import kr.co.rgrg.user.follow.domain.FollowDomain;
 import kr.co.rgrg.user.follow.vo.FollowVO;
+import kr.co.rgrg.user.pagination.RangeVO;
 
 public class FollowService {
 
 	/**
 	 * 팔로워 목록을 가져오는 일
-	 * @param id
+	 * @param rVO
 	 * @return
 	 */
-	public List<FollowerDomain> getFollowerList(String id){
-		List<FollowerDomain> list = null;
+	public List<FollowDomain> getFollowerList(RangeVO rVO){
+		List<FollowDomain> list = null;
+		
+		FollowDAO fDAO = FollowDAO.getInstance();
+		list = fDAO.selectFollower(rVO);
+		
 		return list;
 	}//getFollowerList
 	
 	/**
 	 * 팔로잉 목록을 가져오는 일
-	 * @param id
+	 * @param rVO
 	 * @return
 	 */
-	public List<FollowingDomain> getFollowingList(String id){
-		List<FollowingDomain> list = null;
+	public List<FollowDomain> getFollowingList(RangeVO rVO){
+		List<FollowDomain> list = null;
+		
+		FollowDAO fDAO = FollowDAO.getInstance();
+		list = fDAO.selectFollowing(rVO);
+		
 		return list;
 	}//getFollowingList
+	
+	/**
+	 * 팔로우 상태를 확인하는 일
+	 * @param fVO
+	 * @return
+	 */
+	public String chkFollowState(FollowVO fVO) {
+		String id = "";
+		
+		FollowDAO fDAO = FollowDAO.getInstance();
+		id = fDAO.selectFollowState(fVO);
+		
+		return id;
+	}//chkFollowState
 	
 	/**
 	 * 팔로우를 하는 일
@@ -35,6 +58,10 @@ public class FollowService {
 	 */
 	public boolean follow(FollowVO fVO) {
 		boolean flag = false;
+		
+		FollowDAO fDAO = FollowDAO.getInstance();
+		flag = fDAO.insertFollow(fVO) > 0;
+		
 		return flag;
 	}//follow
 	
@@ -45,6 +72,10 @@ public class FollowService {
 	 */
 	public boolean unfollow(FollowVO fVO) {
 		boolean flag = false;
+		
+		FollowDAO fDAO = FollowDAO.getInstance();
+		flag = fDAO.deleteFollow(fVO) > 0;
+		
 		return flag;
 	}//unfollow
 	

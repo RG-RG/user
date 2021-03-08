@@ -5,9 +5,9 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import kr.co.rgrg.user.dao.GetRgrgHandler;
-import kr.co.rgrg.user.follow.domain.FollowerDomain;
-import kr.co.rgrg.user.follow.domain.FollowingDomain;
+import kr.co.rgrg.user.follow.domain.FollowDomain;
 import kr.co.rgrg.user.follow.vo.FollowVO;
+import kr.co.rgrg.user.pagination.RangeVO;
 
 public class FollowDAO {
 
@@ -25,14 +25,14 @@ public class FollowDAO {
 	
 	/**
 	 * 팔로워 목록을 가져오는 일
-	 * @param id
+	 * @param rVO
 	 * @return
 	 */
-	public List<FollowerDomain> selectFollower(String id){
-		List<FollowerDomain> list = null;
+	public List<FollowDomain> selectFollower(RangeVO rVO){
+		List<FollowDomain> list = null;
 		
 		SqlSession ss = GetRgrgHandler.getInstance().getSqlSession();
-		list = ss.selectList("kr.co.rgrg.user.follow.selectFollower", id);
+		list = ss.selectList("kr.co.rgrg.user.follow.selectFollower", rVO);
 		ss.close();
 		
 		return list;
@@ -40,18 +40,33 @@ public class FollowDAO {
 	
 	/**
 	 * 팔로잉 목록을 가져오는 일
-	 * @param id
+	 * @param rVO
 	 * @return
 	 */
-	public List<FollowingDomain> selectFollowing(String id){
-		List<FollowingDomain> list = null;
+	public List<FollowDomain> selectFollowing(RangeVO rVO){
+		List<FollowDomain> list = null;
 		
 		SqlSession ss = GetRgrgHandler.getInstance().getSqlSession();
-		list = ss.selectList("kr.co.rgrg.user.follow.selectFollowing", id);
+		list = ss.selectList("kr.co.rgrg.user.follow.selectFollowing", rVO);
 		ss.close();
 		
 		return list;
 	}//selectFollowing
+	
+	/**
+	 * 팔로우 상태를 확인하는 일
+	 * @param fVO
+	 * @return
+	 */
+	public String selectFollowState(FollowVO fVO) {
+		String id = "";
+
+		SqlSession ss = GetRgrgHandler.getInstance().getSqlSession();
+		id = ss.selectOne("kr.co.rgrg.user.follow.selectFollowState", fVO);
+		ss.close();
+		
+		return id;
+	}//selectFollowState
 	
 	/**
 	 * 팔로우를 하는 일
@@ -84,14 +99,5 @@ public class FollowDAO {
 		
 		return cnt;
 	}//deleteFollow
-	
-	public static void main(String[] args) {
-		//FollowVO fVO = new FollowVO();
-		//fVO.setId("guest2");
-		//fVO.setFollowing_id("guest1");
-		//System.out.println(FollowDAO.getInstance().deleteFollow(fVO));
-		System.out.println(FollowDAO.getInstance().selectFollowing("guest2"));
-		
-	}//Test Main
 	
 }//FollowDAO
