@@ -1,6 +1,6 @@
 package kr.co.rgrg.user.follow.domain;
 
-public class FollowingDomain {
+public class FollowDomain {
 	
 	private String id, nickname, statement_msg, profile_img;
 
@@ -36,4 +36,4 @@ public class FollowingDomain {
 		this.profile_img = profile_img;
 	}
 
-}//FollowingDomain
+}//FollowerDomain
