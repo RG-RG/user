@@ -58,11 +58,11 @@ public class PostDAO {
 	 * @param pVO
 	 * @return
 	 */
-	public int insertTag(Map<String, Object> map) {
+	public int insertTag(ModifyPostVO mpVO) {
 		int result = 0;
 		
 		SqlSession ss = GetRgrgHandler.getInstance().getSqlSession();
-		result = ss.insert("insertTag", map);
+		result = ss.insert("insertTag", mpVO);
 		ss.commit();
 		ss.close();
 		
