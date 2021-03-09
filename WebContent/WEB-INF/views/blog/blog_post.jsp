@@ -64,8 +64,8 @@ $(function(){
             <div class="post_title"><c:out value="${ post_detail.post_title }"/></div>
             <div class="post_info tabs">
                 <div>
-                    <span class="writer">by <c:out value="${ post_detail.nickname }"/> </span>
-                    <span class="date"><c:out value="${ post_detail.input_date }"/> </span>
+                    <span class="writer">by <c:out value="${ post_detail.nickname } "/></span>
+                    <span class="date"><c:out value="${ post_detail.input_date } "/></span>
                     <!-- if로 공개/비공개 확인하여 비공개 일 때에만 visible하게 처리해야 함 -->
                     <!-- '공개'인 경우에는 class에 hidden 추가하게 처리하기 -->
                     <span class="locked"><c:if test="${ post_detail.hidden_flag=='T' }">비공개</c:if></span>
@@ -85,18 +85,19 @@ $(function(){
             </div>
             <!-- 작성자 프로필 -->
             <div class="writer_info">
-                <img src="https://cdn.pixabay.com/photo/2016/01/19/16/49/laptop-1149412_960_720.jpg">
+                <img src="https://cdn.pixabay.com/photo/2016/01/19/16/49/${ post_profile.profile_img } }">
                 <div class="info">
-                    <div class="w_nickname"><span class="nickname">홍길동</span><span class="btn_follow">follow</span></div>
-                    <div class="w_comment">안녕하세요 홍길동입니다. 저의 블로그에 방문해주셔서 감사합니다~~ 함께 공부해보아요~~ 저의 블로그에 방문해주셔서 감사합니다~~ 함께 공부해보아요~~</div>
+                    <div class="w_nickname"><span class="nickname"><c:out value="${ post_profile.nickname }"/></span><span class="btn_follow">follow</span></div>
+                    <div class="w_comment"><c:out value="${ post_profile.statement_msg }"/></div>
                     <div class="w_link">
-                        <i class="fab fa-github"></i><i class="fas fa-link"></i><i class="fas fa-link"></i>
+                        <a href="${ post_profile.github }"><i class="fab fa-github"></i></a>
+                        <a href="${ post_profile.website }"><i class="fas fa-link"></i></a>
                     </div>
                 </div>
             </div>
             <!-- 댓글 작성 칸 -->
             <div class="write_comment">
-                <div class="comment_cnt">댓글 3</div>
+                <div class="comment_cnt">댓글 <c:out value="${ post_detail.comment_cnt }"/></div>
                 <div class="comment_input">
                     <textarea class="c_input" type="text" placeholder="댓글을 입력해주세요."></textarea>
                     <div>
@@ -108,55 +109,28 @@ $(function(){
             <!-- 댓글 목록 -->
             <!-- 목록의 수정, 삭제는 본인에게만 보이도록 확인해야 할 것 같음 -->
             <div class="comments_list">
-                <div class="comment">
-                    <div class="c_writer_info">
-                        <img src="https://cdn.pixabay.com/photo/2018/04/20/17/18/cat-3336579_960_720.jpg">
-                        <div>
-                            <span>김철수</span>
-                            <span>2021.01.23 12:23</span>
-                        </div>
-                        <div>
-                            <span>수정</span><span>삭제</span>
-                        </div>
+            <c:if test="${ empty comm_list }">
+			<div>댓글이 없습니다.</div>
+			</c:if>
+			<c:forEach var="comm" items="${ comm_list }">
+            <div class="comment">
+                <div class="c_writer_info">
+                    <img src="https://cdn.pixabay.com/photo/2018/04/20/17/18/${ comm.profile_img }">
+                    <div>
+                        <span><c:out value="${ comm.nickname }"/></span>
+                        <span><c:out value="${ comm.input_date }"/></span>
                     </div>
-                    <div class="c_content">
-                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illum optio corporis ex repellat veritatis harum nihil quo, dolor, nisi reiciendis sit minima consequuntur enim assumenda dolores odio omnis facilis quibusdam.
-                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illum optio corporis ex repellat veritatis harum nihil quo, dolor, nisi reiciendis sit minima consequuntur enim assumenda dolores odio omnis facilis quibusdam.
-                    </div>
-                </div>
-
-                <div class="comment">
-                    <div class="c_writer_info">
-                        <img src="https://cdn.pixabay.com/photo/2013/11/08/21/12/cat-207583_960_720.jpg">
-                        <div>
-                            <span>김영희</span>
-                            <span>2021.01.23 12:23</span>
-                        </div>
-                        <div>
-                            <span>수정</span><span>삭제</span>
-                        </div>
-                    </div>
-                    <div class="c_content">
-                        비밀 댓글 입니다.
+                    <div>
+                    <c:if test="${ sessionScope.id==comm.id }">
+                        <span>수정</span><span>삭제</span>
+                    </c:if>
                     </div>
                 </div>
-
-                <div class="comment">
-                    <div class="c_writer_info">
-                        <img src="https://cdn.pixabay.com/photo/2018/04/20/17/18/cat-3336579_960_720.jpg">
-                        <div>
-                            <span>김철수</span>
-                            <span>2021.01.23 12:23</span>
-                        </div>
-                        <div>
-                            <span>수정</span><span>삭제</span>
-                        </div>
-                    </div>
-                    <div class="c_content">
-                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illum optio corporis ex repellat veritatis harum nihil quo, dolor, nisi reiciendis sit minima consequuntur enim assumenda dolores odio omnis facilis quibusdam.
-                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illum optio corporis ex repellat veritatis harum nihil quo, dolor, nisi reiciendis sit minima consequuntur enim assumenda dolores odio omnis facilis quibusdam.
-                    </div>
+                <div class="c_content">
+                <c:out value="${ comm.comm_content }"/>
                 </div>
+            </div>
+			</c:forEach>
             </div>
         </div>
     </section>
