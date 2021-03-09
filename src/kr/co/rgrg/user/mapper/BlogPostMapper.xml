@@ -6,7 +6,7 @@
 
   	<select id="selectPostDetail" parameterType="int"
   	resultType="kr.co.rgrg.user.blog.domain.PostDetailDomain">
-		select member.id, nickname, post_title, to_char(post.input_date, 'yyyy-mm-dd') input_date, post_content, hidden_flag, like_cnt, comment_cnt
+		select member.id, nickname, post_title, to_char(post.input_date, 'yyyy.mm.dd hh24:mi') input_date, post_content, hidden_flag, like_cnt, comment_cnt
 		from post, member,
 				(select post_num, count(post_num) like_cnt
 				from like_post
@@ -16,13 +16,27 @@
 				from comm
 				where post_num=#{ post_num } and delete_flag='F'
 				group by post_num) comm
-		where post.id=member.id and post.post_num=like_post.post_num
-				and post.post_num=comm.post_num and post.post_num=#{ post_num }
+		where post.id=member.id
+				and post.post_num=like_post.post_num(+)
+				and post.post_num=comm.post_num(+)
+				and post.post_num=#{ post_num }
 	</select>
 	
   	<select id="selectPostTagList" parameterType="int" resultType="String">
 	  	select tag_name
 		from tag
 		where post_num=#{ post_num }
+	</select>
+	
+  	<select id="selectPostProfile" parameterType="int" resultType="kr.co.rgrg.user.blog.domain.PostProfileDomain">
+	  	select member.id, profile_img, nickname, statement_msg, github, website
+		from member, post
+		where member.id=post.id and post_num=#{ post_num }
+	</select>
+	
+  	<select id="selectCommList" parameterType="int" resultType="kr.co.rgrg.user.blog.domain.CommDomain">
+		select member.id, profile_img, nickname, comm_content, to_char(comm.input_date, 'yyyy:mm:dd hh24:mi') input_date
+		from member, comm
+		where post_num=#{ post_num } and member.id=comm.id
 	</select>
 </mapper>
