@@ -6,11 +6,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.rgrg.user.mypage.domain.MypageDomain;
 import kr.co.rgrg.user.mypage.service.MypageService;
 import kr.co.rgrg.user.mypage.vo.PassChkVO;
 import kr.co.rgrg.user.mypage.vo.UpdateBlogTitleVO;
+import kr.co.rgrg.user.mypage.vo.UpdateEmailFlagVO;
 import kr.co.rgrg.user.mypage.vo.UpdateEmailVO;
 import kr.co.rgrg.user.mypage.vo.UpdatePassVO;
 import kr.co.rgrg.user.mypage.vo.UpdateProfileImgVO;
@@ -63,15 +65,13 @@ public class MypageController {
 	 * @param upVO
 	 * @return
 	 */
-	@RequestMapping(value="/mypage/modify_profile_msg.do", method=RequestMethod.GET)
-	public String modifyProfile(HttpSession session, UpdateProfileVO upVO, Model model) {
-		
+	@RequestMapping(value="/mypage/modify_profile.do", method=RequestMethod.POST, produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public String modifyProfile(HttpSession session, UpdateProfileVO upVO) {
+		upVO.setId("user1");
 		MypageService ms = new MypageService();
-		boolean result = ms.modifyProfile(upVO);
-		
-		model.addAttribute("result_flag", result);
-		
-		return "mypage/change_profile";
+			
+		return ms.modifyProfile(upVO);
 	}
 	
 	/**
@@ -80,15 +80,12 @@ public class MypageController {
 	 * @param ubtVO
 	 * @return
 	 */
-	@RequestMapping(value="/mypage/modify_title.do", method=RequestMethod.GET)
-	public String modifyBlogTitle(HttpSession session, UpdateBlogTitleVO ubtVO, Model model) {
-		
+	@RequestMapping(value="/mypage/modify_title.do", method=RequestMethod.POST, produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public String modifyBlogTitle(HttpSession session, UpdateBlogTitleVO ubtVO) {
+		ubtVO.setId("user1");
 		MypageService ms = new MypageService();
-		boolean result = ms.modifyBlogTitle(ubtVO);
-		
-		model.addAttribute("result_flag", result);
-		
-		return "mypage/change_title";
+		return ms.modifyBlogTitle(ubtVO);
 	}
 	
 	/**
@@ -97,8 +94,8 @@ public class MypageController {
 	 * @param uwVO
 	 * @return
 	 */
-	@RequestMapping(value="/mypage/modify_website.do", method=RequestMethod.GET)
-	public String modifyWebsite(HttpSession session, UpdateSocialDataVO usVO, Model model) {
+	@RequestMapping(value="/mypage/modify_social.do", method=RequestMethod.GET)
+	public String modifySocial(HttpSession session, UpdateSocialDataVO usVO, Model model) {
 		
 		MypageService ms = new MypageService();
 		boolean result = ms.modifySocialData(usVO);
@@ -113,13 +110,28 @@ public class MypageController {
 	 * @param ueVO
 	 * @return
 	 */
-	@RequestMapping(value="/mypage/modify_email.do", method=RequestMethod.GET)
-	public String modifyEmail(HttpSession session, UpdateEmailVO ueVO, Model model) {
-		
+	@RequestMapping(value="/mypage/modify_email.do", method=RequestMethod.POST, produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public String modifyEmail(HttpSession session, UpdateEmailVO ueVO) {
+		ueVO.setId("user1");
 		MypageService ms = new MypageService();
-		boolean result = ms.modifyEmail(ueVO);
-		model.addAttribute("result_flag", result);
-		return "mypage/change_email";
+		
+		return ms.modifyEmail(ueVO);
+	}
+	
+	/**
+	 * 이메일 알림 수신 여부
+	 * @param session
+	 * @param uefVO
+	 * @return
+	 */
+	@RequestMapping(value="/mypage/modify_email_flag.do", method=RequestMethod.POST, produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public String modifyEmailFlag(HttpSession session, UpdateEmailFlagVO uefVO) {
+		uefVO.setId("user1");
+		MypageService ms = new MypageService();
+		
+		return ms.modifyEmailFlag(uefVO);
 	}
 	
 	@RequestMapping(value="/mypage/remove_member.do", method=RequestMethod.GET)
