@@ -54,7 +54,7 @@ public class MemberController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="/member/join.do", method=GET)
+	@RequestMapping(value="/member/join.do", method=POST)
 	public String join(JoinVO jVO, HttpServletRequest request) {
 //		jVO.setId(request.getParameter("id"));
 		jVO.setPass(passEncoder.encode(jVO.getPass()));
