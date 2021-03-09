@@ -14,7 +14,7 @@ import kr.co.rgrg.user.mypage.vo.UpdateEmailVO;
 import kr.co.rgrg.user.mypage.vo.UpdatePassVO;
 import kr.co.rgrg.user.mypage.vo.UpdateProfileImgVO;
 import kr.co.rgrg.user.mypage.vo.UpdateProfileVO;
-import kr.co.rgrg.user.mypage.vo.UpdateWebsiteVO;
+import kr.co.rgrg.user.mypage.vo.UpdateSocialDataVO;
 
 public class MypageService {
 	
@@ -86,11 +86,11 @@ public class MypageService {
 	 * @param uwVO
 	 * @return
 	 */
-	public boolean modifyWebsite(UpdateWebsiteVO uwVO) {
+	public boolean modifySocialData(UpdateSocialDataVO usVO) {
 		boolean result = false;
 		
 		MypageDAO mDAO = MypageDAO.getInstance();
-		if(mDAO.updateWebsite(uwVO) == 1) {
+		if(mDAO.updateSocialData(usVO) == 1) {
 			result = true;
 		}
 		

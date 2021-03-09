@@ -15,7 +15,7 @@ import kr.co.rgrg.user.mypage.vo.UpdateEmailVO;
 import kr.co.rgrg.user.mypage.vo.UpdatePassVO;
 import kr.co.rgrg.user.mypage.vo.UpdateProfileImgVO;
 import kr.co.rgrg.user.mypage.vo.UpdateProfileVO;
-import kr.co.rgrg.user.mypage.vo.UpdateWebsiteVO;
+import kr.co.rgrg.user.mypage.vo.UpdateSocialDataVO;
 
 @Controller
 public class MypageController {
@@ -27,7 +27,7 @@ public class MypageController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="/mypage/main.do", method={RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="/mypage/index.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String getMypage(HttpSession session, Model model) {
 		// 임시변수 ///////////////////
 		String id = "user1";
@@ -98,10 +98,10 @@ public class MypageController {
 	 * @return
 	 */
 	@RequestMapping(value="/mypage/modify_website.do", method=RequestMethod.GET)
-	public String modifyWebsite(HttpSession session, UpdateWebsiteVO uwVO, Model model) {
+	public String modifyWebsite(HttpSession session, UpdateSocialDataVO usVO, Model model) {
 		
 		MypageService ms = new MypageService();
-		boolean result = ms.modifyWebsite(uwVO);
+		boolean result = ms.modifySocialData(usVO);
 		model.addAttribute("result_flag", result);
 		
 		return "mypage/change_website";

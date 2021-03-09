@@ -13,7 +13,7 @@ import kr.co.rgrg.user.mypage.vo.UpdateEmailVO;
 import kr.co.rgrg.user.mypage.vo.UpdatePassVO;
 import kr.co.rgrg.user.mypage.vo.UpdateProfileImgVO;
 import kr.co.rgrg.user.mypage.vo.UpdateProfileVO;
-import kr.co.rgrg.user.mypage.vo.UpdateWebsiteVO;
+import kr.co.rgrg.user.mypage.vo.UpdateSocialDataVO;
 
 public class MypageDAO {
 	private static MypageDAO mpDAO;
@@ -98,11 +98,11 @@ public class MypageDAO {
 	 * @param uwVO
 	 * @return
 	 */
-	public int updateWebsite(UpdateWebsiteVO uwVO) {
+	public int updateSocialData(UpdateSocialDataVO usVO) {
 		int result = 0;
 		
 		SqlSession ss = GetRgrgHandler.getInstance().getSqlSession();
-		result = ss.update("updateWebsite", uwVO);
+		result = ss.update("updateSocialData", usVO);
 		ss.commit();
 		ss.close();
 		
