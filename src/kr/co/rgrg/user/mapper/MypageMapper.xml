@@ -41,7 +41,7 @@
 		set		member_flag='F', alarm_flag='', website = '', access_token='', platform = '', github='', visible_email='', statement_msg='', profile_img = '', blog_name='', nickname='', auth_email = '', pass=''
 		where	id = #{id}
 	</update>
-	<update id="updatePass" parameterType="kr.co.rgrg.vo.UpdateVO">
+	<update id="updatePass" parameterType="kr.co.rgrg.user.mypage.vo.UpdateVO">
 		update	member
 		set		pass = #{pass}
 		where	id = #{id}
