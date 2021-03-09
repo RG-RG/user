@@ -3,5 +3,15 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.rgrg.user.main">
+
+
+	<!-- 메인화면의 글 목록, 최신순 정렬 -->
+	<select id="selectMainList" 
+	resultType="kr.co.rgrg.user.main.domain.UserMainDomain">
+		select post_num, id, post_title, post_content, thumbnail
+		from post
+		where delete_flag='F'
+		order by input_date desc
+	</select>
   
 </mapper>
