@@ -210,7 +210,7 @@ h3 {
   left: -1000%;
 }
 /* 토글 버튼의 라벨 */
-label {
+.toggle {
   display: block;
   position: relative;
   width: 55px;
@@ -219,7 +219,7 @@ label {
   border-radius: 30px;
   transition: background 0.4s;
 }
-label:after {
+.toggle:after {
   content: "";
   position: absolute;
   left: 5px;
@@ -232,12 +232,12 @@ label:after {
   box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.1);
   transition: all 0.4s;
 }
-input:checked + label {
+input:checked + .toggle {
   background: #4fbe79;
 }
-input:checked + label:after {
+input:checked + .toggle:after {
   left: calc(100% - 25px);
 }
-label span {
+.toggle span {
   display: none;
 }
