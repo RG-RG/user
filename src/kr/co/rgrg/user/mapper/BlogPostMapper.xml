@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.rgrg.user.blogpost">
+
+  	<select id="selectPostDetail" parameterType="int"
+  	resultType="kr.co.rgrg.user.blog.domain.PostDetailDomain">
+		select member.id, nickname, post_title, to_char(post.input_date, 'yyyy-mm-dd') input_date, post_content, hidden_flag, like_cnt, comment_cnt
+		from post, member,
+				(select post_num, count(post_num) like_cnt
+				from like_post
+				where post_num=#{ post_num }
+				group by post_num) like_post,
+				(select post_num, count(post_num) comment_cnt
+				from comm
+				where post_num=#{ post_num } and delete_flag='F'
+				group by post_num) comm
+		where post.id=member.id and post.post_num=like_post.post_num
+				and post.post_num=comm.post_num and post.post_num=#{ post_num }
+	</select>
+	
+  	<select id="selectPostTagList" parameterType="int" resultType="String">
+	  	select tag_name
+		from tag
+		where post_num=#{ post_num }
+	</select>
+</mapper>

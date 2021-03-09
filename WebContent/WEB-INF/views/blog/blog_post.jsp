@@ -3,6 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
+<script type="text/javascript">
+if(${ not empty post_detail_fail}){
+	alert("조회 중 문제가 발생하였습니다. 다시 시도해주세요.")
+	location.href=history.back();
+}//end if
+
+</script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -46,38 +53,35 @@ $(function(){
         <div class="post_side_tab">
             <ul>
                 <li><i class="far fa-heart"></i></li>
-                <li>2</li>
+                <li><c:out value="${ post_detail.like_cnt }"/></li>
                 <li><i class="far fa-comment-alt"></i></li>
-                <li>3</li>
+                <li><c:out value="${ post_detail.comment_cnt }"/></li>
                 <li><i class="fas fa-share-alt"></i></li>
             </ul>
         </div>
         <!-- 우측의 글 본문 -->
         <div class="post">
-            <div class="post_title">[Python] 파이썬 기초문법 정리1</div>
+            <div class="post_title"><c:out value="${ post_detail.post_title }"/></div>
             <div class="post_info tabs">
                 <div>
-                    <span class="writer">by 홍길동</span>
-                    <span class="date">2021.01.23</span>
+                    <span class="writer">by <c:out value="${ post_detail.nickname }"/> </span>
+                    <span class="date"><c:out value="${ post_detail.input_date }"/> </span>
                     <!-- if로 공개/비공개 확인하여 비공개 일 때에만 visible하게 처리해야 함 -->
                     <!-- '공개'인 경우에는 class에 hidden 추가하게 처리하기 -->
-                    <span class="locked">비공개</span>
+                    <span class="locked"><c:if test="${ post_detail.hidden_flag=='T' }">비공개</c:if></span>
                 </div>
                 <div class="btns">
                     <span>수정</span>
                     <span>삭제</span>
                 </div>
             </div>
-            <div class="post_tags tabs">#파이썬 #기초문법 #어려워</div>
+            <div class="post_tags tabs">
+            <c:forEach var="tag" items="${ post_detail.tag_name }">
+            #<c:out value="${ tag }"/> 
+            </c:forEach>
+            </div>
             <div class="post_content">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iure unde et voluptas, adipisci reiciendis quod placeat suscipit libero nulla fugit ducimus accusamus voluptate porro impedit, commodi fuga, corporis cum quaerat?<br><br>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iure unde et voluptas, adipisci reiciendis quod placeat suscipit libero nulla fugit ducimus accusamus voluptate porro impedit, commodi fuga, corporis cum quaerat?
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iure unde et voluptas, adipisci reiciendis quod placeat suscipit libero nulla fugit ducimus accusamus voluptate porro impedit, commodi fuga, corporis cum quaerat?
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iure unde et voluptas, adipisci reiciendis quod placeat suscipit libero nulla fugit ducimus accusamus voluptate porro impedit, commodi fuga, corporis cum quaerat?
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iure unde et voluptas, adipisci reiciendis quod placeat suscipit libero nulla fugit ducimus accusamus voluptate porro impedit, commodi fuga, corporis cum quaerat?<br><br>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iure unde et voluptas, adipisci reiciendis quod placeat suscipit libero nulla fugit ducimus accusamus voluptate porro impedit, commodi fuga, corporis cum quaerat?
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iure unde et voluptas, adipisci reiciendis quod placeat suscipit libero nulla fugit ducimus accusamus voluptate porro impedit, commodi fuga, corporis cum quaerat?
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iure unde et voluptas, adipisci reiciendis quod placeat suscipit libero nulla fugit ducimus accusamus voluptate porro impedit, commodi fuga, corporis cum quaerat?
+            <c:out value="${ post_detail.post_content }"/>
             </div>
             <!-- 작성자 프로필 -->
             <div class="writer_info">
