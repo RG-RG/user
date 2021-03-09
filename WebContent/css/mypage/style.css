@@ -1,0 +1,212 @@
+main {
+  display: block;
+  margin-top: 3rem;
+  margin-left: auto;
+  margin-right: auto;
+  width: 768px;
+  padding-bottom: 5rem;
+}
+.navi {
+  display: flex;
+}
+.profile {
+  display: flex;
+  height: 13.75rem;
+}
+
+.img_area {
+  padding-right: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+.img_area img {
+  object-fit: cover;
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
+  display: block;
+  margin-bottom: 1.25rem;
+  background-color: gray;
+}
+.current_img {
+  object-fit: cover;
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
+  display: block;
+  margin-bottom: 1.25rem;
+  background-color: gray;
+}
+.upload_img_btn {
+  display: inline-flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  font-weight: bold;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background: rgb(18, 184, 134);
+  color: white;
+  border-radius: 4px;
+  padding: 0px 1.25rem;
+  height: 2rem;
+  font-size: 1rem;
+}
+.delete_img_btn {
+  display: inline-flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  font-weight: bold;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background: none;
+  color: rgb(18, 184, 134);
+  border-radius: 4px;
+  padding: 0px 1.25rem;
+  height: 2rem;
+  font-size: 1rem;
+}
+.img_area button + button {
+  margin-top: 0.5rem;
+}
+.text_area {
+  flex: 1 1 0%;
+  padding-left: 1.5rem;
+  border-left: 1px solid rgb(233, 236, 239);
+}
+.text_area h2 {
+  font-size: 2.25rem;
+  margin: 0px;
+  line-height: 1.5;
+  color: rgb(52, 58, 64);
+}
+.text_area p {
+  font-size: 1rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+  color: rgb(134, 142, 150);
+}
+.edit_profile {
+  outline: none;
+  padding: 0px;
+  border: none;
+  display: inline;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: rgb(18, 184, 134);
+  text-decoration: underline;
+  background: none;
+  cursor: pointer;
+}
+.mgn_content {
+  display: flex;
+  margin-top: 4rem;
+}
+.navi {
+  display: flex;
+  flex-direction: column;
+  flex: 0.6;
+  padding-right: 0.5rem;
+}
+.menu {
+  font-size: 1.2rem;
+  text-align: center;
+}
+.mng_form {
+  flex: 2;
+  padding-left: 2rem;
+  border-left: 1px solid rgb(233, 236, 239);
+}
+.info {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.block {
+  flex: 1 1 0%;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+}
+.contents {
+  flex: 1 1 0%;
+  font-size: 1rem;
+  color: rgb(73, 80, 87);
+  line-height: 1.5;
+}
+.edit {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  margin-left: 1rem;
+}
+.edit_btn {
+  outline: none;
+  padding: 0px;
+  border: none;
+  display: inline;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: rgb(18, 184, 134);
+  text-decoration: underline;
+  background: none;
+  cursor: pointer;
+}
+.delete_mem_btn {
+  display: inline-flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  font-weight: bold;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background: rgb(255, 107, 107);
+  color: white;
+  border-radius: 4px;
+  padding: 0px 1.25rem;
+  height: 2rem;
+  font-size: 1rem;
+}
+/* 토글버튼 */
+#email_toggle {
+  position: absolute;
+  left: -1000%;
+}
+label {
+  display: block;
+  position: relative;
+  width: 55px;
+  height: 30px;
+  background: #d3d3d3;
+  border-radius: 30px;
+  transition: background 0.4s;
+}
+label:after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 50%;
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  background: #fff;
+  transform: translateY(-50%);
+  box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s;
+}
+input:checked + label {
+  background: #4fbe79;
+}
+input:checked + label:after {
+  left: calc(100% - 25px);
+}
+label span {
+  display: none;
+}
