@@ -1,7 +1,7 @@
 package kr.co.rgrg.user.mypage.vo;
 
 public class UpdateProfileVO {
-	private String id, nickname, statement;
+	private String id, nickname, statement_msg;
 
 	public String getId() {
 		return id;
@@ -19,13 +19,13 @@ public class UpdateProfileVO {
 		this.nickname = nickname;
 	}
 
-	public String getStatement() {
-		return statement;
+	public String getStatement_msg() {
+		return statement_msg;
 	}
 
-	public void setStatement(String statement) {
-		this.statement = statement;
+	public void setStatement_msg(String statement_msg) {
+		this.statement_msg = statement_msg;
 	}
-	
+
 	
 }
