@@ -93,15 +93,17 @@ public class MypageService {
 	 * @param uwVO
 	 * @return
 	 */
-	public boolean modifySocialData(UpdateSocialDataVO usVO) {
-		boolean result = false;
+	public String modifySocialData(UpdateSocialDataVO usVO) {
+		String result = "fail";
+		JSONObject json = new JSONObject();
 		
 		MypageDAO mDAO = MypageDAO.getInstance();
 		if(mDAO.updateSocialData(usVO) == 1) {
-			result = true;
+			result = "success";
 		}
 		
-		return result;
+		json.put("result", result);
+		return json.toJSONString();
 	}
 	
 	/**

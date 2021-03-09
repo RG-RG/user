@@ -65,13 +65,22 @@
             if ($("#social_form").css("display") === "none") {
                 edit_mode(this);
                 
-                let social = document.getElementById("social");
-               	console.log(social)
+                let github = document.getElementById("github").innerText.trim();
+                let website = document.getElementById("website").innerText.trim();
+                let visible_email = document.getElementById("visible_email").innerText.trim();
                 
-/*                 $("#social_input").attr("placeholder", blog_name);
-                $("#social_input").attr("value", blog_name); */
+                $("#github_input").attr("placeholder", github);
+                $("#github_input").attr("value", github);
+                $("#website_input").attr("placeholder", website);
+                $("#website_input").attr("value", website);
+                $("#visible_email_input").attr("placeholder", visible_email);
+                $("#visible_email_input").attr("value", visible_email);
+                
                 
               }
+        });
+        $("#social_save").click(function(){
+        	saveSocial();
         });
         
         /* 이메일 정보 변경 */
@@ -133,6 +142,29 @@
               },
             });
     	  
+      }
+      
+      /* 소셜 정보 변경 */
+      function saveSocial() {
+    	  let newGithub = document.getElementById("github_input").value;
+    	  let newWebsite = document.getElementById("website_input").value;
+    	  let newEmail = document.getElementById("visible_email_input").value;
+    	  
+          $.ajax({
+              url: "modify_social.do",
+              dataType: "JSON",
+              type: "POST",
+              data: "github=" + newGithub + "&website=" + newWebsite + "&visible_email=" + newEmail,
+              error:function(xhr){
+            	console.log(xhr.status+" / "+xhr.statusText);
+            	alert("에러");
+              },
+              success: function (jsonObj) {
+                if(jsonObj.result === "success"){
+                	console.log("성공")
+                }
+              },
+            });
       }
       
       /* 이메일 변경 */
@@ -228,25 +260,44 @@
 					<h3>소셜 정보</h3>
 					<div class="block">
 						<div class="contents">
-							<ul class="social_list">
-								<li><i class="fab fa-github"></i> ${ member_data.github }</li>
-								<li><i class="fas fa-home"></i> ${ member_data.website }</li>
-								<li><i class="fas fa-envelope"></i> ${ member_data.visible_email }</li>
-							</ul>
+							<div id="github">
+								<i class="fab fa-github"></i> ${ member_data.github }						
+							</div>
+							<div id="website">
+								<i class="fas fa-home"></i> ${ member_data.website }
+							</div>
+							<div id="visible_email">
+								<i class="fas fa-envelope"></i> ${ member_data.visible_email }
+							</div>
 						</div>
 						<div class="edit">
 							<button class="edit_btn" id="edit_social_btn">수정</button>
 						</div>
 						<form id="social_form" class="edit_form" style="display: none">
-			                <div class="row mb-3">
-			                  <div class="col-sm-10">
-			                    <input type="text" class="form-control " id="social_input" />
-			                  </div>
+							<div class="new_social">
+				                <div class="row mb-3">
+				                  	<label for="github_input" class="col-sm-2 col-form-label"><i class="fab fa-github"></i></label>
+				                  <div class="col-sm-10">
+				                    <input type="text" class="form-control form-control-sm" id="github_input" />
+				                  </div>
+				                </div>
+				                <div class="row mb-3">
+				                    <label for="website_input" class="col-sm-2 col-form-label"><i class="fas fa-home"></i></label>
+				                  <div class="col-sm-10">
+				                    <input type="text" class="form-control form-control-sm" id="website_input" />
+				                  </div>
+				                </div>
+	   				            <div class="row mb-3">
+									<label for="email_input" class="col-sm-2 col-form-label"><i class="fas fa-envelope"></i></label>
+				                  <div class="col-sm-10">
+				                    <input type="text" class="form-control form-control-sm" id="visible_email_input" />
+				                  </div>
+				                </div>
 			                </div>
 			                <div class="btn_wrapper">
 			                  <button class="save_btn" id="social_save">저장</button>
-			                </div>
-			            </form>
+			                </div>					
+						</form>
 					</div>
 				</div>
 				<div class="info email">
@@ -273,7 +324,7 @@
 					<div class="block">
 						<div class="contents">
 							<input type="checkbox" id="email_toggle" /> <label
-								for="email_toggle">${ member_data.alarm_flag }<span>선택</span></label>
+								for="email_toggle" class="toggle">${ member_data.alarm_flag }<span>선택</span></label>
 						</div>
 					</div>
 				</div>

@@ -94,14 +94,13 @@ public class MypageController {
 	 * @param uwVO
 	 * @return
 	 */
-	@RequestMapping(value="/mypage/modify_social.do", method=RequestMethod.GET)
-	public String modifySocial(HttpSession session, UpdateSocialDataVO usVO, Model model) {
-		
+	@RequestMapping(value="/mypage/modify_social.do", method=RequestMethod.POST, produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public String modifySocial(HttpSession session, UpdateSocialDataVO usVO) {
+		usVO.setId("user1");
 		MypageService ms = new MypageService();
-		boolean result = ms.modifySocialData(usVO);
-		model.addAttribute("result_flag", result);
-		
-		return "mypage/change_website";
+		System.out.println("-------------------------------------------------------"+usVO.getGithub());
+		return ms.modifySocialData(usVO);
 	}
 	
 	/**
