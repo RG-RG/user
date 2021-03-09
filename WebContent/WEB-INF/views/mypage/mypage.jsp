@@ -8,21 +8,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>마이페이지</title>
-    <link rel="stylesheet" href="http://localhost/rgrg_user/css/mypage/reset.css" />
-    <link rel="stylesheet" href="http://localhost/rgrg_user/css/mypage/style.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mypage/reset.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mypage/style.css" />
+    <script src="https://kit.fontawesome.com/7a3682f726.js" crossorigin="anonymous"></script>
   </head>
   <body>
     <main>
       <section class="profile">
         <div class="img_area">
           <!-- <div class="current_img">이미지 칸</div> -->
-          <img src="" alt="" class="current_img" />
+          <img src="https://cdn.pixabay.com/photo/2021/02/07/09/11/sunset-5990540_960_720.jpg" alt="" class="current_img" />
           <button class="upload_img_btn">이미지 업로드</button>
           <button class="delete_img_btn">이미지 제거</button>
         </div>
         <div class="text_area">
-          <h2>닉네임</h2>
-          <p>상태메시지</p>
+          <h2>${ member_data.nickname }</h2>
+          <p>${ member_data.statement_msg }</p>
           <button class="edit_profile">수정</button>
         </div>
       </section>
@@ -36,7 +37,7 @@
           <div class="info blog_title">
             <h3>블로그 제목</h3>
             <div class="block">
-              <div class="contents">블로그 제목</div>
+              <div class="contents">${ member_data.blog_name }</div>
               <div class="edit">
                 <button class="edit_btn">수정</button>
               </div>
@@ -47,21 +48,20 @@
             <div class="block">
               <div class="contents">
                 <ul class="social_list">
-                  <li>깃허브</li>
-                  <li>웹사이트</li>
+                  <li><i class="fab fa-github"></i>${ member_data.github }</li>
+                  <li><i class="fas fa-home"></i>${ member_data.website }</li>
+                  <li><i class="fas fa-envelope"></i>${ member_data.visible_email }</li>
                 </ul>
               </div>
               <div class="edit">
                 <button class="edit_btn">수정</button>
               </div>
             </div>
-            <!-- <div class="github"></div>
-            <div class="website"></div> -->
           </div>
           <div class="info email">
             <h3>이메일 정보</h3>
             <div class="block">
-              <div class="contents">email@email.com</div>
+              <div class="contents">${ member_data.auth_email }</div>
               <div class="edit">
                 <button class="edit_btn">수정</button>
               </div>
@@ -72,7 +72,7 @@
             <div class="block">
               <div class="contents">
                 <input type="checkbox" id="email_toggle" />
-                <label for="email_toggle"><span>선택</span></label>
+                <label for="email_toggle">${ member_data.alarm_flag }<span>선택</span></label>
               </div>
             </div>
           </div>
