@@ -1,7 +1,15 @@
 package kr.co.rgrg.user.mypage.vo;
 
-public class UpdateWebsiteVO {
-	private String id, github, website;
+public class UpdateSocialDataVO {
+	private String id, github, website, visible_email;
+
+	public String getVisible_email() {
+		return visible_email;
+	}
+
+	public void setVisible_email(String visible_email) {
+		this.visible_email = visible_email;
+	}
 
 	public String getId() {
 		return id;

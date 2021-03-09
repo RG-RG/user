@@ -2,7 +2,7 @@ package kr.co.rgrg.user.mypage.domain;
 
 public class MypageDomain {
 	
-	private String nickname, blog_name, alram_flag, github, website, visible_email, profile_img, statement_msg;
+	private String nickname, blog_name, alarm_flag, github, website, visible_email, auth_email, profile_img, statement_msg;
 
 	public String getNickname() {
 		return nickname;
@@ -20,12 +20,12 @@ public class MypageDomain {
 		this.blog_name = blog_name;
 	}
 
-	public String getAlram_flag() {
-		return alram_flag;
+	public String getAlarm_flag() {
+		return alarm_flag;
 	}
 
-	public void setAlram_flag(String alram_flag) {
-		this.alram_flag = alram_flag;
+	public void setAlarm_flag(String alarm_flag) {
+		this.alarm_flag = alarm_flag;
 	}
 
 	public String getGithub() {
@@ -50,6 +50,14 @@ public class MypageDomain {
 
 	public void setVisible_email(String visible_email) {
 		this.visible_email = visible_email;
+	}
+
+	public String getAuth_email() {
+		return auth_email;
+	}
+
+	public void setAuth_email(String auth_email) {
+		this.auth_email = auth_email;
 	}
 
 	public String getProfile_img() {
