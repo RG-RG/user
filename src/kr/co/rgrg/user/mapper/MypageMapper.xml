@@ -13,12 +13,12 @@
 	</update>
 	<update id="updateProfile" parameterType="kr.co.rgrg.user.mypage.vo.UpdateProfileVO">
 		update	member
-		set		profile_msg = #{statement}, nickname = #{nickname}
+		set		statement_msg = #{statement_msg}, nickname = #{nickname}
 		where	id = #{id}
 	</update>
 	<update id="updateBlogTitle" parameterType="kr.co.rgrg.user.mypage.vo.UpdateBlogTitleVO">
 		update	member
-		set		blog_title = #{blog_name}
+		set		blog_name = #{blog_name}
 		where	id = #{id}
 	</update>
 	<update id="updateSocialData" parameterType="kr.co.rgrg.user.mypage.vo.UpdateSocialDataVO">
@@ -28,7 +28,12 @@
 	</update>
 	<update id="updateEmail" parameterType="kr.co.rgrg.user.mypage.vo.UpdateEmailVO">
 		update	member
-		set		auth_email = #{auth_email}, alaram_flag = #{alarm_agree}
+		set		auth_email = #{auth_email}<!-- , alaram_flag = #{alarm_agree} -->
+		where	id = #{id}
+	</update>
+	<update id="updateEmailFlag"  parameterType="kr.co.rgrg.user.mypage.vo.UpdateEmailFlagVO">
+		update	member
+		set		alaram_flag = #{alarm_agree}
 		where	id = #{id}
 	</update>
 	<select id="selectPass" resultType="String" parameterType="kr.co.rgrg.user.mypage.vo.PassChkVO">

@@ -1,7 +1,7 @@
 package kr.co.rgrg.user.mypage.vo;
 
 public class UpdateEmailVO {
-	private String id, auth_email, alarm_agree;
+	private String id, auth_email;
 
 	public String getId() {
 		return id;
@@ -17,14 +17,6 @@ public class UpdateEmailVO {
 
 	public void setAuth_email(String auth_email) {
 		this.auth_email = auth_email;
-	}
-
-	public String getAlarm_agree() {
-		return alarm_agree;
-	}
-
-	public void setAlarm_agree(String alarm_agree) {
-		this.alarm_agree = alarm_agree;
 	}
 	
 	

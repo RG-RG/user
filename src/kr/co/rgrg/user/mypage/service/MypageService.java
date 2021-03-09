@@ -1,8 +1,11 @@
 package kr.co.rgrg.user.mypage.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import kr.co.rgrg.user.dao.GetRgrgHandler;
 import kr.co.rgrg.user.mypage.dao.MypageDAO;
@@ -10,6 +13,7 @@ import kr.co.rgrg.user.mypage.domain.MypageDomain;
 import kr.co.rgrg.user.mypage.domain.StatisticsDomain;
 import kr.co.rgrg.user.mypage.vo.PassChkVO;
 import kr.co.rgrg.user.mypage.vo.UpdateBlogTitleVO;
+import kr.co.rgrg.user.mypage.vo.UpdateEmailFlagVO;
 import kr.co.rgrg.user.mypage.vo.UpdateEmailVO;
 import kr.co.rgrg.user.mypage.vo.UpdatePassVO;
 import kr.co.rgrg.user.mypage.vo.UpdateProfileImgVO;
@@ -54,15 +58,17 @@ public class MypageService {
 	 * @param upVO
 	 * @return
 	 */
-	public boolean modifyProfile(UpdateProfileVO upVO) {
-		boolean result = false;
+	public String modifyProfile(UpdateProfileVO upVO) {
+		String result = "fail";
+		JSONObject json = new JSONObject();
 		
 		MypageDAO mDAO = MypageDAO.getInstance();
 		if(mDAO.updateProfile(upVO) > 0) {
-			result = true;
+			result = "success";
 		}
 		
-		return result;
+		json.put("result", result);
+		return json.toJSONString();
 	}
 	
 	/**
@@ -70,15 +76,16 @@ public class MypageService {
 	 * @param ubtVO
 	 * @return
 	 */
-	public boolean modifyBlogTitle(UpdateBlogTitleVO ubtVO) {
-		boolean result = false;
+	public String modifyBlogTitle(UpdateBlogTitleVO ubtVO) {
+		String result = "fail";
+		JSONObject json = new JSONObject();
 		
 		MypageDAO mDAO = MypageDAO.getInstance();
 		if(mDAO.updateBlogTitle(ubtVO) == 1) {
-			result = true;
+			result = "success";
 		}
-		
-		return result;
+		json.put("result", result);
+		return json.toJSONString();
 	}
 	
 	/**
@@ -102,15 +109,30 @@ public class MypageService {
 	 * @param ueVO
 	 * @return
 	 */
-	public boolean modifyEmail(UpdateEmailVO ueVO) {
-		boolean result = false;
-		
+	public String modifyEmail(UpdateEmailVO ueVO) {
+		String result = "fail";
+		JSONObject json = new JSONObject();
 		MypageDAO mDAO = MypageDAO.getInstance();
+		
 		if(mDAO.updateEmail(ueVO) == 1) {
-			result = true;
+			result = "success";
 		}
 		
-		return result;
+		json.put("result", result);
+		return json.toJSONString();
+	}
+	
+	public String modifyEmailFlag(UpdateEmailFlagVO uefVO) {
+		String result = "fail";
+		JSONObject json = new JSONObject();
+		MypageDAO mDAO = MypageDAO.getInstance();
+		
+		if(mDAO.updateEmailFlag(uefVO) == 1) {
+			result = "success";
+		}
+		
+		json.put("result", result);
+		return json.toJSONString();
 	}
 	
 	/**

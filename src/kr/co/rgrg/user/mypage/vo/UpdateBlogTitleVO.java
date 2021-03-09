@@ -18,6 +18,7 @@ public class UpdateBlogTitleVO {
 	public void setBlog_name(String blog_name) {
 		this.blog_name = blog_name;
 	}
-	
+
+
 	
 }

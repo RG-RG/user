@@ -9,6 +9,7 @@ import kr.co.rgrg.user.mypage.domain.MypageDomain;
 import kr.co.rgrg.user.mypage.domain.StatisticsDomain;
 import kr.co.rgrg.user.mypage.vo.PassChkVO;
 import kr.co.rgrg.user.mypage.vo.UpdateBlogTitleVO;
+import kr.co.rgrg.user.mypage.vo.UpdateEmailFlagVO;
 import kr.co.rgrg.user.mypage.vo.UpdateEmailVO;
 import kr.co.rgrg.user.mypage.vo.UpdatePassVO;
 import kr.co.rgrg.user.mypage.vo.UpdateProfileImgVO;
@@ -119,6 +120,17 @@ public class MypageDAO {
 		
 		SqlSession ss = GetRgrgHandler.getInstance().getSqlSession();
 		result = ss.update("updateEmail", ueVO);
+		ss.commit();
+		ss.close();
+		
+		return result;
+	}
+	
+	public int updateEmailFlag(UpdateEmailFlagVO uefVO) {
+		int result = 0;
+		
+		SqlSession ss = GetRgrgHandler.getInstance().getSqlSession();
+		result = ss.update("updateEmailFlag", uefVO);
 		ss.commit();
 		ss.close();
 		
