@@ -27,7 +27,7 @@
 <script type="text/javascript">
 $(function(){
 	$(".btn-secondary").click(function(){
-		location.href="/rgrg_user/main/main.do";
+		location.href="/rgrg_user/rgrg/main/main";
 	});//click
 });//ready
 </script>

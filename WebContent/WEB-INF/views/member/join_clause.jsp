@@ -42,7 +42,7 @@ $(function(){
 	});//click
 	
 	$(".btn-light").click(function(){
-		location.href="/rgrg_user/main/main.do";
+		location.href="/rgrg_user/rgrg/main/main";
 	});//click
 	
 	$(".btn-secondary").click(function(){
@@ -50,7 +50,7 @@ $(function(){
 			alert("약관에 동의해주세요.");
 			return;
 		}//end if
-		location.href="join_form.do";
+		location.href="join_form";
 	});//click
 	
 });//ready

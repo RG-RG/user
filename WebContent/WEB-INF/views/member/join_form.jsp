@@ -39,7 +39,7 @@ $(function(){
 		var id = $("#id").val();
 		if( evt.which == 13 || evt.which == 9 ){
 			$.ajax({
-				url : "dup_id.do",
+				url : "dup_id",
 				type : "GET",
 				data : "id="+id,
 				dataType : "JSON",
@@ -65,7 +65,7 @@ $(function(){
  	$("#id").blur(function(){
 		var id = $("#id").val();
 		$.ajax({
-			url : "dup_id.do",
+			url : "dup_id",
 			type : "GET",
 			data : "id="+id,
 			dataType : "JSON",
@@ -88,7 +88,7 @@ $(function(){
 		var auth_email = $("#auth_email").val();
 		if( evt.which == 13 || evt.which == 9 ){
 			$.ajax({
-				url : "dup_email.do",
+				url : "dup_email",
 				type : "GET",
 				data : "auth_email="+auth_email,
 				dataType : "JSON",
@@ -114,7 +114,7 @@ $(function(){
 	$("#auth_email").blur(function(evt){
 		var auth_email = $("#auth_email").val();
 		$.ajax({
-			url : "dup_email.do",
+			url : "dup_email",
 			type : "GET",
 			data : "auth_email="+auth_email,
 			dataType : "JSON",
@@ -137,7 +137,7 @@ $(function(){
 		var nickname = $("#nickname").val();
 		if( evt.which == 13 || evt.which == 9 ){
 			$.ajax({
-				url : "dup_nick.do",
+				url : "dup_nick",
 				type : "GET",
 				data : "nickname="+nickname,
 				dataType : "JSON",
@@ -163,7 +163,7 @@ $(function(){
 	$("#nickname").blur(function(evt){
 		var nickname = $("#nickname").val();
 		$.ajax({
-			url : "dup_nick.do",
+			url : "dup_nick",
 			type : "GET",
 			data : "nickname="+nickname,
 			dataType : "JSON",
@@ -236,7 +236,7 @@ $(function(){
 		}//end if
 		
 		 if ( !chkEmail($("#auth_email").val()) ) { //이메일 유효성 검사
-			 alert("유효하지 않은 이메일입니다.");
+			 alert("유효하지 않은 이메일 형식입니다.");
 		 }//end if
 		
 		$("#memberForm").submit();
@@ -261,7 +261,7 @@ function chkEmail(str) {
         		RGRG와 함께 블로그를 시작해보세요.
         	</div>
         	<div id="containerContent">
-        		<form id="memberForm" action="join.do" method="post">
+        		<form id="memberForm" action="join" method="post">
 	  				<div class="input-group mb-3">
 					  <span class="input-group-text" id="idLabel">아이디</span>
 					  <input type="text" id="id" name="id" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="회원님이 사용할 아이디를 입력해주세요.">
