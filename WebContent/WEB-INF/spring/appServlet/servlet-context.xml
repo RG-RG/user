@@ -23,6 +23,13 @@
 	
 	<context:component-scan base-package="kr.co.rgrg.user" />
 	
-	
+	<!-- spring @pathVariable사용하려면 설정 -->
+	<beans:bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+	    <beans:property name="alwaysUseFullPath" value="true" />
+	</beans:bean>
+
+	<beans:bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+   	 	<beans:property name="alwaysUseFullPath" value="true" />
+	</beans:bean>
 	
 </beans:beans>
