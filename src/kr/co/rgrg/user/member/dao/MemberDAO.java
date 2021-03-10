@@ -112,17 +112,17 @@ public class MemberDAO {
 	
 	/**
 	 * 아이디 찾기를 위해 입력한 이메일이 DB에 있는지 확인하는 일
-	 * @param authEmail
+	 * @param auth_email
 	 * @return
 	 */
-	public String selectFindIdChkEmail(String authEmail) {
-		String email = "";
+	public String selectFindIdChkEmail(String auth_email) {
+		String chkEmail = "";
 		
 		SqlSession ss = GetRgrgHandler.getInstance().getSqlSession();
-		email = ss.selectOne("kr.co.rgrg.user.member.selectFindIdChkEmail", authEmail);
+		chkEmail = ss.selectOne("kr.co.rgrg.user.member.selectFindIdChkEmail", auth_email);
 		ss.close();
 		
-		return email;
+		return chkEmail;
 	}//selectFindIdChkEmail
 	
 	/**

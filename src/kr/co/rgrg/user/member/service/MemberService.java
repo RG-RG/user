@@ -101,16 +101,16 @@ public class MemberService {
 	
 	/**
 	 * 아이디 찾기를 위해 입력한 이메일이 DB에 있는지 확인하는 일
-	 * @param authEmail
+	 * @param auth_email
 	 * @return
 	 */
-	public String findIdChkEmail(String authEmail) {
-		String email = "";
+	public String findIdChkEmail(String auth_email) {
+		String chkEmail = "";
 		
 		MemberDAO memDAO = MemberDAO.getInstance();
-		email = memDAO.selectFindIdChkEmail(authEmail);
+		chkEmail = memDAO.selectFindIdChkEmail(auth_email);
 		JSONObject json = new JSONObject();
-		json.put("id_chk_email", email != null);
+		json.put("id_chk_email", chkEmail != null);
 		
 		return json.toJSONString();
 	}//findIdChkEmail
