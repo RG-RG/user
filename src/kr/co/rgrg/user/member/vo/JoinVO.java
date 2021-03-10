@@ -2,7 +2,7 @@ package kr.co.rgrg.user.member.vo;
 
 public class JoinVO {
 	
-	private String id, pass, auth_mail, nickname, blog_name;
+	private String id, pass, auth_email, nickname, blog_name;
 
 	public String getId() {
 		return id;
@@ -12,8 +12,8 @@ public class JoinVO {
 		return pass;
 	}
 
-	public String getAuth_mail() {
-		return auth_mail;
+	public String getAuth_email() {
+		return auth_email;
 	}
 
 	public String getNickname() {
@@ -32,8 +32,8 @@ public class JoinVO {
 		this.pass = pass;
 	}
 
-	public void setAuth_mail(String auth_mail) {
-		this.auth_mail = auth_mail;
+	public void setAuth_email(String auth_email) {
+		this.auth_email = auth_email;
 	}
 
 	public void setNickname(String nickname) {

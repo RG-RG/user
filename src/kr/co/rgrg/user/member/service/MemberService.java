@@ -39,35 +39,51 @@ public class MemberService {
 	
 	/**
 	 * 아이디 중복을 체크하는 일
-	 * @param newId
+	 * @param id
 	 * @return
 	 */
-	public String dupId(String newId) {
-		String id = "";
+	public String dupId(String id) {
+		String dupId = "";
 		
 		MemberDAO memDAO = MemberDAO.getInstance();
-		id = memDAO.selectId(newId);
+		dupId = memDAO.selectId(id);
 		JSONObject json = new JSONObject();
-		json.put("dup_id", id != null);
+		json.put("dup_id", dupId != null);
 		
 		return json.toJSONString();
 	}//dupId
 	
 	/**
 	 * 이메일 중복을 체크하는 일
-	 * @param newEmail
+	 * @param auth_email
 	 * @return
 	 */
-	public String dupEmail(String newEmail) {
-		String email = "";
+	public String dupEmail(String auth_email) {
+		String dupEmail = "";
 		
 		MemberDAO memDAO = MemberDAO.getInstance();
-		email = memDAO.selectEmail(newEmail);
+		dupEmail = memDAO.selectEmail(auth_email);
 		JSONObject json = new JSONObject();
-		json.put("dup_email", email != null);
+		json.put("dup_email", dupEmail != null);
 		
 		return json.toJSONString();
 	}//dupEmail
+	
+	/**
+	 * 닉네임 중복을 체크하는 일
+	 * @param nickname
+	 * @return
+	 */
+	public String dupNick(String nickname) {
+		String dupNick = "";
+		
+		MemberDAO memDAO = MemberDAO.getInstance();
+		dupNick = memDAO.selectNickname(nickname);
+		JSONObject json = new JSONObject();
+		json.put("dup_nick", dupNick != null);
+		
+		return json.toJSONString();
+	}//dupNick
 	
 	/**
 	 * 로그인을 하는 일

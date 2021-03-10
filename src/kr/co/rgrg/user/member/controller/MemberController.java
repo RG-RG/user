@@ -56,12 +56,7 @@ public class MemberController {
 	 */
 	@RequestMapping(value="/member/join.do", method=POST)
 	public String join(JoinVO jVO, HttpServletRequest request) {
-//		jVO.setId(request.getParameter("id"));
 		jVO.setPass(passEncoder.encode(jVO.getPass()));
-//		jVO.setPass(passEncoder.encode(request.getParameter("pass")));
-//		jVO.setAuth_mail(request.getParameter("auth_mail"));
-//		jVO.setNickname(request.getParameter("nickname"));
-//		jVO.setBlog_name(request.getParameter("nickname"));
 		boolean joinFlag = new MemberService().join(jVO);
 		
 		return "member/join";
@@ -80,29 +75,42 @@ public class MemberController {
 	
 	/**
 	 * 아이디 중복을 체크하는 일
-	 * @param newId
+	 * @param id
 	 * @return
 	 */
 	@RequestMapping(value="/member/dup_id.do", method=GET)
 	@ResponseBody
-	public String dupId(String newId) {
+	public String dupId(String id) {
 		String json = "";
-		json = new MemberService().dupId(newId);
+		json = new MemberService().dupId(id);
 		return json;
 	}//dupId
 	
 	/**
 	 * 이메일 중복을 체크하는 일
-	 * @param newEmail
+	 * @param auth_email
 	 * @return
 	 */
 	@RequestMapping(value="/member/dup_email.do", method=GET)
 	@ResponseBody
-	public String dupEmail(String newEmail) {
+	public String dupEmail(String auth_email) {
 		String json = "";
-		json = new MemberService().dupEmail(newEmail);
+		json = new MemberService().dupEmail(auth_email);
 		return json;
 	}//dupEmail
+	
+	/**
+	 * 닉네임 중복을 체크하는 일
+	 * @param nickname
+	 * @return
+	 */
+	@RequestMapping(value="/member/dup_nick.do", method=GET)
+	@ResponseBody
+	public String dupNick(String nickname) {
+		String json = "";
+		json = new MemberService().dupNick(nickname);
+		return json;
+	}//dupNick
 	
 	/**
 	 * 로그인 폼을 불러오는 일

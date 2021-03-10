@@ -52,33 +52,48 @@ public class MemberDAO {
 	
 	/**
 	 * 아이디 중복을 체크하는 일
-	 * @param newId
+	 * @param id
 	 * @return
 	 */
-	public String selectId(String newId) {
-		String id = "";
+	public String selectId(String id) {
+		String dupId = "";
 		
 		SqlSession ss = GetRgrgHandler.getInstance().getSqlSession();
-		id = ss.selectOne("kr.co.rgrg.user.member.selectId", newId);
+		dupId = ss.selectOne("kr.co.rgrg.user.member.selectId", id);
 		ss.close();
 		
-		return id;
+		return dupId;
 	}//selectId
 	
 	/**
 	 * 이메일 중복을 체크하는 일
-	 * @param newEmail
+	 * @param auth_email
 	 * @return
 	 */
-	public String selectEmail(String newEmail) {
-		String email = "";
+	public String selectEmail(String auth_email) {
+		String dupEmail = "";
 		
 		SqlSession ss = GetRgrgHandler.getInstance().getSqlSession();
-		email = ss.selectOne("kr.co.rgrg.user.member.selectEmail", newEmail);
+		dupEmail = ss.selectOne("kr.co.rgrg.user.member.selectEmail", auth_email);
 		ss.close();
 		
-		return email;
+		return dupEmail;
 	}//selectEmail
+	
+	/**
+	 * 닉네임 중복을 체크하는 일
+	 * @param newNick
+	 * @return
+	 */
+	public String selectNickname(String nickname) {
+		String dupNick = "";
+		
+		SqlSession ss = GetRgrgHandler.getInstance().getSqlSession();
+		dupNick = ss.selectOne("kr.co.rgrg.user.member.selectNickname", nickname);
+		ss.close();
+		
+		return dupNick;
+	}//selectNickname
 	
 	/**
 	 * 로그인을 하는 일

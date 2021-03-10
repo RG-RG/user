@@ -4,14 +4,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RGRG</title>
-    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
-    <link rel="stylesheet" href="http://localhost/rgrg_user/css/member/reset.css">
-    <link rel="stylesheet" href="http://localhost/rgrg_user/css/member/style.css"> 
-    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RGRG</title>
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+<link rel="stylesheet" href="http://localhost/rgrg_user/css/reset.css">
+<link rel="stylesheet" href="http://localhost/rgrg_user/css/member/style.css"> 
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 <style type="text/css">
 .section_main{ margin:0 auto; width: 70rem; margin-top: 27rem }
 #containerTitle{ font-size: 5rem; font-weight: bold; width: 63rem; margin: 0 auto; }
@@ -28,24 +27,13 @@
 <script type="text/javascript">
 $(function(){
 	$(".btn-secondary").click(function(){
-		location.href="/rgrg_user/index.do";
+		location.href="/rgrg_user/main/main.do";
 	});//click
 });//ready
 </script>
 </head>
-<body style="font-family: nanumsquare">
-    <section class="section_header">
-        <div class="header_nav">
-            <span class="btn btn_nav_open"><i class="fas fa-bars"></i></span>
-        </div>
-        <ul class="nav_bar">
-            <li><span>GLOG</span><span class="btn btn_nav_close"><i class="fas fa-chevron-left"></i></span></li>
-            <li><span>LOGIN</span> / <span>JOIN</span></li>
-            <li>인기순 보기</li>
-            <li>최신순 보기</li>
-            <li>search</li>
-        </ul>
-    </section>
+<body style="font-family: IBMPlexSansKR-Regular">
+    <jsp:include page="../common/common_header.jsp"/>
 
     <section class="section_main">
     	<div id="container">
@@ -61,6 +49,7 @@ $(function(){
         </div>
     </section>
     
+    <jsp:include page="../common/common_footer.jsp"/>
 </body>
 <script src="http://localhost/rgrg_user/js/control_navbar.js"></script>
 
