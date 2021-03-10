@@ -9,7 +9,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>마이페이지</title>
 	<script src="https://kit.fontawesome.com/7a3682f726.js"	crossorigin="anonymous"></script>
-	    <!-- Google CDN -->
+    <!-- Google CDN -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous" />
@@ -98,6 +98,18 @@
         
         $("#email_save").click(function(){
         	saveEmail();
+        });
+        
+        $("#email_toggle").change(function(){
+        	changeAlarm();
+        })
+        
+        $("#delete_mem_btn").click(function(){
+            edit_mode(this);
+        });
+        
+        $("#delete_save").click(function(){
+            deleteMember();
         });
 
       }); //ready
@@ -188,6 +200,54 @@
     	  
       }
       
+      /* 이메일 알림 변경 */
+      function changeAlarm(){
+    	  let flag = document.getElementById("email_toggle").checked;
+    	  let alarm_flag = "";
+    	  if(flag === true){
+    		  alarm_flag = "T";
+    	  }else{
+    		  alarm_flag = "F";
+    	  }
+    	  console.log(flag, alarm_flag);
+          $.ajax({
+              url: "modify_email_flag.do",
+              dataType: "JSON",
+              type: "POST",
+              data: "alarm_flag=" + alarm_flag,
+              error:function(xhr){
+            	console.log(xhr.status+" / "+xhr.statusText);
+            	alert("에러");
+              },
+              success: function (jsonObj) {
+                if(jsonObj.result === "success"){
+                	console.log("성공")
+                }
+              },
+            });
+      }
+      
+      /* 탈퇴하기 비밀번호 체크 */
+      function deleteMember() {
+    	  let deleteChk = document.getElementById("delete_input").value;
+          $.ajax({
+              url: "remove_member.do",
+              dataType: "JSON",
+              type: "POST",
+              data: "pass=" + deleteChk ,
+              error:function(xhr){
+            	console.log(xhr.status+" / "+xhr.statusText);
+            	alert("에러");
+              },
+              success: function (jsonObj) {
+                if(jsonObj.result === "success"){
+                	console.log("성공")
+                }
+              },
+            });
+    	  
+      }
+      
       function edit_mode(param) {
         let node_list = $(param).parent().parent().children();
         node_list[0].style.display = "none";
@@ -200,7 +260,6 @@
 	<main>
 		<section class="profile">
 			<div class="img_area">
-				<!-- <div class="current_img">이미지 칸</div> -->
 				<img
 					src="https://cdn.pixabay.com/photo/2021/02/07/09/11/sunset-5990540_960_720.jpg"
 					alt="" class="current_img" />
@@ -323,15 +382,36 @@
 					<h3>이메일 알림</h3>
 					<div class="block">
 						<div class="contents">
-							<input type="checkbox" id="email_toggle" /> <label
-								for="email_toggle" class="toggle">${ member_data.alarm_flag }<span>선택</span></label>
+							<c:set var="email_flag" value="${ member_data.alarm_flag }"/>
+							<c:choose>
+								<c:when test="${ email_flag eq 'T' }">
+									<input type="checkbox" id="email_toggle" checked="checked"/> 
+								</c:when>
+								<c:otherwise>
+									<input type="checkbox" id="email_toggle"/> 
+								</c:otherwise>
+							</c:choose>
+							<label	for="email_toggle" class="toggle"><span>선택</span></label>
 						</div>
 					</div>
 				</div>
 				<div class="info delete">
 					<h3>회원 탈퇴</h3>
-					<div class="contents">
-						<button color="red" class="delete_mem_btn">회원 탈퇴</button>
+					<div class="">
+						<div class="contents">
+							<button color="red" class="delete_mem_btn" id="delete_mem_btn">회원 탈퇴</button>
+						</div>
+						<div></div>
+			              <form id="delete_form" class="edit_form" style="display: none">
+			                <div class="row mb-3">
+			                  <div class="col-sm-10">
+			                    <input type="text" class="form-control " id="delete_input" />
+			                  </div>
+			                </div>
+			                <div class="btn_wrapper">
+			                  <button color="red" class="delete_mem_btn" id="delete_save">탈퇴</button>
+			                </div>
+			              </form>
 					</div>
 				</div>
 			</section>

@@ -28,12 +28,12 @@
 	</update>
 	<update id="updateEmail" parameterType="kr.co.rgrg.user.mypage.vo.UpdateEmailVO">
 		update	member
-		set		auth_email = #{auth_email}<!-- , alaram_flag = #{alarm_agree} -->
+		set		auth_email = #{auth_email}
 		where	id = #{id}
 	</update>
 	<update id="updateEmailFlag"  parameterType="kr.co.rgrg.user.mypage.vo.UpdateEmailFlagVO">
 		update	member
-		set		alaram_flag = #{alarm_agree}
+		set		alarm_flag = #{alarm_flag}
 		where	id = #{id}
 	</update>
 	<select id="selectPass" resultType="String" parameterType="kr.co.rgrg.user.mypage.vo.PassChkVO">

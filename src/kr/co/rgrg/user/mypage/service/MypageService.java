@@ -129,7 +129,7 @@ public class MypageService {
 		JSONObject json = new JSONObject();
 		MypageDAO mDAO = MypageDAO.getInstance();
 		
-		if(mDAO.updateEmailFlag(uefVO) == 1) {
+		if(mDAO.updateEmailFlag(uefVO) > 0) {
 			result = "success";
 		}
 		
@@ -144,16 +144,17 @@ public class MypageService {
 	 * @param pcVO
 	 * @return
 	 */
-	public boolean removeMemberChk(PassChkVO pcVO) {
-		boolean result = false;
-		
+	public String removeMemberChk(PassChkVO pcVO) {
+		String result = "false";
+		JSONObject json = new JSONObject();
 		MypageDAO mDAO = MypageDAO.getInstance();
 		if(mDAO.selectPass(pcVO).equals(pcVO.getPass())) {
 			if(mDAO.deleteMember(pcVO.getId()) == 1) {
-				result = true;				
+				result = "true";				
 			}
 		}
 		
+		json.put("result", result);
 		return  result;
 	}
 	

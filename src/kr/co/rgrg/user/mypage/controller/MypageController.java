@@ -99,7 +99,6 @@ public class MypageController {
 	public String modifySocial(HttpSession session, UpdateSocialDataVO usVO) {
 		usVO.setId("user1");
 		MypageService ms = new MypageService();
-		System.out.println("-------------------------------------------------------"+usVO.getGithub());
 		return ms.modifySocialData(usVO);
 	}
 	
@@ -129,29 +128,22 @@ public class MypageController {
 	public String modifyEmailFlag(HttpSession session, UpdateEmailFlagVO uefVO) {
 		uefVO.setId("user1");
 		MypageService ms = new MypageService();
-		
 		return ms.modifyEmailFlag(uefVO);
 	}
 	
-	@RequestMapping(value="/mypage/remove_member.do", method=RequestMethod.GET)
-	public String getRemoveMember() {
-		
-		return "mypage/remove_member_form";
-	}
-	
-	@RequestMapping(value="/mypage/remove_member_chk.do", method=RequestMethod.GET)
-	public String removeMemberChk(HttpSession session, Model model, PassChkVO pcVO) {
-		
+	@RequestMapping(value="/mypage/remove_member.do", method=RequestMethod.POST, produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public String removeMemberChk(HttpSession session, PassChkVO pcVO) {
+		pcVO.setId("user1");
 		MypageService ms = new MypageService();
-		boolean result = ms.removeMemberChk(pcVO);
-		model.addAttribute("result_flag", result);
-		return "mypage/remove_member";
+		
+		return ms.removeMemberChk(pcVO);
 	}
 	
 	@RequestMapping(value="/mypage/get_modify_pass.do", method=RequestMethod.GET)
 	public String getModifyPassForm() {
 		
-		return "change_pass_form";
+		return "mypage/change_pass_form";
 	}
 	
 	@RequestMapping(value="/mypage/modify_pass_chk.do", method=RequestMethod.GET)
