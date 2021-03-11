@@ -36,6 +36,28 @@
 $(function(){
 	var authFlag = false;
 	
+	$("#id").keydown(function(evt){
+		if( evt.which == 13 ) {
+			$("#auth_email").focus();
+		}//end if
+	});//keydown
+
+	$("#auth_email").keydown(function(evt){
+		if( evt.which == 13 ) {
+			$("#auth_msg").focus();
+		}//end if
+	});//keydown
+	
+	$("#auth_msg").keydown(function(evt){
+		if( evt.which == 13 ) {
+			if (!authFlag) {
+				alert("이메일 인증을 완료해주세요.");
+			}else{
+				$("#findPassForm").submit();
+			}//end else
+		}//end if
+	});//keydown
+	
 	$("#sendBtn").click(function(){
 		var id = $("#id").val();
 		var auth_email = $("#auth_email").val();

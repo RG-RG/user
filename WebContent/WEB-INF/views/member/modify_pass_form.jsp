@@ -34,27 +34,43 @@
 <script type="text/javascript">
 $(function(){
 	
+	$("#pass").keydown(function(evt){
+		if (evt.which == 13) {
+			$("#passChk").focus();
+		}//end if
+	});//keydown
+	
+	$("#passChk").keydown(function(evt){
+		if (evt.which == 13) {
+		chkNull();
+		}//end if
+	});//keydown
+	
 	$("#confirmBtn").click(function(){
-		if ($("#pass").val().trim()==""){
-			alert("비밀번호를 입력해주세요.");
-			$("#pass").focus();
-			return;
-		}//end if
-		if ($("#passChk").val().trim()==""){
-			alert("비밀번호를 다시 한 번 입력해주세요.");
-			$("#passChk").focus();
-			return;
-		}//end if
-		if ($("#pass").val() != $("#passChk").val()){
-			alert("비밀번호가 일치하지 않습니다.");
-			$("#passChk").focus();
-			return;
-		}//end if
-		alert("비밀번호가 변경되었습니다.");
-		$("#modifyPassForm").submit();
+		chkNull();
 	});//click
 	
 });//ready
+
+function chkNull(){
+	if ($("#pass").val().trim()==""){
+		alert("비밀번호를 입력해주세요.");
+		$("#pass").focus();
+		return;
+	}//end if
+	if ($("#passChk").val().trim()==""){
+		alert("비밀번호를 다시 한 번 입력해주세요.");
+		$("#passChk").focus();
+		return;
+	}//end if
+	if ($("#pass").val() != $("#passChk").val()){
+		alert("비밀번호가 일치하지 않습니다.");
+		$("#passChk").focus();
+		return;
+	}//end if
+	alert("비밀번호가 변경되었습니다.");
+	$("#modifyPassForm").submit();	
+}//chkNull
 
 </script>
 </head>

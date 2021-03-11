@@ -28,7 +28,9 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 <script type="text/javascript">
 $(function(){
-	
+	$("#mainBtn").click(function(){
+		location.href = "/rgrg_user/rgrg/main/main";
+	});//click
 });//ready
 
 </script>
@@ -47,7 +49,7 @@ $(function(){
 		        	회원님의 아이디는 <b>${ id }</b> 입니다.
         		</div>
 				<div id="buttons">
-				  <button type="button" class="btn btn-secondary">메인으로</button>
+				  <button type="button" class="btn btn-secondary" id="mainBtn">메인으로</button>
 				</div>
         	</div>
         </div>

@@ -182,64 +182,20 @@ $(function(){
 		});//ajax
 	});//blur
 	
+	$("#pass").keydown(function(evt){
+		if (evt.which == 13) {
+			$("#passChk").focus();
+		}//end if
+	});//keydown
+	
+	$("#passChk").keydown(function(evt){
+		if (evt.which == 13) {
+			chkNull();
+		}//end if
+	});//keydown
+
 	$(".btn-secondary").click(function(){
-		
-		//null 검사
-		if ($("#id").val().trim()==""){
-			alert("아이디를 입력해주세요.");
-			$("#id").focus();
-			return;
-		}//end if
-		if ($("#auth_email").val().trim()==""){
-			alert("이메일을 입력해주세요.");
-			$("#auth_email").focus();
-			return;
-		}//end if
-		if ($("#nickname").val().trim()==""){
-			alert("닉네임을 입력해주세요.");
-			$("#nickname").focus();
-			return;
-		}//end if
-		if ($("#pass").val().trim()==""){
-			alert("비밀번호를 입력해주세요.");
-			$("#pass").focus();
-			return;
-		}//end if
-		if ($("#passChk").val().trim()==""){
-			alert("비밀번호를 다시 한 번 입력해주세요.");
-			$("#passChk").focus();
-			return;
-		}//end if
-		if ($("#pass").val() != $("#passChk").val()){
-			alert("비밀번호가 일치하지 않습니다.");
-			$("#passChk").focus();
-			return;
-		}//end if
-		
-		//중복 검사
-		if ($("#idStatus").css('display') == 'block'){
-			alert("이미 존재하는 아이디입니다.");
-			$("#id").focus();
-			return;
-		}//end if
-		
-		if ($("#mailStatus").css('display') == 'block'){
-			alert("이미 존재하는 이메일입니다.");
-			$("#auth_email").focus();
-			return;
-		}//end if
-		
-		if ($("#nickStatus").css('display') == 'block'){
-			alert("이미 존재하는 닉네임입니다.");
-			$("#nickname").focus();
-			return;
-		}//end if
-		
-		 if ( !chkEmail($("#auth_email").val()) ) { //이메일 유효성 검사
-			 alert("유효하지 않은 이메일 형식입니다.");
-		 }//end if
-		
-		$("#memberForm").submit();
+		chkNull();
 	});//click
 	
 });//ready
@@ -249,6 +205,66 @@ function chkEmail(str) {
     if (regExp.test(str)) return true;
     else return false;
 }//chkEmail
+
+function chkNull(){
+	
+	//null 검사
+	if ($("#id").val().trim()==""){
+		alert("아이디를 입력해주세요.");
+		$("#id").focus();
+		return;
+	}//end if
+	if ($("#auth_email").val().trim()==""){
+		alert("이메일을 입력해주세요.");
+		$("#auth_email").focus();
+		return;
+	}//end if
+	if ($("#nickname").val().trim()==""){
+		alert("닉네임을 입력해주세요.");
+		$("#nickname").focus();
+		return;
+	}//end if
+	if ($("#pass").val().trim()==""){
+		alert("비밀번호를 입력해주세요.");
+		$("#pass").focus();
+		return;
+	}//end if
+	if ($("#passChk").val().trim()==""){
+		alert("비밀번호를 다시 한 번 입력해주세요.");
+		$("#passChk").focus();
+		return;
+	}//end if
+	if ($("#pass").val() != $("#passChk").val()){
+		alert("비밀번호가 일치하지 않습니다.");
+		$("#passChk").focus();
+		return;
+	}//end if
+	
+	//중복 검사
+	if ($("#idStatus").css('display') == 'block'){
+		alert("이미 존재하는 아이디입니다.");
+		$("#id").focus();
+		return;
+	}//end if
+	
+	if ($("#mailStatus").css('display') == 'block'){
+		alert("이미 존재하는 이메일입니다.");
+		$("#auth_email").focus();
+		return;
+	}//end if
+	
+	if ($("#nickStatus").css('display') == 'block'){
+		alert("이미 존재하는 닉네임입니다.");
+		$("#nickname").focus();
+		return;
+	}//end if
+	
+	 if ( !chkEmail($("#auth_email").val()) ) { //이메일 유효성 검사
+		 alert("유효하지 않은 이메일 형식입니다.");
+	 }//end if
+	
+	$("#memberForm").submit();	
+}//chkNull
 
 </script>
 </head>
