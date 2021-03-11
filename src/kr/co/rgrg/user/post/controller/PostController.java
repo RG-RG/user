@@ -17,19 +17,33 @@ public class PostController {
 	@RequestMapping(value="/post/post_form.do", method= RequestMethod.GET)
 	public String writePostForm() {
 		
-		PostService ps = new PostService();
-		
-		
-		return "post/post";
+		return "post/edit";
 	}
 	
-	@RequestMapping(value="/post/new_post.do", method= RequestMethod.GET)
+	@RequestMapping(value="/post/post_publish.do", method= RequestMethod.POST)
+	public String publishPost() {
+		
+		return "post/edit_publish";
+	}
+	
+	@RequestMapping(value="/post/new_post.do", method= RequestMethod.POST)
 	public String saveNewPost(PostVO pVO, HttpSession session) {
+		pVO.setId("user1");
+		PostService ps = new PostService();
+		boolean result = ps.savePost(pVO);
+		if(result) {
+			return "post/edit";			
+		}else{
+			return "mypage/index";
+		}
+	}
+
+	@RequestMapping(value="/post/get_modify_post.do", method= RequestMethod.GET)
+	public String getModifyPost(String postNum, Model model,HttpSession session) {
 		
 		PostService ps = new PostService();
 		
-		
-		return "post/new";
+		return "post/get_modify";
 	}
 	
 	@RequestMapping(value="/post/save_modify_post.do", method= RequestMethod.GET)
@@ -39,14 +53,6 @@ public class PostController {
 		
 		
 		return "post/save_modify";
-	}
-	
-	@RequestMapping(value="/post/get_modify_post.do", method= RequestMethod.GET)
-	public String getModifyPost(String postNum, Model model,HttpSession session) {
-		
-		PostService ps = new PostService();
-		
-		return "post/get_modify";
 	}
 	
 	@RequestMapping(value="/post/cancel.do", method= RequestMethod.GET)
