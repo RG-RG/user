@@ -29,7 +29,7 @@ public class MypageController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="/mypage/index.do", method={RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="/mypage/index", method={RequestMethod.GET, RequestMethod.POST})
 	public String getMypage(HttpSession session, Model model) {
 		// 임시변수 ///////////////////
 		String id = "user1";
@@ -140,24 +140,31 @@ public class MypageController {
 		return ms.removeMemberChk(pcVO);
 	}
 	
-	@RequestMapping(value="/mypage/get_modify_pass.do", method=RequestMethod.GET)
-	public String getModifyPassForm() {
-		
-		return "mypage/change_pass_form";
-	}
-	
-	@RequestMapping(value="/mypage/modify_pass_chk.do", method=RequestMethod.GET)
-	public String modifyPassChk(PassChkVO pcVO, HttpSession session, Model model) {
-		MypageService ms = new MypageService();
-		boolean result = ms.modifyPassChk(pcVO);
-		model.addAttribute("result_flag", result);
+	@RequestMapping(value="/mypage/modify_pass_form.do", method=RequestMethod.GET)
+	public String getModifyPassChkForm() {
 		
 		return "mypage/change_pass_chk";
 	}
 	
-	@RequestMapping(value="/mypage/modify_pass.do", method=RequestMethod.GET)
+	@RequestMapping(value="/mypage/modify_pass_chk.do", method=RequestMethod.POST)
+	public String modifyPassChk(PassChkVO pcVO, HttpSession session, Model model) {
+		MypageService ms = new MypageService();
+		pcVO.setId("user1");
+		boolean result = ms.modifyPassChk(pcVO);
+		if (result) {
+			return "mypage/change_pass_form";			
+		}else {
+			return "mypage/change_pass_chk";
+		}
+		
+		
+	}
+	
+	
+	@RequestMapping(value="/mypage/modify_pass.do", method=RequestMethod.POST)
 	public String modifyPass(UpdatePassVO upVO, HttpSession session, Model model) {
 		MypageService ms = new MypageService();
+		upVO.setId("user1");
 		boolean result = ms.modifyPass(upVO);
 		model.addAttribute("result_flag", result);
 		
