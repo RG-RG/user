@@ -31,6 +31,42 @@ if(${ not empty post_detail_fail}){
 <script type="text/javascript">
 $(function(){
 	
+	$("#shareButton").click(function(){
+	  if (navigator.share) {
+	    navigator.share({
+	      title: 'WebShare API Demo',
+	      url: window.location.href
+	    }).then(() => {
+	      console.log('Thanks for sharing!');
+	    })
+	    .catch(console.error);
+	  } else {
+	    shareDialog.classList.add('is-open');
+	  }
+	});
+	
+	$("#removePost").click(function(){
+		if(${ not empty sessionScope.id }){
+			$.ajax({
+				url:"remove/${post_detail.post_num}",
+				type:"POST",
+				dataType:"JSON",
+				error:function(xhr){
+					alert("에러");
+					console.log(xhr.status+" / "+xhr.statusText);
+				},
+				success:function(jsonObj){
+			      	if(jsonObj.flag=="success"){
+						history.back();
+			      	}else{
+			      		alert("삭제 중 문제가 발생하였습니다. 다시 시도해주세요.")
+			      	}//end else
+				}//success
+			});//ajax
+		}else{
+			alert("로그인 후 다시 시도해주세요.")
+		}
+	});//click
 });//ready
 </script>
 
@@ -56,7 +92,7 @@ $(function(){
                 <li><c:out value="${ post_detail.like_cnt }"/></li>
                 <li><i class="far fa-comment-alt"></i></li>
                 <li><c:out value="${ post_detail.comment_cnt }"/></li>
-                <li><i class="fas fa-share-alt"></i></li>
+                <li id="shareButton"><i class="fas fa-share-alt"></i></li>
             </ul>
         </div>
         <!-- 우측의 글 본문 -->
@@ -64,15 +100,19 @@ $(function(){
             <div class="post_title"><c:out value="${ post_detail.post_title }"/></div>
             <div class="post_info tabs">
                 <div>
-                    <span class="writer">by <c:out value="${ post_detail.nickname } "/></span>
-                    <span class="date"><c:out value="${ post_detail.input_date } "/></span>
+                    <span class="writer">by <c:out value="${ post_detail.nickname } "/> </span>
+                    <span class="date"><c:out value="${ post_detail.input_date } "/> </span>
                     <!-- if로 공개/비공개 확인하여 비공개 일 때에만 visible하게 처리해야 함 -->
                     <!-- '공개'인 경우에는 class에 hidden 추가하게 처리하기 -->
                     <span class="locked"><c:if test="${ post_detail.hidden_flag=='T' }">비공개</c:if></span>
                 </div>
                 <div class="btns">
+                <c:if test="${ sessionScope.id==post_profile.id }">
+                    <form id="modifyPost" action="${post_profile.id}/blog/post/modify/${post_detail.post_num}" method="post">
                     <span>수정</span>
-                    <span>삭제</span>
+                    </form>
+                    <a id="removePost"><span>삭제</span></a>
+                </c:if>
                 </div>
             </div>
             <div class="post_tags tabs">
@@ -87,7 +127,19 @@ $(function(){
             <div class="writer_info">
                 <img src="https://cdn.pixabay.com/photo/2016/01/19/16/49/${ post_profile.profile_img } }">
                 <div class="info">
-                    <div class="w_nickname"><span class="nickname"><c:out value="${ post_profile.nickname }"/></span><span class="btn_follow">follow</span></div>
+                    <div class="w_nickname">
+                    	<span class="nickname"><c:out value="${ post_profile.nickname }"/></span>
+                    	<c:if test="${ sessionScope.id!=post_profile.id }">
+                    		<span class="btn_follow">
+	                    	<c:if test="${ follow_flag }">
+                    		unfollow
+                    		</c:if>
+	                    	<c:if test="${ not follow_flag }">
+                    		follow
+                    		</c:if>
+                    		</span>
+                    	</c:if>
+                   	</div>
                     <div class="w_comment"><c:out value="${ post_profile.statement_msg }"/></div>
                     <div class="w_link">
                         <a href="${ post_profile.github }"><i class="fab fa-github"></i></a>

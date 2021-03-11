@@ -3,15 +3,15 @@ package kr.co.rgrg.user.blog.domain;
 import java.util.List;
 
 public class PostDetailDomain {
-	private String id, nickname, post_title, input_date, post_content, hidden_flag;
+	private String post_num, nickname, post_title, input_date, post_content, hidden_flag;
 	private int like_cnt, comment_cnt;
 	private List<String> tag_name;
 	
-	public String getId() {
-		return id;
+	public String getPost_num() {
+		return post_num;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setPost_num(String post_num) {
+		this.post_num = post_num;
 	}
 	public String getNickname() {
 		return nickname;
@@ -61,11 +61,4 @@ public class PostDetailDomain {
 	public void setTag_name(List<String> tag_name) {
 		this.tag_name = tag_name;
 	}
-	@Override
-	public String toString() {
-		return "PostDetailDomain [id=" + id + ", nickname=" + nickname + ", post_title=" + post_title + ", input_date="
-				+ input_date + ", post_content=" + post_content + ", hidden_flag=" + hidden_flag + ", like_cnt="
-				+ like_cnt + ", comment_cnt=" + comment_cnt + ", tag_name=" + tag_name + "]";
-	}
-	
 }//class

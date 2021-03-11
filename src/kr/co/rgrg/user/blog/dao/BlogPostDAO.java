@@ -7,6 +7,8 @@ import org.apache.ibatis.session.SqlSession;
 import kr.co.rgrg.user.blog.domain.CommDomain;
 import kr.co.rgrg.user.blog.domain.PostDetailDomain;
 import kr.co.rgrg.user.blog.domain.PostProfileDomain;
+import kr.co.rgrg.user.blog.vo.FollowerVO;
+import kr.co.rgrg.user.blog.vo.PostDeleteVO;
 import kr.co.rgrg.user.dao.GetRgrgHandler;
 
 public class BlogPostDAO {
@@ -53,5 +55,24 @@ public class BlogPostDAO {
 		
 		return list;
 	}//selectCommList
+	
+	public String selectFollowFlag(FollowerVO fVO) {
+		
+		SqlSession ss=GetRgrgHandler.getInstance().getSqlSession();
+		String id=ss.selectOne("kr.co.rgrg.user.blogpost.selectFollow",fVO);
+		ss.close();
+		
+		return id;
+	}//selectFollowFlag
+	
+	public int updatePostDeleteFlag(PostDeleteVO pdVO) {
+		
+		SqlSession ss=GetRgrgHandler.getInstance().getSqlSession();
+		int cnt=ss.update("kr.co.rgrg.user.blogpost.updatePostDeletFlag",pdVO);
+		ss.commit();
+		ss.close();
+		
+		return cnt;
+	}//deletePost
 	
 }//class

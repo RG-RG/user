@@ -6,7 +6,7 @@
 
   	<select id="selectPostDetail" parameterType="int"
   	resultType="kr.co.rgrg.user.blog.domain.PostDetailDomain">
-		select member.id, nickname, post_title, to_char(post.input_date, 'yyyy.mm.dd hh24:mi') input_date, post_content, hidden_flag, like_cnt, comment_cnt
+		select post.post_num, nickname, post_title, to_char(post.input_date, 'yyyy.mm.dd hh24:mi') input_date, post_content, hidden_flag, like_cnt, comment_cnt
 		from post, member,
 				(select post_num, count(post_num) like_cnt
 				from like_post
@@ -20,6 +20,7 @@
 				and post.post_num=like_post.post_num(+)
 				and post.post_num=comm.post_num(+)
 				and post.post_num=#{ post_num }
+				and post.delete_flag='F'
 	</select>
 	
   	<select id="selectPostTagList" parameterType="int" resultType="String">
@@ -39,4 +40,16 @@
 		from member, comm
 		where post_num=#{ post_num } and member.id=comm.id
 	</select>
+	
+	<select id="selectFollow" parameterType="kr.co.rgrg.user.blog.vo.FollowerVO" resultType="String">
+		select id
+		from follower
+		where id=#{id} and follower_id=#{follower_id}
+	</select>
+	
+	<update id="updatePostDeletFlag" parameterType="kr.co.rgrg.user.blog.vo.PostDeleteVO">
+		update post
+		set	delete_flag='T', thumbnail = '', post_title='', post_content = '', publish_flag='', hidden_flag=''
+		where post_num = #{post_num} and id = #{id}
+	</update>
 </mapper>

@@ -1,6 +1,6 @@
 package kr.co.rgrg.user.blog.vo;
 
-public class PostDetailVO {
+public class PostDeleteVO {
 	private String id;
 	private int post_num;
 	
