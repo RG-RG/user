@@ -117,14 +117,14 @@ public class MemberService {
 	
 	/**
 	 * 아이디 찾기
-	 * @param authEmail
+	 * @param auth_email
 	 * @return
 	 */
-	public String findId(String authEmail) {
+	public String findId(String auth_email) {
 		String id = "";
 		
 		MemberDAO memDAO = MemberDAO.getInstance();
-		id = memDAO.selectFindId(authEmail);
+		id = memDAO.selectFindId(auth_email);
 		
 		return id;
 	}//findId

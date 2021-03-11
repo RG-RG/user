@@ -2,71 +2,71 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.rgrg.user.member">
 
-<!-- 일반 회원가입을 하는 일  -->
-<insert id="insertMember" parameterType="kr.co.rgrg.user.member.vo.JoinVO">
-	insert into member(ID, PASS, AUTH_EMAIL, NICKNAME, BLOG_NAME)
-	values(#{ id }, #{ pass }, #{ auth_email }, #{ nickname }, #{ blog_name })
-</insert>
-
-<!-- 소셜 회원가입을 하는 일 -->
-<insert id="insertSocialMember" parameterType="kr.co.rgrg.user.member.vo.SocialJoinVO">
-
-</insert>
-
-<!-- 아이디 중복을 체크하는 일 -->
-<select id="selectId" parameterType="String" resultType="String">
-	select id
-	from member
-	where id = #{ id }
-</select>
-
-<!-- 이메일 중복을 체크하는 일 -->
-<select id="selectEmail" parameterType="String" resultType="String">
-	select auth_email
-	from member
-	where auth_email = #{ auth_email }
-</select>
-
-<!-- 닉네임 중복을 체크하는 일 -->
-<select id="selectNickname" parameterType="String" resultType="String">
-	select nickname
-	from member
-	where nickname = #{ nickname }
-</select>
-
-<!-- 로그인을 하는 일 -->
-<select id="selectLogin" parameterType="kr.co.rgrg.user.member.vo.LoginVO" resultType="kr.co.rgrg.user.member.domain.LoginDomain">
-	select id, pass
-	from member
-	where id = #{ id } and pass = #{ pass }
-</select>
-
-<!-- 아이디 찾기를 위해 입력한 이메일이 DB에 있는지 확인하는 일 -->
-<select id="selectFindIdChkEmail" parameterType="String" resultType="String">
-	select auth_email
-	from member
-	where auth_email = #{ auth_email }
-</select>
-
-<!-- 아이디 찾기 -->
-<select id="selectFindId" parameterType="String" resultType="String">
-	select id
-	from member
-	where auth_email = #{ auth_email }
-</select>
-
-<!-- 비밀번호 찾기를 위해 입력한 이메일이 DB에 있는지 확인하는 일 -->
-<select id="selectFindPassChkEmail" parameterType="kr.co.rgrg.user.member.vo.FindPassVO" resultType="String">
-	select auth_email
-	from member
-	where id = #{ id } and auth_email = #{ auth_email }
-</select>
-
-<!-- 비밀번호 변경 -->
-<update id="updatePass" parameterType="kr.co.rgrg.user.member.vo.UpdatePassVO">
-	update member
-	set pass = #{ pass }
-	where id = #{ id } and auth_email = #{ auth_email }
-</update>
+	<!-- 일반 회원가입을 하는 일  -->
+	<insert id="insertMember" parameterType="kr.co.rgrg.user.member.vo.JoinVO">
+		insert into member(ID, PASS, AUTH_EMAIL, NICKNAME, BLOG_NAME)
+		values(#{ id }, #{ pass }, #{ auth_email }, #{ nickname }, #{ blog_name })
+	</insert>
+	
+	<!-- 소셜 회원가입을 하는 일 -->
+	<insert id="insertSocialMember" parameterType="kr.co.rgrg.user.member.vo.SocialJoinVO">
+	
+	</insert>
+	
+	<!-- 아이디 중복을 체크하는 일 -->
+	<select id="selectId" parameterType="String" resultType="String">
+		select id
+		from member
+		where id = #{ id }
+	</select>
+	
+	<!-- 이메일 중복을 체크하는 일 -->
+	<select id="selectEmail" parameterType="String" resultType="String">
+		select auth_email
+		from member
+		where auth_email = #{ auth_email }
+	</select>
+	
+	<!-- 닉네임 중복을 체크하는 일 -->
+	<select id="selectNickname" parameterType="String" resultType="String">
+		select nickname
+		from member
+		where nickname = #{ nickname }
+	</select>
+	
+	<!-- 로그인을 하는 일 -->
+	<select id="selectLogin" parameterType="kr.co.rgrg.user.member.vo.LoginVO" resultType="kr.co.rgrg.user.member.domain.LoginDomain">
+		select id, pass
+		from member
+		where id = #{ id }
+	</select>
+	
+	<!-- 아이디 찾기를 위해 입력한 이메일이 DB에 있는지 확인하는 일 -->
+	<select id="selectFindIdChkEmail" parameterType="String" resultType="String">
+		select auth_email
+		from member
+		where auth_email = #{ auth_email }
+	</select>
+	
+	<!-- 아이디 찾기 -->
+	<select id="selectFindId" parameterType="String" resultType="String">
+		select id
+		from member
+		where auth_email = #{ auth_email }
+	</select>
+	
+	<!-- 비밀번호 찾기를 위해 입력한 이메일이 DB에 있는지 확인하는 일 -->
+	<select id="selectFindPassChkEmail" parameterType="kr.co.rgrg.user.member.vo.FindPassVO" resultType="String">
+		select auth_email
+		from member
+		where id = #{ id } and auth_email = #{ auth_email }
+	</select>
+	
+	<!-- 비밀번호 변경 -->
+	<update id="updatePass" parameterType="kr.co.rgrg.user.member.vo.UpdatePassVO">
+		update member
+		set pass = #{ pass }
+		where id = #{ id } and auth_email = #{ auth_email }
+	</update>
 
 </mapper>

@@ -127,14 +127,14 @@ public class MemberDAO {
 	
 	/**
 	 * 아이디 찾기
-	 * @param authEmail
+	 * @param auth_email
 	 * @return
 	 */
-	public String selectFindId(String authEmail) {
+	public String selectFindId(String auth_email) {
 		String id = "";
 		
 		SqlSession ss = GetRgrgHandler.getInstance().getSqlSession();
-		id = ss.selectOne("kr.co.rgrg.user.member.selectFindId", authEmail);
+		id = ss.selectOne("kr.co.rgrg.user.member.selectFindId", auth_email);
 		ss.close();
 		
 		return id;
