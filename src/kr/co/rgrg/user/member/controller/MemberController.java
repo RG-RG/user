@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import kr.co.rgrg.user.member.domain.LoginDomain;
 import kr.co.rgrg.user.member.service.MemberService;
@@ -123,14 +125,14 @@ public class MemberController {
 		return json;
 	}//dupNick
 	
-	/**
-	 * 로그인 폼을 불러오는 일
-	 * @return
-	 */
-	@RequestMapping(value="member/login_form", method=GET)
-	public String loginForm() {
-		return "member/login_form";
-	}//loginForm
+//	/**
+//	 * 로그인 폼을 불러오는 일
+//	 * @return
+//	 */
+//	@RequestMapping(value="member/login_form", method=GET)
+//	public String loginForm() {
+//		return "member/login_form";
+//	}//loginForm
 	
 	/**
 	 * 로그인을 하는 일
@@ -138,22 +140,29 @@ public class MemberController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="member/login", method=GET)
+	@RequestMapping(value="member/login", method=POST)
+	@ResponseBody
 	public String login(LoginVO lVO, Model model) {
 		LoginDomain ld = null;
-		ld = new MemberService().login(lVO);
-		boolean loginFlag = passEncoder.matches(lVO.getPass(), ld.getPass());
+		JSONObject json = new JSONObject();
+
+		try {
+			
+			ld = new MemberService().login(lVO);
+			boolean loginFlag = passEncoder.matches(lVO.getPass(), ld.getPass());
+			
+			if (ld != null && loginFlag) {
+				model.addAttribute("id", ld.getId());
+				json.put("login_result", "success");
+			} else {
+				json.put("login_result", "fail");
+			}//end if
+			
+		} catch (NullPointerException ne) {
+			json.put("login_result", "fail");
+		}//end catch
 		
-		String url = "";
-		if (ld != null && loginFlag) {
-			model.addAttribute("id", ld.getId());
-			url = "redirect:index.do";
-		} else {
-			model.addAttribute("login_result", "fail");
-			url = "forward:/member/login_form.do";
-		}//end if
-		
-		return url;
+		return json.toJSONString();
 	}//login
 	
 	/**
@@ -171,10 +180,10 @@ public class MemberController {
 	 * @param ss
 	 * @return
 	 */
-	@RequestMapping(value="member/logout", method=GET)
+	@RequestMapping(value="member/logout", method=POST)
 	public String logout(SessionStatus ss) {
 		ss.setComplete();
-		return "redirect:index.do";
+		return "redirect:/rgrg/main/main";
 	}//logout
 	
 	/**
@@ -284,12 +293,19 @@ public class MemberController {
 	 * @return
 	 */
 	@RequestMapping(value="member/modify_pass", method=POST)
-	public String modifyPass(UpdatePassVO upVO, HttpServletRequest request) {
+	public ModelAndView modifyPass(UpdatePassVO upVO, HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		
 		upVO.setId(request.getParameter("id"));
 		upVO.setAuth_email(request.getParameter("auth_email"));
 		upVO.setPass(passEncoder.encode(upVO.getPass()));
 		boolean passFlag = new MemberService().modifyPass(upVO);
-		return "redirect:/rgrg/main/main";
+
+		RedirectView rv = new RedirectView();
+		rv.setUrl("/rgrg/main/main");
+		rv.setExposeModelAttributes(false);
+		mav.setView(rv);
+		return mav;
 	}//modifyPass
 	
 }//MemberController
