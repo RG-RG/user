@@ -16,12 +16,12 @@
 #containerTitle{ font-size: 3rem; font-weight: bold; color: #000000}
 #titleLine{ margin-top: 2rem; border-top: 0.2rem solid #000000 }
 #containerContent{ margin-top: 4rem }
-#emailDiv{ padding-left: 2.5rem }
+#idDiv{ padding-left: 2.5rem }
 .form-label{ font-size: 1.5rem; font-weight: bold }
 .form-control { font-size: 1.5rem; padding: 2.3rem; width: 50rem; margin-top: 0.5rem; display: inline; margin-right: 3rem }
 #auth_email, #auth_msg{ vertical-align: middle; }
 #sendBtn, #confirmBtn{ vertical-align: middle; margin-top: 0.3rem }
-#authMsgDiv{ margin-top: 4rem; padding-left: 2.5rem }
+#authMsgDiv, #emailDiv{ margin-top: 4rem; padding-left: 2.5rem }
 #buttons{ margin:0 auto; margin-top: 7rem; width: 12rem }
 .btn-secondary{ width: 12rem; height: 4.5rem; font-size: 1.5rem !important; }
 #nextBtn{ background-color: #000000 }
@@ -37,12 +37,18 @@ $(function(){
 	var authFlag = false;
 	
 	$("#sendBtn").click(function(){
+		var id = $("#id").val();
 		var auth_email = $("#auth_email").val();
 		
 		//null 검사
+		if (id.trim() == "") {
+			alert("아이디를 입력해주세요.");
+			$("#id").focus();
+			return;
+		}//end if
 		if (auth_email.trim() == ""){
 			alert("이메일을 입력해주세요.");
-			$("#auth_email").focus()
+			$("#auth_email").focus();
 			return;
 		}//end if
 		
@@ -54,16 +60,16 @@ $(function(){
 		
 		//이메일 확인 및 인증번호 확인
 		$.ajax({
-			url : "find_id_chk",
+			url : "find_pass_chk",
 			type : "GET",
-			data : "auth_email="+auth_email,
+			data : "id="+id+"&auth_email="+auth_email,
 			dataType : "JSON",
 			error : function(xhr) {
 				alert("error : " + xhr.status + " / " + xhr.statusText);
 			},
 			success : function(json) {
-				if(!json.id_chk_email){
-					alert("해당 이메일과 일치하는 가입정보가 없습니다.");
+				if(!json.pass_chk_email){
+					alert("해당 아이디 및 이메일과 일치하는 가입정보가 없습니다.");
 				}else{
 					alert("이메일로 인증번호를 발송했습니다.");
 					$.ajax({
@@ -109,7 +115,7 @@ $(function(){
 		if (!authFlag) {
 			alert("이메일 인증을 완료해주세요.");
 		}else{
-			$("#findIdForm").submit();
+			$("#findPassForm").submit();
 		}//end else
 	});//click
 	
@@ -129,11 +135,17 @@ function chkEmail(str) {
     <section class="section_main">
     	<div id="container">
         	<div id="containerTitle">
-        		아이디 찾기
+        		비밀번호 찾기
         		<hr id="titleLine">
         	</div>
         	<div id="containerContent">
-        		<form id="findIdForm" action="find_id" method="POST">
+        		<form id="findPassForm" action="modify_pass_form" method="POST">
+        		<div id="idDiv">
+					<label for="exampleFormControlInput1" class="form-label">아이디</label>
+					<div class="mb-3">
+					  <input type="text" class="form-control" id="id" name="id" placeholder="가입하신 아이디를 입력해주세요.">
+					</div>
+        		</div>
         		<div id="emailDiv">
 					<label for="exampleFormControlInput1" class="form-label">이메일</label>
 					<div class="mb-3">
