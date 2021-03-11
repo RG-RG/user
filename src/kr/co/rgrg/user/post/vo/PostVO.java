@@ -4,20 +4,19 @@ import java.util.List;
 
 public class PostVO {
 	private int post_num;
-	private String thumnail, post_title, post_content, publish_flag, hidden_flag, id;
+	private String thumbnail, post_title, post_content, publish_flag, hidden_flag, id;
 	private String[] tags;
-	
 	public int getPost_num() {
 		return post_num;
 	}
 	public void setPost_num(int post_num) {
 		this.post_num = post_num;
 	}
-	public String getThumnail() {
-		return thumnail;
+	public String getThumbnail() {
+		return thumbnail;
 	}
-	public void setThumnail(String thumnail) {
-		this.thumnail = thumnail;
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
 	}
 	public String getPost_title() {
 		return post_title;
@@ -55,5 +54,5 @@ public class PostVO {
 	public void setTags(String[] tags) {
 		this.tags = tags;
 	}
-	
+
 }
