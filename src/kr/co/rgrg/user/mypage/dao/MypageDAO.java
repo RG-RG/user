@@ -147,6 +147,7 @@ public class MypageDAO {
 		
 		SqlSession ss = GetRgrgHandler.getInstance().getSqlSession();
 		pass = ss.selectOne("selectPass", pcVO);
+		ss.close();
 		
 		return pass;
 	}
