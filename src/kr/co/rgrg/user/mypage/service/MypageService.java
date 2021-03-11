@@ -167,7 +167,7 @@ public class MypageService {
 		boolean flag = false;
 		
 		MypageDAO mDAO = MypageDAO.getInstance();
-		if(pcVO.getPass() == mDAO.selectPass(pcVO)) {
+		if(pcVO.getPass().equals(mDAO.selectPass(pcVO))) {
 			flag = true;
 		}
 		
