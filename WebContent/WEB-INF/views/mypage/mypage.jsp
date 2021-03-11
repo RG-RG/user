@@ -58,6 +58,8 @@
         });
         $("#blog_name_save").click(function(){
         	saveBlogName();
+        	let newBlogName = document.getElementById("blog_name_input").value;
+        	$("#blog_name").innerText = newBlogName;
         });
         
         /* 소셜 정보 변경 */
