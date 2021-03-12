@@ -12,4 +12,19 @@
 		</where>
 		</if>
 	</select>
+
+  	<select id="selectTotalFollowCnt" parameterType="kr.co.rgrg.user.pagination.TotalFollowCntVO" resultType="int">
+		select count(*)
+		from ${ table_name }
+		<if test="column_name neq null">
+		<where>
+		${ column_name } = #{ column_value }
+		</where>
+		</if>
+		<if test="column_name2 neq null">
+		<where>
+		${ column_name2 } = #{ column_value2 }
+		</where>
+		</if>
+	</select>
 </mapper>

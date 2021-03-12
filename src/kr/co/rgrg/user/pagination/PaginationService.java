@@ -17,6 +17,20 @@ public class PaginationService {
 	}//getTotalCnt
 	
 	/**
+	 * 테이블명, 컬럼명, 컬럼값을 저장하는 TotalCntVO를 매개변수로 받아 조건에 맞는 행의 수를 구하는 method
+	 * tcVO 중 테이블명은 반드시 값을 가지고 있어야하고, 컬럼명과 컬럼값은 null이어도 된다.
+	 * @param tfcVO
+	 * @return
+	 */
+	public int getTotalFollowCnt(TotalFollowCntVO tfcVO) {
+		int cnt=0;
+		
+		cnt=PaginationDAO.getInstance().selectTotalFollowCnt(tfcVO);
+		
+		return cnt;
+	}//getTotalFollowCnt
+	
+	/**
 	 * 한 페이지에서 보여줄 게시글의 수 (10개)
 	 * @return
 	 */

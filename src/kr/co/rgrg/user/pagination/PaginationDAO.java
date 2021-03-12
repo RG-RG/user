@@ -28,4 +28,14 @@ public class PaginationDAO {
 		return cnt;
 	}//selectTotalCnt
 	
+	public int selectTotalFollowCnt(TotalFollowCntVO tfcVO) {
+		int cnt=0;
+		
+		SqlSession ss=GetRgrgHandler.getInstance().getSqlSession();
+		cnt=ss.selectOne("selectTotalFollowCnt", tfcVO);
+		ss.close();
+		
+		return cnt;
+	}//selectTotalFollowCnt
+	
 }//class
