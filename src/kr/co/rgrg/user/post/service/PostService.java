@@ -8,6 +8,7 @@ import kr.co.rgrg.user.post.vo.PostVO;
 
 public class PostService {
 	
+	
 	/**
 	 * 게시글 저장
 	 * @param pVO
@@ -41,31 +42,31 @@ public class PostService {
 	}
 	
 	/**
-	 * 게시글 조회
+	 * 임시저장된 글의 post_num을 검색
+	 * @param id
+	 * @return
+	 */
+	public String searchPublishPost(String id) {
+		
+		PostDAO pDAO = PostDAO.getInstance();
+		String post_num = pDAO.selectPublishPost(id);
+	
+		return post_num;
+	}
+	
+	/**
+	 * 게시글 조회, 임시저장된 게시글 조회
 	 * @param post_num
 	 * @return
 	 */
-	public PostDomain displayPost(String post_num) {
+	public PostDomain searchEditPost(String post_num) {
 		PostDomain pDomain = null;
 		
 		PostDAO pDAO = PostDAO.getInstance();
 		pDomain = pDAO.selectPost(post_num);
-		
+		pDomain.setTag_name(pDAO.selectTags(pDomain));
 		return pDomain;
 	}
 	
-	/**
-	 * 게시글 삭제
-	 * @param post_num
-	 * @return
-	 */
-	public boolean deletePost(String post_num) {
-		boolean result = false;
-		
-		PostDAO pDAO = PostDAO.getInstance();
-		if(pDAO.deletePost(post_num) + pDAO.deleteTag(post_num) > 0) {
-			result = true;
-		}
-		return result;
-	}
+
 }

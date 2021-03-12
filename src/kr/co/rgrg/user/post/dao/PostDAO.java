@@ -1,6 +1,7 @@
 package kr.co.rgrg.user.post.dao;
 
-import java.util.Map;
+
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -37,20 +38,6 @@ public class PostDAO {
 		ss.commit();
 		ss.close();
 		return result;
-	}
-	
-	/**
-	 * 최근에 저장된 게시글의 게시글 번호를 조회
-	 * - 태그를 저장할  때 필요
-	 * @param id
-	 * @return
-	 */
-	public int selectPostNum(String id) {
-		int post_num = 0;
-		
-		// selectKey 사용하는 방법 알아보기
-		
-		return post_num;
 	}
 	
 	/**
@@ -100,6 +87,21 @@ public class PostDAO {
 	}
 	
 	/**
+	 * 임시저장된 글이 있는지 검색
+	 * @param id
+	 * @return
+	 */
+	public String selectPublishPost(String id) {
+		String post_num = "";
+		
+		SqlSession ss = GetRgrgHandler.getInstance().getSqlSession();
+		post_num = ss.selectOne("selectPublishCnt", id);
+		ss.close();
+		
+		return post_num; 
+	}
+	
+	/**
 	 * 임시저장, 수정할 게시글을 불러옴
 	 *  - 태그 조회 아직 포함안됨
 	 * @param post_num
@@ -116,17 +118,18 @@ public class PostDAO {
 	}
 	
 	/**
-	 * 게시글 삭제
-	 * @param post_num
+	 * 저장된 글의 태그들 조회하기
+	 * @param pDomain
 	 * @return
 	 */
-	public int deletePost(String post_num) {
-		int result = 0;
+	public List<String> selectTags(PostDomain pDomain) {
+		
 		
 		SqlSession ss = GetRgrgHandler.getInstance().getSqlSession();
-		result = ss.delete("deletePost", post_num);
+		List<String> tag_name = ss.selectList("selectTag", pDomain);
 		ss.close();
 		
-		return result;
+		return tag_name;
 	}
+	
 }

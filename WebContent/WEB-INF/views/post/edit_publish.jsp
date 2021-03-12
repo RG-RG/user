@@ -46,7 +46,7 @@
   	<input type="hidden" name="post_content" value="${ param.post_content }"/>
   	<input type="hidden" name="hidden_flag" value="T"/>
   	<input type="hidden" name="publish_flag" value="T"/>
-  	<input type="hidden" name="thumbnail" value="post.jpg"/>
+  	<input type="hidden" name="thumbnail" value="${ param.thumbnail }"/>
   </form>
     <section class="publish_section">
       <div class="publish">

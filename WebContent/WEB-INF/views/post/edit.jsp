@@ -20,6 +20,7 @@
 	<link rel="stylesheet"	href="${pageContext.request.contextPath}/css/post/style.css" />
     <script>
       $(function () {
+    	  editor.setHtml($("#post_content").val());
         $("#post_tag").keydown(function (key) {
           let $div = $("<div class='tag' >" + $("#post_tag").val() + "</div>");
           let $tag = $("<input type='hidden' name='tags' value='" + $("#post_tag").val() +"' />")
@@ -47,17 +48,29 @@
         });
         
         $("#save_content").click(function(){
-        	html_save();
+        	save_post();
+        	
+        	$("#post_form").submit();
         })
-      });
+        
+        $("#save_no_publish").click(function(){
+        	save_post();
+        	$("#publish_flag").val("F");
+        	$("#post_form").attr("action", "/rgrg/post/new_post.do")
+        	$("#post_form").submit();
+        })
+    });
     </script>
   </head>
   <body>
     <section class="editor_content">
       <div class="title_area">
-        <textarea type="text" rows="1" class="post_title" name="post_title" id="title" placeholder="제목을 입력해주세요"></textarea>
+        <textarea type="text" rows="1" class="post_title" name="post_title" id="title" placeholder="제목을 입력해주세요">${ post_data.post_title }</textarea>
         <div class="title_line"></div>
         <div class="tag_area" id="tag_area">
+         	<c:forEach var="tag" items="${ post_data.tag_name }">
+  			<div class="tag">${ tag }</div>
+  			</c:forEach>
           <input type="text" class="post_tag" id="post_tag" placeholder="태그를 입력해주세요" />
         </div>
       </div>
@@ -70,7 +83,7 @@
             <button class="post_btn save_post" id="save_content" form="post_form">출간하기</button>
           </div>
           <div class="temporary_btn">
-            <button class="post_btn temporary_post">임시저장</button>
+            <button class="post_btn temporary_post" id="save_no_publish" form="post_form" >임시저장</button>
           </div>
         </div>
       </div>
@@ -89,15 +102,22 @@
           hideModeSwitch: true,
         });
         
-        function html_save(){
+        function save_post(){
+        	$("#post_title").val($("#title").val())
         	$("#post_content").val(editor.getHtml());
         }
       </script>
     </section>
 
     <form action="/rgrg/post/post_publish.do" method="post" id="post_form">
-    	<input type="hidden" name="post_title" id="post_title"/>
-    	<input type="hidden" name="post_content" id="post_content"/>
+    	<input type="hidden" name="post_title" id="post_title" value="${ post_data.post_title }"/>
+    	<input type="hidden" name="post_content" id="post_content" value="${ post_data.post_content }"/>
+    	<input type="hidden" name="thumbnail" id="thumbnail" value="${ post_data.thumbnail }"/>
+    	<input type="hidden" name="publish_flag" id="publish_flag" value="${ post_data.publish_flag }"/>
+   	  	<c:forEach var="tag" items="${ post_data.tag_name }">
+  		<input type="hidden" name="tags" value="${ tag }"/>
+  		</c:forEach>
+  		<input type="hidden" name="hidden_flag" value="F"/>
     </form>
   </body>
 </html>

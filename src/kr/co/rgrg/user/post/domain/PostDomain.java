@@ -2,9 +2,13 @@ package kr.co.rgrg.user.post.domain;
 
 import java.util.List;
 
+/**
+ * @author doyeon
+ *
+ */
 public class PostDomain {
-	private String post_num, thumbnail, post_title, id, nickname, post_content, publish_flag, hidden_flag;
-	private String[] tags;
+	private String post_num, thumbnail, post_title, id, post_content, publish_flag, hidden_flag;
+	private List<String> tag_name;
 	public String getPost_num() {
 		return post_num;
 	}
@@ -29,12 +33,6 @@ public class PostDomain {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getNickname() {
-		return nickname;
-	}
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
-	}
 	public String getPost_content() {
 		return post_content;
 	}
@@ -53,12 +51,13 @@ public class PostDomain {
 	public void setHidden_flag(String hidden_flag) {
 		this.hidden_flag = hidden_flag;
 	}
-	public String[] getTags() {
-		return tags;
+	public List<String> getTag_name() {
+		return tag_name;
 	}
-	public void setTags(String[] tags) {
-		this.tags = tags;
+	public void setTag_name(List<String> tag_name) {
+		this.tag_name = tag_name;
 	}
+
 	
-	
+		
 }
