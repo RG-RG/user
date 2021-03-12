@@ -8,8 +8,12 @@ import kr.co.rgrg.user.blog.dao.BlogPostDAO;
 import kr.co.rgrg.user.blog.domain.CommDomain;
 import kr.co.rgrg.user.blog.domain.PostDetailDomain;
 import kr.co.rgrg.user.blog.domain.PostProfileDomain;
+import kr.co.rgrg.user.blog.vo.AddCommVO;
 import kr.co.rgrg.user.blog.vo.FollowerVO;
+import kr.co.rgrg.user.blog.vo.LikePostVO;
+import kr.co.rgrg.user.blog.vo.ModifyCommVO;
 import kr.co.rgrg.user.blog.vo.PostDeleteVO;
+import kr.co.rgrg.user.blog.vo.RemoveCommVO;
 
 public class BlogPostService {
 	
@@ -37,11 +41,44 @@ public class BlogPostService {
 	public Boolean getFollowFlag(FollowerVO fVO) {
 		Boolean flag=false;
 		String id=BlogPostDAO.getInstance().selectFollowFlag(fVO);
-		if(!"".equals(id)) {
+		if(!"".equals(id) && id!=null) {
 			flag=true;
 		}//end if
 		return flag;
 	}//getFollowFlag
+	
+	public Boolean getLikeFlag(LikePostVO lpVO) {
+		Boolean flag=false;
+		String id=BlogPostDAO.getInstance().selectLikePostFlag(lpVO);
+		if(!"".equals(id) && id!=null) {
+			flag=true;
+		}//end if
+		return flag;
+	}//getLikeFlag
+	
+	public String addLikePost(LikePostVO lpVO) {
+		JSONObject json=new JSONObject();
+		json.put("flag", "fail");
+
+		int cnt=BlogPostDAO.getInstance().insertLikePost(lpVO);
+		if(cnt==1) {
+			json.put("flag", "success");
+		}//end if
+		
+		return json.toJSONString();
+	}//addLikePost
+	
+	public String removeLikePost(LikePostVO lpVO) {
+		JSONObject json=new JSONObject();
+		json.put("flag", "fail");
+		
+		int cnt=BlogPostDAO.getInstance().deleteLikePost(lpVO);
+		if(cnt==1) {
+			json.put("flag", "success");
+		}//end if
+		
+		return json.toJSONString();
+	}//removeLikePost
 	
 	public String removePost(PostDeleteVO pdVO) {
 		JSONObject json=new JSONObject();
@@ -54,5 +91,45 @@ public class BlogPostService {
 		
 		return json.toJSONString();
 	}//removePost
+	
+	//¥Ò±€
+	//¥Ò±€ ¿€º∫
+	public String addComm(AddCommVO acVO) {
+		JSONObject json=new JSONObject();
+		json.put("flag", "fail");
+		
+		int cnt=BlogPostDAO.getInstance().insertComm(acVO);
+		if(cnt==1) {
+			json.put("flag", "success");
+		}//end if
+		
+		return json.toJSONString();
+	}//addComm
+	
+	//¥Ò±€ ºˆ¡§
+	public String modifyComm(ModifyCommVO mcVO) {
+		JSONObject json=new JSONObject();
+		json.put("flag", "fail");
+		
+		int cnt=BlogPostDAO.getInstance().updateComm(mcVO);
+		if(cnt==1) {
+			json.put("flag", "success");
+		}//end if
+		
+		return json.toJSONString();
+	}//modifyComm
+	
+	//¥Ò±€ ªË¡¶
+	public String reomveComm(RemoveCommVO rcVO) {
+		JSONObject json=new JSONObject();
+		json.put("flag", "fail");
+		
+		int cnt=BlogPostDAO.getInstance().updateCommDeleteFlag(rcVO);
+		if(cnt==1) {
+			json.put("flag", "success");
+		}//end if
+		
+		return json.toJSONString();
+	}//removeComm
 	
 }//class

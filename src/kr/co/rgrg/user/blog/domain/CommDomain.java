@@ -2,6 +2,7 @@ package kr.co.rgrg.user.blog.domain;
 
 public class CommDomain {
 	private String id, profile_img, nickname, comm_content, input_date;
+	private int comm_num;
 
 	public String getId() {
 		return id;
@@ -41,6 +42,14 @@ public class CommDomain {
 
 	public void setInput_date(String input_date) {
 		this.input_date = input_date;
+	}
+
+	public int getComm_num() {
+		return comm_num;
+	}
+
+	public void setComm_num(int comm_num) {
+		this.comm_num = comm_num;
 	}
 	
 }//class

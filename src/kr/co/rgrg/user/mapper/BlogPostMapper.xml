@@ -36,9 +36,10 @@
 	</select>
 	
   	<select id="selectCommList" parameterType="int" resultType="kr.co.rgrg.user.blog.domain.CommDomain">
-		select member.id, profile_img, nickname, comm_content, to_char(comm.input_date, 'yyyy:mm:dd hh24:mi') input_date
+		select comm_num, member.id, profile_img, nickname, comm_content, to_char(comm.input_date, 'yyyy:mm:dd hh24:mi') input_date
 		from member, comm
-		where post_num=#{ post_num } and member.id=comm.id
+		where post_num=#{ post_num } and member.id=comm.id and delete_flag='F'
+		order by input_date
 	</select>
 	
 	<select id="selectFollow" parameterType="kr.co.rgrg.user.blog.vo.FollowerVO" resultType="String">
@@ -47,9 +48,42 @@
 		where id=#{id} and follower_id=#{follower_id}
 	</select>
 	
+	<select id="selectLikePost" parameterType="kr.co.rgrg.user.blog.vo.LikePostVO" resultType="String">
+		select id
+		from like_post
+		where id=#{id} and post_num=#{post_num}
+	</select>
+	
+	<insert id="insertLikePost" parameterType="kr.co.rgrg.user.blog.vo.LikePostVO">
+		insert into like_post(id, post_num)
+		values(#{id}, #{post_num})
+	</insert>
+	
+	<delete id="deleteLikePost" parameterType="kr.co.rgrg.user.blog.vo.LikePostVO">
+		delete like_post
+		where id=#{id} and post_num=#{post_num}
+	</delete>
+	
 	<update id="updatePostDeletFlag" parameterType="kr.co.rgrg.user.blog.vo.PostDeleteVO">
 		update post
 		set	delete_flag='T', thumbnail = '', post_title='', post_content = '', publish_flag='', hidden_flag=''
 		where post_num = #{post_num} and id = #{id}
+	</update>
+	
+	<insert id="insertComm" parameterType="kr.co.rgrg.user.blog.vo.AddCommVO">
+		insert into comm(COMM_NUM, ID, POST_NUM, COMM_CONTENT)
+		values(seq_comm_num.nextval, #{id}, #{post_num}, #{comm_content});
+	</insert>
+	
+	<update id="updateComm" parameterType="kr.co.rgrg.user.blog.vo.ModifyCommVO">
+		update comm
+		set comm_content=#{comm_content}
+		where comm_num=#{comm_num}
+	</update>
+	
+	<update id="updateCommDeleteFlag" parameterType="kr.co.rgrg.user.blog.vo.RemoveCommVO">
+		update comm
+		set delete_flag='T', comm_content=''
+		where id=#{id} and comm_num=#{comm_num}
 	</update>
 </mapper>

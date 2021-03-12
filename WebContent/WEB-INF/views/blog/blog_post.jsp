@@ -16,8 +16,8 @@ if(${ not empty post_detail_fail}){
     <title>블로그 글 보기</title>
     <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 
-    <link rel="stylesheet" href="http://localhost/rgrg_user/css/blog/reset.css" >
-    <link rel="stylesheet" href="http://localhost/rgrg_user/css/blog/blog_post.css">
+    <link rel="stylesheet" href="http://localhost/css/blog/reset.css" >
+    <link rel="stylesheet" href="http://localhost/css/blog/blog_post.css">
     
 </head>
 
@@ -67,7 +67,106 @@ $(function(){
 			alert("로그인 후 다시 시도해주세요.")
 		}
 	});//click
+	
+	$("#postLike").click(function(){
+		if(${ not empty sessionScope.id }){
+			if(${like_flag}){
+				url="like/remove/${post_detail.post_num}"
+			}else{
+				url="like/add/${post_detail.post_num}"
+			}//end else
+			$.ajax({
+				url:url,
+				type:"POST",
+				dataType:"JSON",
+				error:function(xhr){
+					alert("에러");
+					console.log(xhr.status+" / "+xhr.statusText);
+				},
+				success:function(jsonObj){
+			      	if(jsonObj.flag=="success"){
+						//디자인 수정
+			      	}else{
+			      		alert("문제가 발생하였습니다. 다시 시도해주세요.")
+			      	}//end else
+				}//success
+			});//ajax
+		}else{
+			alert("로그인 후 다시 시도해주세요.")
+		}//end else
+	});//click
+	
+	$("#btn_follow").click(function(){
+		if(${ not empty sessionScope.id }){
+			if(${follow_flag}){
+				url="팔로우 취소"
+				text="unfollow"
+			}else{
+				url="팔로우 추가"
+				text="follow"
+			}//end else
+			$.ajax({
+				url:url,
+				type:"POST",
+				dataType:"JSON",
+				error:function(xhr){
+					alert("에러");
+					console.log(xhr.status+" / "+xhr.statusText);
+				},
+				success:function(jsonObj){
+			      	if(jsonObj.flag=="success"){
+						$("#btn_follow").text(text)
+						
+			      	}else{
+			      		alert("문제가 발생하였습니다. 다시 시도해주세요.")
+			      	}//end else
+				}//success
+			});//ajax
+		}else{
+			alert("로그인 후 다시 시도해주세요.")
+		}//end else
+	});//click
+	
 });//ready
+
+function commModifyClk(comm_num){
+	if($("#commModify"+comm_num).text()=="수정"){
+		$("#commModify"+comm_num).text("취소");
+		input='<textarea class="c_input" type="text" placeholder="댓글을 입력해주세요.">'+$("comm_content_"+comm_num).text()+'</textarea>'
+         +'<div><input type="checkbox" name="chk_secret" value="true">'
+         +'<span class="btn_comment">댓글 수정</span></div>';
+	 	$("comm_content_"+comm_num).html(input);
+	}else{
+		$("#commModify"+comm_num).text("수정");
+	}//end else
+}//commModifyClk
+
+function commRemoveClk(comm_num){
+	if(${ not empty sessionScope.id }){
+		if(confirm("댓글을 삭제하시겠습니까?")){
+			$.ajax({
+				url:"comm/remove/${post_detail.post_num}",
+				type:"POST",
+				dataType:"JSON",
+				error:function(xhr){
+					alert("에러");
+					console.log(xhr.status+" / "+xhr.statusText);
+				},
+				success:function(jsonObj){
+			      	if(jsonObj.flag=="success"){
+					 	$("comm_div_"+comm_num).html("");
+			      	}else{
+			      		alert("문제가 발생하였습니다. 다시 시도해주세요.")
+			      	}//end else
+				}//success
+			});//ajax
+			
+		}//end if
+	}else{
+		alert("로그인 후 다시 시도해주세요.")
+	}//end else
+}//commRemoveClk
+
 </script>
 
 <body>
@@ -88,7 +187,13 @@ $(function(){
         <!-- 왼쪽의 좋아요/댓글/공유 -->
         <div class="post_side_tab">
             <ul>
-                <li><i class="far fa-heart"></i></li>
+                <li id="postLike">
+                <c:choose>
+                <c:when test="${ like_flag }"></c:when>
+                <c:when test="${ not like_flag }"></c:when>
+                </c:choose>
+                <i class="far fa-heart"></i>
+                </li>
                 <li><c:out value="${ post_detail.like_cnt }"/></li>
                 <li><i class="far fa-comment-alt"></i></li>
                 <li><c:out value="${ post_detail.comment_cnt }"/></li>
@@ -130,7 +235,7 @@ $(function(){
                     <div class="w_nickname">
                     	<span class="nickname"><c:out value="${ post_profile.nickname }"/></span>
                     	<c:if test="${ sessionScope.id!=post_profile.id }">
-                    		<span class="btn_follow">
+                    		<span id="btn_follow" class="btn_follow">
 	                    	<c:if test="${ follow_flag }">
                     		unfollow
                     		</c:if>
@@ -159,13 +264,14 @@ $(function(){
                 </div>
             </div>
             <!-- 댓글 목록 -->
-            <!-- 목록의 수정, 삭제는 본인에게만 보이도록 확인해야 할 것 같음 -->
             <div class="comments_list">
+            
             <c:if test="${ empty comm_list }">
 			<div>댓글이 없습니다.</div>
 			</c:if>
+			
 			<c:forEach var="comm" items="${ comm_list }">
-            <div class="comment">
+            <div id="comm_div_${ comm.comm_num }" class="comment">
                 <div class="c_writer_info">
                     <img src="https://cdn.pixabay.com/photo/2018/04/20/17/18/${ comm.profile_img }">
                     <div>
@@ -174,20 +280,22 @@ $(function(){
                     </div>
                     <div>
                     <c:if test="${ sessionScope.id==comm.id }">
-                        <span>수정</span><span>삭제</span>
+                        <span id="commModify${ comm.comm_num }" onclick="commModifyClk(${ comm.comm_num })">수정</span>
+                        <span id="commRemove" onclick="commRemoveClk(${ comm.comm_num })">삭제</span>
                     </c:if>
                     </div>
                 </div>
-                <div class="c_content">
+                <div id="comm_content_${ comm.comm_num }" class="c_content">
                 <c:out value="${ comm.comm_content }"/>
                 </div>
             </div>
 			</c:forEach>
+			
             </div>
         </div>
     </section>
     
 </body>
-<script src="http://localhost/rgrg_user/js/control_navbar.js"></script>
+<script src="http://localhost/js/control_navbar.js"></script>
 
 </html>
