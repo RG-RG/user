@@ -7,7 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import kr.co.rgrg.user.dao.GetRgrgHandler;
 import kr.co.rgrg.user.follow.domain.FollowDomain;
 import kr.co.rgrg.user.follow.vo.FollowVO;
-import kr.co.rgrg.user.pagination.RangeVO;
+import kr.co.rgrg.user.pagination.FollowRangeVO;
 
 public class FollowDAO {
 
@@ -25,14 +25,14 @@ public class FollowDAO {
 	
 	/**
 	 * 팔로워 목록을 가져오는 일
-	 * @param rVO
+	 * @param frVO
 	 * @return
 	 */
-	public List<FollowDomain> selectFollower(RangeVO rVO){
+	public List<FollowDomain> selectFollower(FollowRangeVO frVO){
 		List<FollowDomain> list = null;
 		
 		SqlSession ss = GetRgrgHandler.getInstance().getSqlSession();
-		list = ss.selectList("kr.co.rgrg.user.follow.selectFollower", rVO);
+		list = ss.selectList("kr.co.rgrg.user.follow.selectFollower", frVO);
 		ss.close();
 		
 		return list;
@@ -40,33 +40,18 @@ public class FollowDAO {
 	
 	/**
 	 * 팔로잉 목록을 가져오는 일
-	 * @param rVO
+	 * @param frVO
 	 * @return
 	 */
-	public List<FollowDomain> selectFollowing(RangeVO rVO){
+	public List<FollowDomain> selectFollowing(FollowRangeVO frVO){
 		List<FollowDomain> list = null;
 		
 		SqlSession ss = GetRgrgHandler.getInstance().getSqlSession();
-		list = ss.selectList("kr.co.rgrg.user.follow.selectFollowing", rVO);
+		list = ss.selectList("kr.co.rgrg.user.follow.selectFollowing", frVO);
 		ss.close();
 		
 		return list;
 	}//selectFollowing
-	
-	/**
-	 * 팔로우 상태를 확인하는 일
-	 * @param fVO
-	 * @return
-	 */
-	public String selectFollowState(FollowVO fVO) {
-		String id = "";
-
-		SqlSession ss = GetRgrgHandler.getInstance().getSqlSession();
-		id = ss.selectOne("kr.co.rgrg.user.follow.selectFollowState", fVO);
-		ss.close();
-		
-		return id;
-	}//selectFollowState
 	
 	/**
 	 * 팔로우를 하는 일

@@ -2,38 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.rgrg.user.follow">
 	
-	<!-- 팔로워 목록을 가져오는 일 column_name : f.ID / column_value : 팔로워 목록을 조회할 아이디 -->
-	<select id="selectFollower" parameterType="kr.co.rgrg.user.pagination.RangeVO" resultType="kr.co.rgrg.user.follow.domain.FollowDomain">
-		select ID, NICKNAME, STATEMENT_MSG, PROFILE_IMG
-		from (select m.ID, m.NICKNAME, m.STATEMENT_MSG, m.PROFILE_IMG, row_number() over(order by f.INPUT_DATE desc) rnum
-				from MEMBER m, FOLLOWER f
-				where f.ID = #{ column_value } and f.FOLLOWER_ID = m.ID)
+	<!-- 팔로워 목록을 가져오는 일 column_value : 팔로워 목록을 조회할 아이디 / column_value2 : 현재 세션에 저장되어 있는 아이디 -->
+	<select id="selectFollower" parameterType="kr.co.rgrg.user.pagination.FollowRangeVO" resultType="kr.co.rgrg.user.follow.domain.FollowDomain">
+		select ID, FOLLOWING_ID, NICKNAME, STATEMENT_MSG, PROFILE_IMG
+		from (select m.ID, ff.FOLLOWING_ID, m.NICKNAME, m.STATEMENT_MSG, m.PROFILE_IMG, row_number() over(order by f.INPUT_DATE desc) rnum
+				from MEMBER m, FOLLOWER f, FOLLOWING ff
+				where f.ID = #{ column_value } and f.FOLLOWER_ID = m.ID and ff.ID(+) = #{ column_value2 } and f.FOLLOWER_ID = ff.FOLLOWING_ID(+))
 		where rnum between #{ start_num } and #{ end_num }
 	</select>
 	
-	<!-- 팔로잉 목록을 가져오는 일 column_name : f.ID / column_value : 팔로잉 목록을 조회할 아이디 -->
-	<select id="selectFollowing" parameterType="kr.co.rgrg.user.pagination.RangeVO" resultType="kr.co.rgrg.user.follow.domain.FollowDomain">
-		select ID, NICKNAME, STATEMENT_MSG, PROFILE_IMG
-		from (select m.ID, m.NICKNAME, m.STATEMENT_MSG, m.PROFILE_IMG, row_number() over(order by f.INPUT_DATE desc) rnum
-				from MEMBER m, FOLLOWING f
-				where ${ column_name } = #{ column_value } and f.FOLLOWING_ID = m.ID)
+	<!-- 팔로잉 목록을 가져오는 일 column_value : 팔로잉 목록을 조회할 아이디 / column_value2 : 현재 세션에 저장되어 있는 아이디 -->
+	<select id="selectFollowing" parameterType="kr.co.rgrg.user.pagination.FollowRangeVO" resultType="kr.co.rgrg.user.follow.domain.FollowDomain">
+		select ID, FOLLOWING_ID, NICKNAME, STATEMENT_MSG, PROFILE_IMG
+		from (select m.ID, f2.FOLLOWING_ID, m.NICKNAME, m.STATEMENT_MSG, m.PROFILE_IMG, row_number() over(order by f1.INPUT_DATE desc) rnum
+				from MEMBER m, FOLLOWING f1, FOLLOWING f2
+				where f1.ID =#{ column_value } and f1.FOLLOWING_ID = m.ID and f2.ID(+) = #{ column_value2 } and f1.FOLLOWING_ID = f2.FOLLOWING_ID(+))
 		where rnum between #{ start_num } and #{ end_num }
-	</select>
-	
-	<!-- 팔로우 상태를 확인하는 일 -->
-	<select id="selectFollowState" parameterType="kr.co.rgrg.user.follow.vo.FollowVO" resultType="String">
-		select f.FOLLOWING_ID
-		from FOLLOWING f, MEMBER m
-		where f.ID = m.ID and f.FOLLOWING_ID = #{ following_id } and m.ID = #{ id }
 	</select>
 	
 	<!-- 팔로우를 하는 일 -->
 	<insert id="insertFollow" parameterType="kr.co.rgrg.user.follow.vo.FollowVO">
 		INSERT ALL
-		INTO FOLLOWER(ID, FOLLOWER_ID) values(#{ following_id }, #{ id });
-		INTO FOLLOWING(ID, FOLLOWING_ID) values(#{ id }, #{ following_id });
+			INTO FOLLOWER(ID, FOLLOWER_ID) VALUES (#{ id }, #{ following_id });
+			INTO FOLLOWING(ID, FOLLOWING_ID) VALUES (#{ following_id }, #{ id });
 		SELECT *
-		FROM DUAL;
+			FROM DUAL;		
 	</insert>
 	
 	<!-- 언팔로우를 하는 일 -->
