@@ -70,5 +70,11 @@ public class RangeVO {
 	public void setEnd_num(int end_num) {
 		this.end_num = end_num;
 	}
+
+	@Override
+	public String toString() {
+		return "RangeVO [column_name=" + column_name + ", column_value=" + column_value + ", start_num=" + start_num
+				+ ", end_num=" + end_num + "]";
+	}
 	
 }//class

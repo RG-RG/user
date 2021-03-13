@@ -7,11 +7,15 @@
 
 	<!-- 메인화면의 글 목록, 최신순 정렬 -->
 	<select id="selectMainList" 
+	parameterType="kr.co.rgrg.user.pagination.RangeVO"
 	resultType="kr.co.rgrg.user.main.domain.UserMainDomain">
-		select post_num, id, post_title, post_content, thumbnail
-		from post
-		where delete_flag='F'
-		order by input_date desc
+		select post_num, id, post_title, post_content, thumbnail, input_date
+		from (
+			select post_num, id, post_title, post_content, thumbnail, input_date, row_number() over(order by input_date desc) rnum
+			from post
+			where delete_flag='F' and hidden_flag='F' and publish_flag='F'
+		)
+		where rnum between #{ start_num } and #{ end_num }
 	</select>
   
 </mapper>
