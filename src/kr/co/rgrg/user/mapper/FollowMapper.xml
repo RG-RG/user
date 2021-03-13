@@ -20,13 +20,26 @@
 		where rnum between #{ start_num } and #{ end_num }
 	</select>
 	
+	<!-- 팔로워 목록 개수를 세는 일 -->
+	<select id="selectFollowerCnt" parameterType="kr.co.rgrg.user.pagination.FollowRangeVO" resultType="int">
+		select count(*)
+		from MEMBER m, FOLLOWER f, FOLLOWING ff
+		where f.ID = #{ column_value } and f.FOLLOWER_ID = m.ID and ff.ID(+) = #{ column_value2 } and f.FOLLOWER_ID = ff.FOLLOWING_ID(+)
+	</select>	
+	
+	<!-- 팔로잉 목록 개수를 세는 일 -->
+	<select id="selectFollowingCnt" parameterType="kr.co.rgrg.user.pagination.FollowRangeVO" resultType="int">
+		select count(*)
+		from MEMBER m, FOLLOWING f1, FOLLOWING f2
+		where f1.ID =#{ column_value } and f1.FOLLOWING_ID = m.ID and f2.ID(+) = #{ column_value2 } and f1.FOLLOWING_ID = f2.FOLLOWING_ID(+)
+	</select>	
+
 	<!-- 팔로우를 하는 일 -->
 	<insert id="insertFollow" parameterType="kr.co.rgrg.user.follow.vo.FollowVO">
-		INSERT ALL
-			INTO FOLLOWER(ID, FOLLOWER_ID) VALUES (#{ id }, #{ following_id });
-			INTO FOLLOWING(ID, FOLLOWING_ID) VALUES (#{ following_id }, #{ id });
-		SELECT *
-			FROM DUAL;		
+		insert all
+		into FOLLOWER (ID, FOLLOWER_ID) values (#{ following_id }, #{ id })
+		into FOLLOWING (ID, FOLLOWING_ID) values (#{ id }, #{ following_id })
+		select * from dual		
 	</insert>
 	
 	<!-- 언팔로우를 하는 일 -->

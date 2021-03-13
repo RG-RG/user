@@ -54,6 +54,36 @@ public class FollowDAO {
 	}//selectFollowing
 	
 	/**
+	 * 팔로워 목록 개수를 세는 일
+	 * @param frVO
+	 * @return
+	 */
+	public int selectFollowerCnt(FollowRangeVO frVO) {
+		int cnt = 0;
+		
+		SqlSession ss = GetRgrgHandler.getInstance().getSqlSession();
+		cnt = ss.selectOne("kr.co.rgrg.user.follow.selectFollowerCnt", frVO);
+		ss.close();
+		
+		return cnt;
+	}//selectFollowerCnt
+	
+	/**
+	 * 팔로잉 목록 개수를 세는 일
+	 * @param frVO
+	 * @return
+	 */
+	public int selectFollowingCnt(FollowRangeVO frVO) {
+		int cnt = 0;
+		
+		SqlSession ss = GetRgrgHandler.getInstance().getSqlSession();
+		cnt = ss.selectOne("kr.co.rgrg.user.follow.selectFollowingCnt", frVO);
+		ss.close();
+		
+		return cnt;
+	}//selectFollowingCnt
+	
+	/**
 	 * 팔로우를 하는 일
 	 * @param fVO
 	 * @return

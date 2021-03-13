@@ -129,7 +129,7 @@ function moreView(url_id, page){
 	}//end if
 	var next_page = +page + 1;
 	$.ajax({
-		url : "get_more_follower",
+		url : "get_more_following",
 		type : "POST",
 		data : "page="+next_page,
 		contentType: "application/x-www-form-urlencoded; charset=utf-8",
@@ -139,7 +139,7 @@ function moreView(url_id, page){
 		},
 		success : function(json){
 			var output = '';
-			$.each(json.follower_list, function(idx, list){
+			$.each(json.following_list, function(idx, list){
 				output += '<table class="table"><tbody>';
 				output += '<tr><td id="imgTd" onclick="moveBlog(\'' + list.id + '\');">';
 				output += '<img src="' + list.profile_img + '" class="rounded-circle" id="profile_img"></td>';
@@ -159,10 +159,10 @@ function moreView(url_id, page){
 				}//end else
 				output += '</td></tr></tbody></table>';
 			});//each
-			$("#followerListDiv").append(output);
+			$("#followingListDiv").append(output);
 			
 			output = '';
-			if ( json.follower_list != null && !json.end ){
+			if ( json.following_list != null && !json.end ){
 				output += '<button type="button" class="btn btn-light" onclick="moreView(\'' + url_id + '\', \''+ next_page + '\');">더보기</button>';
 			}//end if
 			$("#moreDiv").html(output);
@@ -178,18 +178,18 @@ function moreView(url_id, page){
     <section class="section_main">
     	<div id="container">
         	<div id="containerTitle">
-        		팔로워
+        		팔로잉
         	</div>
         	<hr id="titleLine">
         	<div id="containerContent">
-        		<div id="followerListDiv">
-        			<c:if test="${ empty follower_list }">
+        		<div id="followingListDiv">
+        			<c:if test="${ empty following_list }">
 						<table id="zeroTable" class="table">
-							<tr><td id="zero">팔로워 목록이 없습니다.</td></tr>
+							<tr><td id="zero">팔로잉 목록이 없습니다.</td></tr>
 						</table>
         			</c:if>
-        			<c:if test="${ not empty follower_list }">
-        				<c:forEach var="fd" items="${ follower_list }">
+        			<c:if test="${ not empty following_list }">
+        				<c:forEach var="fd" items="${ following_list }">
 						<table class="table">
 						  <tbody>
 						    <tr>
@@ -223,8 +223,8 @@ function moreView(url_id, page){
         			</c:if>
         		</div>
         		<div id="moreDiv">
-        		<!-- 더보기O : 팔로워 리스트가 있으면서, list_end가 follower_cnt보다 작거나 같은 경우  -->
-        		<c:if test="${ not empty follower_list && list_end le follower_cnt }">
+        		<!-- 더보기O : 팔로잉 리스트가 있으면서, list_end가 follower_cnt보다 작거나 같은 경우  -->
+        		<c:if test="${ not empty following_list && list_end le following_cnt }">
         			<button type="button" class="btn btn-light" onclick="moreView('${ url_id }', '${ param.page }');">더보기</button>
         		</c:if>
         		</div>
