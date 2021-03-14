@@ -113,6 +113,30 @@
         $("#delete_save").click(function(){
             deleteMember();
         });
+        
+        $("#img_upload_btn").click(function(){
+        	$("#profile_img").click();
+        })
+        
+        $("#profile_img").change(function(){
+        	let profile_img = $("#profile_img").val();
+        	console.log(profile_img)
+            $.ajax({
+                url: "modify_profile_img.do",
+                dataType: "JSON",
+                type: "POST",
+                data: "profile_img=" + profile_img,
+                error:function(xhr){
+              	alert("에러");
+              	console.log(xhr.status+" / "+xhr.statusText);
+                },
+                success: function (jsonObj) {
+                  if(jsonObj.result === "success"){
+                  	console.log("성공")
+                  }
+                },
+              });
+        })
 
       }); //ready
       
@@ -256,17 +280,24 @@
         node_list[1].style.display = "none";
         node_list[2].style.display = "";
       }
+      
+      function upload_profile(){
+    	  
+      }
     </script>
 </head>
 <body>
 	<main>
 		<section class="profile">
 			<div class="img_area">
+				<form  action="" method="post"  enctype="multipart/form-data">
+				</form>
 				<img
-					src="https://cdn.pixabay.com/photo/2021/02/07/09/11/sunset-5990540_960_720.jpg"
+					src="C:/Users/doyeon/git/user/WebContent/images/${ member_data.profile_img }"
 					alt="" class="current_img" />
-				<button class="upload_img_btn">이미지 업로드</button>
-				<button class="delete_img_btn">이미지 제거</button>
+					<input type="file" id="profile_img">
+					<button class="upload_img_btn" id="img_upload_btn">이미지 업로드</button>
+					<button class="delete_img_btn" id="img_delete_btn">이미지 제거</button>
 			</div>
 			<div class="text_area">
 				<div id="display_profile">
