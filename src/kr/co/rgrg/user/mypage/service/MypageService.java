@@ -1,13 +1,10 @@
 package kr.co.rgrg.user.mypage.service;
 
-import java.util.HashMap;
 import java.util.List;
 
-import org.apache.ibatis.session.SqlSession;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
-import kr.co.rgrg.user.dao.GetRgrgHandler;
 import kr.co.rgrg.user.mypage.dao.MypageDAO;
 import kr.co.rgrg.user.mypage.domain.MypageDomain;
 import kr.co.rgrg.user.mypage.domain.StatisticsDomain;
@@ -42,15 +39,17 @@ public class MypageService {
 	 * @param upiVO
 	 * @return
 	 */
-	public boolean modifyProfileImg(UpdateProfileImgVO upiVO) {
-		boolean result = false;
+	public String modifyProfileImg(UpdateProfileImgVO upiVO) {
+		String result = "fail";
+		JSONObject json = new JSONObject();
 		
 		MypageDAO mDAO = MypageDAO.getInstance();
 		if(mDAO.updateProfileImg(upiVO) > 0) {
-			result = true;
+			result = "success";
 		}
 		
-		return result;
+		json.put("result", result);
+		return json.toJSONString();
 	}
 	
 	/**
@@ -163,13 +162,12 @@ public class MypageService {
 	 * @param pcVO
 	 * @return
 	 */
+	PasswordEncoder passwordEncoder;
 	public boolean modifyPassChk(PassChkVO pcVO) {
 		boolean flag = false;
 		
 		MypageDAO mDAO = MypageDAO.getInstance();
-		if(pcVO.getPass().equals(mDAO.selectPass(pcVO))) {
-			flag = true;
-		}
+		flag = passwordEncoder.matches(mDAO.selectPass(pcVO), pcVO.getPass());
 		
 		return flag;
 	}
