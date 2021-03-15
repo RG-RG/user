@@ -3,14 +3,20 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
+<script type="text/javascript">
+if(${ empty blog_profile}){
+	alert("조회 중 문제가 발생하였습니다. 다시 시도해주세요.")
+	location.href=history.back();
+}//end if
+</script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>my Blog main</title>
     <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 
-    <link rel="stylesheet" href="http://localhost/rgrg_user/css/blog/reset.css">
-    <link rel="stylesheet" href="http://localhost/rgrg_user/css/blog/myBlog_main.css">
+    <link rel="stylesheet" href="http://localhost/css/blog/reset.css">
+    <link rel="stylesheet" href="http://localhost/css/blog/myBlog_main.css">
 </head>
 <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> -->
 
@@ -41,16 +47,18 @@ $(function(){
     <section class="section_main">
         <!-- 프로필 화면 -->
         <div class="my_profile">
-            <div class="profile_img"><img src="https://cdn.pixabay.com/photo/2016/01/19/16/49/laptop-1149412_960_720.jpg"></div>
-            <div class="profile_nickname">홍길동</div>
-            <div class="profile_comment">안녕하세요 홍길동입니다. 저의 블로그에 방문해주셔서 감사합니다~~ 함께 공부해보아요~~ 저의 블로그에 방문해주셔서 감사합니다~~ 함께 공부해보아요~~</div>
+            <div class="profile_img"><img src="https://cdn.pixabay.com/photo/2016/01/19/16/49/${ blog_profile.profile_img }"></div>
+            <div class="profile_nickname"><c:out value="${ blog_profile.nickname }"/></div>
+            <div class="profile_comment"><c:out value="${ blog_profile.statement_msg }"/></div>
             <div class="profile_follow">
                 <div>
-                    <span class="f_title">팔로워</span><span class="f_num">123</span>
-                    <span class="f_title">팔로잉</span><span class="f_num">456</span>
+                    <span class="f_title">팔로워</span><span class="f_num"><c:out value="${ blog_profile.follower_cnt }"/></span>
+                    <span class="f_title">팔로잉</span><span class="f_num"><c:out value="${ blog_profile.following_cnt }"/></span>
                 </div>
                 <div>
-                    <i class="fab fa-github"></i><i class="fas fa-link"></i><i class="fas fa-link"></i>
+                    <a href="${ blog_profile.github }"><i class="fab fa-github"></i></a>
+                    <a href="${ blog_profile.website }"><i class="fas fa-link"></i></a>
+                    <a href="${ blog_profile.visible_email }"><i class="fas fa-link"></i></a>
                 </div>
             </div>
         </div> <!-- 프로필화면 end -->
@@ -62,19 +70,19 @@ $(function(){
                 <button class="btn_search">검색</button>
             </div>
             <div>
+            <c:if test="${ sessionScope.id==blog_profile.id }">
                 <span><i class="fas fa-edit"></i>새 글 작성</span>
+            </c:if>
             </div>
         </div> <!-- 검색, 새 글 작성 버튼 end -->
         
         <div class="blog_post">
             <div class="category">
-                <span>카테고리</span>
+                <span>전체 보기(<c:out value="${ blog_profile.post_cnt }"/>)</span>
                 <ul>
-                    <li>태그1</li>
-                    <li>태그2</li>
-                    <li>태그3</li>
-                    <li>태그4</li>
-                    <li>태그5</li>
+                <c:forEach var="tag" items="${ tag_list }">
+                    <li><c:out value="${ tag.tag_name }"/>(<c:out value="${ tag.tag_cnt }"/>)</li>
+                </c:forEach>
                 </ul>
             </div>
             <div class="post_list">
@@ -122,6 +130,6 @@ $(function(){
     </section>
     
 </body>
-<script src="http://localhost/rgrg_user/js/control_navbar.js"></script>
+<script src="http://localhost/js/control_navbar.js"></script>
 
 </html>

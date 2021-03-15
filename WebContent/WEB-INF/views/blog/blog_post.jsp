@@ -226,7 +226,6 @@ function commModifyClk(comm_num){
 function commModifyBtn(comm_num){
 	if(${ not empty sessionScope.id }){
 		if(confirm("댓글을 수정하시겠습니까?")){
-			alert($("#comm_modify_"+comm_num).val())
 			var comm=$("#comm_modify_"+comm_num).val()
 			$.ajax({
 				url:"comm/modify/"+comm_num,
@@ -239,7 +238,9 @@ function commModifyBtn(comm_num){
 				},
 				success:function(jsonObj){
 			      	if(jsonObj.flag=="success"){
+			      		$("#commModify"+comm_num).text("수정");
 			      		$("#comm_content_"+comm_num).html(comm);
+			      		$("#comm_cont_val_"+comm_num).val(comm);
 			      	}else{
 			      		alert("문제가 발생하였습니다. 다시 시도해주세요.")
 			      	}//end else

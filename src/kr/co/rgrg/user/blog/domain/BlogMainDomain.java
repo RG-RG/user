@@ -1,13 +1,15 @@
 package kr.co.rgrg.user.blog.domain;
 
-import java.util.List;
-
 public class BlogMainDomain {
-	private String profile_img, nickname, statement_msg, visible_email, github, website;;
-	private int post_cnt, follower_cnt, following_cnt;
-	private List<TagDomain> tag_list;
-	private List<PostDomain> post_list;
+	private String id, profile_img, nickname, statement_msg, visible_email, github, website;
+	private int follower_cnt, following_cnt, post_cnt;
 	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public String getProfile_img() {
 		return profile_img;
 	}
@@ -44,12 +46,6 @@ public class BlogMainDomain {
 	public void setWebsite(String website) {
 		this.website = website;
 	}
-	public int getPost_cnt() {
-		return post_cnt;
-	}
-	public void setPost_cnt(int post_cnt) {
-		this.post_cnt = post_cnt;
-	}
 	public int getFollower_cnt() {
 		return follower_cnt;
 	}
@@ -62,17 +58,11 @@ public class BlogMainDomain {
 	public void setFollowing_cnt(int following_cnt) {
 		this.following_cnt = following_cnt;
 	}
-	public List<TagDomain> getTag_list() {
-		return tag_list;
+	public int getPost_cnt() {
+		return post_cnt;
 	}
-	public void setTag_list(List<TagDomain> tag_list) {
-		this.tag_list = tag_list;
-	}
-	public List<PostDomain> getPost_list() {
-		return post_list;
-	}
-	public void setPost_list(List<PostDomain> post_list) {
-		this.post_list = post_list;
+	public void setPost_cnt(int post_cnt) {
+		this.post_cnt = post_cnt;
 	}
 	
 }//class

@@ -1,7 +1,8 @@
 package kr.co.rgrg.user.blog.vo;
 
 public class BlogMainVO {
-	private String id, hidden_flag; //hidden_flag="hodden" 이면 숨겨야 함
+	private String id;
+	private Boolean hidden_flag; //hidden_flag=true 이면 숨겨야 함 (기본값 false)
 
 	public String getId() {
 		return id;
@@ -11,12 +12,12 @@ public class BlogMainVO {
 		this.id = id;
 	}
 
-	public String getHidden_flag() {
+	public Boolean getHidden_flag() {
 		return hidden_flag;
 	}
 
-	public void setHidden_flag(String hidden_flag) {
+	public void setHidden_flag(Boolean hidden_flag) {
 		this.hidden_flag = hidden_flag;
 	}
-	
+
 }//class

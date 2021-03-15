@@ -4,6 +4,7 @@ public class TagDomain {
 	
 	private String tag_name;
 	private int tag_cnt;
+	
 	public String getTag_name() {
 		return tag_name;
 	}
