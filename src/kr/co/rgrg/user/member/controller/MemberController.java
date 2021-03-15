@@ -113,28 +113,6 @@ public class MemberController {
 	}//dupEmail
 	
 	/**
-	 * 닉네임 중복을 체크하는 일
-	 * @param nickname
-	 * @return
-	 */
-	@RequestMapping(value="member/dup_nick", method=GET)
-	@ResponseBody
-	public String dupNick(String nickname) {
-		String json = "";
-		json = new MemberService().dupNick(nickname);
-		return json;
-	}//dupNick
-	
-//	/**
-//	 * 로그인 폼을 불러오는 일
-//	 * @return
-//	 */
-//	@RequestMapping(value="member/login_form", method=GET)
-//	public String loginForm() {
-//		return "member/login_form";
-//	}//loginForm
-	
-	/**
 	 * 로그인을 하는 일
 	 * @param lVO
 	 * @param model

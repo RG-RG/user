@@ -70,22 +70,6 @@ public class MemberService {
 	}//dupEmail
 	
 	/**
-	 * 닉네임 중복을 체크하는 일
-	 * @param nickname
-	 * @return
-	 */
-	public String dupNick(String nickname) {
-		String dupNick = "";
-		
-		MemberDAO memDAO = MemberDAO.getInstance();
-		dupNick = memDAO.selectNickname(nickname);
-		JSONObject json = new JSONObject();
-		json.put("dup_nick", dupNick != null);
-		
-		return json.toJSONString();
-	}//dupNick
-	
-	/**
 	 * 로그인을 하는 일
 	 * @param lVO
 	 * @return
