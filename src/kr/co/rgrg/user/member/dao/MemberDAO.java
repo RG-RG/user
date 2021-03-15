@@ -81,21 +81,6 @@ public class MemberDAO {
 	}//selectEmail
 	
 	/**
-	 * 닉네임 중복을 체크하는 일
-	 * @param newNick
-	 * @return
-	 */
-	public String selectNickname(String nickname) {
-		String dupNick = "";
-		
-		SqlSession ss = GetRgrgHandler.getInstance().getSqlSession();
-		dupNick = ss.selectOne("kr.co.rgrg.user.member.selectNickname", nickname);
-		ss.close();
-		
-		return dupNick;
-	}//selectNickname
-	
-	/**
 	 * 로그인을 하는 일
 	 * @param lVO
 	 * @return
