@@ -96,14 +96,16 @@ $(function(){
 		}//end else
 	});//click
 	
-	$("#btn_follow").click(function(){
+ 	$("#btn_follow").click(function(){
 		if(${ not empty sessionScope.id }){
+			var url="";
+			var text="";
 			if(${follow_flag}){
-				url="팔로우 취소"
-				text="unfollow"
+				url="팔로우 취소";
+				text="unfollow";
 			}else{
-				url="팔로우 추가"
-				text="follow"
+				url="팔로우 추가";
+				text="follow";
 			}//end else
 			$.ajax({
 				url:url,
@@ -115,37 +117,74 @@ $(function(){
 				},
 				success:function(jsonObj){
 			      	if(jsonObj.flag=="success"){
-						$("#btn_follow").text(text)
-						
+						$("#btn_follow").text(text);
 			      	}else{
-			      		alert("문제가 발생하였습니다. 다시 시도해주세요.")
+			      		alert("문제가 발생하였습니다. 다시 시도해주세요.");
 			      	}//end else
 				}//success
 			});//ajax
 		}else{
-			alert("로그인 후 다시 시도해주세요.")
+			alert("로그인 후 다시 시도해주세요.");
+		}//end else
+	});//click
+	
+ 	$("#commAddClk").click(function(){
+		if(${ not empty sessionScope.id }){
+			var comm=$("#commAddCont").val()
+			$.ajax({
+				url:"comm/add/${post_detail.post_num}",
+				type:"POST",
+				data:{comm_content:comm},
+				dataType:"JSON",
+				error:function(xhr){
+					alert("에러");
+					console.log(xhr.status+" / "+xhr.statusText);
+				},
+				success:function(jsonObj){
+			      	if(jsonObj.flag=="success"){
+						var input="";
+						input+='<div id="comm_div_'+jsonObj.comm_num+'" class="comment">'
+						input+='<div class="c_writer_info">'
+						input+='<img src="https://cdn.pixabay.com/photo/2018/04/20/17/18/'+jsonObj.profile_img+'">'
+						input+='<div>'
+						input+='<span>'+jsonObj.nickname+'</span>'
+						input+='<span>'+jsonObj.input_date+'</span>'
+						input+='</div>'
+						input+='<div>'
+						input+='<span id="commModify'+jsonObj.comm_num+'" onclick="commModifyClk('+jsonObj.comm_num+')" class="btn" >수정</span>'
+						input+='<span id="commRemove" onclick="commRemoveClk('+jsonObj.comm_num+')" class="btn" >삭제</span>'
+						input+='</div>'
+						input+='</div>'
+						input+='<input type="hidden" id="comm_cont_val_'+jsonObj.comm_num+'" value="'+jsonObj.comm_content+'"/>'
+						input+='<div id="comm_content_'+jsonObj.comm_num+'" class="c_content">'
+						input+=jsonObj.comm_content
+						input+='</div>'
+						input+='</div>'
+						$("#comments_list").append(input);
+						$("#commAddCont").val("");
+						commCnt=Number($("#commCnt").text())
+					 	changeCommCnt(commCnt+1);
+			      	}else{
+			      		alert("문제가 발생하였습니다. 다시 시도해주세요.");
+			      	}//end else
+				}//success
+			});//ajax
+		}else{
+			alert("로그인 후 다시 시도해주세요.");
 		}//end else
 	});//click
 	
 });//ready
 
-function commModifyClk(comm_num){
-	if($("#commModify"+comm_num).text()=="수정"){
-		$("#commModify"+comm_num).text("취소");
-		input='<textarea class="c_input" type="text" placeholder="댓글을 입력해주세요.">'+$("comm_content_"+comm_num).text()+'</textarea>'
-         +'<div><input type="checkbox" name="chk_secret" value="true">'
-         +'<span class="btn_comment">댓글 수정</span></div>';
-	 	$("comm_content_"+comm_num).html(input);
-	}else{
-		$("#commModify"+comm_num).text("수정");
-	}//end else
-}//commModifyClk
-
+function changeCommCnt(cnt){
+	$("#commCnt").text(cnt)
+}//changeCommCnt
+	
 function commRemoveClk(comm_num){
 	if(${ not empty sessionScope.id }){
 		if(confirm("댓글을 삭제하시겠습니까?")){
 			$.ajax({
-				url:"comm/remove/${post_detail.post_num}",
+				url:"comm/remove/"+comm_num,
 				type:"POST",
 				dataType:"JSON",
 				error:function(xhr){
@@ -154,18 +193,63 @@ function commRemoveClk(comm_num){
 				},
 				success:function(jsonObj){
 			      	if(jsonObj.flag=="success"){
-					 	$("comm_div_"+comm_num).html("");
+					 	$("#comm_div_"+comm_num).html("");
+					 	commCnt=Number($("#commCnt").text())
+					 	changeCommCnt(commCnt-1);
 			      	}else{
 			      		alert("문제가 발생하였습니다. 다시 시도해주세요.")
 			      	}//end else
 				}//success
 			});//ajax
-			
 		}//end if
 	}else{
 		alert("로그인 후 다시 시도해주세요.")
 	}//end else
 }//commRemoveClk
+
+function commModifyClk(comm_num){
+	var input=""
+	if($("#commModify"+comm_num).text()=="수정"){
+		$("#commModify"+comm_num).text("취소");
+ 		input='<textarea id="comm_modify_'+comm_num+'" class="c_input" type="text" placeholder="댓글을 입력해주세요." style="width:100%">';
+		input+=$("#comm_cont_val_"+comm_num).val()
+		input+='</textarea>';
+        input+='<div><input type="checkbox" name="chk_secret" value="true">';
+        input+='<span onclick="commModifyBtn('+comm_num+')" class="btn_comment btn">댓글 수정</span></div>';
+	}else{
+		$("#commModify"+comm_num).text("수정");
+		input=$("#comm_cont_val_"+comm_num).val()
+	}//end else
+	$("#comm_content_"+comm_num).html(input);
+}//commModifyClk
+
+function commModifyBtn(comm_num){
+	if(${ not empty sessionScope.id }){
+		if(confirm("댓글을 수정하시겠습니까?")){
+			alert($("#comm_modify_"+comm_num).val())
+			var comm=$("#comm_modify_"+comm_num).val()
+			$.ajax({
+				url:"comm/modify/"+comm_num,
+				type:"POST",
+				data:{comm_content:comm},
+				dataType:"JSON",
+				error:function(xhr){
+					alert("에러");
+					console.log(xhr.status+" / "+xhr.statusText);
+				},
+				success:function(jsonObj){
+			      	if(jsonObj.flag=="success"){
+			      		$("#comm_content_"+comm_num).html(comm);
+			      	}else{
+			      		alert("문제가 발생하였습니다. 다시 시도해주세요.")
+			      	}//end else
+				}//success
+			});//ajax
+		}//end if
+	}else{
+		alert("로그인 후 다시 시도해주세요.")
+	}//end else
+}//commModifyBtn
 
 </script>
 
@@ -196,7 +280,7 @@ function commRemoveClk(comm_num){
                 </li>
                 <li><c:out value="${ post_detail.like_cnt }"/></li>
                 <li><i class="far fa-comment-alt"></i></li>
-                <li><c:out value="${ post_detail.comment_cnt }"/></li>
+                <li id="commCnt"><c:out value="${ post_detail.comment_cnt }"/></li>
                 <li id="shareButton"><i class="fas fa-share-alt"></i></li>
             </ul>
         </div>
@@ -207,16 +291,14 @@ function commRemoveClk(comm_num){
                 <div>
                     <span class="writer">by <c:out value="${ post_detail.nickname } "/> </span>
                     <span class="date"><c:out value="${ post_detail.input_date } "/> </span>
-                    <!-- if로 공개/비공개 확인하여 비공개 일 때에만 visible하게 처리해야 함 -->
-                    <!-- '공개'인 경우에는 class에 hidden 추가하게 처리하기 -->
                     <span class="locked"><c:if test="${ post_detail.hidden_flag=='T' }">비공개</c:if></span>
                 </div>
                 <div class="btns">
                 <c:if test="${ sessionScope.id==post_profile.id }">
                     <form id="modifyPost" action="${post_profile.id}/blog/post/modify/${post_detail.post_num}" method="post">
-                    <span>수정</span>
+                    <span class="btn">수정</span>
                     </form>
-                    <a id="removePost"><span>삭제</span></a>
+                    <a id="removePost"><span class="btn">삭제</span></a>
                 </c:if>
                 </div>
             </div>
@@ -256,15 +338,15 @@ function commRemoveClk(comm_num){
             <div class="write_comment">
                 <div class="comment_cnt">댓글 <c:out value="${ post_detail.comment_cnt }"/></div>
                 <div class="comment_input">
-                    <textarea class="c_input" type="text" placeholder="댓글을 입력해주세요."></textarea>
+                    <textarea id="commAddCont" class="c_input" type="text" placeholder="댓글을 입력해주세요."></textarea>
                     <div>
                         <input type="checkbox" name="chk_secret" value="true">
-                        <span class="btn_comment">댓글 쓰기</span>
+                        <span id="commAddClk" class="btn_comment btn">댓글 쓰기</span>
                     </div>
                 </div>
             </div>
             <!-- 댓글 목록 -->
-            <div class="comments_list">
+            <div id="comments_list" class="comments_list">
             
             <c:if test="${ empty comm_list }">
 			<div>댓글이 없습니다.</div>
@@ -280,11 +362,12 @@ function commRemoveClk(comm_num){
                     </div>
                     <div>
                     <c:if test="${ sessionScope.id==comm.id }">
-                        <span id="commModify${ comm.comm_num }" onclick="commModifyClk(${ comm.comm_num })">수정</span>
-                        <span id="commRemove" onclick="commRemoveClk(${ comm.comm_num })">삭제</span>
+                        <span id="commModify${ comm.comm_num }" onclick="commModifyClk(${ comm.comm_num })" class="btn" >수정</span>
+                        <span id="commRemove" onclick="commRemoveClk(${ comm.comm_num })" class="btn" >삭제</span>
                     </c:if>
                     </div>
                 </div>
+                <input type="hidden" id="comm_cont_val_${ comm.comm_num }" value="${ comm.comm_content }"/>
                 <div id="comm_content_${ comm.comm_num }" class="c_content">
                 <c:out value="${ comm.comm_content }"/>
                 </div>

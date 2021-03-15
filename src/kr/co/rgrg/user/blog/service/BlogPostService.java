@@ -98,9 +98,15 @@ public class BlogPostService {
 		JSONObject json=new JSONObject();
 		json.put("flag", "fail");
 		
-		int cnt=BlogPostDAO.getInstance().insertComm(acVO);
-		if(cnt==1) {
+		CommDomain cDomain=BlogPostDAO.getInstance().insertComm(acVO);
+		if(cDomain!=null) {
 			json.put("flag", "success");
+			json.put("comm_num", cDomain.getComm_num());
+			json.put("id", cDomain.getId());
+			json.put("comm_content", cDomain.getComm_content());
+			json.put("nickname", cDomain.getNickname());
+			json.put("profile_img", cDomain.getProfile_img());
+			json.put("input_date", cDomain.getInput_date());
 		}//end if
 		
 		return json.toJSONString();
