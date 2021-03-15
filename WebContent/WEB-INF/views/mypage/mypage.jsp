@@ -118,17 +118,18 @@
         	$("#profile_img").click();
         })
         
+        /* 이미지 업로드 */
         $("#profile_img").change(function(){
-        	let profile_img = $("#profile_img").val();
-        	console.log(profile_img)
+        	let temp = $("#profile_img").val().split("\\");
+        	let profile_img = temp[temp.length-1];
             $.ajax({
                 url: "modify_profile_img.do",
                 dataType: "JSON",
                 type: "POST",
                 data: "profile_img=" + profile_img,
                 error:function(xhr){
-              	alert("에러");
-              	console.log(xhr.status+" / "+xhr.statusText);
+	              	alert("에러");
+	              	console.log(xhr.status+" / "+xhr.statusText);
                 },
                 success: function (jsonObj) {
                   if(jsonObj.result === "success"){
@@ -136,7 +137,30 @@
                   }
                 },
               });
-        })
+
+            let form = new FormData(document.getElementById('image_upload_form'));
+            console.log(form);
+            $.ajax({
+    			url: 'upload_img_file',
+    			enctype: '/multipart/form-data',
+    			data: form,
+    			dataType: 'json',
+    			processData: false,
+    			contentType: false,
+    			type: 'POST',
+    			success: function(data){
+    	            if(data.result.code === "success"){
+    	            	console.log("성공")
+    	            }else{
+    	            	console.log("실패")
+    	            }
+    			},
+    			error: function(error){
+    				alert(error.responseText)
+    			}
+            	
+            });
+        });
 
       }); //ready
       
@@ -290,12 +314,12 @@
 	<main>
 		<section class="profile">
 			<div class="img_area">
-				<form  action="" method="post"  enctype="multipart/form-data">
+				<form id="image_upload_form" action="" method="post"  enctype="multipart/form-data">
+					<input type="file" id="profile_img" name="profile_img" style="display: none">
 				</form>
 				<img
-					src="C:/Users/doyeon/git/user/WebContent/images/${ member_data.profile_img }"
+					src="../../images/profile/${ member_data.profile_img }"
 					alt="" class="current_img" />
-					<input type="file" id="profile_img">
 					<button class="upload_img_btn" id="img_upload_btn">이미지 업로드</button>
 					<button class="delete_img_btn" id="img_delete_btn">이미지 제거</button>
 			</div>
