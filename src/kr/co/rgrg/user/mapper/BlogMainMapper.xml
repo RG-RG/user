@@ -4,32 +4,27 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.rgrg.user.blogmain">
 
-  	<select id="selectProfile" parameterType="String" resultType="kr.co.rgrg.user.blog.domain.ProfileDomain">
-		select profile_img, nickname, statement_msg, visible_email, github, website, following_cnt, follower_cnt
-		from member, 
-			(select count(following_id) following_cnt
-			from following
-			where id=#{id}
-			group by id),
-			(select count(follower_id) follower_cnt
-			from follower
-			where id=#{id}
+  	<select id="selectProfile" parameterType="kr.co.rgrg.user.blog.vo.BlogMainVO"
+  	resultType="kr.co.rgrg.user.blog.domain.PostDomain">
+		select profile_img, nickname, statement_msg, visible_email, github, website,
+				following_cnt, follower_cnt, post_cnt
+		from member,
+			(select count(following_id) following_cnt from following where id=#{id} group by id),
+			(select count(follower_id) follower_cnt from follower where id=#{id} group by id),
+			(select count(id) post_cnt from post where id=#{id} and delete_Flag='F' and publish_Flag='T' 
+			<if test="hidden_flag != null">
+			and hidden_flag='F'
+			</if>
 			group by id)
-		where member.id=#{id}
+		where member.id=#{id};
 	</select>
 	
-	<select id="selectFollowingCnt" parameterType="String" resultType="int">
-		select count(following_id) following_cnt
-		from following
-		where id=#{id}
-		group by id
-	</select>
-
-	<select id="selectFollowerCnt" parameterType="String" resultType="int">
-		select count(follower_id) follower_cnt
-		from follower
-		where id=#{id}
-		group by id;
+	<select id="selectTagList" parameterType="kr.co.rgrg.user.blog.vo.BlogMainVO"
+	resultType="kr.co.rgrg.user.blog.domain.TagDomain">
+		select tag_name
+		from tag, post, member
+		where post.post_num=tag.post_num and member.id=post.id and member.id=#{id}
+		group by tag_name
 	</select>
 	
 </mapper>

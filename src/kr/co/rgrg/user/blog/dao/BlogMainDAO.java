@@ -1,6 +1,5 @@
 package kr.co.rgrg.user.blog.dao;
 
-import kr.co.rgrg.user.blog.domain.ProfileDomain;
 
 public class BlogMainDAO {
 	
@@ -16,10 +15,10 @@ public class BlogMainDAO {
 		return bmDAO;
 	}//getInstance
 	
-	public ProfileDomain selectProfile(String id) {
-		ProfileDomain pDomain=null;
-		
-		return pDomain;
-	}//selectProfile
+//	public ProfileDomain selectProfile(String id) {
+//		ProfileDomain pDomain=null;
+//		
+//		return pDomain;
+//	}//selectProfile
 	
 }//class
