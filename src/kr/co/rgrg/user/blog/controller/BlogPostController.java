@@ -28,7 +28,7 @@ public class BlogPostController {
 	@RequestMapping(value="{url_id}/blog/post/{url_post_num}", method= {RequestMethod.GET, RequestMethod.POST})
 	public String viewPostDetail(Model model, HttpSession session,
 			@PathVariable("url_id") String url_id, @PathVariable("url_post_num") String url_post_num) {
-		session.setAttribute("id", "park");
+		session.setAttribute("id", "kim");
 		
 		try {
 			String session_id=(String)session.getAttribute("id");
@@ -120,7 +120,7 @@ public class BlogPostController {
 	//´ñ±Û
 	
 	//´ñ±Û ÀÛ¼º
-	@RequestMapping(value="*/comm/add/{url_comm_num}", method=RequestMethod.POST)
+	@RequestMapping(value="*/blog/post/comm/add/{url_post_num}", method=RequestMethod.POST, produces="application/json;charset=UTF-8")
 	@ResponseBody
 	public String addComm(HttpSession session,@PathVariable("url_post_num") String url_post_num, AddCommVO acVO) {
 		String json=null;
@@ -137,7 +137,7 @@ public class BlogPostController {
 	}//addComm
 	
 	//´ñ±Û ¼öÁ¤
-	@RequestMapping(value="*/comm/modify/{url_comm_num}", method=RequestMethod.POST)
+	@RequestMapping(value="*/blog/post/comm/modify/{url_comm_num}", method=RequestMethod.POST)
 	@ResponseBody
 	public String modifyComm(@PathVariable("url_comm_num") String url_comm_num, ModifyCommVO mcVO) {
 		String json=null;

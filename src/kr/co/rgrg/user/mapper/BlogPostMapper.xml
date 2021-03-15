@@ -72,8 +72,17 @@
 	
 	<insert id="insertComm" parameterType="kr.co.rgrg.user.blog.vo.AddCommVO">
 		insert into comm(COMM_NUM, ID, POST_NUM, COMM_CONTENT)
-		values(seq_comm_num.nextval, #{id}, #{post_num}, #{comm_content});
+		values(seq_comm_num.nextval, #{id}, #{post_num}, #{comm_content})
 	</insert>
+	
+	<select id="selectAddComm" parameterType="kr.co.rgrg.user.blog.vo.AddCommVO" 
+	resultType="kr.co.rgrg.user.blog.domain.CommDomain">
+		select comm_num, id, profile_img, nickname, comm_content, to_char(input_date, 'yyyy:mm:dd hh24:mi') input_date
+		from (select comm_num, member.id, profile_img, nickname, comm_content, comm.input_date, row_number() over(order by comm.input_date desc) rnum
+			from member, comm
+			where member.id=comm.id and comm.id=#{id} and post_num=#{post_num} and comm_content=#{comm_content})
+		where rnum=1
+	</select>
 	
 	<update id="updateComm" parameterType="kr.co.rgrg.user.blog.vo.ModifyCommVO">
 		update comm

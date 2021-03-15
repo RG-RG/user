@@ -51,5 +51,15 @@ public class CommDomain {
 	public void setComm_num(int comm_num) {
 		this.comm_num = comm_num;
 	}
+
+	@Override
+	public String toString() {
+		return "CommDomain [id=" + id + ", profile_img=" + profile_img + ", nickname=" + nickname + ", comm_content="
+				+ comm_content + ", input_date=" + input_date + ", comm_num=" + comm_num + ", getId()=" + getId()
+				+ ", getProfile_img()=" + getProfile_img() + ", getNickname()=" + getNickname() + ", getComm_content()="
+				+ getComm_content() + ", getInput_date()=" + getInput_date() + ", getComm_num()=" + getComm_num()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
+				+ "]";
+	}
 	
 }//class

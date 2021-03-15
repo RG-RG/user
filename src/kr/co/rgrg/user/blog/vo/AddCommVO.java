@@ -22,5 +22,9 @@ public class AddCommVO {
 	public void setPost_num(int post_num) {
 		this.post_num = post_num;
 	}
+	@Override
+	public String toString() {
+		return "AddCommVO [id=" + id + ", comm_content=" + comm_content + ", post_num=" + post_num + "]";
+	}
 	
 }//class

@@ -110,14 +110,19 @@ public class BlogPostDAO {
 	
 	//´ñ±Û
 	//´ñ±Û ÀÛ¼º
-	public int insertComm(AddCommVO acVO) {
+	public CommDomain insertComm(AddCommVO acVO) {
+		CommDomain cDomain=null;
 		
 		SqlSession ss=GetRgrgHandler.getInstance().getSqlSession();
 		int cnt=ss.insert("kr.co.rgrg.user.blogpost.insertComm",acVO);
+		if(cnt==1) {
+			cDomain=ss.selectOne("kr.co.rgrg.user.blogpost.selectAddComm",acVO);
+		}//end if
+		System.out.println(cDomain);
 		ss.commit();
 		ss.close();
 		
-		return cnt;
+		return cDomain;
 	}//insertComm
 	
 	//´ñ±Û ¼öÁ¤

@@ -5,7 +5,7 @@ import java.util.List;
 public class PostDomain {
 	
 	private String thumbnail, post_title, post_content, input_date, hidden_flag;
-	private int view_cnt, comment_cnt;
+	private int post_num, view_cnt, comment_cnt;
 	private List<String> tag_name;
 	public String getThumbnail() {
 		return thumbnail;
@@ -36,6 +36,12 @@ public class PostDomain {
 	}
 	public void setHidden_flag(String hidden_flag) {
 		this.hidden_flag = hidden_flag;
+	}
+	public int getPost_num() {
+		return post_num;
+	}
+	public void setPost_num(int post_num) {
+		this.post_num = post_num;
 	}
 	public int getView_cnt() {
 		return view_cnt;
