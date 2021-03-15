@@ -22,11 +22,16 @@
 			</c:if>
             <!-- 로그인 됐을 때 : 내 블로그, 보관함 -->
 			<c:if test="${ not empty sessionScope.id }">
-				<li><span><a href="">내 블로그</a></span> / <span><a href="">보관함</a></span></li>
+				<li><span><a href="">내 블로그</a></span> / <span><a href="">내 보관함</a></span></li>
+				<li><span><a href=""></a></span></li>
 			</c:if>
             
-            <li><a href="main.do?sort=like">인기순 보기</a></li>
-            <li><a href="main.do?sort=date">최신순 보기</a></li>
+            <li><a href="main?sort=view_cnt">조회순 보기</a></li>
+            <li><a href="main?sort=input_date">최신순 보기</a></li>
             <li>search</li>
+            <!-- 로그인 됐을 때 : 로그아웃 -->
+			<c:if test="${ not empty sessionScope.id }">
+				<li><span><a href="">로그아웃</a></span></li>
+			</c:if>
         </ul>
     </section>
