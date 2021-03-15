@@ -20,7 +20,7 @@
 .input-group-text{ background-color: #FFFFFF; border-right: none; font-size: 1.5rem; padding: 2.5rem; height: 1rem; color: #333;}
 .form-control{ border-left: none; height: 5.2rem; font-size: 1.5rem; }
 #idLabel, #mailLabel, #nickLabel{ padding-right: 6.9rem }
-#idStatus, #mailStatus, #nickStatus, #passStatus{ font-size: 1.3rem; text-align: right; }
+#idStatus, #mailStatus, #nickStatus, #passStatus, #passLenStatus{ font-size: 1.3rem; text-align: right; }
 #passLabel{ padding-right: 5.6rem }
 #buttons{ margin:0 auto; margin-top: 6rem; width: 30rem }
 .btn-secondary{ margin-left: 2rem; }
@@ -132,54 +132,25 @@ $(function(){
 			}//success
 		});//ajax
 	});//blur
-
-	$("#nickname").keydown(function(evt){
-		var nickname = $("#nickname").val();
-		if( evt.which == 13 || evt.which == 9 ){
-			$.ajax({
-				url : "dup_nick",
-				type : "GET",
-				data : "nickname="+nickname,
-				dataType : "JSON",
-				error : function(xhr){
-					alert("error : " + xhr.status + " / " +xhr.statusText);
-				},
-				success : function(json){
-					if ( json.dup_nick ) { //닉네임 중복
-						$("#nickStatus").css('color', '#D32F2F');
-						$("#nickStatus").html("이미 존재하는 닉네임입니다.");
-						$("#nickStatus").css('display', 'block');
-					} else {
-						$("#nickStatus").css('display', 'none');
-					}//end else
-				}//success
-			});//ajax
-		}//end if
-		if (evt.which == 13){
-			$("#pass").focus();
-		}//end if
-	});//keydown
 	
-	$("#nickname").blur(function(evt){
-		var nickname = $("#nickname").val();
-		$.ajax({
-			url : "dup_nick",
-			type : "GET",
-			data : "nickname="+nickname,
-			dataType : "JSON",
-			error : function(xhr){
-				alert("error : " + xhr.status + " / " +xhr.statusText);
-			},
-			success : function(json){
-				if ( json.dup_nick ) { //닉네임 중복
-					$("#nickStatus").css('color', '#D32F2F');
-					$("#nickStatus").html("이미 존재하는 닉네임입니다.");
-					$("#nickStatus").css('display', 'block');
-				} else {
-					$("#nickStatus").css('display', 'none');
-				}//end else
-			}//success
-		});//ajax
+	$("#pass").keyup(function(evt){
+		if( $("#pass").val().length < 8 ){
+			$("#passLenStatus").css('color', '#D32F2F');
+			$("#passLenStatus").html("비밀번호는 최소 8자 이상이어야 합니다.");
+			$("#passLenStatus").css('display', 'block');
+		}else{
+			$("#passLenStatus").css('display', 'none');
+		}//end else
+	});//keyup
+	
+	$("#pass").blur(function(evt){
+		if( $("#pass").val().length < 8 ){
+			$("#passLenStatus").css('color', '#D32F2F');
+			$("#passLenStatus").html("비밀번호는 최소 8자 이상이어야 합니다.");
+			$("#passLenStatus").css('display', 'block');
+		}else{
+			$("#passLenStatus").css('display', 'none');
+		}//end else	
 	});//blur
 	
 	$("#pass").keydown(function(evt){
@@ -253,14 +224,14 @@ function chkNull(){
 		return;
 	}//end if
 	
-	if ($("#nickStatus").css('display') == 'block'){
-		alert("이미 존재하는 닉네임입니다.");
-		$("#nickname").focus();
-		return;
-	}//end if
-	
 	 if ( !chkEmail($("#auth_email").val()) ) { //이메일 유효성 검사
-		 alert("유효하지 않은 이메일 형식입니다.");
+		alert("유효하지 않은 이메일 형식입니다.");
+	 	return;
+	 }//end if
+	 
+	 if( $("#pass").val().length < 8 ){
+		 alert("비밀번호는 최소 8자 이상이어야 합니다.");
+		 return;
 	 }//end if
 	
 	$("#memberForm").submit();	
@@ -292,11 +263,11 @@ function chkNull(){
 					  <span class="input-group-text" id="nickLabel">닉네임</span>
 					  <input type="text" id="nickname" name="nickname" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="회원님을 나타내는 닉네임을 입력해주세요.">
 					</div>
-					<div id="nickStatus"></div>
 	  				<div class="input-group mb-3">
 					  <span class="input-group-text" id="passLabel">비밀번호</span>
 					  <input type="password" id="pass" name="pass" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="회원님이 사용할 비밀번호를 입력해주세요.">
 					</div>
+					<div id="passLenStatus"></div>
 	  				<div class="input-group mb-3">
 					  <span class="input-group-text">비밀번호 확인</span>
 					  <input type="password" id="passChk" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="비밀번호를 다시 한 번 입력해주세요.">
