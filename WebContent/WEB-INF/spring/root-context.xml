@@ -4,15 +4,12 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-	
+		
+		<!-- 파일 업로드를 위한 Multipart Resolver -->
 	  <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
     	<!--  파일업로드 용량 (10MB)-->
 	    <property name="maxUploadSize" value="10485760"/>
 	    <property name="defaultEncoding" value="UTF-8" />
 	  </bean>
 	  
-	  <!--  파일업로드 디렉토리 설정 -->
-	  <bean id="uploadPath" class="java.lang.String">
-	    <constructor-arg value="C:\Users\doyeon\git\user\WebContent\images"/>
-	  </bean>
 </beans>
