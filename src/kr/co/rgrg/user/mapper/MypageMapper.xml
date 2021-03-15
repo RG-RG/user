@@ -8,7 +8,7 @@
 	</select>
 	<update id="updateProfileImg" parameterType="kr.co.rgrg.user.mypage.vo.UpdateProfileImgVO">
 		update	member
-		set		profile_img = #{profileImg}
+		set		profile_img = #{profile_img}
 		where	id = #{id}
 	</update>
 	<update id="updateProfile" parameterType="kr.co.rgrg.user.mypage.vo.UpdateProfileVO">
