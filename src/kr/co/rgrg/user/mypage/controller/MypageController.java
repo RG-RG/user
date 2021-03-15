@@ -1,12 +1,29 @@
 package kr.co.rgrg.user.mypage.controller;
 
-import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.swing.plaf.multi.MultiFileChooserUI;
+
+import org.json.simple.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import kr.co.rgrg.user.mypage.domain.MypageDomain;
 import kr.co.rgrg.user.mypage.service.MypageService;
@@ -22,6 +39,15 @@ import kr.co.rgrg.user.mypage.vo.UpdateSocialDataVO;
 @Controller
 public class MypageController {
 	
+	private static final Logger logger = LoggerFactory.getLogger(MypageController.class);
+
+	// 업로드된 파일이 저장될 위치
+	private final String PATH = "C:\\Users\\doyeon\\git\\user\\WebContent\\images\\profile\\";
+	
+	//json 데이터로 응답을 보내기 위한
+	@Autowired
+	MappingJackson2JsonView jsonView;
+
 	/**
 	 * Mypage 첫화면
 	 * 
@@ -48,15 +74,50 @@ public class MypageController {
 	 * @param upiVO
 	 * @return
 	 */
-	@RequestMapping(value="/mypage/modify_profile_img.do", method=RequestMethod.GET)
-	public String modifyProfileImg(HttpSession session, UpdateProfileImgVO upiVO, Model model) {
+	@RequestMapping(value="/mypage/modify_profile_img.do", method=RequestMethod.POST)
+	@ResponseBody
+	public String modifyProfileImg(HttpSession session , UpdateProfileImgVO upiVO) throws Exception{
+		upiVO.setId("user1");
 		
 		MypageService ms = new MypageService();
-		boolean result = ms.modifyProfileImg(upiVO);
 		
-		model.addAttribute("result_flag", result);
+		return ms.modifyProfileImg(upiVO);
+	}
+	
+	@RequestMapping(value="/mypage/upload_img_file", method=RequestMethod.POST, produces="text/plain")
+	@ResponseBody
+	public ModelAndView upload(HttpSession session, MultipartHttpServletRequest request) throws Exception{
 		
-		return "mypage/change_img";
+		ModelAndView model = new ModelAndView();
+		model.setView(jsonView);
+		
+		Iterator<String> itr = request.getFileNames();
+		
+		if(itr.hasNext()) {
+			List<MultipartFile> mpf = request.getFiles(itr.next());
+			
+			for(int i= 0; i<mpf.size(); i++) {
+				System.out.println(mpf.get(i));
+				
+				String temp = mpf.get(i).getOriginalFilename().substring(mpf.get(i).getOriginalFilename().lastIndexOf("/")+1);
+				File file = new File(PATH + "user1" + temp);
+				logger.info(file.getAbsolutePath());
+				mpf.get(i).transferTo(file);
+			}
+			
+			JSONObject json = new JSONObject();
+			json.put("code", "success");
+			model.addObject("result", json);
+			return model;
+		} else {
+
+			JSONObject json = new JSONObject();
+			json.put("code", "fail");
+			model.addObject("result", json);
+			return model;
+		}
+	
+	
 	}
 	
 	/**
