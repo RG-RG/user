@@ -29,6 +29,36 @@ if(${ empty blog_profile}){
 $(function(){
 	
 });//ready
+
+function morePost(next_page, search_word, search_tag){
+	alert(next_page);
+	alert(search_word);
+	alert(search_tag);
+	var data;
+	$.ajax({
+		url:"more/"+next_page,
+		type:"POST",
+		if(search_word!=''){
+			data:{search:search_word}
+		}//end if
+		if(search_tag!=''){
+			data:{search:search_tag}
+		}//end if
+		dataType:"JSON",
+		error:function(xhr){
+			alert("에러");
+			console.log(xhr.status+" / "+xhr.statusText);
+		},
+		success:function(jsonObj){
+	      	if(jsonObj.flag=="success"){
+				alert(jsonObj.total_cnt)
+	      	}else{
+	      		alert("삭제 중 문제가 발생하였습니다. 다시 시도해주세요.")
+	      	}//end else
+		}//success
+	});//ajax
+}//morePost
+
 </script>
 <body>
     <section class="section_header">
@@ -78,7 +108,7 @@ $(function(){
         
         <div class="blog_post">
             <div class="category">
-                <span>전체 보기(<c:out value="${ blog_profile.post_cnt }"/>)</span>
+                <span>전체보기(<c:out value="${ blog_profile.post_cnt }"/>)</span>
                 <ul>
                 <c:forEach var="tag" items="${ tag_list }">
                     <li><c:out value="${ tag.tag_name }"/>(<c:out value="${ tag.tag_cnt }"/>)</li>
@@ -86,45 +116,30 @@ $(function(){
                 </ul>
             </div>
             <div class="post_list">
+            <c:forEach var="post" items="${ post_list }">
                 <div class="post">
-                    <div class="post_img"><img src="https://cdn.pixabay.com/photo/2015/09/05/22/33/office-925806__340.jpg"></div>
-                    <div class="post_title">홍길동의 파이썬 기본 문법 정리</div>
-                    <div class="post_content">안녕하세요. 오늘은 파이썬 기본 문법에 대해 정리하려 합니다! 정말 어려워서 힘들었...</div>
-                    <div class="post_tags">#파이썬 #어려워 #잘해지고싶당</div>
-                    <div class="post_info"><span>2021.01.01  12:34</span><span>조회 0</span><span>댓글 0</span></div>
+                    <div class="post_img"><img src="https://cdn.pixabay.com/photo/2015/09/05/22/33/${ post.thumbnail }"></div>
+                    <div class="post_title"  onclick="javascript:location.href ='/rgrg/${ blog_profile.id }/blog/post/${ post.post_num }'">
+                    <c:out value="${ post.post_title }"/>
+                    </div>
+                    <div class="post_content"><c:out value="${ post.post_content.substring(0,4).concat('...') }"/></div>
+                    <div class="post_tags">
+                    <c:forEach var="post_tag" items="${ post.tag_name }">
+                    #<c:out value="${ post_tag }"/>
+                    </c:forEach>
+                    </div>
+                    <div class="post_info">
+                    <span><c:out value="${ post.input_date }"/></span>
+                    <span>조회 <c:out value="${ post.view_cnt }"/></span>
+                    <span>댓글 <c:out value="${ post.comment_cnt }"/></span>
+                    </div>
                 </div>
-
-                <div class="post">
-                    <div class="post_img"><img src="https://cdn.pixabay.com/photo/2015/09/05/22/33/office-925806__340.jpg"></div>
-                    <div class="post_title">홍길동의 파이썬 기본 문법 정리</div>
-                    <div class="post_content">안녕하세요. 오늘은 파이썬 기본 문법에 대해 정리하려 합니다! 정말 어려워서 힘들었...</div>
-                    <div class="post_tags">#파이썬 #어려워 #잘해지고싶당</div>
-                    <div class="post_info"><span>2021.01.01  12:34</span><span>조회 0</span><span>댓글 0</span></div>
-                </div>
-
-                <div class="post">
-                    <div class="post_img"><img src="https://cdn.pixabay.com/photo/2015/09/05/22/33/office-925806__340.jpg"></div>
-                    <div class="post_title">홍길동의 파이썬 기본 문법 정리</div>
-                    <div class="post_content">안녕하세요. 오늘은 파이썬 기본 문법에 대해 정리하려 합니다! 정말 어려워서 힘들었...</div>
-                    <div class="post_tags">#파이썬 #어려워 #잘해지고싶당</div>
-                    <div class="post_info"><span>2021.01.01  12:34</span><span>조회 0</span><span>댓글 0</span></div>
-                </div>
-
-                <div class="post">
-                    <div class="post_img"><img src="https://cdn.pixabay.com/photo/2015/09/05/22/33/office-925806__340.jpg"></div>
-                    <div class="post_title">홍길동의 파이썬 기본 문법 정리</div>
-                    <div class="post_content">안녕하세요. 오늘은 파이썬 기본 문법에 대해 정리하려 합니다! 정말 어려워서 힘들었...</div>
-                    <div class="post_tags">#파이썬 #어려워 #잘해지고싶당</div>
-                    <div class="post_info"><span>2021.01.01  12:34</span><span>조회 0</span><span>댓글 0</span></div>
-                </div>
-
-                <div class="post">
-                    <div class="post_img"><img src="https://cdn.pixabay.com/photo/2015/09/05/22/33/office-925806__340.jpg"></div>
-                    <div class="post_title">홍길동의 파이썬 기본 문법 정리</div>
-                    <div class="post_content">안녕하세요. 오늘은 파이썬 기본 문법에 대해 정리하려 합니다! 정말 어려워서 힘들었...</div>
-                    <div class="post_tags">#파이썬 #어려워 #잘해지고싶당</div>
-                    <div class="post_info"><span>2021.01.01  12:34</span><span>조회 0</span><span>댓글 0</span></div>
-                </div>
+            </c:forEach>
+            </div>
+            <div>
+            <c:if test="${ end_num lt total_cnt }">
+			<span onclick="morePost(${cur_page+1},'${search_word}','${search_tag}')">더보기</span>
+            </c:if>
             </div>
         </div>
     </section>

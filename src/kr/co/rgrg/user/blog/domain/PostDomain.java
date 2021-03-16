@@ -62,5 +62,11 @@ public class PostDomain {
 	public void setTag_name(List<String> tag_name) {
 		this.tag_name = tag_name;
 	}
+	@Override
+	public String toString() {
+		return "PostDomain [thumbnail=" + thumbnail + ", post_title=" + post_title + ", post_content=" + post_content
+				+ ", input_date=" + input_date + ", hidden_flag=" + hidden_flag + ", post_num=" + post_num
+				+ ", view_cnt=" + view_cnt + ", comment_cnt=" + comment_cnt + ", tag_name=" + tag_name + "]";
+	}
 	
 }//class

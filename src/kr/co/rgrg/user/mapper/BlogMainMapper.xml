@@ -6,7 +6,7 @@
 
   	<select id="selectProfile" parameterType="kr.co.rgrg.user.blog.vo.BlogMainVO"
   	resultType="kr.co.rgrg.user.blog.domain.BlogMainDomain">
-		select profile_img, nickname, statement_msg, visible_email, github, website,
+		select id, profile_img, nickname, statement_msg, visible_email, github, website,
 				following_cnt, follower_cnt, post_cnt
 		from member,
 			(select count(following_id) following_cnt from following where id=#{id} group by id),
@@ -31,29 +31,46 @@
 	
 	<select id="selectPostList" parameterType="kr.co.rgrg.user.pagination.PostRangeVO" 
 	resultType="kr.co.rgrg.user.blog.domain.PostDomain">
-	select post_num, thumbnail, post_title, post_content, view_cnt, hidden_flag, to_char(input_date, 'yyyy.mm.dd hh24:mi') input_date, nvl(comm_cnt,0) comm_cnt
-	from
+		select post_num, thumbnail, post_title, post_content, view_cnt, hidden_flag, to_char(input_date, 'yyyy.mm.dd hh24:mi') input_date, nvl(comm_cnt,0) comm_cnt
+		from
 			(select post.post_num, thumbnail, post_title, post_content, view_cnt, hidden_flag, input_date, comm_cnt, row_number() over(order by input_date desc) rnum
-			from post, tag,
-					(select post.post_num, count(comm.post_num) comm_cnt
-					from post,comm
-					where post.post_num=comm.post_num and comm.delete_flag='F' and post.id=#{id}
-					group by post.post_num) comm
-			where post.post_num=comm.post_num(+) and delete_flag='F' and post.post_num and tag.post_num
+			from post,
+				(select post.post_num, count(comm.post_num) comm_cnt
+				from post,comm
+				where post.post_num=comm.post_num and comm.delete_flag='F' and post.id=#{id}
+				group by post.post_num) comm
+			where post.post_num=comm.post_num(+) and delete_flag='F'
 			<if test="hidden_flag.equals(true)">
 			and hidden_flag='F'
 			</if>
 			<if test='column_name=="search"'>
-			and post_title like '%'||#{column_value}||'%' or post_content like '%'||#{column_value}||'%'
-			</if>
-			<if test='column_name=="tag"'>
-			and tag_name=#{column_value}
+			and (post_title like '%'||#{column_value}||'%' or post_content like '%'||#{column_value}||'%')
 			</if>
 			and post.id=#{id})
-	where rnum between #{start_num} and #{end_num}
+		where rnum between #{start_num} and #{end_num}
 	</select>
 	
-	<select id="selectPostTagList" parameterType="int" resultType="kr.co.rgrg.user.blog.domain.TagDomain">
+	<select id="selectPostListTagSearch" parameterType="kr.co.rgrg.user.pagination.PostRangeVO" 
+	resultType="kr.co.rgrg.user.blog.domain.PostDomain">
+		select post_num, thumbnail, post_title, post_content, view_cnt, hidden_flag, to_char(input_date, 'yyyy.mm.dd hh24:mi') input_date, nvl(comm_cnt,0) comm_cnt
+		from (select post.post_num, thumbnail, post_title, post_content, view_cnt, hidden_flag, input_date, comm_cnt, row_number() over(order by input_date desc) rnum
+			from post, tag,
+				(select post.post_num, count(comm.post_num) comm_cnt
+				from post,comm
+				where post.post_num=comm.post_num and comm.delete_flag='F' and post.id=#{id}
+				group by post.post_num) comm
+			where post.post_num=comm.post_num(+) and post.post_num=tag.post_num
+			and delete_flag='F'
+			<if test="hidden_flag.equals(true)">
+			and hidden_flag='F'
+			</if>
+			and tag_name=#{column_value}
+			and post.id=#{id})
+		where rnum between #{start_num} and #{end_num}
+	</select>
+	
+	
+	<select id="selectPostTagList" parameterType="int" resultType="String">
 		select tag_name
 		from tag
 		where post_num=#{post_num}
