@@ -63,7 +63,7 @@ public class MypageController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="/mypage/index", method={RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="/mypage/index", method= {RequestMethod.GET, RequestMethod.POST})
 	public String getMypage(HttpSession session, Model model) {
 		// 임시변수 ///////////////////
 		String id = "user1";
@@ -76,7 +76,7 @@ public class MypageController {
 		return "mypage/mypage";
 	}
 	
-	@RequestMapping(value="/mypage/change_info_form", method={RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="/mypage/change_info_form", method=RequestMethod.GET)
 	public String getChangeInfo(HttpSession session, Model model) {
 		// 임시변수 ///////////////////
 		String id = "user1";
@@ -250,7 +250,7 @@ public class MypageController {
 		return json.toJSONString();
 	}
 	
-	@RequestMapping(value="/mypage/modify_pass_form.do", method=RequestMethod.GET)
+	@RequestMapping(value="/mypage/modify_pass_form.do", method=RequestMethod.POST)
 	public String ModifyPassForm() {
 		System.out.println("비밀번호 바꾸기 jsp");
 		return "mypage/change_pass_form";
@@ -264,13 +264,15 @@ public class MypageController {
 	 * @return
 	 */
 	@RequestMapping(value="/mypage/modify_pass.do", method=RequestMethod.POST)
+	@ResponseBody
 	public String modifyPass(UpdatePassVO upVO, HttpSession session, Model model) {
 		upVO.setId("user1");
+		JSONObject json = new JSONObject();
 		upVO.setPass(passEncoder.encode(upVO.getPass()));
 		boolean result = new MypageService().modifyPass(upVO);
-		model.addAttribute("result_flag", result);
+		json.put("result_flag", result);
 		
-		return "mypage/change_pass";
+		return json.toJSONString();
 	}
 	
 	@RequestMapping(value="/mypage/get_statistics.do", method=RequestMethod.GET)
