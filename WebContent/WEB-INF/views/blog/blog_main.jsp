@@ -31,19 +31,16 @@ $(function(){
 });//ready
 
 function morePost(next_page, search_word, search_tag){
-	alert(next_page);
-	alert(search_word);
-	alert(search_tag);
-	var data;
+	var param=""
+	if(search_word!=''){
+		param="?search="+search_word
+	}//end if
+	if(search_tag!=''){
+		param="?tag="+search_tag
+	}//end if
 	$.ajax({
-		url:"more/"+next_page,
+		url:"blog/more/"+next_page+param,
 		type:"POST",
-		if(search_word!=''){
-			data:{search:search_word}
-		}//end if
-		if(search_tag!=''){
-			data:{search:search_tag}
-		}//end if
 		dataType:"JSON",
 		error:function(xhr){
 			alert("에러");
@@ -51,13 +48,62 @@ function morePost(next_page, search_word, search_tag){
 		},
 		success:function(jsonObj){
 	      	if(jsonObj.flag=="success"){
-				alert(jsonObj.total_cnt)
+				var output='';
+				$.each(jsonObj.post_list, function(idx, list){
+					output+='<div class="post">';
+					output+='<div class="post_img"><img src="https://cdn.pixabay.com/photo/2015/09/05/22/33/'+list.thumbnail+'"></div>';
+					output+='<div class="post_title"  onclick="javascript:location.href =\'/rgrg/${ blog_profile.id }/blog/post/'+list.post_num+'\'">';
+					output+=list.post_title;
+					output+='</div>';
+					output+='<div class="post_content">'+list.post_content.substring(0,20).concat('...')+'</div>';
+					output+='<div class="post_tags">';
+					$.each(list.tag_name, function(idx2, tag_list){
+						output+='#'+tag_list.tag_name;
+					});//each
+					output+='</div>';
+					output+='<div class="post_info">';
+					output+='<span>'+list.input_date+'</span>';
+					output+='<span>조회 '+list.view_cnt+'</span>';
+					output+='<span>댓글 '+list.comment_cnt+'</span>';
+					output+='</div>';
+					output+='</div>';
+				});//each
+				$("#post_list").append(output);
+				
+				var more='';
+				var word='';
+				var tag='';
+				if(jsonObj.search_word!=null && jsonObj.search_word!='' && jsonObj.search_word!='undefined'){
+					word=jsonObj.search_word;
+				}//end if
+				if(jsonObj.search_tag!=null && jsonObj.search_tag!='' && jsonObj.search_tag!='undefined'){
+					tag=jsonObj.search_tag;
+				}//end if
+				if(jsonObj.end_num<jsonObj.total_cnt){
+					more+='<span onclick="morePost('+(jsonObj.cur_page+1)+',\''+word+'\',\''+tag+'\')">더보기</span>';
+				}//end if
+				$("#viewMore").html(more);
 	      	}else{
 	      		alert("삭제 중 문제가 발생하였습니다. 다시 시도해주세요.")
 	      	}//end else
 		}//success
 	});//ajax
 }//morePost
+
+function enterkey() { 
+	if (window.event.keyCode == 13) { 
+		searchBtn();
+	} 
+}//enterkey
+
+function searchBtn(){
+	var text=$("#search_txt").val()
+	if(text.trim().length==0){
+		alert("검색어를 입력해주세요");
+	}else{
+		location.href="blog?search="+text;
+	}//end else
+}//searchBtn
 
 </script>
 <body>
@@ -96,8 +142,8 @@ function morePost(next_page, search_word, search_tag){
         <!-- 검색, 새 글 작성 버튼 -->
         <div class="btn_set">
             <div>
-                <input type="text" class="input_search" placeholder="검색어를 입력해주세요">
-                <button class="btn_search">검색</button>
+                <input type="text" id="search_txt" onkeyup="enterkey()" class="input_search" placeholder="검색어를 입력해주세요">
+                <button onclick="searchBtn()" class="btn_search">검색</button>
             </div>
             <div>
             <c:if test="${ sessionScope.id==blog_profile.id }">
@@ -111,11 +157,11 @@ function morePost(next_page, search_word, search_tag){
                 <span>전체보기(<c:out value="${ blog_profile.post_cnt }"/>)</span>
                 <ul>
                 <c:forEach var="tag" items="${ tag_list }">
-                    <li><c:out value="${ tag.tag_name }"/>(<c:out value="${ tag.tag_cnt }"/>)</li>
+                    <li onclick="javascript:location.href='blog?tag=${ tag.tag_name }'"><c:out value="${ tag.tag_name }"/>(<c:out value="${ tag.tag_cnt }"/>)</li>
                 </c:forEach>
                 </ul>
             </div>
-            <div class="post_list">
+            <div id="post_list" class="post_list">
             <c:forEach var="post" items="${ post_list }">
                 <div class="post">
                     <div class="post_img"><img src="https://cdn.pixabay.com/photo/2015/09/05/22/33/${ post.thumbnail }"></div>
@@ -136,7 +182,7 @@ function morePost(next_page, search_word, search_tag){
                 </div>
             </c:forEach>
             </div>
-            <div>
+            <div id="viewMore">
             <c:if test="${ end_num lt total_cnt }">
 			<span onclick="morePost(${cur_page+1},'${search_word}','${search_tag}')">더보기</span>
             </c:if>

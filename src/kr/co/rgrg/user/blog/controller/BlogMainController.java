@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.rgrg.user.blog.domain.BlogMainDomain;
 import kr.co.rgrg.user.blog.domain.PostDomain;
@@ -70,12 +71,12 @@ public class BlogMainController {
 		return "blog/blog_main";
 	}//getBlogMain
 	
-	@RequestMapping(value="{url_id}/blog/more/{cur_page}", method= {RequestMethod.GET, RequestMethod.POST})
-	public String getBlogMainMore(HttpSession session, Model model, @PathVariable("url_id") String url_id, @PathVariable("cur_page") String cur_page, 
+	@RequestMapping(value="*/{url_id}/blog/more/{cur_page}", method=RequestMethod.POST, produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public String getBlogMainMore(HttpSession session, @PathVariable("url_id") String url_id, @PathVariable("cur_page") String cur_page, 
 			String search, String tag) {
 		String json=null;
 		String login_id=(String)session.getAttribute("id");
-		
 		try {
 			int page=1;
 			if(cur_page!=null && !"".equals(cur_page)) {
@@ -86,27 +87,21 @@ public class BlogMainController {
 			if(search!=null && !"".equals(search)) {
 				prVO.setColumn_name("search");
 				prVO.setColumn_value(search);
-				model.addAttribute("search_word", search);
 			}//end if
 			if(tag!=null && !"".equals(tag)) {
 				prVO.setColumn_name("tag");
 				prVO.setColumn_value(tag);
-				model.addAttribute("search_tag", tag);
 			}//end if
 			if(!url_id.equals(login_id)) {
 				prVO.setHidden_flag(true);
 			}//end if
 			
 			json=new BlogMainService().getBlogMainMore(prVO, page);
-			
 		} catch (Exception e) {
 			// TODO: handle exception
 		}//end catch
-		
+		System.out.println(json);
 		return json;
 	}//getBlogMainMore
-	
-	
-	
 	
 }//class

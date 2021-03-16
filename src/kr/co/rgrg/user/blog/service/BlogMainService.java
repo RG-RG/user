@@ -40,7 +40,7 @@ public class BlogMainService {
 	}//getPostList
 	
 	public String getBlogMainMore(PostRangeVO prVO, int cur_page) {
-		JSONObject json=null;
+		JSONObject json=new JSONObject();
 		json.put("flag", "fail");
 		
 		List<PostDomain> post_list=BlogMainDAO.getInstance().selectPostList(prVO);
@@ -51,18 +51,25 @@ public class BlogMainService {
 			json.put("total_cnt", total_cnt);
 			json.put("end_num", prVO.getEnd_num());
 			
+			if("search".equals(prVO.getColumn_name())) {
+				json.put("search_word",prVO.getColumn_value());
+			}//end if
+			if("tag".equals(prVO.getColumn_name())) {
+				json.put("search_tag",prVO.getColumn_value());
+			}//end if
+			
 			JSONArray ja=new JSONArray();
 			JSONObject temp=null;
 			for(PostDomain pDomain : post_list) {
 				temp=new JSONObject();
-				temp.put("", pDomain.getPost_num());
-				temp.put("", pDomain.getThumbnail());
-				temp.put("", pDomain.getPost_title());
-				temp.put("", pDomain.getPost_content());
-				temp.put("", pDomain.getInput_date());
-				temp.put("", pDomain.getComment_cnt());
-				temp.put("", pDomain.getHidden_flag());
-				temp.put("", pDomain.getView_cnt());
+				temp.put("post_num", pDomain.getPost_num());
+				temp.put("thumbnail", pDomain.getThumbnail());
+				temp.put("post_title", pDomain.getPost_title());
+				temp.put("post_content", pDomain.getPost_content());
+				temp.put("input_date", pDomain.getInput_date());
+				temp.put("comment_cnt", pDomain.getComment_cnt());
+				temp.put("hidden_flag", pDomain.getHidden_flag());
+				temp.put("view_cnt", pDomain.getView_cnt());
 				JSONArray tempArr=new JSONArray();
 				JSONObject tempObj=null;
 				for(String tag_name : pDomain.getTag_name()) {
@@ -73,6 +80,7 @@ public class BlogMainService {
 				temp.put("tag_list", tempArr);
 				ja.add(temp);
 			}//end for
+			json.put("post_list", ja);
 		}//end if
 		
 		return json.toJSONString();
