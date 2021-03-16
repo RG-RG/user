@@ -20,9 +20,19 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     
 <script type="text/javascript">
+	
+		
 	$(function(){
+		
 	});//ready
 	
+	function handleEnter() {
+		var searchText = document.getElementById('search_input').value;
+		if (window.event.keyCode == 13){
+			//console.log(searchText);
+			location.href="main?search="+searchText;
+		}
+	}
 	
 	function more_page(page){
 		$.ajax({

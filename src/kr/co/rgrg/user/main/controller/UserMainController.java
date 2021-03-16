@@ -18,29 +18,36 @@ import kr.co.rgrg.user.pagination.RangeVO;
 @Controller
 public class UserMainController {
 	
-	/**
-	 * 메인화면을 보여주기
-	 * @param s
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value="/main/main", method=RequestMethod.GET)
-	public String main(HttpSession s, Model model) {
-		
-		int int_page = 1;
-		
-		RangeVO rVO = new RangeVO(int_page);
-		
-		
-		List<UserMainDomain> main_list = new UserMainService().getUserMainList(rVO);
-		model.addAttribute("main_list", main_list);
-		
-		return "main/main";
-	}
+	   /**
+	    * 메인화면을 보여주기 (+조회순or최신순 +검색)
+	    * @param model
+	    * @return
+	    */
+	   @RequestMapping(value = "/main/main", method = RequestMethod.GET)
+	   public String main(Model model, String sort, String search) {
+	      int int_page = 1;
+
+	      if (sort == null) { // null일 경우 기본값으로 input_date를 지정해줌
+	         sort = "input_date";
+	      };
+
+	      RangeVO rVO = new RangeVO(int_page, sort, "");
+
+	      if (search != null) {
+	         rVO.setColumn_value(search);
+	      };
+
+	      List<UserMainDomain> main_list = new UserMainService().getUserMainList(rVO);
+	      model.addAttribute("main_list", main_list);
+	      model.addAttribute("sort", sort);
+	      model.addAttribute("search", search);
+
+	      return "main/main";
+	   }
 
 	@RequestMapping(value="/main/main/{param_page}", method=RequestMethod.POST, produces="application/json;charset=UTF-8")
 	@ResponseBody
-	public String see_more(@PathVariable("param_page") String param_page) {
+	public String see_more(@PathVariable("param_page") String param_page, String sort, String search) {
 		String json=null;
 		int page = 1;
 		if(param_page != null && !"".equals(param_page)) {
@@ -49,7 +56,11 @@ public class UserMainController {
 		}
 //		System.out.println("----------------------------------"+page);
 		
-		RangeVO rVO = new RangeVO(page);
+		RangeVO rVO = new RangeVO(page, sort, "");
+		
+	    if (search != null) {
+		         rVO.setColumn_value(search);
+		};
 //		System.out.println("----------------------------------"+rVO);
 		json = new UserMainService().getUserMoreList(rVO);
 		

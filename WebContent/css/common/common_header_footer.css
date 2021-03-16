@@ -47,3 +47,25 @@
 .nav_bar a:hover {
     text-decoration: underline
 }
+
+.nav_bar .search_input {
+    background-color: #000;
+    border: 0;
+    border-bottom: 1px solid #fff;
+    color: #fff;
+    padding: .5rem
+}
+
+.nav_bar .search_input:focus {
+    outline: 0
+}
+
+.nav_bar button {
+    border: 0;
+    color: #fff;
+    background-color: #000
+}
+
+.nav_bar button:hover {
+    cursor: pointer
+}

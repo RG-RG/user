@@ -11,9 +11,22 @@
 	resultType="kr.co.rgrg.user.main.domain.UserMainDomain">
 		select post_num, id, post_title, post_content, thumbnail, input_date
 		from (
-			select post_num, id, post_title, post_content, thumbnail, input_date, row_number() over(order by input_date desc) rnum
+			<choose>
+				<when test="column_name!=null and column_name.equals('view_cnt')">
+					select post_num, id, post_title, post_content, thumbnail, input_date, row_number() over(order by view_cnt desc) rnum
+				</when>
+				<when test="column_name!=null and column_name.equals('input_date')">
+					select post_num, id, post_title, post_content, thumbnail, input_date, row_number() over(order by input_date desc) rnum
+				</when>
+				<otherwise>
+					select post_num, id, post_title, post_content, thumbnail, input_date, row_number() over(order by input_date desc) rnum
+				</otherwise>
+			</choose>
+				
+			<!-- select post_num, id, post_title, post_content, thumbnail, input_date, row_number() over(order by input_date desc) rnum -->
 			from post
-			where delete_flag='F' and hidden_flag='F' and publish_flag='F'
+			where delete_flag='F' and hidden_flag='F' and publish_flag='F' 
+					<if test="column_value!=null and !column_value.equals('')">and (post_title like '%${ column_value }%' or post_content like '%${ column_value }%')</if>
 		)
 		where rnum between #{ start_num } and #{ end_num }
 	</select>
