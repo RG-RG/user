@@ -38,4 +38,18 @@ public class PaginationDAO {
 		return cnt;
 	}//selectTotalFollowCnt
 	
+	public int selectTotalPostCnt(PostRangeVO prVO) {
+		int cnt=0;
+		
+		SqlSession ss=GetRgrgHandler.getInstance().getSqlSession();
+		if("tag".equals(prVO.getColumn_name())) {
+			cnt=ss.selectOne("selectTotalPostTagSearchCnt", prVO);
+		}else {
+			cnt=ss.selectOne("selectTotalPostCnt", prVO);
+		}//end else
+		ss.close();
+		
+		return cnt;
+	}//selectTotalPostCnt
+	
 }//class

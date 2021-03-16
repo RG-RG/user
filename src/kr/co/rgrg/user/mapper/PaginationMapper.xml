@@ -27,4 +27,25 @@
 		</where>
 		</if>
 	</select>
+	
+	<select id="selectTotalPostCnt" parameterType="kr.co.rgrg.user.pagination.PostRangeVO" resultType="int">
+		select count(*)
+		from post
+		where delete_flag='F'
+		<if test="hidden_flag.equals(true)">
+		and hidden_flag='F'
+		</if>
+		<if test='column_name=="search"'>
+		and post_title like '%'||#{column_value}||'%' or post_content like '%'||#{column_value}||'%'
+		</if>
+		and post.id=#{id}
+	</select>
+	
+	<select id="selectTotalPostTagSearchCnt" parameterType="kr.co.rgrg.user.pagination.PostRangeVO" resultType="int">
+		select count(*) 
+		from post, tag 
+		where post.post_num=tag.post_num and delete_flag='F' and hidden_flag='F' 
+		and tag_name=#{column_value} and post.id=#{id}
+	</select>
+	
 </mapper>
