@@ -93,10 +93,10 @@
         <c:forEach var="userMain" items="${ main_list }">
         <div class="post">
             <div class="post_img" style="background-image: url(${ userMain.thumbnail })"></div>
-            <div class="post_title">${ userMain.post_title }</div>
+            <div class="post_title"><a href="">${ userMain.post_title }</a></div>
             <div class="post_content"> ${ userMain.post_content }</div>
             <div class="post_info">
-                <span class="post_writer">by. ${ userMain.id }</span> ・ <span class="post_date">${ userMain.input_date }</span>
+                <span class="post_writer"><a href="">by. ${ userMain.id }</a></span> ・ <span class="post_date">${ userMain.input_date }</span>
             </div>
         </div>
         </c:forEach>

@@ -17,6 +17,7 @@ if(${ empty blog_profile}){
 
     <link rel="stylesheet" href="http://localhost/css/blog/reset.css">
     <link rel="stylesheet" href="http://localhost/css/blog/myBlog_main.css">
+    <link rel="stylesheet" href="http://localhost/rgrg_user/css/common/see_more_btn.css">
 </head>
 <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> -->
 

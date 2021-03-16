@@ -145,7 +145,7 @@ $(function(){
 						var input="";
 						input+='<div id="comm_div_'+jsonObj.comm_num+'" class="comment">'
 						input+='<div class="c_writer_info">'
-						input+='<img src="https://cdn.pixabay.com/photo/2018/04/20/17/18/'+jsonObj.profile_img+'">'
+						input+='<img src="'+jsonObj.profile_img+'">'
 						input+='<div>'
 						input+='<span>'+jsonObj.nickname+'</span>'
 						input+='<span>'+jsonObj.input_date+'</span>'
@@ -255,18 +255,9 @@ function commModifyBtn(comm_num){
 </script>
 
 <body>
-    <section class="section_header">
-        <div class="header_nav">
-            <span class="btn btn_nav_open"><i class="fas fa-bars"></i></span>
-        </div>
-        <ul class="nav_bar">
-            <li><span>GLOG</span><span class="btn btn_nav_close"><i class="fas fa-chevron-left"></i></span></li>
-            <li><span>LOGIN</span> / <span>JOIN</span></li>
-            <li>인기순 보기</li>
-            <li>최신순 보기</li>
-            <li>search</li>
-        </ul>
-    </section>
+
+	<!-- 헤더(사이드바) -->
+	<c:import url="../common/common_header.jsp" />
 
     <section class="section_main">
         <!-- 왼쪽의 좋아요/댓글/공유 -->
@@ -285,6 +276,7 @@ function commModifyBtn(comm_num){
                 <li id="shareButton"><i class="fas fa-share-alt"></i></li>
             </ul>
         </div>
+        
         <!-- 우측의 글 본문 -->
         <div class="post">
             <div class="post_title"><c:out value="${ post_detail.post_title }"/></div>
@@ -313,7 +305,7 @@ function commModifyBtn(comm_num){
             </div>
             <!-- 작성자 프로필 -->
             <div class="writer_info">
-                <img src="https://cdn.pixabay.com/photo/2016/01/19/16/49/${ post_profile.profile_img } }">
+                <img src="${ post_profile.profile_img } }">
                 <div class="info">
                     <div class="w_nickname">
                     	<span class="nickname"><c:out value="${ post_profile.nickname }"/></span>
@@ -356,7 +348,7 @@ function commModifyBtn(comm_num){
 			<c:forEach var="comm" items="${ comm_list }">
             <div id="comm_div_${ comm.comm_num }" class="comment">
                 <div class="c_writer_info">
-                    <img src="https://cdn.pixabay.com/photo/2018/04/20/17/18/${ comm.profile_img }">
+                    <img src="${ comm.profile_img }">
                     <div>
                         <span><c:out value="${ comm.nickname }"/></span>
                         <span><c:out value="${ comm.input_date }"/></span>
