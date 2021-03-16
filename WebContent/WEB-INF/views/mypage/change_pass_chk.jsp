@@ -25,8 +25,7 @@
 	            alert("비밀번호 체크 "+jsonObj.result);
 	            if (jsonObj.result === "success") {
 	              console.log("성공");
-	              change_pass_form();
-	              alert("성공");
+	              change_pass_form()
 	            }else{
             	  mng_pass();
             	  alert("실패");
@@ -36,33 +35,30 @@
  	  }
 		
       function change_pass_form() {
-    	  let url = "modify_pass_form.do"
- 	      alert("비밀번호 변경 페이지 이동");
+ 	      console.log("비밀번호 변경 페이지 이동");
           var ajaxOption = {
-            url: url,
+            url: "modify_pass_form.do",
             async: true,
-            type: "get",
+            type: "POST",
             dataType: "html",
             cache: false,
           };
 
           $.ajax(ajaxOption).done(function (data) {
-	        alert($("#mng_form"))
-            alert(data);
             // Contents 영역 삭제
-            $("#mng_form").children().remove();
+            $("#pass_chk_form").children().remove();
             // Contents 영역 교체
-            $("#mng_form").html(data);
+            $("#pass_chk_form").html(data);
           });
       }
 	</script>
 	
-        <form id="pass_chk_form" method="post">
+        <div id="pass_chk_form">
           <h3>원래 비밀번호 확인</h3>
 		    <div class="social">
 		      <div class="input">
 		        <input type="text" class="form-control chk_pass_input" id="chk_pass_input" placeholder="비밀번호를 입력해주세요"/>
 		      </div>
-          		<button class="chk_pass_btn" id="chk_pass_btn">확인</button>
+	        <button class="chk_pass_btn" id="chk_pass_btn">확인</button>
 		    </div>
-        </form>
+        </div>

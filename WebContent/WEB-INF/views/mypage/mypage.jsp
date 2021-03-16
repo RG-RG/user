@@ -115,49 +115,74 @@
         $("#img_upload_btn").click(function () {
           $("#profile_img").click();
         });
+        
+        $("#img_delete_btn").click(function (){
+            $.ajax({
+              url: "modify_profile_img.do",
+              dataType: "JSON",
+              type: "POST",
+              data: "profile_img=default.png",
+              error: function (xhr) {
+                alert("에러");
+                console.log(xhr.status + " / " + xhr.statusText);
+              },
+              success: function (jsonObj) {
+                if (jsonObj.result === "success") {
+                  console.log("성공");
+                }
+              },
+            });
+        })
 
         /* 이미지 업로드 */
         $("#profile_img").change(function () {
           let temp = $("#profile_img").val().split("\\");
-          let profile_img = temp[temp.length - 1];
-          $.ajax({
-            url: "modify_profile_img.do",
-            dataType: "JSON",
-            type: "POST",
-            data: "profile_img=" + profile_img,
-            error: function (xhr) {
-              alert("에러");
-              console.log(xhr.status + " / " + xhr.statusText);
-            },
-            success: function (jsonObj) {
-              if (jsonObj.result === "success") {
-                console.log("성공");
-              }
-            },
-          });
-
-          let form = new FormData(document.getElementById("image_upload_form"));
-          console.log(form);
-          $.ajax({
-            url: "upload_img_file",
-            enctype: "/multipart/form-data",
-            data: form,
-            dataType: "json",
-            processData: false,
-            contentType: false,
-            type: "POST",
-            success: function (data) {
-              if (data.result.code === "success") {
-                console.log("성공");
-              } else {
-                console.log("실패");
-              }
-            },
-            error: function (error) {
-              alert(error.responseText);
-            },
-          });
-        });
+          
+          if(temp.endsWith("jpg") || temp.endsWith("png") || temp.endsWith("jpeg")){
+        	  
+          
+	          let profile_img = temp[temp.length - 1];
+	          $.ajax({
+	            url: "modify_profile_img.do",
+	            dataType: "JSON",
+	            type: "POST",
+	            data: "profile_img=" + profile_img,
+	            error: function (xhr) {
+	              alert("에러");
+	              console.log(xhr.status + " / " + xhr.statusText);
+	            },
+	            success: function (jsonObj) {
+	              if (jsonObj.result === "success") {
+	                console.log("성공");
+	              }
+	            },
+	          });
+	
+	          let form = new FormData(document.getElementById("image_upload_form"));
+	          console.log(form);
+	          $.ajax({
+	            url: "upload_img_file",
+	            enctype: "/multipart/form-data",
+	            data: form,
+	            dataType: "json",
+	            processData: false,
+	            contentType: false,
+	            type: "POST",
+	            success: function (data) {
+	              if (data.result.code === "success") {
+	                console.log("성공");
+	              } else {
+	                console.log("실패");
+	              }
+	            },
+	            error: function (error) {
+	              alert(error.responseText);
+	            },
+	          });
+	        });
+          } else {
+        	  alert("다른 형식의 파일을 선택해주세요");
+          }
         
       }); //ready
 
@@ -299,28 +324,8 @@
         node_list[2].style.display = "";
       }
 
-      function mng_info() {
-        let url = "change_info_form";
-        console.log("정보 관리 페이지 이동");
-        var ajaxOption = {
-          url: url,
-          async: true,
-          type: "POST",
-          dataType: "html",
-          cache: false,
-        };
-
-        $.ajax(ajaxOption).done(function (data) {
-          // Contents 영역 삭제
-          $("#mng_form").children().remove();
-          // Contents 영역 교체
-          $("#mng_form").html(data);
-        });
-      }
-
-      function mng_pass() {
-        let url = "modify_pass_chk_form.do";
-        console.log("비번 관리 페이지 이동");
+      function mng_menu(url) {
+        console.log(url+" 관리 페이지 이동");
         var ajaxOption = {
           url: url,
           async: true,
@@ -330,7 +335,6 @@
         };
 
         $.ajax(ajaxOption).done(function (data) {
-          console.log(data);
           // Contents 영역 삭제
           $("#mng_form").children().remove();
           // Contents 영역 교체
@@ -338,25 +342,6 @@
         });
       }
 
-      function mng_analy() {
-        let url = "";
-        console.log("통계 관리 페이지 이동");
-        var ajaxOption = {
-          url: url,
-          async: true,
-          type: "GET",
-          dataType: "html",
-          cache: false,
-        };
-
-        $.ajax(ajaxOption).done(function (data) {
-          console.log(data);
-          // Contents 영역 삭제
-          $("#mng_form").children().remove();
-          // Contents 영역 교체
-          $("#mng_form").html(data);
-        });
-      }
       
     </script>
   </head>
@@ -397,9 +382,9 @@
       </section>
       <section class="mgn_content">
         <section class="navi">
-          <h3 class="menu" onclick="mng_info()" style="cursor: pointer">정보 관리</h3>
-          <h3 class="menu" onclick="mng_pass()" style="cursor: pointer">비밀번호 변경</h3>
-          <h3 class="menu" onclick="mng_analy()" style="cursor: pointer">방문자 통계</h3>
+          <h3 class="menu" onclick="mng_menu('change_info_form')" style="cursor: pointer">정보 관리</h3>
+          <h3 class="menu" onclick="mng_menu('modify_pass_chk_form.do')" style="cursor: pointer">비밀번호 변경</h3>
+          <h3 class="menu" onclick="mng_menu('change_info_form')" style="cursor: pointer">방문자 통계</h3>
         </section>
         <section class="mng_form" id="mng_form">
           <div class="info blog_title">
