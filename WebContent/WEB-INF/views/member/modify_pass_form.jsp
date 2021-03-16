@@ -22,6 +22,7 @@
 .form-control{ border-left: none; height: 5.2rem; font-size: 1.5rem; }
 #passChk, #passChkLabel{ margin-top: 1.5rem }
 #passLabel{ padding-right: 5.6rem }
+#passLenStatus{ font-size: 1.3rem; text-align: right; }
 #buttons{ margin:0 auto; margin-top: 7rem; width: 12rem }
 .btn-secondary{ width: 12rem; height: 4.5rem; font-size: 1.5rem !important; background-color: #000000 }
 #container{ margin-bottom: 20rem }
@@ -50,26 +51,56 @@ $(function(){
 		chkNull();
 	});//click
 	
+	$("#pass").keyup(function(evt){
+		if( $("#pass").val().length < 8 ){
+			$("#passLenStatus").css('color', '#D32F2F');
+			$("#passLenStatus").html("비밀번호는 최소 8자 이상이어야 합니다.");
+			$("#passLenStatus").css('display', 'block');
+		}else{
+			$("#passLenStatus").css('display', 'none');
+		}//end else
+	});//keyup
+	
+	$("#pass").blur(function(evt){
+		if( $("#pass").val().length < 8 ){
+			$("#passLenStatus").css('color', '#D32F2F');
+			$("#passLenStatus").html("비밀번호는 최소 8자 이상이어야 합니다.");
+			$("#passLenStatus").css('display', 'block');
+		}else{
+			$("#passLenStatus").css('display', 'none');
+		}//end else	
+	});//blur
+	
 });//ready
 
 function chkNull(){
+	
 	if ($("#pass").val().trim()==""){
 		alert("비밀번호를 입력해주세요.");
 		$("#pass").focus();
 		return;
 	}//end if
+	
 	if ($("#passChk").val().trim()==""){
 		alert("비밀번호를 다시 한 번 입력해주세요.");
 		$("#passChk").focus();
 		return;
 	}//end if
+	
 	if ($("#pass").val() != $("#passChk").val()){
 		alert("비밀번호가 일치하지 않습니다.");
 		$("#passChk").focus();
 		return;
 	}//end if
+	
+	 if( $("#pass").val().length < 8 ){
+		 alert("비밀번호는 최소 8자 이상이어야 합니다.");
+		 return;
+	 }//end if
+	
 	alert("비밀번호가 변경되었습니다.");
 	$("#modifyPassForm").submit();	
+	
 }//chkNull
 
 </script>
@@ -91,6 +122,7 @@ function chkNull(){
 				  <span class="input-group-text" id="passLabel">비밀번호</span>
 				  <input type="password" id="pass" name="pass" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="새로운 비밀번호를 입력해주세요.">
 				</div>
+				<div id="passLenStatus"></div>
   				<div class="input-group mb-3">
 				  <span class="input-group-text" id="passChkLabel">비밀번호 확인</span>
 				  <input type="password" id="passChk" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="비밀번호를 다시 한 번 입력해주세요.">
