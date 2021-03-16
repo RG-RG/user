@@ -4,8 +4,8 @@
 
 	<!-- 일반 회원가입을 하는 일  -->
 	<insert id="insertMember" parameterType="kr.co.rgrg.user.member.vo.JoinVO">
-		insert into member(ID, PASS, AUTH_EMAIL, NICKNAME, BLOG_NAME)
-		values(#{ id }, #{ pass }, #{ auth_email }, #{ nickname }, #{ blog_name })
+		insert into member(ID, PASS, AUTH_EMAIL, NICKNAME, BLOG_NAME, PROFILE_IMG)
+		values(#{ id }, #{ pass }, #{ auth_email }, #{ nickname }, #{ blog_name }, 'default.png')
 	</insert>
 	
 	<!-- 소셜 회원가입을 하는 일 -->

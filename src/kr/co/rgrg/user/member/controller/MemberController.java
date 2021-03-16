@@ -158,10 +158,16 @@ public class MemberController {
 	 * @param ss
 	 * @return
 	 */
-	@RequestMapping(value="member/logout", method=POST)
-	public String logout(SessionStatus ss) {
+	@RequestMapping(value="member/logout", method=GET)
+	public ModelAndView logout(SessionStatus ss) {
+		ModelAndView mav = new ModelAndView();
 		ss.setComplete();
-		return "redirect:/rgrg/main/main";
+		
+		RedirectView rv = new RedirectView();
+		rv.setUrl("/rgrg_user/rgrg/main/main");
+		rv.setExposeModelAttributes(false);
+		mav.setView(rv);
+		return mav;
 	}//logout
 	
 	/**
@@ -280,7 +286,7 @@ public class MemberController {
 		boolean passFlag = new MemberService().modifyPass(upVO);
 
 		RedirectView rv = new RedirectView();
-		rv.setUrl("/rgrg/main/main");
+		rv.setUrl("/rgrg_user/rgrg/main/main");
 		rv.setExposeModelAttributes(false);
 		mav.setView(rv);
 		return mav;
