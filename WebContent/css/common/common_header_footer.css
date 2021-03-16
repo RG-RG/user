@@ -1,0 +1,49 @@
+@charset "EUC-KR";
+
+
+.header_nav {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding: 2.5rem;
+    font-size: 2.5rem
+}
+
+.nav_bar {
+    position: absolute;
+    left: -30rem;
+    top: 0;
+    width: 30rem;
+    height: 100vh;
+    background-color: #000;
+    font-size: 1.5rem;
+    padding: 1.5rem;
+    color: #fff;
+    z-index: 999
+}
+
+.nav_bar li:first-child {
+    font-size: 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5rem
+}
+
+.nav_bar li:not(li:first-child) {
+    margin: 2rem 0
+}
+
+.nav_bar a {
+    padding: .5rem 0;
+    padding-right: 1.5rem;
+    color: #fff
+}
+
+.nav_bar a:hover,
+.nav_bar a:visited {
+    color: #fff
+}
+
+.nav_bar a:hover {
+    text-decoration: underline
+}

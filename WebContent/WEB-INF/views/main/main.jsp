@@ -11,6 +11,8 @@
 
     <link rel="stylesheet" href="http://localhost/rgrg_user/css/reset.css">
     <link rel="stylesheet" href="http://localhost/rgrg_user/css/main/user_main.css">
+    <link rel="stylesheet" href="http://localhost/rgrg_user/css/common/common_header_footer.css">
+    <link rel="stylesheet" href="http://localhost/rgrg_user/css/common/see_more_btn.css">
 
 <!-- Google CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -49,7 +51,7 @@
 					
 					$("#section_main").append(output);
 					
-					var more='<div id="more_btn" onclick="more_page('+(page+1)+')">더보기</div>'
+					var more='<span id="more_btn" class="more_btn" onclick="more_page('+(page+1)+')">더 보기</span>'
 					if(jsonObj.last_flag){
 						more='';
 					}
@@ -89,7 +91,11 @@
         </div>
         </c:forEach>
     </div>
-   	<div id="more_div"><div id="more_btn" onclick="more_page(2)">더보기</div></div>
+   	
+   	<!-- 더보기 버튼 -->
+   	<div id="more_div" class="more_div">
+   		<span id="more_btn" class="more_btn" onclick="more_page(2)">더 보기</span>
+	</div>
     
 	
 	<!--푸터 -->

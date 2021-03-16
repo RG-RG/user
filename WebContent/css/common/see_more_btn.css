@@ -1,0 +1,19 @@
+@charset "EUC-KR";
+
+
+.more_div {
+	text-align: center;
+	margin-top: 5rem;
+}
+
+.more_btn {
+    padding: 1rem 4rem;
+    background-color: black;
+    color: white;
+    border-radius: 2rem;
+}
+
+.more_btn:hover {
+	cursor: pointer;
+	text-decoration: underline;
+}
