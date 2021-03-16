@@ -2,7 +2,10 @@ package kr.co.rgrg.user.mypage.service;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.json.simple.JSONObject;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import kr.co.rgrg.user.mypage.dao.MypageDAO;
@@ -162,14 +165,10 @@ public class MypageService {
 	 * @param pcVO
 	 * @return
 	 */
-	PasswordEncoder passwordEncoder;
-	public boolean modifyPassChk(PassChkVO pcVO) {
-		boolean flag = false;
-		
+	public String searchPass(PassChkVO pcVO) {
 		MypageDAO mDAO = MypageDAO.getInstance();
-		flag = passwordEncoder.matches(mDAO.selectPass(pcVO), pcVO.getPass());
 		
-		return flag;
+		return mDAO.selectPass(pcVO);
 	}
 	
 	/**

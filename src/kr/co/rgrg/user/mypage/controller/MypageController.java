@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.swing.plaf.multi.MultiFileChooserUI;
@@ -15,16 +16,19 @@ import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
+import kr.co.rgrg.user.mypage.dao.MypageDAO;
 import kr.co.rgrg.user.mypage.domain.MypageDomain;
 import kr.co.rgrg.user.mypage.service.MypageService;
 import kr.co.rgrg.user.mypage.vo.PassChkVO;
@@ -36,6 +40,7 @@ import kr.co.rgrg.user.mypage.vo.UpdateProfileImgVO;
 import kr.co.rgrg.user.mypage.vo.UpdateProfileVO;
 import kr.co.rgrg.user.mypage.vo.UpdateSocialDataVO;
 
+@SessionAttributes("id")
 @Controller
 public class MypageController {
 	
@@ -47,6 +52,9 @@ public class MypageController {
 	//json 데이터로 응답을 보내기 위한
 	@Autowired
 	MappingJackson2JsonView jsonView;
+	
+	@Inject
+	BCryptPasswordEncoder passEncoder;
 
 	/**
 	 * Mypage 첫화면
@@ -68,6 +76,19 @@ public class MypageController {
 		return "mypage/mypage";
 	}
 	
+	@RequestMapping(value="/mypage/change_info_form", method={RequestMethod.GET, RequestMethod.POST})
+	public String getChangeInfo(HttpSession session, Model model) {
+		// 임시변수 ///////////////////
+		String id = "user1";
+		////////////////////////////
+		MypageService ms = new MypageService();
+		MypageDomain md = ms.getMypage(id);
+		
+		model.addAttribute("member_data", md);
+		
+		return "mypage/change_info";
+	}
+	
 	/**
 	 * 프로필 이미지 변경
 	 * @param session
@@ -78,7 +99,7 @@ public class MypageController {
 	@ResponseBody
 	public String modifyProfileImg(HttpSession session , UpdateProfileImgVO upiVO) throws Exception{
 		upiVO.setId("user1");
-		
+		upiVO.setProfile_img("user1" + upiVO.getProfile_img().substring(upiVO.getProfile_img().lastIndexOf(".")).toLowerCase());
 		MypageService ms = new MypageService();
 		
 		return ms.modifyProfileImg(upiVO);
@@ -99,8 +120,9 @@ public class MypageController {
 			for(int i= 0; i<mpf.size(); i++) {
 				System.out.println(mpf.get(i));
 				
-				String temp = mpf.get(i).getOriginalFilename().substring(mpf.get(i).getOriginalFilename().lastIndexOf("/")+1);
-				File file = new File(PATH + "user1" + temp);
+				String temp = mpf.get(i).getOriginalFilename().substring(mpf.get(i).getOriginalFilename().lastIndexOf(".")+1);
+				
+				File file = new File(PATH + "user1." + temp);
 				logger.info(file.getAbsolutePath());
 				mpf.get(i).transferTo(file);
 			}
@@ -201,32 +223,51 @@ public class MypageController {
 		return ms.removeMemberChk(pcVO);
 	}
 	
-	@RequestMapping(value="/mypage/modify_pass_form.do", method=RequestMethod.GET)
+	@RequestMapping(value="/mypage/modify_pass_chk_form.do", method=RequestMethod.GET)
 	public String getModifyPassChkForm() {
 		
 		return "mypage/change_pass_chk";
 	}
 	
 	@RequestMapping(value="/mypage/modify_pass_chk.do", method=RequestMethod.POST)
-	public String modifyPassChk(PassChkVO pcVO, HttpSession session, Model model) {
-		MypageService ms = new MypageService();
+	@ResponseBody
+	public String modifyPassChk(PassChkVO pcVO, HttpSession session) {
 		pcVO.setId("user1");
-		boolean result = ms.modifyPassChk(pcVO);
-		if (result) {
-			return "mypage/change_pass_form";			
-		}else {
-			return "mypage/change_pass_chk";
+		JSONObject json = new JSONObject();
+		
+		try {
+			boolean flag = passEncoder.matches(pcVO.getPass(), new MypageService().searchPass(pcVO));
+			if(flag == true) {
+				json.put("result", "success");				
+			}else {
+				json.put("result", "fail");
+			}
+			
+		} catch (NullPointerException ne) {
+			json.put("result", "fail");
 		}
 		
-		
+		return json.toJSONString();
 	}
 	
+	@RequestMapping(value="/mypage/modify_pass_form.do", method=RequestMethod.GET)
+	public String ModifyPassForm() {
+		System.out.println("비밀번호 바꾸기 jsp");
+		return "mypage/change_pass_form";
+	}
 	
+	/**
+	 * 비밀번호를 변경하는 일
+	 * @param upVO
+	 * @param session
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value="/mypage/modify_pass.do", method=RequestMethod.POST)
 	public String modifyPass(UpdatePassVO upVO, HttpSession session, Model model) {
-		MypageService ms = new MypageService();
 		upVO.setId("user1");
-		boolean result = ms.modifyPass(upVO);
+		upVO.setPass(passEncoder.encode(upVO.getPass()));
+		boolean result = new MypageService().modifyPass(upVO);
 		model.addAttribute("result_flag", result);
 		
 		return "mypage/change_pass";
