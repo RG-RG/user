@@ -170,7 +170,8 @@ public class MypageDAO {
 	public int updatePass(UpdatePassVO upVO) {
 		int result = 0;
 		SqlSession ss = GetRgrgHandler.getInstance().getSqlSession();
-		result = ss.update("updatePass", upVO);
+		result = ss.update("kr.co.rgrg.user.mypage.updatePass", upVO);
+		ss.commit();
 		ss.close();
 		return result;
 	}
