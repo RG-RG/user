@@ -31,7 +31,7 @@
             <li>search</li>
             <!-- 로그인 됐을 때 : 로그아웃 -->
 			<c:if test="${ not empty sessionScope.id }">
-				<li><span><a href="">로그아웃</a></span></li>
+				<li><span><a href="/rgrg_user/rgrg/member/logout">로그아웃</a></span></li>
 			</c:if>
         </ul>
     </section>
