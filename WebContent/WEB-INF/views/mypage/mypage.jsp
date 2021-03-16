@@ -138,7 +138,7 @@
         $("#profile_img").change(function () {
           let temp = $("#profile_img").val().split("\\");
           
-          if(temp.endsWith("jpg") || temp.endsWith("png") || temp.endsWith("jpeg")){
+          if(temp.endsWith("jpg") || temp.endsWith("png") || temp.endsWith("jpeg")) {
         	  
           
 	          let profile_img = temp[temp.length - 1];
@@ -179,10 +179,10 @@
 	              alert(error.responseText);
 	            },
 	          });
-	        });
           } else {
         	  alert("다른 형식의 파일을 선택해주세요");
           }
+        });
         
       }); //ready
 
