@@ -43,11 +43,13 @@ function morePost(next_page, search_word, search_tag){
 		url:"blog/more/"+next_page+param,
 		type:"POST",
 		dataType:"JSON",
+		contentType: "application/x-www-form-urlencoded; charset=euc-kr",
 		error:function(xhr){
 			alert("에러");
 			console.log(xhr.status+" / "+xhr.statusText);
 		},
 		success:function(jsonObj){
+			
 	      	if(jsonObj.flag=="success"){
 				var output='';
 				$.each(jsonObj.post_list, function(idx, list){
@@ -85,7 +87,7 @@ function morePost(next_page, search_word, search_tag){
 				}//end if
 				$("#viewMore").html(more);
 	      	}else{
-	      		alert("삭제 중 문제가 발생하였습니다. 다시 시도해주세요.")
+	      		alert("문제가 발생하였습니다. 다시 시도해주세요.")
 	      	}//end else
 		}//success
 	});//ajax

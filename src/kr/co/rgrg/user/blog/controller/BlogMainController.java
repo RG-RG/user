@@ -1,5 +1,8 @@
 package kr.co.rgrg.user.blog.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -74,7 +77,8 @@ public class BlogMainController {
 	@RequestMapping(value="*/{url_id}/blog/more/{cur_page}", method=RequestMethod.POST, produces="application/json;charset=UTF-8")
 	@ResponseBody
 	public String getBlogMainMore(HttpSession session, @PathVariable("url_id") String url_id, @PathVariable("cur_page") String cur_page, 
-			String search, String tag) {
+			String search, String tag) throws UnsupportedEncodingException {
+		
 		String json=null;
 		String login_id=(String)session.getAttribute("id");
 		try {
@@ -101,6 +105,7 @@ public class BlogMainController {
 			// TODO: handle exception
 		}//end catch
 		System.out.println(json);
+		URLEncoder.encode(json,"UTF-8");
 		return json;
 	}//getBlogMainMore
 	

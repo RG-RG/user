@@ -5,10 +5,17 @@
 <mapper namespace="kr.co.rgrg.user.like">
   	<select id="selectLikeList" parameterType="kr.co.rgrg.user.pagination.RangeVO"
   	resultType="kr.co.rgrg.user.blog.domain.LikeDomain">
-		select id, post_num, post_title, post_content, thumbnail, to_char(input_date, 'yyyy-mm-dd') input_date
-		from (select post.id, post.post_num, post_title, post_content, thumbnail, like_post.input_date, row_number() over(order by like_post.input_date desc) rnum
-			from like_post, post
-			where post.post_num=like_post.post_num and like_post.id=#{ column_value })
+		select id, nickname, post_num, post_title, post_content, thumbnail, like_cnt, to_char(input_date, 'yyyy-mm-dd') input_date
+		from (select post.id, nickname, post.post_num, post_title, post_content, thumbnail, like_cnt,like_post.input_date, row_number() over(order by like_post.input_date desc) rnum
+			from like_post, post, member,
+					(select post_num, count(post_num) like_cnt
+					from like_post
+					group by post_num) like_c
+			where post.post_num=like_post.post_num
+			and post.post_num=like_c.post_num
+			and post.id=member.id
+			and delete_flag='F'
+			and like_post.id=#{ column_value })
 		where rnum between #{ start_num } and #{ end_num }
 	</select>
 </mapper>

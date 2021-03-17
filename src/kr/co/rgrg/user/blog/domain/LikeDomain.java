@@ -2,14 +2,20 @@ package kr.co.rgrg.user.blog.domain;
 
 public class LikeDomain {
 	
-	private String id, post_num, post_title, post_content, thumbnail, input_date;
-	private int view_cnt;
+	private String id, nickname, post_num, post_title, post_content, thumbnail, input_date;
+	private int like_cnt;
 	
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 	public String getPost_num() {
 		return post_num;
@@ -41,11 +47,11 @@ public class LikeDomain {
 	public void setInput_date(String input_date) {
 		this.input_date = input_date;
 	}
-	public int getView_cnt() {
-		return view_cnt;
+	public int getLike_cnt() {
+		return like_cnt;
 	}
-	public void setView_cnt(int view_cnt) {
-		this.view_cnt = view_cnt;
+	public void setLike_cnt(int like_cnt) {
+		this.like_cnt = like_cnt;
 	}
 	
 }//class

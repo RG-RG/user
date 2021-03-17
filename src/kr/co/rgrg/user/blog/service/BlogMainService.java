@@ -42,7 +42,7 @@ public class BlogMainService {
 	public String getBlogMainMore(PostRangeVO prVO, int cur_page) {
 		JSONObject json=new JSONObject();
 		json.put("flag", "fail");
-		
+		json.put("test","인코딩테스트");
 		List<PostDomain> post_list=BlogMainDAO.getInstance().selectPostList(prVO);
 		int total_cnt=PaginationDAO.getInstance().selectTotalPostCnt(prVO);
 		if(post_list!=null) {
