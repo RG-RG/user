@@ -194,8 +194,8 @@ public class MemberController {
 		
 		message.setTo(mVO.getTo());
 		message.setFrom(mVO.getFrom());
-		message.setSubject("[RGRG] 이메일 인증");
-		message.setText("RGRG 회원정보 확인을 위한 인증번호는 " + key + " 입니다.\n만약 고객님의 활동이 아니시라면 rgrgofficial@gmail.com 로 알려주시기 바랍니다.");
+		message.setSubject("[Co-doing] 이메일 인증");
+		message.setText("Co-doing 회원정보 확인을 위한 인증번호는 " + key + " 입니다.\n만약 고객님의 활동이 아니시라면 codoingofficial@gmail.com 로 알려주시기 바랍니다.");
 		sender.send(message);
 		map.put("key", key);
 		
