@@ -5,7 +5,7 @@
 <mapper namespace="kr.co.rgrg.user.main">
 
 
-	<!-- 메인화면의 글 목록, 최신순 정렬 -->
+	<!-- 메인화면의 글 목록, 최신순 정렬  / 검색 -->
 	<select id="selectMainList" 
 	parameterType="kr.co.rgrg.user.pagination.RangeVO"
 	resultType="kr.co.rgrg.user.main.domain.UserMainDomain">
@@ -25,7 +25,7 @@
 				
 			<!-- select post_num, id, post_title, post_content, thumbnail, input_date, row_number() over(order by input_date desc) rnum -->
 			from post
-			where delete_flag='F' and hidden_flag='F' and publish_flag='F' 
+			where delete_flag='F' and hidden_flag='F' and publish_flag='T' 
 					<if test="column_value!=null and !column_value.equals('')">and (post_title like '%${ column_value }%' or post_content like '%${ column_value }%')</if>
 		)
 		where rnum between #{ start_num } and #{ end_num }

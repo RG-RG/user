@@ -20,9 +20,10 @@
        		<c:if test="${ empty sessionScope.id }">
 				<li><span><a href="/rgrg_user/member/login.html" rel="modal:open">LOGIN</a></span> / <span><a href="/rgrg_user/member/login.html" rel="modal:open">JOIN</a></span></li>
 			</c:if>
-            <!-- 로그인 됐을 때 : 내 블로그, 보관함 -->
+            <!-- 로그인 됐을 때 : 내 블로그, 보관함, 마이페이지 -->
 			<c:if test="${ not empty sessionScope.id }">
-				<li><span><a href="">내 블로그</a></span> / <span><a href="">내 보관함</a></span></li>
+				<li><span><a href="../${ sessionScope.id }/blog">내 블로그</a></span> / <span><a href="../like/list">내 보관함</a></span></li>
+				<li><span><a href="../mypage/index">마이 페이지</a></span></li>
 			</c:if>
             
             <li><a href="main?sort=view_cnt">조회순 보기</a></li>
