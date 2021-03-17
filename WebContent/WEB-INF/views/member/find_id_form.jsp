@@ -86,7 +86,7 @@ $(function(){
 					$.ajax({
 						url : "send_mail",
 						type : "GET",
-						data : "from=rgrgofficial@gmail.com&to="+auth_email,
+						data : "from=codoingofficial@gmail.com&to="+auth_email,
 						dataType : "JSON",
 						async : false,
 						error : function(xhr) {
