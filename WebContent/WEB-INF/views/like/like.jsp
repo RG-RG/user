@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -89,7 +91,10 @@ function moreLike(next_page){
             <div class="post">
                 <div class="post_img"> <!-- 이미지는 여기 넣거나, background image를 CSS로 줘서 해도 됩니당 편한대로..!--> </div>
                 <div class="post_title" onclick="javascript:location.href='/rgrg/${ like.id }/blog/post/${ like.post_num }'"><c:out value="${ like.post_title }"/></div>
-                <div class="post_content"><c:out value="${ like.post_content.substring(0,10).concat('...') }"/></div>
+                <div class="post_content">
+            		<c:if test="${ fn:length(like.post_content) <= 20 }">${ like.post_content.concat('···') }</c:if>
+            		<c:if test="${ fn:length(like.post_content) > 20 }">${ like.post_content.substring(0,10).concat('···') }</c:if>
+                </div>
                 <div class="post_info">
                     <span class="post_writer">by. <c:out value="${ like.nickname }"/> ・<c:out value="${ like.input_date }"/></span>
                     <span class="post_like">

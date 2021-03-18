@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,8 +63,9 @@
 					$("#section_main").append(output);
 					
 					var more='<span id="more_btn" class="more_btn" onclick="more_page('+(page+1)+')">더 보기</span>'
+					
 					if(jsonObj.last_flag){
-						more='';
+						var more='<span id="more_btn" class="more_btn" >마지막 페이지 입니다!</span>'
 					}
 					$("#more_div").html(more)
 					
@@ -93,10 +95,13 @@
         <c:forEach var="userMain" items="${ main_list }">
         <div class="post">
             <div class="post_img" style="background-image: url(${ userMain.thumbnail })"></div>
-            <div class="post_title"><a href="">${ userMain.post_title }</a></div>
-            <div class="post_content"> ${ userMain.post_content }</div>
+            <div class="post_title"><a href="../${ userMain.id }/blog/post/${ userMain.post_num }">${ userMain.post_title }</a></div>
+            <div class="post_content"> 
+            	<c:if test="${ fn:length(userMain.post_content) <= 20 }">${ userMain.post_content }</c:if>
+            	<c:if test="${ fn:length(userMain.post_content) > 20 }">${ userMain.post_content.substring(0,20).concat('···') }</c:if>
+            </div>
             <div class="post_info">
-                <span class="post_writer"><a href="">by. ${ userMain.id }</a></span> ・ <span class="post_date">${ userMain.input_date }</span>
+                <span class="post_writer"><a href="">by. ${ userMain.id }</a></span> ・ <span class="post_date">${ userMain.input_date.substring(0, 16) }</span>
             </div>
         </div>
         </c:forEach>
