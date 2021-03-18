@@ -9,8 +9,10 @@
     <title>사용자 - 내 보관함</title>
     <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 
-    <link rel="stylesheet" href="http://localhost/css/blog/reset.css">
-    <link rel="stylesheet" href="http://localhost/css/blog/like_post.css">
+    <link rel="stylesheet" href="http://localhost/rgrg_user/css/reset.css">
+    <link rel="stylesheet" href="http://localhost/rgrg_user/css/blog/like_post.css">
+    <link rel="stylesheet" href="http://localhost/rgrg_user/css/common/common_header_footer.css">
+    <link rel="stylesheet" href="http://localhost/rgrg_user/css/common/see_more_btn.css">
 </head>
 <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> -->
 
@@ -18,7 +20,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    
 <script type="text/javascript">
 $(function(){
 	
@@ -72,21 +74,8 @@ function moreLike(next_page){
 
 </script>
 <body>
-    <!-- 헤더 -->
-    <!-- jsp에서는 c:import로 바꿔주면 돼요~ -->
-    <section class="section_header">
-        <div class="header_nav">
-            <span class="btn btn_nav_open"><i class="fas fa-bars"></i></span>
-        </div>
-        <ul class="nav_bar">
-            <li><span>GLOG</span><span class="btn btn_nav_close"><i class="fas fa-chevron-left"></i></span></li>
-            <li><span>LOGIN</span> / <span>JOIN</span></li>
-            <li>인기순 보기</li>
-            <li>최신순 보기</li>
-            <li>search</li>
-        </ul>
-    </section>
-    <!-- 헤더 end -->
+	<!-- 헤더(사이드바) -->
+	<c:import url="../common/common_header.jsp" />
 
     <section class="section_main">
         <!-- 타이틀 -->
@@ -121,6 +110,9 @@ function moreLike(next_page){
         <!-- 버튼 end -->
     </section>
 
-    <script src="http://localhost/js/control_navbar.js"></script>
+    	<!--푸터 -->
+	<c:import url="../common/common_footer.jsp" />
 </body>
+
+    <script src="http://localhost/rgrg_user/js/control_navbar.js"></script>
 </html>
