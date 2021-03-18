@@ -138,7 +138,7 @@
         $("#profile_img").change(function () {
           let temp = $("#profile_img").val().split("\\");
           
-          if(temp.endsWith("jpg") || temp.endsWith("png") || temp.endsWith("jpeg")) {
+          if(temp[temp.length - 1].endsWith("jpg") || temp[temp.length - 1].endsWith("png") || temp[temp.length - 1].endsWith("jpeg")) {
         	  
           
 	          let profile_img = temp[temp.length - 1];
