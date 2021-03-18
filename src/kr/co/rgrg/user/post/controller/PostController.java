@@ -1,11 +1,20 @@
 package kr.co.rgrg.user.post.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.UUID;
+
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import kr.co.rgrg.user.post.domain.PostDomain;
 import kr.co.rgrg.user.post.service.PostService;
@@ -14,6 +23,12 @@ import kr.co.rgrg.user.post.vo.PostVO;
 
 @Controller
 public class PostController {
+	private static final Logger logger = LoggerFactory.getLogger(PostService.class);
+
+
+	//json 데이터로 응답을 보내기 위한
+	@Autowired
+	MappingJackson2JsonView jsonView;
 	
 	/**
 	 * 게시글 작성하기 - 임시저장된 글이 있다면 임시저장된 글 부터 불러오기
@@ -51,16 +66,29 @@ public class PostController {
 	 * @return
 	 */
 	@RequestMapping(value="/post/new_post.do", method= RequestMethod.POST)
-	public String saveNewPost(PostVO pVO, HttpSession session) {
+	public String saveNewPost(PostVO pVO, HttpSession session, MultipartFile thumbnail_img, Model model) throws Exception {
 		pVO.setId("user1");
 		PostService ps = new PostService();
-		boolean result = ps.savePost(pVO);
-		if(result) {
-			return "post/edit";			
-		}else{
-			return "mypage/index";
+		
+		String upload_result = "";
+		boolean post_result = false;
+		try {
+			upload_result = ps.saveFile(thumbnail_img);
+			pVO.setThumbnail(upload_result);
+			post_result = ps.savePost(pVO);
+			
+		} catch (NullPointerException e) {
+			upload_result = "no_file";
 		}
+		
+		if(post_result && upload_result != null) {
+			model.addAttribute("posting_result", "success");
+		} else {
+			model.addAttribute("posting_result", "fail");
+		}
+		return "post/edit";
 	}
+	
 
 	/**
 	 * 수정할 게시글 받아오기
