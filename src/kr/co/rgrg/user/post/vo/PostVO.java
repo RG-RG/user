@@ -3,13 +3,14 @@ package kr.co.rgrg.user.post.vo;
 import java.util.List;
 
 public class PostVO {
-	private int post_num;
+	private String post_num;
 	private String thumbnail, post_title, post_content, publish_flag, hidden_flag, id;
 	private String[] tags;
-	public int getPost_num() {
+	
+	public String getPost_num() {
 		return post_num;
 	}
-	public void setPost_num(int post_num) {
+	public void setPost_num(String post_num) {
 		this.post_num = post_num;
 	}
 	public String getThumbnail() {
