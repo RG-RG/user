@@ -1,10 +1,7 @@
 package kr.co.rgrg.user.post.vo;
 
-import java.util.List;
-
 public class ModifyPostVO {
-	private String post_num;
-	private String thumbnail, post_title, id, post_content, publish_flag, hidden_flag;
+	private String post_num, thumbnail, post_title, id, post_content, publish_flag, hidden_flag;
 	private String[] tags;
 	public String getPost_num() {
 		return post_num;
@@ -54,7 +51,5 @@ public class ModifyPostVO {
 	public void setTags(String[] tags) {
 		this.tags = tags;
 	}
-	
-	
 	
 }
