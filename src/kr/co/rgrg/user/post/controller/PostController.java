@@ -37,7 +37,14 @@ public class PostController {
 	 * @return
 	 */
 	@RequestMapping(value="/post/post_form.do", method= RequestMethod.GET)
-	public String writePostForm(Model model, HttpSession session) {
+	public String writePostForm(HttpSession session, Model model) {
+		
+		model.addAttribute("temp_post_flag", new PostService().searchPublishPost("user1"));
+		return "post/edit";
+	}
+	
+	@RequestMapping(value="/post/temp_post_form.do", method= RequestMethod.POST)
+	public String getTempPostForm(Model model, HttpSession session) {
 		
 		PostService ps = new PostService();
 		String post_num = ps.searchPublishPost("user1");
@@ -73,10 +80,13 @@ public class PostController {
 		String upload_result = "";
 		boolean post_result = false;
 		try {
-			upload_result = ps.saveFile(thumbnail_img);
-			pVO.setThumbnail(upload_result);
-			post_result = ps.savePost(pVO);
+			if(thumbnail_img != null) {
+				upload_result = ps.saveFile(thumbnail_img);
+				pVO.setThumbnail(upload_result);				
+			}
 			
+			post_result = ps.savePost(pVO);
+			System.out.println(post_result);
 		} catch (NullPointerException e) {
 			upload_result = "no_file";
 		}
@@ -86,7 +96,7 @@ public class PostController {
 		} else {
 			model.addAttribute("posting_result", "fail");
 		}
-		return "post/edit";
+		return "main/main";
 	}
 	
 

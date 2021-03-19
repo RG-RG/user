@@ -39,9 +39,9 @@
           }
         });
         
-        $("#save_content").click(function(){
+/*         $("#save_content").click(function(){
         	
-        });
+        }); */
         
         $("#title").keydown(function(){
         	$("#post_title").val($("#title").val());
@@ -56,9 +56,21 @@
         $("#save_no_publish").click(function(){
         	save_post();
         	$("#publish_flag").val("F");
-        	$("#post_form").attr("action", "/rgrg/post/new_post.do")
+        	$("#post_form").attr("action", "new_post.do")
         	$("#post_form").submit();
         })
+        
+		  <c:if test="${ not empty temp_post_flag }">
+		  	
+		  		let temp_flag = confirm("임시저장된 게시글이 있습니다. 이어서 작성하시겠습니까?");
+		  		
+		  		//임시저장 게시글 삭제하는 부분, 게시글 삭제 url로 ajax
+		  		// ajax되는지도 확인해야됨
+		  		if(temp_flag === true) {
+		  			$("#post_form").attr("action", "/rgrg_user/rgrg/post/temp_post_form.do")
+					$("#post_form").submit();
+		  		} 
+		  </c:if>
     });
     </script>
   </head>
@@ -108,8 +120,10 @@
         }
       </script>
     </section>
-
-    <form action="/rgrg/post/post_publish.do" method="post" id="post_form">
+    <form action="/rgrg_user/rgrg/post/post_publish.do" method="post" id="post_form">
+	<c:if test="${ post_data.post_num ne null }">
+    	<input type="hidden" name="post_num" value="${ param.post_num }"/>
+    </c:if>
     	<input type="hidden" name="post_title" id="post_title" value="${ post_data.post_title }"/>
     	<input type="hidden" name="post_content" id="post_content" value="${ post_data.post_content }"/>
     	<input type="hidden" name="thumbnail" id="thumbnail" value="${ post_data.thumbnail }"/>
