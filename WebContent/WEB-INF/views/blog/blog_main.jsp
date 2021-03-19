@@ -110,20 +110,11 @@ function searchBtn(){
 
 </script>
 <body>
-    <section class="section_header">
-        <div class="header_nav">
-            <span class="btn btn_nav_open"><i class="fas fa-bars"></i></span>
-        </div>
-        <ul class="nav_bar">
-            <li><span>GLOG</span><span class="btn btn_nav_close"><i class="fas fa-chevron-left"></i></span></li>
-            <li><span>LOGIN</span> / <span>JOIN</span></li>
-            <li>인기순 보기</li>
-            <li>최신순 보기</li>
-            <li>search</li>
-        </ul>
-    </section>
+	<!-- 헤더(사이드바) -->
+	<c:import url="../common/common_header.jsp" />
 
     <section class="section_main">
+
         <!-- 프로필 화면 -->
         <div class="my_profile">
             <div class="profile_img"><img src="https://cdn.pixabay.com/photo/2016/01/19/16/49/${ blog_profile.profile_img }"></div>
@@ -165,6 +156,12 @@ function searchBtn(){
                 </ul>
             </div>
             <div id="post_list" class="post_list">
+                
+            <!-- 포스트가 0건인 경우 -->
+	        <c:if test="${ empty post_list }">
+	        	<div class="no_post">글이 없습니다. 첫 글을 작성해보세요!</div>
+	        </c:if>
+	        
             <c:forEach var="post" items="${ post_list }">
                 <div class="post">
                     <div class="post_img"><img src="https://cdn.pixabay.com/photo/2015/09/05/22/33/${ post.thumbnail }"></div>
