@@ -65,9 +65,13 @@ public class PostService {
 		boolean result = false;
 		
 		PostDAO pDAO = PostDAO.getInstance();
-		pDAO.updatePost(mpVO);
-		pDAO.deleteTag(mpVO.getPost_num());
-		pDAO.insertTag(mpVO);
+		int posting_cnt = pDAO.updatePost(mpVO);
+		int delete_tag_cnt = pDAO.deleteTag(mpVO.getPost_num());
+		int insert_tag_cnt = pDAO.insertTag(mpVO);
+		
+		if(posting_cnt + delete_tag_cnt + insert_tag_cnt > 3) {
+			result = true;
+		}
 		
 		return result;
 	}

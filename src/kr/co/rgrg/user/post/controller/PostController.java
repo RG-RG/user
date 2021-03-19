@@ -1,9 +1,5 @@
 package kr.co.rgrg.user.post.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.UUID;
-
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -48,10 +44,9 @@ public class PostController {
 		
 		PostService ps = new PostService();
 		String post_num = ps.searchPublishPost("user1");
-		if(!("".equals(post_num))) {
-			PostDomain pdomain = ps.searchEditPost(post_num);
-			model.addAttribute("post_data", pdomain);
-		}
+		PostDomain pdomain = ps.searchEditPost(post_num);
+		System.out.println(post_num);
+		model.addAttribute("post_data", pdomain);
 		
 		return "post/edit";
 	}
@@ -123,14 +118,33 @@ public class PostController {
 	 * @param session
 	 * @return
 	 */
-	@RequestMapping(value="/post/save_modify_post.do", method= RequestMethod.GET)
-	public String saveModifyPost(ModifyPostVO mpVO, HttpSession session) {
-		
+	@RequestMapping(value="/post/save_modify_post.do", method= RequestMethod.POST)
+	public String saveModifyPost(ModifyPostVO mpVO, MultipartFile thumbnail_img, HttpSession session, Model model) {
+		mpVO.setId("user1");
 		PostService ps = new PostService();
-		boolean result = ps.modifyPost(mpVO);
 		// result에 따라 어디로 이동할지
 		
-		return "post/save_modify";
+		String upload_result = "";
+		boolean post_result = false;
+		try {
+			if(thumbnail_img != null) {
+				upload_result = ps.saveFile(thumbnail_img);
+				mpVO.setThumbnail(upload_result);				
+			}
+			
+			post_result = ps.modifyPost(mpVO);
+			System.out.println(post_result);
+		} catch (NullPointerException e) {
+			upload_result = "no_file";
+		}
+		
+		if(post_result && upload_result != null) {
+			model.addAttribute("posting_result", "success");
+		} else {
+			model.addAttribute("posting_result", "fail");
+		}
+		
+		return "main/main";
 	}
 	
 	@RequestMapping(value="/post/cancel.do", method= RequestMethod.GET)

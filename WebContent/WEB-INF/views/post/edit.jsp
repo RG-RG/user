@@ -39,10 +39,6 @@
           }
         });
         
-/*         $("#save_content").click(function(){
-        	
-        }); */
-        
         $("#title").keydown(function(){
         	$("#post_title").val($("#title").val());
         });
@@ -122,7 +118,7 @@
     </section>
     <form action="/rgrg_user/rgrg/post/post_publish.do" method="post" id="post_form">
 	<c:if test="${ post_data.post_num ne null }">
-    	<input type="hidden" name="post_num" value="${ param.post_num }"/>
+    	<input type="hidden" name="post_num" value="${ post_data.post_num }"/>
     </c:if>
     	<input type="hidden" name="post_title" id="post_title" value="${ post_data.post_title }"/>
     	<input type="hidden" name="post_content" id="post_content" value="${ post_data.post_content }"/>

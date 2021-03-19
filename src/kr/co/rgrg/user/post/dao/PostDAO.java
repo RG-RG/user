@@ -66,6 +66,7 @@ public class PostDAO {
 		
 		SqlSession ss = GetRgrgHandler.getInstance().getSqlSession();
 		result = ss.update("updatePost", mpVO);
+		ss.commit();
 		ss.close();
 		
 		return result;
@@ -80,7 +81,8 @@ public class PostDAO {
 		int result = 0;
 		
 		SqlSession ss = GetRgrgHandler.getInstance().getSqlSession();
-		result = ss.update("deleteTag", post_num);
+		result = ss.delete("deleteTag", post_num);
+		ss.commit();
 		ss.close();
 		
 		return result;

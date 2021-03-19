@@ -88,11 +88,18 @@
     	    /* reader.readAsDataURL($("#thumbnail_img").files); */
         })
         
+        $("#publish_form").submit(function(){
+        	if($("#post_num").val() !== "") {
+        		$("#publish_form").attr("action", "/rgrg_user/rgrg/post/save_modify_post.do")
+        	}
+        })
+        
       });
     </script>
   </head>
   <body>
   <form method="post" action="/rgrg_user/rgrg/post/new_post.do" id="publish_form"  enctype="multipart/form-data">
+  	<input type="hidden" name="post_num" id="post_num" value="${ param.post_num }"/>
   	<c:forEach var="tag" items="${ paramValues.tags }">
   	<input type="hidden" name="tags" value="${ tag }"/>
   	</c:forEach>
