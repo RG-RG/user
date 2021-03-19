@@ -3,7 +3,7 @@
 <mapper namespace="kr.co.rgrg.user.post">
 	<!-- 게시글 저장 -->
 	<insert id="insertPost" parameterType="kr.co.rgrg.user.post.vo.PostVO">
-		<selectKey keyProperty="post_num" resultType="int" order="BEFORE">
+		<selectKey keyProperty="post_num" resultType="string" order="BEFORE">
 			select seq_post_num.nextval from dual
 		</selectKey>
 		insert all
@@ -22,7 +22,7 @@
 		select * from dual
 	</insert>
 	<!-- 태그 저장 -->
-	<insert id="insertTag" parameterType="kr.co.rgrg.user.post.vo.PostVO">
+	<insert id="insertTag" parameterType="kr.co.rgrg.user.post.vo.ModifyPostVO">
 		<foreach item="tag" index="index" collection="tags" open="insert all">
 		into tag(
 			post_num, tag_name
@@ -31,10 +31,10 @@
 			#{post_num}, #{tag}
 		)
 	</foreach>
-	
+	select * from dual
 	</insert>
 	<!-- 태그들 전부 삭제 -->
-	<delete id="deleteTag" parameterType="kr.co.rgrg.user.post.vo.ModifyPostVO">
+	<delete id="deleteTag" parameterType="string">
 		delete from tag where post_num = #{post_num}
 	</delete>
 	<!-- 임시저장된 글이 있는지 검색 -->
