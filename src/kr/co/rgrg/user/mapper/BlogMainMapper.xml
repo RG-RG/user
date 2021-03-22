@@ -6,17 +6,20 @@
 
   	<select id="selectProfile" parameterType="kr.co.rgrg.user.blog.vo.BlogMainVO"
   	resultType="kr.co.rgrg.user.blog.domain.BlogMainDomain">
-		select id, profile_img, nickname, statement_msg, visible_email, github, website,
-				following_cnt, follower_cnt, post_cnt
+		select member.id, profile_img, nickname, statement_msg, visible_email, github, website,
+				nvl(following_cnt,0), nvl(follower_cnt,0), nvl(post_cnt,0)
 		from member,
-			(select count(following_id) following_cnt from following where id=#{id} group by id),
-			(select count(follower_id) follower_cnt from follower where id=#{id} group by id),
-			(select count(id) post_cnt from post where id=#{id} and delete_Flag='F' and publish_Flag='T' 
+			(select id, count(following_id) following_cnt from following where id=#{id} group by id) following_t,
+			(select id, count(follower_id) follower_cnt from follower where id=#{id} group by id) follower_t,
+			(select id, count(id) post_cnt from post where id=#{id} and delete_Flag='F' and publish_Flag='T' 
 			<if test="hidden_flag.equals(true)">
 			and hidden_flag='F'
 			</if>
-			group by id)
+			group by id) post_t
 		where member.id=#{id}
+			and member.id=following_t.id(+)
+			and member.id=follower_t.id(+)
+			and member.id=post_t.id(+)
 	</select>
 	
 	<select id="selectTagList" parameterType="kr.co.rgrg.user.blog.vo.BlogMainVO" resultType="kr.co.rgrg.user.blog.domain.TagDomain">
