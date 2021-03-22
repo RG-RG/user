@@ -1,7 +1,9 @@
 package kr.co.rgrg.user.blog.controller;
 
+import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -46,7 +48,7 @@ public class LikeController {
 	
 	@RequestMapping(value="rgrg/like/list/{param_page}", method=RequestMethod.POST, produces="application/json;charset=UTF-8")
 	@ResponseBody
-	public String getMoreLikeList(HttpSession session, @PathVariable("param_page") String param_page) {
+	public void getMoreLikeList(HttpSession session, @PathVariable("param_page") String param_page, HttpServletResponse response) throws IOException {
 		String json=null;
 		
 		int current_page=1;
@@ -61,7 +63,12 @@ public class LikeController {
 		
 		json=new LikeService().getMoreLikeList(rVO, current_page);
 		
-		return json;
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+		response.setCharacterEncoding("utf-8");
+		response.getWriter().print(json);
+		
+		//return json;
 	}//getMoreLikeList
 	
 }//class

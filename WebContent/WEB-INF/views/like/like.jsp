@@ -41,7 +41,7 @@ function moreLike(next_page){
 		success:function(jsonObj){
 	      	if(jsonObj.flag=="success"){
 				var output='';
-				$.each(jsonObj.post_list, function(idx, list){
+				$.each(jsonObj.like_list, function(idx, list){
 					output+='<div class="post">';
 					output+='<div class="post_img">';
 					output+=list.thumbnail;
@@ -60,7 +60,7 @@ function moreLike(next_page){
 					output+='</div>';
 				});//each
 				
-				$("#main_content").append(output);
+				$("#main_content_div").append(output);
 				
 				var more='';
 				if(jsonObj.end_num<jsonObj.total_cnt){
@@ -83,7 +83,7 @@ function moreLike(next_page){
         <!-- 타이틀 -->
         <div class="main_title">좋아한 포스트</div>
 
-        <div id="main_content" class="main_content">
+        <div id="main_content_div" class="main_content">
             <!-- main_content 안에 들어있는거여서
             c:foreach 해서 post를 반복문 돌리면 됩니당
             ajax append도 여기 하면 될 것 같아용 -->

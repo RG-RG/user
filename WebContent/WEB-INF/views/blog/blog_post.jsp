@@ -164,6 +164,8 @@ $(function(){
 						$("#commAddCont").val("");
 						commCnt=Number($("#commCnt").text())
 					 	changeCommCnt(commCnt+1);
+						
+						$("#comm_zero").text('');
 			      	}else{
 			      		alert("문제가 발생하였습니다. 다시 시도해주세요.");
 			      	}//end else
@@ -178,6 +180,7 @@ $(function(){
 
 function changeCommCnt(cnt){
 	$("#commCnt").text(cnt)
+	$("#commCnt2").text('댓글 '+cnt)
 }//changeCommCnt
 	
 function commRemoveClk(comm_num){
@@ -196,6 +199,9 @@ function commRemoveClk(comm_num){
 					 	$("#comm_div_"+comm_num).html("");
 					 	commCnt=Number($("#commCnt").text())
 					 	changeCommCnt(commCnt-1);
+					 	if(commCnt-1==0){
+					 		$("#comm_zero").text('댓글이 없습니다.');
+					 	}//end if
 			      	}else{
 			      		alert("문제가 발생하였습니다. 다시 시도해주세요.")
 			      	}//end else
@@ -301,7 +307,7 @@ function commModifyBtn(comm_num){
             </c:forEach>
             </div>
             <div class="post_content">
-            <c:out value="${ post_detail.post_content }"/>
+            <c:out value="${ post_detail.post_content }" escapeXml="false"/>
             </div>
             <!-- 작성자 프로필 -->
             <div class="writer_info">
@@ -329,7 +335,7 @@ function commModifyBtn(comm_num){
             </div>
             <!-- 댓글 작성 칸 -->
             <div class="write_comment">
-                <div class="comment_cnt">댓글 <c:out value="${ post_detail.comment_cnt }"/></div>
+                <div id="commCnt2" class="comment_cnt">댓글 <c:out value="${ post_detail.comment_cnt }"/></div>
                 <div class="comment_input">
                     <textarea id="commAddCont" class="c_input" type="text" placeholder="댓글을 입력해주세요."></textarea>
                     <div>
@@ -341,9 +347,11 @@ function commModifyBtn(comm_num){
             <!-- 댓글 목록 -->
             <div id="comments_list" class="comments_list">
             
+			<div id="comm_zero">
             <c:if test="${ empty comm_list }">
-			<div>댓글이 없습니다.</div>
+			댓글이 없습니다.
 			</c:if>
+			</div>
 			
 			<c:forEach var="comm" items="${ comm_list }">
             <div id="comm_div_${ comm.comm_num }" class="comment">
