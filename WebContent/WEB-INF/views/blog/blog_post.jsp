@@ -16,7 +16,7 @@ if(${ not empty post_detail_fail}){
     <title>블로그 글 보기</title>
     <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 
-    <link rel="stylesheet" href="http://localhost/rgrg_user/css/blog/reset.css" >
+    <!-- <link rel="stylesheet" href="http://localhost/rgrg_user/css/blog/reset.css" > -->
     <link rel="stylesheet" href="http://localhost/rgrg_user/css/blog/blog_post.css">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.css">
@@ -277,11 +277,11 @@ function commModifyBtn(comm_num){
         <div class="post_side_tab">
             <ul>
                 <li id="postLike">
-                <c:choose>
-                <c:when test="${ like_flag }"></c:when>
-                <c:when test="${ not like_flag }"></c:when>
-                </c:choose>
-                <i class="far fa-heart"></i>
+	                <c:choose>
+	                <c:when test="${ like_flag }"></c:when>
+	                <c:when test="${ not like_flag }"></c:when>
+	                </c:choose>
+	                <i class="far fa-heart"></i>
                 </li>
                 <li><c:out value="${ post_detail.like_cnt }"/></li>
                 <li><i class="far fa-comment-alt"></i></li>
@@ -295,38 +295,40 @@ function commModifyBtn(comm_num){
             <div class="post_title"><c:out value="${ post_detail.post_title }"/></div>
             <div class="post_info tabs">
                 <div>
-                    <span class="writer">by <c:out value="${ post_detail.nickname } "/> </span>
+                    <span class="writer">by <c:out value="${ post_detail.nickname } "/></span>・
                     <span class="date"><c:out value="${ post_detail.input_date } "/> </span>
-                    <span class="locked"><c:if test="${ post_detail.hidden_flag=='T' }">비공개</c:if></span>
+                    <span class="locked"><c:if test="${ post_detail.hidden_flag=='T' }">・<i class="fas fa-lock"></i>비공개</c:if></span>
                 </div>
                 <div class="btns">
                 <c:if test="${ sessionScope.id==post_profile.id }">
                     <form id="modifyPost" action="${post_profile.id}/blog/post/modify/${post_detail.post_num}" method="post">
-                    <span class="btn">수정</span>
+                    	<span class="btn">수정</span>
                     </form>
                     <a id="removePost"><span class="btn">삭제</span></a>
                 </c:if>
                 </div>
             </div>
+            
+			<!-- 본문 내용 -->
+            <div class="post_content">
+	            <div id="viewer"></div>
+	            <input type="hidden" id="content_hid" value="${ post_detail.post_content }"/>
+	            <script type="text/javascript">
+		         	 var content=$("#content_hid").val()
+			       	 const viewer = new toastui.Editor({
+			       	    el: document.querySelector('#viewer'),
+			       	    initialValue: content,
+			       	    viewer: true
+			       	  });
+	            </script>
+            </div>
+            <!-- 태그 -->
             <div class="post_tags tabs">
             <c:forEach var="tag" items="${ post_detail.tag_name }">
-            #<c:out value="${ tag }"/> 
+            	<span>#<c:out value="${ tag }"/></span> 
             </c:forEach>
             </div>
-            <div class="post_content">
-            <div id="viewer">
-            </div>
-            <input type="hidden" id="content_hid" value="${ post_detail.post_content }"/>
-            <script type="text/javascript">
-         	 var content=$("#content_hid").val()
-	       	 const viewer = new toastui.Editor({
-	       	    el: document.querySelector('#viewer'),
-	       	    initialValue: content,
-	       	    viewer: true
-	       	  });
-            </script>
             
-            </div>
             <!-- 작성자 프로필 -->
             <div class="writer_info">
                 <img src="${ post_profile.profile_img } }">
@@ -357,7 +359,7 @@ function commModifyBtn(comm_num){
                 <div class="comment_input">
                     <textarea id="commAddCont" class="c_input" type="text" placeholder="댓글을 입력해주세요."></textarea>
                     <div>
-                        <input type="checkbox" name="chk_secret" value="true">
+                        <span><input type="checkbox" name="chk_secret" value="true">비밀 댓글</span>
                         <span id="commAddClk" class="btn_comment btn">댓글 쓰기</span>
                     </div>
                 </div>
@@ -365,9 +367,9 @@ function commModifyBtn(comm_num){
             <!-- 댓글 목록 -->
             <div id="comments_list" class="comments_list">
             
-			<div id="comm_zero">
+			<div id="comm_zero" class="comm_zero">
             <c:if test="${ empty comm_list }">
-			댓글이 없습니다.
+				댓글이 없습니다.
 			</c:if>
 			</div>
 			
@@ -376,7 +378,7 @@ function commModifyBtn(comm_num){
                 <div class="c_writer_info">
                     <img src="${ comm.profile_img }">
                     <div>
-                        <span><c:out value="${ comm.nickname }"/></span>
+                        <span class="c_writer"><c:out value="${ comm.nickname }"/></span>
                         <span><c:out value="${ comm.input_date }"/></span>
                     </div>
                     <div>

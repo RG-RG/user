@@ -128,8 +128,8 @@ function searchBtn(){
             <div class="profile_comment"><c:out value="${ blog_profile.statement_msg }"/></div>
             <div class="profile_follow">
                 <div>
-                    <span class="f_title">팔로워</span><span class="f_num"><c:out value="${ blog_profile.follower_cnt }"/></span>
-                    <span class="f_title">팔로잉</span><span class="f_num"><c:out value="${ blog_profile.following_cnt }"/></span>
+                    <span class="f_title"><a href="">팔로워</a></span><span class="f_num"><c:out value="${ blog_profile.follower_cnt }"/></span>
+                    <span class="f_title"><a href="">팔로잉</a></span><span class="f_num"><c:out value="${ blog_profile.following_cnt }"/></span>
                 </div>
                 <div>
                     <a href="${ blog_profile.github }"><i class="fab fa-github"></i></a>
@@ -154,7 +154,7 @@ function searchBtn(){
         
         <div class="blog_post">
             <div class="category">
-                <span>전체보기(<c:out value="${ blog_profile.post_cnt }"/>)</span>
+                <span>전체보기 (<c:out value="${ blog_profile.post_cnt }"/>)</span>
                 <ul>
                 <c:forEach var="tag" items="${ tag_list }">
                     <li onclick="javascript:location.href='blog?tag=${ tag.tag_name }'"><c:out value="${ tag.tag_name }"/>(<c:out value="${ tag.tag_cnt }"/>)</li>
@@ -170,7 +170,7 @@ function searchBtn(){
 	        
             <c:forEach var="post" items="${ post_list }">
                 <div class="post">
-                    <div class="post_img"><img src="https://cdn.pixabay.com/photo/2015/09/05/22/33/${ post.thumbnail }"></div>
+                    <div class="post_img"><img src="${ post.thumbnail }"></div>
                     <div class="post_title"  onclick="javascript:location.href ='blog/post/${ post.post_num }'">
                     <c:out value="${ post.post_title }"/>
                     </div>
@@ -187,9 +187,9 @@ function searchBtn(){
                     </c:forEach>
                     </div>
                     <div class="post_info">
-                    <span><c:out value="${ post.input_date }"/></span>
-                    <span>조회 <c:out value="${ post.view_cnt }"/></span>
-                    <span>댓글 <c:out value="${ post.comment_cnt }"/></span>
+	                    <span><c:out value="${ post.input_date }"/></span>
+	                    <span>조회 <c:out value="${ post.view_cnt }"/></span>
+	                    <span>댓글 <c:out value="${ post.comment_cnt }"/></span>
                     </div>
                 </div>
             </c:forEach>

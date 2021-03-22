@@ -1,238 +1,271 @@
+.section_main .post .comments_list .comment .c_writer_info div:last-child span:hover,
+.section_main .post .post_info .btns span:hover,
+.section_main .post .write_comment .btn_comment:hover,
+.section_main .post .writer_info .w_nickname .btn_follow:hover {
+    text-decoration: underline;
+    cursor: pointer
+}
+
+.section_main .post .writer_info svg:hover {
+    cursor: pointer
+}
+
 * {
-	box-sizing: border-box
+    box-sizing: border-box
 }
 
 html {
-	font-size: 62.5%
+    font-size: 62.5%
 }
 
-@media ( min-width :901px) {
-	.section_main {
-		max-width: 80%
-	}
+@media (min-width:901px) {
+    .section_main {
+        max-width: 80%;
+        min-width: 700px;
+    }
 }
 
-@media ( min-width :1201px) {
-	.section_main {
-		max-width: 65%
-	}
+@media (min-width:1201px) {
+    .section_main {
+        max-width: 65%;
+        min-width: 800px;
+    }
 }
 
 body {
-	display: flex;
-	flex-direction: column
+    display: flex;
+    flex-direction: column
 }
 
 .header_nav {
-	height: 50px;
-	display: flex;
-	align-items: center;
-	padding: 2.5rem;
-	font-size: 2.5rem
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding: 2.5rem;
+    font-size: 2.5rem
 }
 
 .nav_bar {
-	position: absolute;
-	left: -30rem;
-	top: 0;
-	width: 30rem;
-	height: 100vh;
-	background-color: #000;
-	font-size: 1.5rem;
-	padding: 1.5rem;
-	color: #fff;
-	z-index: 999
+    position: absolute;
+    left: -30rem;
+    top: 0;
+    width: 30rem;
+    height: 100vh;
+    background-color: #000;
+    font-size: 1.5rem;
+    padding: 1.5rem;
+    color: #fff;
+    z-index: 999
 }
 
 .nav_bar li:first-child {
-	font-size: 2.5rem;
-	display: flex;
-	justify-content: space-between;
-	margin-bottom: 5rem
+    font-size: 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5rem
 }
 
 .nav_bar li:not(li:first-child) {
-	margin: 2rem 0
+    margin: 2rem 0
 }
 
 .btn {
-	cursor: pointer
+    cursor: pointer
 }
 
 .section_main {
-	display: -ms-grid;
-	display: grid;
-	-ms-grid-columns: 1fr 9fr;
-	grid-template-columns: 1fr 9fr;
-	margin: 0 auto;
-	font-size: 1.2rem
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr 9fr;
+    grid-template-columns: 1fr 9fr;
+    margin: 0 auto;
+    font-size: 1.2rem
 }
 
 .section_main .post_side_tab ul {
-	position: fixed;
-	background-color: #e8e8e8;
-	top: 30vh;
-	font-size: 1.5rem;
-	width: 4rem;
-	border-radius: 2.5rem;
-	padding: 2rem 0
+    position: fixed;
+    background-color: #e8e8e8;
+    top: 30vh;
+    font-size: 1.5rem;
+    width: 4rem;
+    border-radius: 2.5rem;
+    padding: 2rem 0
 }
 
 .section_main .post_side_tab ul li {
-	text-align: center
+    text-align: center
 }
 
 .section_main .post_side_tab ul li:nth-child(even) {
-	margin-bottom: 2rem
+    margin-bottom: 2rem
 }
 
 .section_main .post .tabs {
-	padding: .7rem 0
+    padding: .7rem 0
 }
 
 .section_main .post .post_title {
-	font-size: 3rem;
-	font-weight: 600;
-	padding: 2rem 0
+    font-size: 3rem;
+    font-weight: 600;
+    padding: 2rem 0
 }
 
 .section_main .post .post_info {
-	display: flex;
-	justify-content: space-between
+    display: flex;
+    justify-content: space-between
 }
 
 .section_main .post .post_info div:first-child {
-	display: flex
+    display: flex
 }
 
-.section_main .post .post_info div:first-child div {
-	margin-right: 1rem
+.section_main .post .post_info div:first-child span,
+.section_main .post .post_info div:first-child svg {
+    margin: 0 .5rem;
+    display: flex;
+    align-items: center
 }
 
 .section_main .post .post_info .btns span {
-	margin-left: 1rem
+    margin-left: 1rem
 }
 
 .section_main .post .post_content {
-	margin-top: 3rem;
-	line-height: 1.5rem
+    margin-top: 3rem;
+    line-height: 1.5rem
+}
+
+.section_main .post .post_tags {
+    margin-top: 3rem
+}
+
+.section_main .post .post_tags span {
+    margin-right: .3rem;
+    background-color: #ffdfdf;
+    padding: .3rem 1rem;
+    border-radius: 2rem
 }
 
 .section_main .post .writer_info {
-	display: -ms-grid;
-	display: grid;
-	-ms-grid-columns: 1fr 4fr;
-	grid-template-columns: 1fr 4fr;
-	margin-top: 7rem
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr 4fr;
+    grid-template-columns: 1fr 4fr;
+    margin-top: 5rem
 }
 
 .section_main .post .writer_info img {
-	width: 10rem;
-	height: 10rem;
-	border-radius: 50%
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%
 }
 
 .section_main .post .writer_info .info {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between
 }
 
+.section_main .post .write_comment .comment_input div,
 .section_main .post .writer_info .w_nickname {
-	display: flex;
-	justify-content: space-between;
-	align-items: center
+    display: flex;
+    justify-content: space-between;
+    align-items: center
 }
 
 .section_main .post .writer_info .w_nickname .nickname {
-	font-size: 2rem;
-	font-weight: 600
+    font-size: 2rem;
+    font-weight: 600
 }
 
 .section_main .post .writer_info .w_nickname .btn_follow {
-	padding: 1rem 2rem;
-	border-radius: 2rem;
-	background-color: #e8e8e8
+    padding: 1rem 2rem;
+    border-radius: 2rem;
+    background-color: #e8e8e8
 }
 
 .section_main .post .writer_info .w_comment {
-	line-height: 1.5rem
+    line-height: 1.5rem
 }
 
 .section_main .post .writer_info svg {
-	margin-right: 1rem
+    margin-right: 1rem
+}
+
+.section_main .post textarea {
+    resize: none
 }
 
 .section_main .post .write_comment {
-	margin-top: 5rem
+    margin-top: 5rem
 }
 
 .section_main .post .write_comment .comment_cnt {
-	font-size: 1.5rem
+    font-size: 1.5rem
 }
 
 .section_main .post .write_comment .comment_input {
-	display: flex;
-	flex-direction: column
+    display: flex;
+    flex-direction: column
 }
 
 .section_main .post .write_comment .comment_input .c_input {
-	width: 100%;
-	height: 6rem;
-	margin: 1rem 0
+    width: 100%;
+    height: 6rem;
+    margin: 1rem 0 .5rem;
+    padding: .5rem
 }
 
-.section_main .post .write_comment .comment_input div {
-	display: flex;
-	justify-content: space-between
+.section_main .post .write_comment .btn_comment {
+    background-color: #e8e8e8;
+    padding: 1rem 2rem;
+    border-radius: 1rem
 }
 
 .section_main .post .comments_list {
-	margin-top: 3rem
+    margin-top: 3rem
 }
 
 .section_main .post .comments_list .comment {
-	margin-bottom: 3rem
+    margin-bottom: 3rem
 }
 
 .section_main .post .comments_list .comment .c_writer_info {
-	display: -ms-grid;
-	display: grid;
-	-ms-grid-columns: 1fr 5fr 1fr;
-	grid-template-columns: 1fr 5fr 1fr
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr 6fr 1fr;
+    grid-template-columns: 1fr 6fr 1fr
 }
 
 .section_main .post .comments_list .comment .c_writer_info img {
-	width: 6rem;
-	height: 6rem;
-	border-radius: 50%
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%
 }
 
-.section_main .post .comments_list .comment .c_writer_info div:nth-child(2)
-	{
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around
+.section_main .post .comments_list .comment .c_writer_info div:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around
 }
 
-.section_main .post .comments_list .comment .c_writer_info div:last-child
-	{
-	display: flex;
-	align-items: center;
-	justify-content: flex-end
+.section_main .post .comments_list .comment .c_writer_info div:nth-child(2) .c_writer {
+    font-size: 1.5rem;
+    font-weight: 600
 }
 
-.section_main .post .comments_list .comment .c_writer_info div:last-child span
-	{
-	margin-left: 1rem
+.section_main .post .comments_list .comment .c_writer_info div:last-child {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end
+}
+
+.section_main .post .comments_list .comment .c_writer_info div:last-child span {
+    margin-left: 1rem
 }
 
 .section_main .post .comments_list .comment .c_content {
-	padding-left: 7rem;
-	margin-top: 1rem;
-	line-height: 1.4rem
-}
-
-.btn:hover{
-	text-decoration: underline;
+    padding-left: 7rem;
+    margin-top: 1rem;
+    line-height: 1.4rem
 }
