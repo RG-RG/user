@@ -52,24 +52,38 @@ textarea {
   color: rgb(33, 37, 41);
 }
 .tag_area {
-  display: inline-flex;
-  outline: none;
-  cursor: text;
-  font-size: 1.125rem;
-  line-height: 2rem;
-  margin-bottom: 0.75rem;
-  min-width: 8rem;
-  border: none;
+    display: inline-flex;
+    outline: none;
+    cursor: text;
+    font-size: 1.125rem;
+    line-height: 2rem;
+    padding-bottom: 0.75rem;
+    min-width: 8rem;
+    border: none;
+    display: flex;
+    align-items: center;
 }
 .post_tag {
-  display: inline-flex;
-  outline: none;
-  cursor: text;
-  font-size: 1.125rem;
-  line-height: 2rem;
-  margin-bottom: 0.75rem;
-  min-width: 8rem;
-  border: none;
+	display: inline-flex;
+    outline: none;
+    cursor: text;
+    font-size: 1.125rem;
+    line-height: 2rem;
+    padding-top: 0.35rem;
+    padding-bottom: 0.35rem;
+    min-width: 8rem;
+    border: none;
+    margin-left: 0.7rem;
+}
+.tag{
+	margin-left: 0.3rem;
+    margin-right: 0.3rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    background-color: gray;
+    height: fit-content;
+    color: white;
+    border-radius: 10rem;
 }
 .title_line {
   background: rgb(73, 80, 87);
@@ -112,7 +126,7 @@ h3 {
   align-items: center;
   justify-content: center;
   background-color: bisque;
-  padding-top: 1.25rem;
+/*   padding-top: 1.25rem; */
 }
 .thumbnail button {
   display: inline-flex;
