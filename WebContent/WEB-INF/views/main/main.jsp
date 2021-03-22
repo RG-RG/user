@@ -50,10 +50,15 @@
 					//반복문으로 돌면서 div를 추가해줘야 함
 					var output = ""
 					$.each(jsonObj.main_list, function(idx, list){
+						var cur_content = list.post_content;
+						if( list.post_content.length > 20 ) {
+							cur_content = cur_content.substring(0,20).concat('···');
+						} 
+						
 						output += '<div class="post">';
 						output += '<div class="post_img" style="background-image: url('+list.thumbnail+')"></div>'
 						output += '<div class="post_title">'+list.post_title+'</div>'
-						output += '<div class="post_content">'+list.post_content+'</div>'
+						output += '<div class="post_content">'+ cur_content +'</div>'
 						output += '<div class="post_info">'
 							output +='<span class="post_writer">by. '+list.id+'</span> ・ <span class="post_date">'+list.input_date+'</span>'
 						output +='</div>';

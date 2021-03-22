@@ -19,6 +19,8 @@ if(${ not empty post_detail_fail}){
     <link rel="stylesheet" href="http://localhost/rgrg_user/css/blog/reset.css" >
     <link rel="stylesheet" href="http://localhost/rgrg_user/css/blog/blog_post.css">
     
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.css">
+	<link rel="stylesheet" href="https://uicdn.toast.com/editor/2.0.0/toastui-editor.min.css">
 </head>
 
 <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> -->
@@ -28,6 +30,11 @@ if(${ not empty post_detail_fail}){
 
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+<!-- toast ui -->
+<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.min.css" />
+<script src="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.js"></script>
+
 <script type="text/javascript">
 $(function(){
 	
@@ -307,7 +314,18 @@ function commModifyBtn(comm_num){
             </c:forEach>
             </div>
             <div class="post_content">
-            <c:out value="${ post_detail.post_content }" escapeXml="false"/>
+            <div id="viewer">
+            </div>
+            <input type="hidden" id="content_hid" value="${ post_detail.post_content }"/>
+            <script type="text/javascript">
+         	 var content=$("#content_hid").val()
+	       	 const viewer = new toastui.Editor({
+	       	    el: document.querySelector('#viewer'),
+	       	    initialValue: content,
+	       	    viewer: true
+	       	  });
+            </script>
+            
             </div>
             <!-- 작성자 프로필 -->
             <div class="writer_info">

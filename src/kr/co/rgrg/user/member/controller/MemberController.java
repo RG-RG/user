@@ -9,18 +9,25 @@ import java.util.Random;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -44,7 +51,7 @@ public class MemberController {
 	MailSender sender;
 	
 	/**
-	 * 회원가입 이용약관 폼 - 소셜 / 일반 둘 다 보여줌
+	 * 회원가입 이용약관 폼
 	 * @return
 	 */
 	@RequestMapping(value="member/join_clause", method=GET)
@@ -74,17 +81,6 @@ public class MemberController {
 		
 		return "member/join";
 	}//join
-	
-	/**
-	 * 소셜 회원가입을 하는 일
-	 * @param sjVO
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping(value="member/social_join", method=GET)
-	public String socialJoin(SocialJoinVO sjVO, HttpServletRequest request) {
-		return "member/social_join";
-	}//socialJoin
 	
 	/**
 	 * 아이디 중복을 체크하는 일
@@ -144,14 +140,88 @@ public class MemberController {
 	}//login
 	
 	/**
-	 * 소셜 로그인 폼을 불러오는 일? 소셜 로그인을 하는 일?
+	 * 카카오 로그인 폼을 불러오는 일
 	 * @return
 	 */
-	@RequestMapping(value="member/social_login_form", method=GET)
-	public String socialLoginForm(Model model) {
-		//SocialLoginVO? - API 써보면서 확인
-		return "member/social_login_form";
-	}//socialLoginForm
+	@RequestMapping(value="member/kakao_login_form", method=GET)
+	@ResponseBody
+	public String KakaoLoginForm() {
+		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaa");
+		String url = "https://kauth.kakao.com/oauth/authorize?client_id=d6ec4bf19e500ff83a89cb9c5a00ebc5";
+		url += "&redirect_uri=http://localhost/rgrg_user/rgrg/member/get_kakao_info&response_type=code";
+		return url;
+	}//KakaoLoginForm
+	
+	/**
+	 * 카카오 로그인 토큰을 가져오는 일
+	 * @return
+	 */
+	@RequestMapping(value="member/get_kakao_token", method=GET)
+	public String getKakaoToken(HttpServletRequest request, String code) {
+		System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbb");
+		String accessToken = "";
+		
+		RestTemplate rt = new RestTemplate();
+		String url = "https://kauth.kakao.com/oauth/token";
+		HttpHeaders headers = new HttpHeaders();
+		MultiValueMap<String, Object> params = new LinkedMultiValueMap<String, Object>();
+		params.set("grant_type", "authorization_code");
+		params.set("client_id", "d6ec4bf19e500ff83a89cb9c5a00ebc5");
+		params.set("redirect_uri", "http://localhost/rgrg_user/rgrg/member/get_kakao_info");
+		params.set("code", code);
+		
+		HttpEntity<MultiValueMap<String, Object>> restRequest = new HttpEntity<>(params, headers);
+		ResponseEntity<JSONObject> apiResponse = rt.postForEntity(url, restRequest, JSONObject.class);
+		JSONObject responseBody = apiResponse.getBody();
+		accessToken = (String) responseBody.get("access_token");
+		
+		return accessToken;
+	}//getKakaoToken
+	
+	/**
+	 * 카카오 사용자 아이디를 가져오는 일
+	 * @return
+	 */
+	@RequestMapping(value="member/get_kakao_id", method=GET)
+	public String getKakaoId(String accessToken) {
+		System.out.println("cccccccccccccccccccccccccccc");
+		String kakaoId = "";
+		
+		RestTemplate rt = new RestTemplate();
+		String url = "https://kauth.kakao.com/v2/user/me";
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Authorization", "bearer" + accessToken);
+		headers.set("KakaoAK", "d6ec4bf19e500ff83a89cb9c5a00ebc5");
+		MultiValueMap<String, Object> params = new LinkedMultiValueMap<String, Object>();
+	    params.add("property_keys", "[\"id\"]");
+		
+		HttpEntity<MultiValueMap<String, Object>> restRequest = new HttpEntity<>(params, headers);
+		ResponseEntity<JSONObject> apiResponse = rt.postForEntity(url, restRequest, JSONObject.class);
+		JSONObject responseBody = apiResponse.getBody();
+		
+		kakaoId = (String)responseBody.get("id");
+		
+		return kakaoId;
+	}//getKakaoId
+	
+	/**
+	 * 카카오 로그인 정보를 조회하는 일
+	 * @return
+	 */
+	@RequestMapping(value="member/get_kakao_info", method=GET)
+	public String getKakaoInfo(HttpServletRequest request, HttpServletResponse response, String code) {
+		System.out.println("ddddddddddddddddddddddddd");
+		
+		String accessToken = getKakaoToken(request, code);
+		String kakaoId = getKakaoId(accessToken);
+		if( kakaoId != null && !kakaoId.equals("") ) {
+			
+			return "redirect:/index.html";
+		} else {
+			System.out.println("NNNNNNNNNNNNNNN");
+		}//end else
+		return "";
+	}//getKakaoInfo
 	
 	/**
 	 * 로그아웃 하는 일
