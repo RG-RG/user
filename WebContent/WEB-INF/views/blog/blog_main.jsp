@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <script type="text/javascript">
@@ -15,8 +16,8 @@ if(${ empty blog_profile}){
     <title>my Blog main</title>
     <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 
-    <link rel="stylesheet" href="http://localhost/css/blog/reset.css">
-    <link rel="stylesheet" href="http://localhost/css/blog/myBlog_main.css">
+    <link rel="stylesheet" href="http://localhost/rgrg_user/css/blog/reset.css">
+    <link rel="stylesheet" href="http://localhost/rgrg_user/css/blog/myBlog_main.css">
     <link rel="stylesheet" href="http://localhost/rgrg_user/css/common/see_more_btn.css">
 </head>
 <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> -->
@@ -43,7 +44,7 @@ function morePost(next_page, search_word, search_tag){
 		url:"blog/more/"+next_page+param,
 		type:"POST",
 		dataType:"JSON",
-		contentType: "application/x-www-form-urlencoded; charset=euc-kr",
+		contentType: "application/json;charset=UTF-8",
 		error:function(xhr){
 			alert("에러");
 			console.log(xhr.status+" / "+xhr.statusText);
@@ -53,12 +54,16 @@ function morePost(next_page, search_word, search_tag){
 	      	if(jsonObj.flag=="success"){
 				var output='';
 				$.each(jsonObj.post_list, function(idx, list){
+	                var cur_content = list.post_content;
+	                if( list.post_content.length > 20 ) {
+	                   cur_content = cur_content.substring(0,20).concat('···');
+	                } 
 					output+='<div class="post">';
 					output+='<div class="post_img"><img src="https://cdn.pixabay.com/photo/2015/09/05/22/33/'+list.thumbnail+'"></div>';
 					output+='<div class="post_title"  onclick="javascript:location.href =\'/rgrg/${ blog_profile.id }/blog/post/'+list.post_num+'\'">';
 					output+=list.post_title;
 					output+='</div>';
-					output+='<div class="post_content">'+list.post_content.substring(0,20).concat('...')+'</div>';
+					output+='<div class="post_content">'+ cur_content +'</div>';
 					output+='<div class="post_tags">';
 					$.each(list.tag_name, function(idx2, tag_list){
 						output+='#'+tag_list.tag_name;
@@ -168,7 +173,13 @@ function searchBtn(){
                     <div class="post_title"  onclick="javascript:location.href ='/rgrg/${ blog_profile.id }/blog/post/${ post.post_num }'">
                     <c:out value="${ post.post_title }"/>
                     </div>
-                    <div class="post_content"><c:out value="${ post.post_content.substring(0,4).concat('...') }"/></div>
+                    
+                     <div class="post_content">
+                       <%-- <c:out value="${ post.post_content.substring(0,4).concat('...') }"/> --%>
+                          <c:if test="${ fn:length(post.post_content) <= 20 }">${ post.post_content }</c:if>
+                     <c:if test="${ fn:length(post.post_content) > 20 }">${ post.post_content.substring(0,20).concat('···') }</c:if>
+                    </div>
+                    
                     <div class="post_tags">
                     <c:forEach var="post_tag" items="${ post.tag_name }">
                     #<c:out value="${ post_tag }"/>
@@ -191,6 +202,6 @@ function searchBtn(){
     </section>
     
 </body>
-<script src="http://localhost/js/control_navbar.js"></script>
+<script src="http://localhost/rgrg_user/js/control_navbar.js"></script>
 
 </html>

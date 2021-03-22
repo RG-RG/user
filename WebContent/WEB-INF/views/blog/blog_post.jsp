@@ -16,8 +16,8 @@ if(${ not empty post_detail_fail}){
     <title>블로그 글 보기</title>
     <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 
-    <link rel="stylesheet" href="http://localhost/css/blog/reset.css" >
-    <link rel="stylesheet" href="http://localhost/css/blog/blog_post.css">
+    <link rel="stylesheet" href="http://localhost/rgrg_user/css/blog/reset.css" >
+    <link rel="stylesheet" href="http://localhost/rgrg_user/css/blog/blog_post.css">
     
 </head>
 
@@ -372,6 +372,6 @@ function commModifyBtn(comm_num){
     </section>
     
 </body>
-<script src="http://localhost/js/control_navbar.js"></script>
+<script src="http://localhost/rgrg_user/js/control_navbar.js"></script>
 
 </html>
