@@ -35,7 +35,8 @@ public class BlogPostDAO {
 		SqlSession ss=GetRgrgHandler.getInstance().getSqlSession();
 		PostDetailDomain pdDomain=ss.selectOne("kr.co.rgrg.user.blogpost.selectPostDetail",post_num);
 		if(pdDomain!=null) {
-			pdDomain.setTag_name(ss.selectList("kr.co.rgrg.user.blogpost.selectPostTagList", post_num));
+			List<String> list=ss.selectList("kr.co.rgrg.user.blogpost.selectPostTagList", post_num);
+			pdDomain.setTag_name(list);
 		}//end if
 		ss.close();
 		
