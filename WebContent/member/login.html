@@ -79,6 +79,18 @@ function chkNull(){
 	//$("#loginForm").submit();
 }//chkNull
 
+//카카오 로그인 버튼 클릭
+function kakaoLogin() {
+    $.ajax({
+        url: '/rgrg_user/rgrg/member/kakao_login_form',
+        type: 'GET',
+        async: false,
+        dataType: 'TEXT',
+        success: function (url) {
+            location.href = url;
+        }//success
+    });//ajax
+}//kakaoLogin
 </script>
 </head>
 <body>
@@ -106,6 +118,7 @@ function chkNull(){
 			<div id="loginDiv">
 				<div id="buttons">
 				  <button type="button" class="btn btn-secondary" id="loginBtn">로그인</button>
+				  <button type="button" class="btn btn-secondary" id="kakaoBtn" onclick="kakaoLogin();">카카오 로그인</button>
 				</div>
         	</div>
 			<div id="joinDiv">
