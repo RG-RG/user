@@ -1,14 +1,17 @@
 package kr.co.rgrg.user.blog.controller;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.List;
 
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,8 +22,6 @@ import kr.co.rgrg.user.blog.domain.PostDomain;
 import kr.co.rgrg.user.blog.domain.TagDomain;
 import kr.co.rgrg.user.blog.service.BlogMainService;
 import kr.co.rgrg.user.blog.vo.BlogMainVO;
-import kr.co.rgrg.user.follow.vo.FollowVO;
-import kr.co.rgrg.user.pagination.PaginationDAO;
 import kr.co.rgrg.user.pagination.PaginationService;
 import kr.co.rgrg.user.pagination.PostRangeVO;
 
@@ -65,8 +66,7 @@ public class BlogMainController {
 			model.addAttribute("cur_page", page);
 			model.addAttribute("end_num", prVO.getEnd_num());
 			model.addAttribute("total_cnt", total_cnt);
-			System.out.println("========================="+total_cnt);
-			System.out.println("========================="+prVO.getEnd_num());
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 		}//end catch
@@ -74,10 +74,10 @@ public class BlogMainController {
 		return "blog/blog_main";
 	}//getBlogMain
 	
-	@RequestMapping(value="*/{url_id}/blog/more/{cur_page}", method=RequestMethod.POST, produces="application/json;charset=UTF-8")
+	@RequestMapping(value="*/{url_id}/blog/more/{cur_page}", method=RequestMethod.POST, produces="application/json;charset=utf8")
 	@ResponseBody
-	public String getBlogMainMore(HttpSession session, @PathVariable("url_id") String url_id, @PathVariable("cur_page") String cur_page, 
-			String search, String tag) throws UnsupportedEncodingException {
+	public void getBlogMainMore(HttpSession session, @PathVariable("url_id") String url_id, @PathVariable("cur_page") String cur_page, 
+			String search, String tag, HttpServletResponse response) throws IOException {
 		
 		String json=null;
 		String login_id=(String)session.getAttribute("id");
@@ -105,8 +105,11 @@ public class BlogMainController {
 			// TODO: handle exception
 		}//end catch
 		System.out.println(json);
-		URLEncoder.encode(json,"UTF-8");
-		return json;
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+		response.setCharacterEncoding("utf-8");
+		response.getWriter().print(json);
+		//return json;
 	}//getBlogMainMore
 	
 }//class

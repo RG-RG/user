@@ -11,7 +11,8 @@ if(${ empty blog_profile}){
 }//end if
 </script>
 <head>
-    <meta charset="UTF-8">
+	<!-- <meta http-equiv=“Content-Type” content=“text/html; charset=UTF-8”> -->
+    <!-- <meta charset="UTF-8"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>my Blog main</title>
     <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
@@ -44,7 +45,7 @@ function morePost(next_page, search_word, search_tag){
 		url:"blog/more/"+next_page+param,
 		type:"POST",
 		dataType:"JSON",
-		contentType: "application/json;charset=UTF-8",
+		/* contentType: "application/json;charset=UTF-8", */
 		error:function(xhr){
 			alert("에러");
 			console.log(xhr.status+" / "+xhr.statusText);
@@ -60,7 +61,7 @@ function morePost(next_page, search_word, search_tag){
 	                } 
 					output+='<div class="post">';
 					output+='<div class="post_img"><img src="https://cdn.pixabay.com/photo/2015/09/05/22/33/'+list.thumbnail+'"></div>';
-					output+='<div class="post_title"  onclick="javascript:location.href =\'/rgrg/${ blog_profile.id }/blog/post/'+list.post_num+'\'">';
+					output+='<div class="post_title"  onclick="javascript:location.href =\'blog/post/'+list.post_num+'\'">';
 					output+=list.post_title;
 					output+='</div>';
 					output+='<div class="post_content">'+ cur_content +'</div>';
@@ -170,7 +171,7 @@ function searchBtn(){
             <c:forEach var="post" items="${ post_list }">
                 <div class="post">
                     <div class="post_img"><img src="https://cdn.pixabay.com/photo/2015/09/05/22/33/${ post.thumbnail }"></div>
-                    <div class="post_title"  onclick="javascript:location.href ='/rgrg/${ blog_profile.id }/blog/post/${ post.post_num }'">
+                    <div class="post_title"  onclick="javascript:location.href ='blog/post/${ post.post_num }'">
                     <c:out value="${ post.post_title }"/>
                     </div>
                     
