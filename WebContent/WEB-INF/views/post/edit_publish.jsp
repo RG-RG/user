@@ -23,10 +23,10 @@
         $("[name='flag']").click(function(){
         	if($("[name='flag']:first").hasClass('selected')){
         		$("[name='flag']:first").removeClass('selected')
-        		$("[name='hidden_flag']").val('F')
+        		$("[name='hidden_flag']").val('T')
         	}else{
         		$("[name='flag']:first").addClass('selected')
-        		$("[name='hidden_flag']").val('T')
+        		$("[name='hidden_flag']").val('F')
         	}
         	if($("[name='flag']:last").hasClass('selected')){
         		$("[name='flag']:last").removeClass('selected')
@@ -104,8 +104,8 @@
   	<input type="hidden" name="tags" value="${ tag }"/>
   	</c:forEach>
   	<input type="hidden" name="post_title" value="${ param.post_title }"/>
-  	<input type="hidden" name="post_content" value="${ param.post_content }"/>
-  	<input type="hidden" name="hidden_flag" value="T"/>
+  	<input type="hidden" name="post_content" value='${ param.post_content }'/>
+  	<input type="hidden" name="hidden_flag" value="F"/>
   	<input type="hidden" name="publish_flag" value="T"/>
   	<input type="hidden" name="thumbnail" id="thumbnail" value="${ param.thumbnail }"/>
     <input type="file" id="thumbnail_img" name="thumbnail_img" style="display:none">
