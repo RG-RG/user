@@ -101,7 +101,7 @@
             	<c:if test="${ fn:length(userMain.post_content) > 20 }">${ userMain.post_content.substring(0,20).concat('···') }</c:if>
             </div>
             <div class="post_info">
-                <span class="post_writer"><a href="">by. ${ userMain.id }</a></span> ・ <span class="post_date">${ userMain.input_date.substring(0, 16) }</span>
+                <span class="post_writer"><a href="../${ userMain.id }/blog">by. ${ userMain.id }</a></span> ・ <span class="post_date">${ userMain.input_date.substring(0, 16) }</span>
             </div>
         </div>
         </c:forEach>
