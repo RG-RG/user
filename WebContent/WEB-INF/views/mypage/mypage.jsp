@@ -17,8 +17,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/common_header_footer.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mypage/style.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mypage/reset.css" />
-    <!-- <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="../reset.css" /> -->
     <script type="text/javascript">
       $(function () {
         let display_profile = document.getElementById("display_profile");
@@ -347,6 +345,12 @@
   </head>
   <body style="font-family: IBMPlexSansKR-Regular">
     <jsp:include page="../common/common_header.jsp" />
+    <c:if test="${ empty member_data }">
+		<script>
+			alert("로그인 후 이용 가능합니다.");
+			history.back();
+		</script>
+	</c:if>
     <main>
       <section class="profile">
         <div class="img_area">
