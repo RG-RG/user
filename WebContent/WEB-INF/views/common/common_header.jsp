@@ -11,7 +11,7 @@
 
     <section class="section_header">
         <div class="header_nav">
-            <span class="btn btn_nav_open"><i class="fas fa-bars"></i></span>
+            <span class="navBtn btn_nav_open"><i class="fas fa-bars"></i></span>
         </div>
         <ul class="nav_bar">
         	<!-- 로고, 닫힘버튼 -->

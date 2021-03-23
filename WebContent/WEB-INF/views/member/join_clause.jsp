@@ -8,21 +8,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RGRG</title>
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
-<link rel="stylesheet" href="http://localhost/rgrg_user/css/reset.css">
-<link rel="stylesheet" href="http://localhost/rgrg_user/css/member/style.css"> 
+
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-<style type="text/css">
-.section_main{ margin:0 auto; width: 70rem; margin-top: 18rem }
-#containerTitle{ font-size: 3rem; font-weight: bold; }
-#containerContent{ margin-top: 6rem }
-.form-check-label{ font-size: 1.4rem; margin-left: 1rem }
-.mb-3{ margin-top: 2rem; }
-#exampleFormControlTextarea1{ height: 20rem; font-size: 1.4rem; background-color: #FFFFFF; resize: none; }
-#buttons{ margin:0 auto; margin-top: 6rem; width: 30rem }
-.btn-secondary{ margin-left: 2rem; }
-.btn-light, .btn-secondary{ width: 12rem; height: 4rem; font-size: 1.3rem !important; }
-#container{ margin-bottom: 20rem }
-</style>
+<link rel="stylesheet" href="http://localhost/rgrg_user/css/reset.css">
+<link rel="stylesheet" href="http://localhost/rgrg_user/css/member/style.css">
+<link rel="stylesheet" href="http://localhost/rgrg_user/css/common/common_header_footer.css">
+
 <!-- Google CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 
