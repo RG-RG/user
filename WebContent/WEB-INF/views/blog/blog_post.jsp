@@ -3,37 +3,38 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
-<script type="text/javascript">
-if(${ not empty post_detail_fail}){
-	alert("조회 중 문제가 발생하였습니다. 다시 시도해주세요.")
-	location.href=history.back();
-}//end if
 
-</script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>블로그 글 보기</title>
-    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 
     <link rel="stylesheet" href="http://localhost/rgrg_user/css/blog/reset.css" >
     <link rel="stylesheet" href="http://localhost/rgrg_user/css/blog/blog_post.css">
+    <link rel="stylesheet" href="http://localhost/rgrg_user/css/common/common_header_footer.css">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.css">
 	<link rel="stylesheet" href="https://uicdn.toast.com/editor/2.0.0/toastui-editor.min.css">
 </head>
 
-<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> -->
 
 <!-- Google CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 
 <!-- toast ui -->
 <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.min.css" />
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.js"></script>
+
+<script type="text/javascript">
+if(${ not empty post_detail_fail}){
+	alert("조회 중 문제가 발생하였습니다. 다시 시도해주세요.")
+	location.href=history.back();
+}//end if
+</script>
 
 <script type="text/javascript">
 $(function(){
@@ -135,6 +136,8 @@ $(function(){
 		}//end else
 	});//click
 	
+	
+	//댓글 추가
  	$("#commAddClk").click(function(){
 		if(${ not empty sessionScope.id }){
 			var comm=$("#commAddCont").val()
@@ -154,7 +157,7 @@ $(function(){
 						input+='<div class="c_writer_info">'
 						input+='<img src="'+jsonObj.profile_img+'">'
 						input+='<div>'
-						input+='<span>'+jsonObj.nickname+'</span>'
+						input+='<span class="c_writer"><a href="/rgrg_user/rgrg/${ comm.id }/blog">'+jsonObj.nickname+'</a></span>'
 						input+='<span>'+jsonObj.input_date+'</span>'
 						input+='</div>'
 						input+='<div>'
@@ -264,11 +267,9 @@ function commModifyBtn(comm_num){
 		alert("로그인 후 다시 시도해주세요.")
 	}//end else
 }//commModifyBtn
-
 </script>
 
 <body>
-
 	<!-- 헤더(사이드바) -->
 	<c:import url="../common/common_header.jsp" />
 
@@ -276,17 +277,16 @@ function commModifyBtn(comm_num){
         <!-- 왼쪽의 좋아요/댓글/공유 -->
         <div class="post_side_tab">
             <ul>
-                <li id="postLike">
+                <li id="postLike" class="postLike">
 	                <c:choose>
-	                <c:when test="${ like_flag }"></c:when>
-	                <c:when test="${ not like_flag }"></c:when>
+	                <c:when test="${ like_flag }"><i class="like_heart fas fa-heart"></i></c:when>
+	                <c:when test="${ not like_flag }"><i class="far fa-heart"></i></c:when>
 	                </c:choose>
-	                <i class="far fa-heart"></i>
                 </li>
                 <li><c:out value="${ post_detail.like_cnt }"/></li>
                 <li><i class="far fa-comment-alt"></i></li>
                 <li id="commCnt"><c:out value="${ post_detail.comment_cnt }"/></li>
-                <li id="shareButton"><i class="fas fa-share-alt"></i></li>
+                <li id="shareButton" class="postShare"><i class="fas fa-share-alt"></i></li>
             </ul>
         </div>
         
@@ -322,6 +322,7 @@ function commModifyBtn(comm_num){
 			       	  });
 	            </script>
             </div>
+            
             <!-- 태그 -->
             <div class="post_tags tabs">
             <c:forEach var="tag" items="${ post_detail.tag_name }">
@@ -367,38 +368,39 @@ function commModifyBtn(comm_num){
             <!-- 댓글 목록 -->
             <div id="comments_list" class="comments_list">
             
-			<div id="comm_zero" class="comm_zero">
-            <c:if test="${ empty comm_list }">
-				댓글이 없습니다.
-			</c:if>
-			</div>
+				<div id="comm_zero" class="comm_zero">
+		            <c:if test="${ empty comm_list }">
+						댓글이 없습니다.
+					</c:if>
+				</div>
 			
-			<c:forEach var="comm" items="${ comm_list }">
-            <div id="comm_div_${ comm.comm_num }" class="comment">
-                <div class="c_writer_info">
-                    <img src="${ comm.profile_img }">
-                    <div>
-                        <span class="c_writer"><c:out value="${ comm.nickname }"/></span>
-                        <span><c:out value="${ comm.input_date }"/></span>
-                    </div>
-                    <div>
-                    <c:if test="${ sessionScope.id==comm.id }">
-                        <span id="commModify${ comm.comm_num }" onclick="commModifyClk(${ comm.comm_num })" class="btn" >수정</span>
-                        <span id="commRemove" onclick="commRemoveClk(${ comm.comm_num })" class="btn" >삭제</span>
-                    </c:if>
-                    </div>
-                </div>
-                <input type="hidden" id="comm_cont_val_${ comm.comm_num }" value="${ comm.comm_content }"/>
-                <div id="comm_content_${ comm.comm_num }" class="c_content">
-                <c:out value="${ comm.comm_content }"/>
-                </div>
-            </div>
-			</c:forEach>
-			
+				<c:forEach var="comm" items="${ comm_list }">
+		            <div id="comm_div_${ comm.comm_num }" class="comment">
+		                <div class="c_writer_info">
+		                    <img src="${ comm.profile_img }">
+		                    <div>
+		                        <span class="c_writer"><a href="/rgrg_user/rgrg/${ comm.id }/blog"><c:out value="${ comm.nickname }"/></a></span>
+		                        <span><c:out value="${ comm.input_date }"/></span>
+		                    </div>
+		                    <div>
+		                    <c:if test="${ sessionScope.id==comm.id }">
+		                        <span id="commModify${ comm.comm_num }" onclick="commModifyClk(${ comm.comm_num })" class="btn" >수정</span>
+		                        <span id="commRemove" onclick="commRemoveClk(${ comm.comm_num })" class="btn" >삭제</span>
+		                    </c:if>
+		                    </div>
+		                </div>
+		                <input type="hidden" id="comm_cont_val_${ comm.comm_num }" value="${ comm.comm_content }"/>
+		                <div id="comm_content_${ comm.comm_num }" class="c_content">
+		                <c:out value="${ comm.comm_content }"/>
+		                </div>
+		            </div>
+				</c:forEach>
             </div>
         </div>
     </section>
     
+   	<!--푸터 -->
+	<c:import url="../common/common_footer.jsp" />
 </body>
 <script src="http://localhost/rgrg_user/js/control_navbar.js"></script>
 

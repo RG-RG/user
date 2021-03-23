@@ -8,68 +8,10 @@
     cursor: pointer
 }
 
-* {
-    box-sizing: border-box
-}
-
-html {
-    font-size: 62.5%
-}
-
-@media (min-width:901px) {
-    .section_main {
-        max-width: 90%;
-        min-width: 600px
-    }
-}
-
-@media (min-width:1201px) {
-    .section_main {
-        max-width: 70%;
-        min-width: 800px
-    }
-}
-
 body {
     display: flex;
     flex-direction: column;
     font-size: 1.2rem
-}
-
-.header_nav {
-    height: 50px;
-    display: flex;
-    align-items: center;
-    padding: 2.5rem;
-    font-size: 2.5rem
-}
-
-.nav_bar {
-    position: absolute;
-    left: -30rem;
-    top: 0;
-    width: 30rem;
-    height: 100%;
-    background-color: #000;
-    font-size: 1.5rem;
-    padding: 1.5rem;
-    color: #fff;
-    z-index: 999
-}
-
-.nav_bar li:first-child {
-    font-size: 2.5rem;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 5rem
-}
-
-.nav_bar li:not(li:first-child) {
-    margin: 2rem 0
-}
-
-.btn {
-    cursor: pointer
 }
 
 .section_main {

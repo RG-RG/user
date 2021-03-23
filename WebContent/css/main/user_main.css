@@ -1,33 +1,8 @@
-* {
-    box-sizing: border-box
-}
-
-html {
-    font-size: 62.5%
-}
-
-@media (min-width:901px) {
-    .section_main {
-        max-width: 90%
-    }
-}
-
-@media (min-width:1201px) {
-    .section_main {
-        max-width: 70%
-    }
-}
 
 body {
     display: flex;
     flex-direction: column;
     font-size: 1.2rem
-}
-
-
-
-.btn {
-    cursor: pointer
 }
 
 .section_main {
@@ -80,11 +55,3 @@ body {
     cursor: pointer
 }
 
-.section_footer {
-    background-color: #000;
-    width: 100%;
-    color: #fff;
-    line-height: 2rem;
-    padding: 3rem 4rem;
-    margin-top: 10rem
-}

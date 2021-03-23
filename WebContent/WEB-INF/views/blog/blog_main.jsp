@@ -11,17 +11,15 @@ if(${ empty blog_profile}){
 }//end if
 </script>
 <head>
-	<!-- <meta http-equiv=“Content-Type” content=“text/html; charset=UTF-8”> -->
-    <!-- <meta charset="UTF-8"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>my Blog main</title>
     <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 
     <link rel="stylesheet" href="http://localhost/rgrg_user/css/blog/reset.css">
     <link rel="stylesheet" href="http://localhost/rgrg_user/css/blog/myBlog_main.css">
+    <link rel="stylesheet" href="http://localhost/rgrg_user/css/common/common_header_footer.css">
     <link rel="stylesheet" href="http://localhost/rgrg_user/css/common/see_more_btn.css">
 </head>
-<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> -->
 
 <!-- Google CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -89,7 +87,7 @@ function morePost(next_page, search_word, search_tag){
 					tag=jsonObj.search_tag;
 				}//end if
 				if(jsonObj.end_num<jsonObj.total_cnt){
-					more+='<span onclick="morePost('+(jsonObj.cur_page+1)+',\''+word+'\',\''+tag+'\')">더보기</span>';
+					more+='<span class="more_btn" onclick="morePost('+(jsonObj.cur_page+1)+',\''+word+'\',\''+tag+'\')">더 보기</span>';
 				}//end if
 				$("#viewMore").html(more);
 	      	}else{
@@ -154,54 +152,58 @@ function searchBtn(){
         
         <div class="blog_post">
             <div class="category">
-                <span>전체보기 (<c:out value="${ blog_profile.post_cnt }"/>)</span>
+                <span>전체 (<c:out value="${ blog_profile.post_cnt }"/>)</span>
                 <ul>
                 <c:forEach var="tag" items="${ tag_list }">
                     <li onclick="javascript:location.href='blog?tag=${ tag.tag_name }'"><c:out value="${ tag.tag_name }"/>(<c:out value="${ tag.tag_cnt }"/>)</li>
                 </c:forEach>
                 </ul>
             </div>
+            
             <div id="post_list" class="post_list">
-                
-            <!-- 포스트가 0건인 경우 -->
-	        <c:if test="${ empty post_list }">
-	        	<div class="no_post">글이 없습니다. 첫 글을 작성해보세요!</div>
-	        </c:if>
-	        
-            <c:forEach var="post" items="${ post_list }">
-                <div class="post">
-                    <div class="post_img"><img src="${ post.thumbnail }"></div>
-                    <div class="post_title"  onclick="javascript:location.href ='blog/post/${ post.post_num }'">
-                    <c:out value="${ post.post_title }"/>
-                    </div>
-                    
-                     <div class="post_content">
-                       <%-- <c:out value="${ post.post_content.substring(0,4).concat('...') }"/> --%>
-                          <c:if test="${ fn:length(post.post_content) <= 20 }">${ post.post_content }</c:if>
-                     <c:if test="${ fn:length(post.post_content) > 20 }">${ post.post_content.substring(0,20).concat('···') }</c:if>
-                    </div>
-                    
-                    <div class="post_tags">
-                    <c:forEach var="post_tag" items="${ post.tag_name }">
-                    #<c:out value="${ post_tag }"/>
-                    </c:forEach>
-                    </div>
-                    <div class="post_info">
-	                    <span><c:out value="${ post.input_date }"/></span>
-	                    <span>조회 <c:out value="${ post.view_cnt }"/></span>
-	                    <span>댓글 <c:out value="${ post.comment_cnt }"/></span>
-                    </div>
-                </div>
-            </c:forEach>
+	            <!-- 포스트가 0건인 경우 -->
+		        <c:if test="${ empty post_list }">
+		        	<div class="no_post">글이 없습니다. 첫 글을 작성해보세요!</div>
+		        </c:if>
+		        
+	            <c:forEach var="post" items="${ post_list }">
+	                <div class="post">
+	                    <div class="post_img"><img src="${ post.thumbnail }"></div>
+	                    <div class="post_title"  onclick="javascript:location.href ='blog/post/${ post.post_num }'">
+	                    <c:out value="${ post.post_title }"/>
+	                    </div>
+	                    
+	                     <div class="post_content">
+	                       <%-- <c:out value="${ post.post_content.substring(0,4).concat('...') }"/> --%>
+	                          <c:if test="${ fn:length(post.post_content) <= 20 }">${ post.post_content }</c:if>
+	                     <c:if test="${ fn:length(post.post_content) > 20 }">${ post.post_content.substring(0,20).concat('···') }</c:if>
+	                    </div>
+	                    
+	                    <div class="post_tags">
+	                    <c:forEach var="post_tag" items="${ post.tag_name }">
+	                    #<c:out value="${ post_tag }"/>
+	                    </c:forEach>
+	                    </div>
+	                    <div class="post_info">
+		                    <span><c:out value="${ post.input_date }"/></span>
+		                    <span>조회 <c:out value="${ post.view_cnt }"/></span>
+		                    <span>댓글 <c:out value="${ post.comment_cnt }"/></span>
+	                    </div>
+	                </div>
+	            </c:forEach>
             </div>
-            <div id="viewMore">
-            <c:if test="${ end_num lt total_cnt }">
-			<span onclick="morePost(${cur_page+1},'${search_word}','${search_tag}')">더보기</span>
-            </c:if>
-            </div>
+        </div>
+        
+       	<!-- 더보기 버튼 -->
+        <div id="viewMore" class="more_div">
+        	<c:if test="${ end_num lt total_cnt }">
+				<span class="more_btn" onclick="morePost(${cur_page+1},'${search_word}','${search_tag}')">더 보기</span>
+        	</c:if>
         </div>
     </section>
     
+   	<!--푸터 -->
+	<c:import url="../common/common_footer.jsp" />
 </body>
 <script src="http://localhost/rgrg_user/js/control_navbar.js"></script>
 
