@@ -28,7 +28,6 @@ public class BlogPostController {
 	@RequestMapping(value="{url_id}/blog/post/{url_post_num}", method= {RequestMethod.GET, RequestMethod.POST})
 	public String viewPostDetail(Model model, HttpSession session,
 			@PathVariable("url_id") String url_id, @PathVariable("url_post_num") String url_post_num) {
-		session.setAttribute("id", "kim");
 		
 		try {
 			String session_id=(String)session.getAttribute("id");

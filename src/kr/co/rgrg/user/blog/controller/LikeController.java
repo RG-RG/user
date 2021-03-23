@@ -24,7 +24,6 @@ public class LikeController {
 	
 	@RequestMapping(value="rgrg/like/list", method=RequestMethod.GET)
 	public String getLikeList(HttpSession session, Model model) {
-		session.setAttribute("id", "park");
 		
 		int current_page=1;
 		
