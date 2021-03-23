@@ -1,16 +1,11 @@
 package kr.co.rgrg.user.mypage.controller;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.swing.plaf.multi.MultiFileChooserUI;
 
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
@@ -28,7 +23,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
-import kr.co.rgrg.user.mypage.dao.MypageDAO;
 import kr.co.rgrg.user.mypage.domain.MypageDomain;
 import kr.co.rgrg.user.mypage.service.MypageService;
 import kr.co.rgrg.user.mypage.vo.PassChkVO;
@@ -63,29 +57,30 @@ public class MypageController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="/mypage/index", method= {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="/rgrg/mypage/index", method= {RequestMethod.GET, RequestMethod.POST})
 	public String getMypage(HttpSession session, Model model) {
-		// 임시변수 ///////////////////
-		String id = "user1";
-		////////////////////////////
-		MypageService ms = new MypageService();
-		MypageDomain md = ms.getMypage(id);
-		
-		model.addAttribute("member_data", md);
+		String id = (String)session.getAttribute("id");
+		System.out.println(id + "======================================");
+		if(id != null) {
+			MypageService ms = new MypageService();
+			MypageDomain md = ms.getMypage(id);
+			
+			model.addAttribute("member_data", md);
+		}
 		
 		return "mypage/mypage";
 	}
 	
 	@RequestMapping(value="/mypage/change_info_form", method=RequestMethod.GET)
 	public String getChangeInfo(HttpSession session, Model model) {
-		// 임시변수 ///////////////////
-		String id = "user1";
-		////////////////////////////
-		MypageService ms = new MypageService();
-		MypageDomain md = ms.getMypage(id);
+		String id = (String)session.getAttribute("id");
 		
-		model.addAttribute("member_data", md);
-		
+		if (id != null) {
+			MypageService ms = new MypageService();
+			MypageDomain md = ms.getMypage(id);
+			
+			model.addAttribute("member_data", md);
+		}
 		return "mypage/change_info";
 	}
 	
@@ -98,23 +93,28 @@ public class MypageController {
 	@RequestMapping(value="/mypage/modify_profile_img.do", method=RequestMethod.POST)
 	@ResponseBody
 	public String modifyProfileImg(HttpSession session , UpdateProfileImgVO upiVO) throws Exception{
-		upiVO.setId("user1");
-		upiVO.setProfile_img("user1" + upiVO.getProfile_img().substring(upiVO.getProfile_img().lastIndexOf(".")).toLowerCase());
-		MypageService ms = new MypageService();
+		String id = (String)session.getAttribute("id");
+		String result = null;
 		
-		return ms.modifyProfileImg(upiVO);
+		if (id != null) {
+			upiVO.setId(id);
+			upiVO.setProfile_img(id + upiVO.getProfile_img().substring(upiVO.getProfile_img().lastIndexOf(".")).toLowerCase());
+			result = new MypageService().modifyProfileImg(upiVO);
+		}
+		
+		return result;
 	}
 	
 	@RequestMapping(value="/mypage/upload_img_file", method=RequestMethod.POST, produces="text/plain")
 	@ResponseBody
 	public ModelAndView upload(HttpSession session, MultipartHttpServletRequest request) throws Exception{
-		
+		String id = (String)session.getAttribute("id");
 		ModelAndView model = new ModelAndView();
 		model.setView(jsonView);
 		
 		Iterator<String> itr = request.getFileNames();
 		
-		if(itr.hasNext()) {
+		if(itr.hasNext() && id != null) {
 			List<MultipartFile> mpf = request.getFiles(itr.next());
 			
 			for(int i= 0; i<mpf.size(); i++) {
@@ -122,7 +122,7 @@ public class MypageController {
 				
 				String temp = mpf.get(i).getOriginalFilename().substring(mpf.get(i).getOriginalFilename().lastIndexOf(".")+1);
 				
-				File file = new File(PATH + "user1." + temp);
+				File file = new File(PATH + id + "." + temp);
 				logger.info(file.getAbsolutePath());
 				mpf.get(i).transferTo(file);
 			}
@@ -151,10 +151,15 @@ public class MypageController {
 	@RequestMapping(value="/mypage/modify_profile.do", method=RequestMethod.POST, produces="application/json;charset=UTF-8")
 	@ResponseBody
 	public String modifyProfile(HttpSession session, UpdateProfileVO upVO) {
-		upVO.setId("user1");
-		MypageService ms = new MypageService();
-			
-		return ms.modifyProfile(upVO);
+		String id = (String)session.getAttribute("id");
+		String result = null;
+		
+		if (id != null) {
+			upVO.setId(id);
+			result = new MypageService().modifyProfile(upVO);			
+		}
+		
+		return result;
 	}
 	
 	/**
@@ -166,9 +171,15 @@ public class MypageController {
 	@RequestMapping(value="/mypage/modify_title.do", method=RequestMethod.POST, produces="application/json;charset=UTF-8")
 	@ResponseBody
 	public String modifyBlogTitle(HttpSession session, UpdateBlogTitleVO ubtVO) {
-		ubtVO.setId("user1");
-		MypageService ms = new MypageService();
-		return ms.modifyBlogTitle(ubtVO);
+		String id = (String)session.getAttribute("id");
+		String result = null;
+		
+		if( id != null) {
+			ubtVO.setId(id);
+			result = new MypageService().modifyBlogTitle(ubtVO);	
+		}
+		
+		return result;
 	}
 	
 	/**
@@ -180,9 +191,15 @@ public class MypageController {
 	@RequestMapping(value="/mypage/modify_social.do", method=RequestMethod.POST, produces="application/json;charset=UTF-8")
 	@ResponseBody
 	public String modifySocial(HttpSession session, UpdateSocialDataVO usVO) {
-		usVO.setId("user1");
-		MypageService ms = new MypageService();
-		return ms.modifySocialData(usVO);
+		String id = (String)session.getAttribute("id");
+		String result = null;
+		
+		if(id != null) {
+			usVO.setId(id);
+			result = new MypageService().modifySocialData(usVO);
+		}
+		
+		return result;
 	}
 	
 	/**
@@ -194,10 +211,15 @@ public class MypageController {
 	@RequestMapping(value="/mypage/modify_email.do", method=RequestMethod.POST, produces="application/json;charset=UTF-8")
 	@ResponseBody
 	public String modifyEmail(HttpSession session, UpdateEmailVO ueVO) {
-		ueVO.setId("user1");
-		MypageService ms = new MypageService();
+		String id = (String)session.getAttribute("id");
+		String result = null;
 		
-		return ms.modifyEmail(ueVO);
+		if(id != null) {
+			ueVO.setId(id);
+			result = new MypageService().modifyEmail(ueVO);			
+		}
+		
+		return result;
 	}
 	
 	/**
@@ -209,18 +231,29 @@ public class MypageController {
 	@RequestMapping(value="/mypage/modify_email_flag.do", method=RequestMethod.POST, produces="application/json;charset=UTF-8")
 	@ResponseBody
 	public String modifyEmailFlag(HttpSession session, UpdateEmailFlagVO uefVO) {
-		uefVO.setId("user1");
-		MypageService ms = new MypageService();
-		return ms.modifyEmailFlag(uefVO);
+		String id = (String)session.getAttribute("id");
+		String result = null;
+		
+		if(id != null) {
+			uefVO.setId(id);
+			result = new MypageService().modifyEmailFlag(uefVO);
+		}
+		
+		return result;
 	}
 	
 	@RequestMapping(value="/mypage/remove_member.do", method=RequestMethod.POST, produces="application/json;charset=UTF-8")
 	@ResponseBody
 	public String removeMemberChk(HttpSession session, PassChkVO pcVO) {
-		pcVO.setId("user1");
-		MypageService ms = new MypageService();
+		String id = (String)session.getAttribute("id");
+		String result = null;
 		
-		return ms.removeMemberChk(pcVO);
+		if(id != null) {
+			pcVO.setId(id);
+			result = new MypageService().removeMemberChk(pcVO);
+		}
+		
+		return result;
 	}
 	
 	@RequestMapping(value="/mypage/modify_pass_chk_form.do", method=RequestMethod.GET)
@@ -232,22 +265,29 @@ public class MypageController {
 	@RequestMapping(value="/mypage/modify_pass_chk.do", method=RequestMethod.POST)
 	@ResponseBody
 	public String modifyPassChk(PassChkVO pcVO, HttpSession session) {
-		pcVO.setId("user1");
-		JSONObject json = new JSONObject();
+		String id = (String)session.getAttribute("id");
+		String result = null;
 		
-		try {
-			boolean flag = passEncoder.matches(pcVO.getPass(), new MypageService().searchPass(pcVO));
-			if(flag == true) {
-				json.put("result", "success");				
-			}else {
+		if(id != null) {
+			pcVO.setId(id);
+			JSONObject json = new JSONObject();
+			
+			try {
+				boolean flag = passEncoder.matches(pcVO.getPass(), new MypageService().searchPass(pcVO));
+				if(flag == true) {
+					json.put("result", "success");				
+				}else {
+					json.put("result", "fail");
+				}
+				
+			} catch (NullPointerException ne) {
 				json.put("result", "fail");
 			}
 			
-		} catch (NullPointerException ne) {
-			json.put("result", "fail");
+			result = json.toJSONString();
 		}
 		
-		return json.toJSONString();
+		return result;
 	}
 	
 	@RequestMapping(value="/mypage/modify_pass_form.do", method=RequestMethod.POST)
@@ -266,18 +306,25 @@ public class MypageController {
 	@RequestMapping(value="/mypage/modify_pass.do", method=RequestMethod.POST)
 	@ResponseBody
 	public String modifyPass(UpdatePassVO upVO, HttpSession session, Model model) {
-		upVO.setId("user1");
-		JSONObject json = new JSONObject();
-		upVO.setPass(passEncoder.encode(upVO.getPass()));
-		boolean result = new MypageService().modifyPass(upVO);
-		json.put("result_flag", result);
+		String id = (String)session.getAttribute("id");
+		String result = null;
 		
-		return json.toJSONString();
+		if(id != null) {
+			upVO.setId(id);
+			JSONObject json = new JSONObject();
+			upVO.setPass(passEncoder.encode(upVO.getPass()));
+			boolean result_flag = new MypageService().modifyPass(upVO);
+			json.put("result_flag", result_flag);
+			
+			result = json.toJSONString();
+		}
+		
+		return result;
 	}
 	
-	@RequestMapping(value="/mypage/get_statistics.do", method=RequestMethod.GET)
+	@RequestMapping(value="/mypage/analytics.do", method=RequestMethod.GET)
 	public String getStatistics(HttpSession session, Model model) {
-		
-		return "";
+
+		return "mypage/analytics";
 	}
 }
