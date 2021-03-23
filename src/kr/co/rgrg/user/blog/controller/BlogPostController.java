@@ -31,6 +31,10 @@ public class BlogPostController {
 		
 		try {
 			String session_id=(String)session.getAttribute("id");
+			System.out.println(session_id);
+			if(session_id==null) {
+				session_id="";
+			}//end if
 			int post_num=Integer.parseInt(url_post_num);
 			BlogPostService bps=new BlogPostService();
 			PostDetailDomain pdDomain=bps.getPostDetail(post_num);
