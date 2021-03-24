@@ -134,4 +134,32 @@ public class PostDAO {
 		return tag_name;
 	}
 	
+	/**
+	 * 게시글 삭제
+	 * @param post_num
+	 * @return
+	 */
+	public int deletePost(String id) {
+		
+		SqlSession ss = GetRgrgHandler.getInstance().getSqlSession();
+		int result = ss.update("deletePost", id);
+		ss.commit();
+		ss.close();
+		
+		return result;
+	}
+	
+	/**
+	 * 임시저장 게시글 개수 확인
+	 * @param id
+	 * @return
+	 */
+	public int selectTempCnt(String id) {
+		SqlSession ss = GetRgrgHandler.getInstance().getSqlSession();
+		int result = ss.selectOne("selectTempCnt", id);
+		ss.close();
+		
+		return result;
+	}
+	
 }
