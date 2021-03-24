@@ -13,57 +13,68 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.rgrg.user.main.domain.UserMainDomain;
 import kr.co.rgrg.user.main.service.UserMainService;
+import kr.co.rgrg.user.pagination.PaginationService;
 import kr.co.rgrg.user.pagination.RangeVO;
 
 @Controller
 public class UserMainController {
-	
-	   /**
-	    * 메인화면을 보여주기 (+조회순or최신순 +검색)
-	    * @param model
-	    * @return
-	    */
-	   @RequestMapping(value = "/main/main", method = RequestMethod.GET)
-	   public String main(Model model, String sort, String search) {
-	      int int_page = 1;
 
-	      if (sort == null) { // null일 경우 기본값으로 input_date를 지정해줌
-	         sort = "input_date";
-	      };
+	/**
+	 * 메인화면을 보여주기 (+조회순or최신순 +검색)
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/main/main", method = {RequestMethod.GET, RequestMethod.POST})
+	public String main(Model model, String sort, String search) {
+		int int_page = 1;
 
-	      RangeVO rVO = new RangeVO(int_page, sort, "");
+		if (sort == null) { // null일 경우 기본값으로 input_date를 지정해줌
+			sort = "input_date";
+		};
 
-	      if (search != null) {
-	         rVO.setColumn_value(search);
-	      };
+		RangeVO rVO = new RangeVO(int_page, sort, "");
 
-	      List<UserMainDomain> main_list = new UserMainService().getUserMainList(rVO);
-	      model.addAttribute("main_list", main_list);
-	      model.addAttribute("sort", sort);
-	      model.addAttribute("search", search);
+		if (search != null) {
+			rVO.setColumn_value(search);
+		};
 
-	      return "main/main";
-	   }
+		List<UserMainDomain> main_list = new UserMainService().getUserMainList(rVO);
+		model.addAttribute("main_list", main_list);
+		model.addAttribute("sort", sort);
+		model.addAttribute("search", search);
 
-	@RequestMapping(value="/main/main/{param_page}", method=RequestMethod.POST, produces="application/json;charset=UTF-8")
+		// 페이지네이션
+		int total_cnt = new PaginationService().getMainTotalCnt(rVO);
+		model.addAttribute("cur_page", int_page);
+		model.addAttribute("end_num", rVO.getEnd_num());
+		model.addAttribute("total_cnt", total_cnt);
+		
+		System.out.println("--------------------------"+ rVO.getEnd_num() +"//"+ total_cnt+"//"+int_page);
+
+		return "main/main";
+	}
+
+	@RequestMapping(value = "/main/main/{param_page}", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String see_more(@PathVariable("param_page") String param_page, String sort, String search) {
-		String json=null;
+		String json = null;
 		int page = 1;
-		if(param_page != null && !"".equals(param_page)) {
-			page = Integer.parseInt(param_page); 
-			//page가 null이 아닐경우 int로 바꿔줌 
+		if (param_page != null && !"".equals(param_page)) {
+			page = Integer.parseInt(param_page);
+			// page가 null이 아닐경우 int로 바꿔줌
 		}
 //		System.out.println("----------------------------------"+page);
-		
+
 		RangeVO rVO = new RangeVO(page, sort, "");
-		
-	    if (search != null) {
-		         rVO.setColumn_value(search);
-		};
+
+		if (search != null) {
+			rVO.setColumn_value(search);
+		}
+		;
 //		System.out.println("----------------------------------"+rVO);
-		json = new UserMainService().getUserMoreList(rVO);
-		
+		json = new UserMainService().getUserMoreList(rVO, page);
+
 		return json;
 	}
 }

@@ -30,6 +30,19 @@ public class PaginationService {
 		return cnt;
 	}//getTotalFollowCnt
 	
+	
+	
+	/**
+	 * 메인의 total count를 구하는 method
+	 * @param rVO
+	 * @return
+	 */
+	public int getMainTotalCnt(RangeVO rVO) {
+		int cnt = 0;
+		cnt = PaginationDAO.getInstance().selectMainTotalCnt(rVO);
+		return cnt;
+	}
+	
 	/**
 	 * 테이블명, 컬럼명, 컬럼값을 저장하는 TotalCntVO를 매개변수로 받아 조건에 맞는 행의 수를 구하는 method
 	 * tcVO 중 테이블명은 반드시 값을 가지고 있어야하고, 컬럼명과 컬럼값은 null이어도 된다.
@@ -49,7 +62,7 @@ public class PaginationService {
 	 * @return
 	 */
 	public int pageScale() {
-		int page_scale=10;
+		int page_scale=3;
 		
 		return page_scale;
 	}//pageScale

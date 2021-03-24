@@ -1,6 +1,6 @@
 @charset "EUC-KR";
 
-
+/* »ç¿ëÀÚ common header */
 /* in common */
 * {
     box-sizing: border-box
@@ -60,7 +60,6 @@ html {
 
 .nav_bar a {
     padding: .5rem 0;
-    padding-right: 1.5rem;
     color: #fff
 }
 

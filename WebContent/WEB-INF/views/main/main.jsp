@@ -67,11 +67,14 @@
 					
 					$("#section_main").append(output);
 					
-					var more='<span id="more_btn" class="more_btn" onclick="more_page('+(page+1)+')">더 보기</span>'
+					var more=''
+					console.log("flag: "+jsonObj.last_flag)
 					
-					if(jsonObj.last_flag){
-						var more='<span id="more_btn" class="more_btn" >마지막 페이지 입니다!</span>'
+					if(jsonObj.total_cnt > jsonObj.end_num) {
+						more='<span id="more_btn" class="more_btn" onclick="more_page('+(page+1)+')">더 보기</span>'
+						console.log(page+"-------in if")
 					}
+					
 					$("#more_div").html(more)
 					
 		      	}else{
@@ -114,7 +117,10 @@
    	
    	<!-- 더보기 버튼 -->
    	<div id="more_div" class="more_div">
-   		<span id="more_btn" class="more_btn" onclick="more_page(2)">더 보기</span>
+   		<c:if test="${ end_num lt total_cnt }">
+	   		<span id="more_btn" class="more_btn" onclick="more_page(${ cur_page + 1})">더 보기</span>
+   		</c:if> 
+	   		
 	</div>
     
 	

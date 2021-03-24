@@ -8,6 +8,7 @@ import org.json.simple.JSONObject;
 import kr.co.rgrg.user.main.dao.UserMainDAO;
 import kr.co.rgrg.user.main.domain.UserMainDomain;
 import kr.co.rgrg.user.pagination.PaginationDAO;
+import kr.co.rgrg.user.pagination.PaginationService;
 import kr.co.rgrg.user.pagination.RangeVO;
 import kr.co.rgrg.user.pagination.TotalCntVO;
 
@@ -29,7 +30,8 @@ public class UserMainService {
 	 * @param rVO
 	 * @return
 	 */
-	public String getUserMoreList(RangeVO rVO) {
+	@SuppressWarnings("unchecked")
+	public String getUserMoreList(RangeVO rVO, int cur_page) {
 		JSONObject json=new JSONObject();
 		
 		json.put("flag", "false");
@@ -38,14 +40,19 @@ public class UserMainService {
 		UserMainDAO mDAO = UserMainDAO.getInstance();
 		mainList = mDAO.selectMainList(rVO);
 		
-		int totalCnt=PaginationDAO.getInstance().selectTotalCnt(new TotalCntVO("post"));
+		int totalCnt=PaginationDAO.getInstance().selectMainTotalCnt(rVO);
+		
 		
 		if(mDAO!=null) {
 			json.put("flag", "success");
-			json.put("last_flag",totalCnt<=rVO.getEnd_num()); //last_flag==true 이면 마지막 페이지 라는 뜻
+			json.put("last_flag", totalCnt > rVO.getEnd_num()); //last_flag==true 이면 마지막 페이지 라는 뜻
 			
 			JSONArray ja = new JSONArray();
 			JSONObject tmp = null;
+			
+			json.put("cur_page", cur_page);
+			json.put("total_cnt", totalCnt);
+			json.put("end_num", rVO.getEnd_num());
 			
 			for(UserMainDomain umd : mainList) {
 				tmp = new JSONObject();

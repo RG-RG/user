@@ -52,4 +52,15 @@ public class PaginationDAO {
 		return cnt;
 	}//selectTotalPostCnt
 	
+	public int selectMainTotalCnt(RangeVO rVO) {
+		int cnt=0;
+		
+		SqlSession ss=GetRgrgHandler.getInstance().getSqlSession();
+		cnt=ss.selectOne("selectMainTotalCnt", rVO);
+		ss.close();
+		
+		return cnt;
+	}//selectTotalPostCnt
+	
+	
 }//class
