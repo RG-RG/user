@@ -11,14 +11,15 @@
 		(post_num, thumbnail, post_title, post_content, publish_flag, hidden_flag, input_date, id)  
 		values
 		(${post_num}, #{thumbnail}, #{post_title}, #{post_content}, #{publish_flag}, #{hidden_flag}, sysdate, #{id})
-		
-		<foreach collection="tags" item="tag">
-		into tag
-		(post_num, tag_name)
-		values
-		(${post_num}, #{tag})
-		
-		</foreach>
+		<if test="tags != null">
+			<foreach collection="tags" item="tag">
+			into tag
+			(post_num, tag_name)
+			values
+			(${post_num}, #{tag})
+			
+			</foreach>
+		</if>
 		select * from dual
 	</insert>
 	<!-- 태그 저장 -->
@@ -58,5 +59,17 @@
 		select tag_name
 		from tag
 		where post_num = #{post_num}
+	</select>
+	<!-- 게시글 삭제 -->
+	<update id="deletePost" parameterType="string">
+		update post
+		set	thumbnail = '', post_title='', post_content = '', publish_flag='', hidden_flag='', delete_flag='T'
+		where publish_flag = 'F' and id = #{id}
+	</update>
+	<!-- 임시저장 게시글 개수 -->
+	<select id="selectTempCnt" resultType="int" parameterType="string">
+		select count(*)
+		from post
+		where publish_flag = 'F' and id= #{id}
 	</select>
 </mapper>
