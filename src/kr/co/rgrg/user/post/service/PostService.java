@@ -36,6 +36,31 @@ public class PostService {
 		return result;
 	}
 	
+	/**
+	 * 임시저장 게시글의 개수를 확인하고 있다면 삭제
+	 * - 임시저장 게시글을 1개로 유지하기 위해서
+	 * @param id
+	 */
+	public void tempCnt(String id) {
+		
+		PostDAO pDAO = PostDAO.getInstance();
+		if(pDAO.selectTempCnt(id) == 1) {
+			pDAO.deletePost(id);
+		}
+	}
+	
+	/**
+	 * 게시글 삭제
+	 * @param id
+	 * @return
+	 */
+	public boolean removePost(String id) {
+		
+		PostDAO pDAO = PostDAO.getInstance();
+		
+		return pDAO.deletePost(id) == 1;
+	}
+	
 	public String saveFile(MultipartFile file) {
 		//System.out.println(file.getContentType());
 		UUID uuid = UUID.randomUUID(); // 파일 이름 변경
@@ -66,10 +91,15 @@ public class PostService {
 		
 		PostDAO pDAO = PostDAO.getInstance();
 		int posting_cnt = pDAO.updatePost(mpVO);
-		int delete_tag_cnt = pDAO.deleteTag(mpVO.getPost_num());
-		int insert_tag_cnt = pDAO.insertTag(mpVO);
 		
-		if(posting_cnt + delete_tag_cnt + insert_tag_cnt > 3) {
+		int delete_tag_cnt = 0;
+		int insert_tag_cnt = 0;
+		if (mpVO.getTags() != null) {
+			delete_tag_cnt = pDAO.deleteTag(mpVO.getPost_num());
+			insert_tag_cnt = pDAO.insertTag(mpVO);			
+		}
+		
+		if(posting_cnt + delete_tag_cnt + insert_tag_cnt > 0) {
 			result = true;
 		}
 		
