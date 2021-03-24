@@ -357,7 +357,7 @@
           <form id="image_upload_form" action="" method="post" enctype="multipart/form-data">
             <input type="file" id="profile_img" name="profile_img" style="display: none" />
           </form>
-          <img src="../../images/profile/${ member_data.profile_img }" alt="" class="current_img" />
+          <img src="/rgrg_user/images/profile/${ member_data.profile_img }" alt="" class="current_img" />
           <button class="upload_img_btn" id="img_upload_btn">이미지 업로드</button>
           <button class="delete_img_btn" id="img_delete_btn">이미지 제거</button>
         </div>

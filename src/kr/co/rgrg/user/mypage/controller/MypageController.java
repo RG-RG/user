@@ -41,7 +41,7 @@ public class MypageController {
 	private static final Logger logger = LoggerFactory.getLogger(MypageController.class);
 
 	// 업로드된 파일이 저장될 위치
-	private final String PATH = "C:\\Users\\doyeon\\git\\user\\WebContent\\images\\profile\\";
+	private final String PATH = "images\\profile\\";
 	
 	//json 데이터로 응답을 보내기 위한
 	@Autowired
@@ -98,7 +98,9 @@ public class MypageController {
 		
 		if (id != null) {
 			upiVO.setId(id);
-			upiVO.setProfile_img(id + upiVO.getProfile_img().substring(upiVO.getProfile_img().lastIndexOf(".")).toLowerCase());
+			System.out.println(upiVO.getProfile_img());
+			String fileName = upiVO.getProfile_img();
+			upiVO.setProfile_img(fileName);
 			result = new MypageService().modifyProfileImg(upiVO);
 		}
 		
@@ -118,11 +120,11 @@ public class MypageController {
 			List<MultipartFile> mpf = request.getFiles(itr.next());
 			
 			for(int i= 0; i<mpf.size(); i++) {
-				System.out.println(mpf.get(i));
+				String root_path = request.getSession().getServletContext().getRealPath("/");  
+				String fileName = mpf.get(i).getOriginalFilename();
 				
-				String temp = mpf.get(i).getOriginalFilename().substring(mpf.get(i).getOriginalFilename().lastIndexOf(".")+1);
-				
-				File file = new File(PATH + id + "." + temp);
+				System.out.println(root_path + PATH + fileName);
+				File file = new File(root_path + PATH + fileName);
 				logger.info(file.getAbsolutePath());
 				mpf.get(i).transferTo(file);
 			}
@@ -324,7 +326,8 @@ public class MypageController {
 	
 	@RequestMapping(value="/mypage/analytics.do", method=RequestMethod.GET)
 	public String getStatistics(HttpSession session, Model model) {
-
+		HelloAnalytics h = new HelloAnalytics();
+		h.getResult();
 		return "mypage/analytics";
 	}
 }
