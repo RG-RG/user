@@ -63,6 +63,7 @@ public class BlogPostService {
 		int cnt=BlogPostDAO.getInstance().insertLikePost(lpVO);
 		if(cnt==1) {
 			json.put("flag", "success");
+			json.put("like", "add");
 		}//end if
 		
 		return json.toJSONString();
@@ -75,6 +76,7 @@ public class BlogPostService {
 		int cnt=BlogPostDAO.getInstance().deleteLikePost(lpVO);
 		if(cnt==1) {
 			json.put("flag", "success");
+			json.put("like", "remove");
 		}//end if
 		
 		return json.toJSONString();

@@ -17,16 +17,9 @@
 
 <!-- Google CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     
 <script type="text/javascript">
-	
-		
-	$(function(){
-		
-	});//ready
-	
 	function handleEnter() {
 		var searchText = document.getElementById('search_input').value;
 		if (window.event.keyCode == 13){
@@ -50,33 +43,30 @@
 					//반복문으로 돌면서 div를 추가해줘야 함
 					var output = ""
 					$.each(jsonObj.main_list, function(idx, list){
+						
 						var cur_content = list.post_content;
 						if( list.post_content.length > 20 ) {
 							cur_content = cur_content.substring(0,20).concat('···');
 						} 
 						
 						output += '<div class="post">';
-						output += '<div class="post_img" style="background-image: url('+list.thumbnail+')"></div>'
-						output += '<div class="post_title">'+list.post_title+'</div>'
-						output += '<div class="post_content">'+ cur_content +'</div>'
-						output += '<div class="post_info">'
-							output +='<span class="post_writer">by. '+list.id+'</span> ・ <span class="post_date">'+list.input_date+'</span>'
-						output +='</div>';
+							output += '<div class="post_img" style="background-image: url('+ list.thumbnail +')"></div>'
+							output += '<div class="post_title"><a href="../'+ list.id +'/blog/post/'+ list.post_num +'">'+ list.post_title +'</a></div>'
+							output += '<div class="post_content">'+ cur_content +'</div>'
+							output += '<div class="post_info">'
+								output +='<span class="post_writer"><a href="../'+ list.id +'/blog">by. '+ list.id +'</a></span> ・ <span class="post_date">'+ list.input_date.substring(0,16) +'</span>'
+							output +='</div>';
 						output +='</div>';
 					});//each
-					
 					$("#section_main").append(output);
 					
+					//더보기 버튼
 					var more=''
-					console.log("flag: "+jsonObj.last_flag)
-					
 					if(jsonObj.total_cnt > jsonObj.end_num) {
 						more='<span id="more_btn" class="more_btn" onclick="more_page('+(page+1)+')">더 보기</span>'
-						console.log(page+"-------in if")
 					}
 					
 					$("#more_div").html(more)
-					
 		      	}else{
 		      		alert("문제가 발생하였습니다. 다시 시도해주세요.")
 		      	}//end else
@@ -120,9 +110,7 @@
    		<c:if test="${ end_num lt total_cnt }">
 	   		<span id="more_btn" class="more_btn" onclick="more_page(${ cur_page + 1})">더 보기</span>
    		</c:if> 
-	   		
 	</div>
-    
 	
 	<!--푸터 -->
 	<c:import url="../common/common_footer.jsp" />
