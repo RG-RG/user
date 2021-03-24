@@ -20,16 +20,17 @@
 	<link rel="stylesheet"	href="${pageContext.request.contextPath}/css/post/style.css" />
     <script>
       $(function () {
-    	  editor.setHtml($("#post_content").val());
+    	  editor.setMarkdown($("#post_content").val());
+    	
+    	/* 태그 동작 */
         $("#post_tag").keydown(function (key) {
           let $div = $("<div class='tag' >" + $("#post_tag").val() + "</div>");
           let $tag = $("<input type='hidden' name='tags' value='" + $("#post_tag").val() +"' />")
-          if (key.keyCode == 13) {
+          if (key.keyCode == 13 || key.keyCode == 32) {
             if ($("#post_tag").val() != false) {
            	  $("#post_form").append($tag);
               $("#post_tag").before($div);
               $("#post_tag").val("");
-              /* $("#post_tag").attr("placeholder", ""); */
             }
           }
           
@@ -39,16 +40,13 @@
           }
         });
         
-        $("#title").keydown(function(){
-        	$("#post_title").val($("#title").val());
-        });
-        
+    	/* 출간하기 클릭 */
         $("#save_content").click(function(){
         	save_post();
-        	
         	$("#post_form").submit();
         })
         
+        /* 임시저장 클릭 */
         $("#save_no_publish").click(function(){
         	save_post();
         	$("#publish_flag").val("F");
@@ -56,6 +54,7 @@
         	$("#post_form").submit();
         })
         
+        /* 임시저장 글 이어서 작성할지 */
 		  <c:if test="${ not empty temp_post_flag }">
 		  	
 		  		let temp_flag = confirm("임시저장된 게시글이 있습니다. 이어서 작성하시겠습니까?");
@@ -65,12 +64,55 @@
 		  		if(temp_flag === true) {
 		  			$("#post_form").attr("action", "/rgrg_user/rgrg/post/temp_post_form.do")
 					$("#post_form").submit();
-		  		} 
+		  		} else {
+
+		  			$("#post_form").attr("action", "/rgrg_user/rgrg/${id}/blog/post/remove/${post_data.post_num}")
+					$("#post_form").submit();
+		  		}
 		  </c:if>
+		  
+		  /* 나기가 버튼 */
+		  $("#exit").click(function(){
+			  if ($("#title").val().trim() != "" && editor.getMarkdown().trim() != "") { // 제목과 내용 모두 빈칸이 아닐 때만 확인
+				  let flag = confirm("수정중인 글을 저장하시겠습니까?");
+				  if(flag) {
+					  let url = "";
+					  save_post();
+					  console.log("저장하기")
+			        	$("#publish_flag").val("F");
+					  if (${empty post_data.post_num}) {
+						  console.log("새로운 임시저장")
+				        	$("#post_form").attr("action", "new_post.do")				  
+					  } else {
+						  console.log("그냥 임시저장")
+						  $("#post_form").attr("action", "save_modify_post.do");
+					  }
+				  } else {
+					  if (${not empty post_data.post_num}) {
+						  console.log("원래 있던거 삭제")
+						  $("#post_form").attr("action", "cancel.do");
+					  }
+				  }
+				  $("#post_form").submit();
+			  } else {
+				  location.href = "/rgrg_user/rgrg/main/main"
+			  }
+		  })
     });
+      
+      function save_post(){
+      	$("#post_title").val($("#title").val())
+      	$("#post_content").val(editor.getMarkdown());
+      }
     </script>
   </head>
   <body>
+<c:if test="${ empty id }">
+	<script>
+		alert("로그인 후 이용 가능합니다.");
+		history.back();
+	</script>
+</c:if>
     <section class="editor_content">
       <div class="title_area">
         <textarea type="text" rows="1" class="post_title" name="post_title" id="title" placeholder="제목을 입력해주세요">${ post_data.post_title }</textarea>
@@ -83,9 +125,8 @@
         </div>
       </div>
       <div id="editor" class="editor"></div>
-      <!-- <input type="hidden" name="post_content"/> -->
       <div class="btn_wrapper">
-        <button class="post_btn cancel_post">나가기</button>
+        <button class="post_btn cancel_post" id="exit" >나가기</button>
         <div class="save_area">
           <div class="save_btn">
             <button class="post_btn save_post" id="save_content" form="post_form">출간하기</button>
@@ -110,10 +151,7 @@
           hideModeSwitch: true,
         });
         
-        function save_post(){
-        	$("#post_title").val($("#title").val())
-        	$("#post_content").val(editor.getHtml());
-        }
+
       </script>
     </section>
     <form action="/rgrg_user/rgrg/post/post_publish.do" method="post" id="post_form">
