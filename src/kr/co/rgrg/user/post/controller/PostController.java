@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import kr.co.rgrg.user.post.domain.PostDomain;
@@ -80,7 +81,7 @@ public class PostController {
 	 * @return
 	 */
 	@RequestMapping(value="/post/new_post.do", method= RequestMethod.POST)
-	public String saveNewPost(PostVO pVO, HttpSession session, MultipartFile thumbnail_img, Model model) throws Exception {
+	public String saveNewPost(PostVO pVO, HttpSession session, MultipartFile thumbnail_img, MultipartHttpServletRequest request, Model model) throws Exception {
 		String id = (String)session.getAttribute("id");
 		
 		if(id != null) {
@@ -92,7 +93,9 @@ public class PostController {
 			try {
 				if(thumbnail_img != null) {
 					System.out.println("썸네일 사진이 있음");
-					upload_result = ps.saveFile(thumbnail_img);
+					
+					String root_path = request.getSession().getServletContext().getRealPath("/");  
+					upload_result = ps.saveFile(root_path, thumbnail_img);
 					pVO.setThumbnail(upload_result);				
 				}
 				
@@ -141,7 +144,7 @@ public class PostController {
 	 * @return
 	 */
 	@RequestMapping(value="/post/save_modify_post.do", method= RequestMethod.POST)
-	public String saveModifyPost(ModifyPostVO mpVO, MultipartFile thumbnail_img, HttpSession session, Model model) {
+	public String saveModifyPost(ModifyPostVO mpVO, MultipartFile thumbnail_img, MultipartHttpServletRequest request, HttpSession session, Model model) {
 		String id = (String)session.getAttribute("id");
 		
 		if (id != null) {
@@ -153,7 +156,8 @@ public class PostController {
 			boolean post_result = false;
 			try {
 				if(thumbnail_img != null) {
-					upload_result = ps.saveFile(thumbnail_img);
+					String root_path = request.getSession().getServletContext().getRealPath("/");  
+					upload_result = ps.saveFile(root_path, thumbnail_img);
 					mpVO.setThumbnail(upload_result);				
 				}
 				
