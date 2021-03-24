@@ -10,6 +10,7 @@ import java.util.Random;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +20,22 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.social.connect.Connection;
+import org.springframework.social.google.api.Google;
+import org.springframework.social.google.api.impl.GoogleTemplate;
+import org.springframework.social.google.api.plus.Person;
+import org.springframework.social.google.api.plus.PlusOperations;
+import org.springframework.social.google.connect.GoogleConnectionFactory;
+import org.springframework.social.oauth2.AccessGrant;
+import org.springframework.social.oauth2.GrantType;
+import org.springframework.social.oauth2.OAuth2Operations;
+import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
@@ -49,6 +61,12 @@ public class MemberController {
 	
 	@Autowired
 	MailSender sender;
+	
+	@Autowired
+	private GoogleConnectionFactory googleConnectionFactory;
+	
+	@Autowired
+	private OAuth2Parameters googleOAuth2Parameters;
 	
 	/**
 	 * 회원가입 이용약관 폼
@@ -222,6 +240,66 @@ public class MemberController {
 		}//end else
 		return "";
 	}//getKakaoInfo
+	
+	/**
+	 * 구글 로그인 폼을 불러오는 일
+	 * @param session
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="member/google_login_form", method=POST)
+	@ResponseBody
+	public String googleLoginForm(HttpSession session, Model model) {
+		OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
+		String url = oauthOperations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
+		return url;
+	}//googleLoginForm
+	
+	/**
+	 * 구글 로그인을 하는 일
+	 * @param code
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="member/google_login", method=GET)
+	public String googleLogin(@RequestParam String code, Model model) {
+		OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
+		AccessGrant accessGrant = oauthOperations.exchangeForAccess(code, googleOAuth2Parameters.getRedirectUri(), null);
+		String accessToken = accessGrant.getAccessToken();
+		System.out.println("11111111111111111111111111");
+		Long expireTime = accessGrant.getExpireTime();
+		if (expireTime != null && expireTime < System.currentTimeMillis()) {
+			accessToken = accessGrant.getRefreshToken();
+		}//end if
+		
+		System.out.println("22222222222222222222222222222222222");
+		Connection<Google> connection = googleConnectionFactory.createConnection(accessGrant);
+		System.out.println("3333333333333333333333333333333333333333");
+		Google google = connection == null ? new GoogleTemplate(accessToken) : connection.getApi();
+		
+		System.out.println("44444444444444444444444444");
+		PlusOperations plusOperations = google.plusOperations();
+		System.out.println("55555555555555555555555555");
+		Person profile = plusOperations.getGoogleProfile();
+		System.out.println("66666666666666666666666666666666");
+		System.out.println(profile.getId());
+		System.out.println(profile.getAccountEmail());
+		System.out.println(profile.getEmailAddresses());
+		System.out.println(profile.getEmails());
+		System.out.println(profile.getDisplayName());
+		System.out.println(profile.getImageUrl());
+//		JoinVO jVO = new JoinVO();
+//		jVO.setId(profile.get);
+//		jVO.setAuth_email(auth_email);
+//		jVO.setNickname(nickname);
+//		jVO.setPass(pass);
+//		jVO.setBlog_name(blog_name);
+//		new MemberService().googleLogin(jVO);
+		
+//		model.addAttribute("id", jVO.getId());
+		
+		return "redirect:/";
+	}//googleLogin
 	
 	/**
 	 * 로그아웃 하는 일

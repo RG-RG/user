@@ -91,6 +91,20 @@ function kakaoLogin() {
         }//success
     });//ajax
 }//kakaoLogin
+
+//구글 로그인 버튼 클릭
+function GoogleLogin() {
+    $.ajax({
+        url: '/rgrg_user/rgrg/member/google_login_form',
+        type: 'POST',
+        async: false,
+        dataType: 'TEXT',
+        success: function (url) {
+            location.href = url;
+        }//success
+    });//ajax
+}//GoogleLogin
+
 </script>
 </head>
 <body>
@@ -119,6 +133,7 @@ function kakaoLogin() {
 				<div id="buttons">
 				  <button type="button" class="btn btn-secondary" id="loginBtn">로그인</button>
 				  <button type="button" class="btn btn-secondary" id="kakaoBtn" onclick="kakaoLogin();">카카오 로그인</button>
+				  <button type="button" class="btn btn-secondary" id="kakaoBtn" onclick="GoogleLogin();">구글 로그인</button>
 				</div>
         	</div>
 			<div id="joinDiv">

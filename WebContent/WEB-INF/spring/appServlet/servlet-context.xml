@@ -38,6 +38,7 @@
    	 	<beans:property name="alwaysUseFullPath" value="true" />
 	</beans:bean>
 	
+	<!-- 인증 메일 보내기 위한 설정 -->
 	<beans:bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<beans:property name="host" value="smtp.gmail.com"/>
 		<beans:property name="port" value="587"/><!-- 465 or 25 -->
