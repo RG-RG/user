@@ -40,6 +40,8 @@ public class PostController {
 		
 		if (id != null) {
 			model.addAttribute("temp_post_flag", new PostService().searchPublishPost(id));			
+		} else {
+			return "redirect:main/main";
 		}
 		model.addAttribute("id", id);
 
@@ -89,12 +91,13 @@ public class PostController {
 			boolean post_result = false;
 			try {
 				if(thumbnail_img != null) {
+					System.out.println("썸네일 사진이 있음");
 					upload_result = ps.saveFile(thumbnail_img);
 					pVO.setThumbnail(upload_result);				
 				}
 				
 				post_result = ps.savePost(pVO);
-				System.out.println(post_result);
+				System.out.println("게시글 저장 결과 "+post_result);
 			} catch (NullPointerException e) {
 				upload_result = "no_file";
 			}
@@ -171,11 +174,22 @@ public class PostController {
 		return "redirect:/rgrg/main/main";
 	}
 	
+	/**
+	 * 게시글 삭제하는 일
+	 * @param post_num
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping(value="/post/cancel.do", method= RequestMethod.GET)
-	public String cancelPost(String post_num) {
+	public String cancelPost(String post_num, HttpSession session) {
+		String id = (String)session.getAttribute("id");
+		boolean result = false;
+		if(id != null) {
+			result = new PostService().removePost(id);			
+		}
 		
-		PostService ps = new PostService();
+		logger.info("게시글 삭제 결과 : " + result);
 		
-		return "post/cancel";
+		return "redirect:/main/main";
 	}
 }
