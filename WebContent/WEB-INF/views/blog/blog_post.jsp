@@ -186,23 +186,24 @@ $(function(){
 				success:function(jsonObj){
 			      	if(jsonObj.flag=="success"){
 						var input="";
-						input+='<div id="comm_div_'+jsonObj.comm_num+'" class="comment">'
-						input+='<div class="c_writer_info">'
-						input+='<img src="'+jsonObj.profile_img+'">'
-						input+='<div>'
-						input+='<span class="c_writer"><a href="/rgrg_user/rgrg/${ comm.id }/blog">'+jsonObj.nickname+'</a></span>'
-						input+='<span>'+jsonObj.input_date+'</span>'
+						input+='<div id="comm_div_'+jsonObj.comm_num+'" class="comment comment-init">'
+							input+='<div class="c_writer_info">'
+								input+='<img src="'+jsonObj.profile_img+'">'
+							input+='<div>'
+								input+='<span class="c_writer"><a href="/rgrg_user/rgrg/${ comm.id }/blog">'+jsonObj.nickname+'</a></span>'
+								input+='<span>'+jsonObj.input_date+'</span>'
+							input+='</div>'
+								input+='<div>'
+									input+='<span id="commModify'+jsonObj.comm_num+'" onclick="commModifyClk('+jsonObj.comm_num+')" class="btn" >수정</span>'
+									input+='<span id="commRemove" onclick="commRemoveClk('+jsonObj.comm_num+')" class="btn" >삭제</span>'
+								input+='</div>'
+							input+='</div>'
+							input+='<input type="hidden" id="comm_cont_val_'+jsonObj.comm_num+'" value="'+jsonObj.comm_content+'"/>'
+							input+='<div id="comm_content_'+jsonObj.comm_num+'" class="c_content">'
+								input+=jsonObj.comm_content
+							input+='</div>'
 						input+='</div>'
-						input+='<div>'
-						input+='<span id="commModify'+jsonObj.comm_num+'" onclick="commModifyClk('+jsonObj.comm_num+')" class="btn" >수정</span>'
-						input+='<span id="commRemove" onclick="commRemoveClk('+jsonObj.comm_num+')" class="btn" >삭제</span>'
-						input+='</div>'
-						input+='</div>'
-						input+='<input type="hidden" id="comm_cont_val_'+jsonObj.comm_num+'" value="'+jsonObj.comm_content+'"/>'
-						input+='<div id="comm_content_'+jsonObj.comm_num+'" class="c_content">'
-						input+=jsonObj.comm_content
-						input+='</div>'
-						input+='</div>'
+						
 						$("#comments_list").append(input);
 						$("#commAddCont").val("");
 						commCnt=Number($("#commCnt").text())
@@ -213,11 +214,22 @@ $(function(){
 			      		alert("문제가 발생하였습니다. 다시 시도해주세요.");
 			      	}//end else
 				}//success
+			}).done(function(){
+				console.log("댓글추가")
+				 
+			 	var new_comment = document.querySelectorAll(".comment-init");
+				 
+				setTimeout(function(){
+					new_comment[new_comment.length-1].classList.add('comment-fade');
+				}, 5);
 			});//ajax
 		}else{
 			alert("로그인 후 다시 시도해주세요.");
 		}//end else
 	});//click
+	
+
+	
 });//ready
 
 function changeCommCnt(cnt){

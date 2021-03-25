@@ -229,3 +229,15 @@ textarea:focus {
     margin-top: 1rem;
     line-height: 1.4rem
 }
+
+/* 댓글 작성시 animation 효과 */
+.comment-init {
+  opacity: 0;
+  padding-top: 1em;
+}
+
+.comment-fade {
+  opacity: 1;
+  padding-top: 0;
+  transition: all 0.5s;
+}
