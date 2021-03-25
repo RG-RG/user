@@ -207,6 +207,25 @@
 		    <version>4.2</version>
 		</dependency>
 		
+		<!-- 구글 애널리스틱 -->
+		<dependency>
+		    <groupId>com.google.apis</groupId>
+		    <artifactId>google-api-services-analyticsreporting</artifactId>
+		    <version>v4-rev153-1.25.0</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.google.api-client</groupId>
+		    <artifactId>google-api-client-gson</artifactId>
+		    <version>1.30.9</version>
+		</dependency>
+		
+		<dependency>
+		   <groupId>com.google.apis</groupId>
+		   <artifactId>google-api-services-analytics</artifactId>
+		   <version>v3-rev20190807-1.30.10</version>
+		</dependency>
+		
 		<!-- 구글 로그인 -->
 	    <dependency>
 	    	<groupId>org.springframework.social</groupId>
