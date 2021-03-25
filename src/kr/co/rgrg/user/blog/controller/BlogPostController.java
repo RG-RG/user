@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +23,7 @@ import kr.co.rgrg.user.blog.vo.ModifyCommVO;
 import kr.co.rgrg.user.blog.vo.PostDeleteVO;
 import kr.co.rgrg.user.blog.vo.RemoveCommVO;
 
+@CrossOrigin(origins="*")
 @Controller
 public class BlogPostController {
 	

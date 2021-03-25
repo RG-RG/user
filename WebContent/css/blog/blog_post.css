@@ -143,6 +143,10 @@ body {
     margin-right: 1rem
 }
 
+.writer_info a, .comment a {
+	color: black;
+}
+
 .section_main .post textarea {
     resize: none;
     border: 1px solid #d7d7d7;
