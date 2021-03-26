@@ -8,11 +8,6 @@
 		values(#{ id }, #{ pass }, #{ auth_email }, #{ nickname }, #{ blog_name }, 'default.png')
 	</insert>
 	
-	<!-- 소셜 회원가입을 하는 일 -->
-	<insert id="insertSocialMember" parameterType="kr.co.rgrg.user.member.vo.SocialJoinVO">
-	
-	</insert>
-	
 	<!-- 아이디 중복을 체크하는 일 -->
 	<select id="selectId" parameterType="String" resultType="String">
 		select id
@@ -34,6 +29,12 @@
 		where id = #{ id }
 	</select>
 	
+	<!-- 구글 회원가입을 하는 일 -->
+	<insert id="insertGoogleMember" parameterType="kr.co.rgrg.user.member.vo.SocialJoinVO">
+		insert into member(ID, AUTH_EMAIL, NICKNAME, BLOG_NAME, PROFILE_IMG, PLATFORM, ACCESS_TOKEN)
+		values(#{ id }, #{ auth_email }, #{ nickname }, #{ blog_name }, #{ profile_img }, #{ platform }, #{ access_token })	
+	</insert>
+		
 	<!-- 아이디 찾기를 위해 입력한 이메일이 DB에 있는지 확인하는 일 -->
 	<select id="selectFindIdChkEmail" parameterType="String" resultType="String">
 		select auth_email

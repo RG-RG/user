@@ -41,16 +41,6 @@ public class MemberDAO {
 	}//insertMember
 	
 	/**
-	 * 소셜 회원가입을 하는 일
-	 * @param sjVO
-	 * @return
-	 */
-	public int insertSocialMember(SocialJoinVO sjVO) {
-		int cnt = 0;
-		return cnt;
-	}//insertSocialMember
-	
-	/**
 	 * 아이디 중복을 체크하는 일
 	 * @param id
 	 * @return
@@ -94,6 +84,22 @@ public class MemberDAO {
 		
 		return ld;
 	}//selectLogin
+
+	/**
+	 * 구글 회원가입을 하는 일
+	 * @param sjVO
+	 * @return
+	 */
+	public int insertGoogleMember(SocialJoinVO sjVO) {
+		int cnt = 0;
+		
+		SqlSession ss = GetRgrgHandler.getInstance().getSqlSession();
+		cnt = ss.insert("kr.co.rgrg.user.member.insertGoogleMember", sjVO);
+		ss.commit();
+		ss.close();
+		
+		return cnt;
+	}//insertGoogleMember
 	
 	/**
 	 * 아이디 찾기를 위해 입력한 이메일이 DB에 있는지 확인하는 일

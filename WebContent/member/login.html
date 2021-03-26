@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-signin-client_id" content="393175765493-5uqkkubl0sgc92q6cjced49oalplj70r.apps.googleusercontent.com">
 <title>RGRG</title>
 <style type="text/css">
 #containerTitle{ text-align: center; font-size: 5rem; font-weight: bold; margin-top: 4rem }
@@ -26,6 +27,7 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 <link rel="stylesheet" href="http://localhost/rgrg_user/css/reset.css">
 <link rel="stylesheet" href="http://localhost/rgrg_user/css/member/style.css">
 <script type="text/javascript">
@@ -92,25 +94,41 @@ function kakaoLogin() {
     });//ajax
 }//kakaoLogin
 
-//구글 로그인 버튼 클릭
-function GoogleLogin() {
-    $.ajax({
-        url: '/rgrg_user/rgrg/member/google_login_form',
-        type: 'POST',
-        async: false,
-        dataType: 'TEXT',
-        success: function (url) {
-            location.href = url;
-        }//success
-    });//ajax
-}//GoogleLogin
+//구글 로그인
+function onSignIn(googleUser) {
+	  var profile = googleUser.getBasicProfile();
+	  var id_token = googleUser.getAuthResponse().id_token;
+	  $("#googleBtn").click(function(){
+		  $.ajax({
+			  url: '/rgrg_user/rgrg/member/google_login',
+			  type: 'POST',
+			  data: 'idtoken=' + id_token, 
+			  dataType: 'JSON',
+			  beforeSend : function(xhr){
+				  xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+			  },
+			  success: function(json) {
+				  if (json.login_result == "success"){
+					  location.href = "/rgrg_user/rgrg/main/main";
+				  }//end if
+	          }//success
+		  });//ajax
+	  });//click
+/* 	  var xhr = new XMLHttpRequest();
+	  xhr.open('POST', '/rgrg_user/rgrg/member/google_login');
+	  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	  xhr.onload = function() {
+	    console.log('Signed in as: ' + xhr.responseText);
+	  };
+	  xhr.send('idtoken=' + id_token); */
+}//onSignIn
 
 </script>
 </head>
 <body>
 	<div id="container" style="font-family: IBMPlexSansKR-Regular">
 		<div id="containerTitle">
-			RGRG
+			Co-doing
 		</div>
 		<div id="containerContent">
 			<form id="loginForm" action="/rgrg_user/rgrg/member/login" method="POST">
@@ -133,7 +151,7 @@ function GoogleLogin() {
 				<div id="buttons">
 				  <button type="button" class="btn btn-secondary" id="loginBtn">로그인</button>
 				  <button type="button" class="btn btn-secondary" id="kakaoBtn" onclick="kakaoLogin();">카카오 로그인</button>
-				  <button type="button" class="btn btn-secondary" id="kakaoBtn" onclick="GoogleLogin();">구글 로그인</button>
+				  <div class="g-signin2" data-onsuccess="onSignIn" id="googleBtn"></div>
 				</div>
         	</div>
 			<div id="joinDiv">

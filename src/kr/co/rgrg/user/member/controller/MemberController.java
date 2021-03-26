@@ -3,6 +3,9 @@ package kr.co.rgrg.user.member.controller;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -43,6 +46,13 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.google.api.client.auth.openidconnect.IdToken.Payload;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.googleapis.util.Utils;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.json.JsonFactory;
+
 import kr.co.rgrg.user.member.domain.LoginDomain;
 import kr.co.rgrg.user.member.service.MemberService;
 import kr.co.rgrg.user.member.vo.FindPassVO;
@@ -61,12 +71,6 @@ public class MemberController {
 	
 	@Autowired
 	MailSender sender;
-	
-	@Autowired
-	private GoogleConnectionFactory googleConnectionFactory;
-	
-	@Autowired
-	private OAuth2Parameters googleOAuth2Parameters;
 	
 	/**
 	 * 회원가입 이용약관 폼
@@ -242,63 +246,49 @@ public class MemberController {
 	}//getKakaoInfo
 	
 	/**
-	 * 구글 로그인 폼을 불러오는 일
-	 * @param session
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value="member/google_login_form", method=POST)
-	@ResponseBody
-	public String googleLoginForm(HttpSession session, Model model) {
-		OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
-		String url = oauthOperations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
-		return url;
-	}//googleLoginForm
-	
-	/**
 	 * 구글 로그인을 하는 일
 	 * @param code
 	 * @param model
 	 * @return
+	 * @throws IOException 
+	 * @throws GeneralSecurityException 
 	 */
-	@RequestMapping(value="member/google_login", method=GET)
-	public String googleLogin(@RequestParam String code, Model model) {
-		OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
-		AccessGrant accessGrant = oauthOperations.exchangeForAccess(code, googleOAuth2Parameters.getRedirectUri(), null);
-		String accessToken = accessGrant.getAccessToken();
-		System.out.println("11111111111111111111111111");
-		Long expireTime = accessGrant.getExpireTime();
-		if (expireTime != null && expireTime < System.currentTimeMillis()) {
-			accessToken = accessGrant.getRefreshToken();
-		}//end if
+	@RequestMapping(value="member/google_login", method=POST)
+	@ResponseBody
+	public String googleLogin(String idtoken, Model model) throws GeneralSecurityException, IOException {
+		HttpTransport transport = Utils.getDefaultTransport();
+		JsonFactory jsonFactory = Utils.getDefaultJsonFactory();
 		
-		System.out.println("22222222222222222222222222222222222");
-		Connection<Google> connection = googleConnectionFactory.createConnection(accessGrant);
-		System.out.println("3333333333333333333333333333333333333333");
-		Google google = connection == null ? new GoogleTemplate(accessToken) : connection.getApi();
+		GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory)
+				.setAudience(Collections.singletonList("393175765493-5uqkkubl0sgc92q6cjced49oalplj70r.apps.googleusercontent.com")).build();
 		
-		System.out.println("44444444444444444444444444");
-		PlusOperations plusOperations = google.plusOperations();
-		System.out.println("55555555555555555555555555");
-		Person profile = plusOperations.getGoogleProfile();
-		System.out.println("66666666666666666666666666666666");
-		System.out.println(profile.getId());
-		System.out.println(profile.getAccountEmail());
-		System.out.println(profile.getEmailAddresses());
-		System.out.println(profile.getEmails());
-		System.out.println(profile.getDisplayName());
-		System.out.println(profile.getImageUrl());
-//		JoinVO jVO = new JoinVO();
-//		jVO.setId(profile.get);
-//		jVO.setAuth_email(auth_email);
-//		jVO.setNickname(nickname);
-//		jVO.setPass(pass);
-//		jVO.setBlog_name(blog_name);
-//		new MemberService().googleLogin(jVO);
+		JSONObject json = new JSONObject();
 		
-//		model.addAttribute("id", jVO.getId());
+		GoogleIdToken idToken = verifier.verify(idtoken);
+		if (idToken != null) {
+			Payload payload = idToken.getPayload();
+			
+			if (dupId(payload.getSubject()).contains("false")) { //회원가입이 안 되어 있는 경우
+				SocialJoinVO sjVO = new SocialJoinVO();
+				sjVO.setId((String) payload.get("email"));
+				sjVO.setAuth_email((String) payload.get("email"));
+				sjVO.setNickname((String) payload.get("given_name"));
+				sjVO.setBlog_name((String) payload.get("given_name"));
+				sjVO.setProfile_img((String) payload.get("picture"));
+				sjVO.setPlatform("google");
+				sjVO.setAccess_token(idtoken);
+				
+				new MemberService().googleJoin(sjVO);
+			}//end if
+			
+			model.addAttribute("id", (String) payload.get("email"));
+			json.put("login_result", "success");
+			
+		} else { //유효하지 않은 토큰
+			json.put("login_result", "fail");
+		}//end else
 		
-		return "redirect:/";
+		return json.toJSONString();
 	}//googleLogin
 	
 	/**

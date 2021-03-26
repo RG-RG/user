@@ -11,18 +11,5 @@
 	    <property name="maxUploadSize" value="10485760"/>
 	    <property name="defaultEncoding" value="UTF-8" />
 	  </bean>
-		
-	<!-- 구글 로그인을 위한 설정 -->
-	<!-- 클라이언트 ID와 보안비밀 세팅-->
-	<bean id="googleConnectionFactory"
-		class="org.springframework.social.google.connect.GoogleConnectionFactory">
-		<constructor-arg value="393175765493-5uqkkubl0sgc92q6cjced49oalplj70r.apps.googleusercontent.com" />
-		<constructor-arg value="0k_izisN0Q-KzoHkv1m1yaj3" />
-	</bean>
-	<!-- 승인된 자바스크립트 원본과 승인된 리디렉션 URI -->
-	<bean id="googleOAuth2Parameters" class="org.springframework.social.oauth2.OAuth2Parameters">
-		<property name="scope" value="https://www.googleapis.com/auth/plus.login" />
-		<property name="redirectUri" value="http://localhost/rgrg_user/rgrg/member/google_login" />
-	</bean>	  
 	  
 </beans>

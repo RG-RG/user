@@ -28,16 +28,6 @@ public class MemberService {
 	}//join
 	
 	/**
-	 * 소셜 회원가입을 하는 일
-	 * @param sjVO
-	 * @return
-	 */
-	public boolean socialJoin(SocialJoinVO sjVO) {
-		boolean flag = false;
-		return flag;
-	}//socialJoin
-	
-	/**
 	 * 아이디 중복을 체크하는 일
 	 * @param id
 	 * @return
@@ -82,6 +72,20 @@ public class MemberService {
 		
 		return ld;
 	}//login
+	
+	/**
+	 * 구글 회원가입을 하는 일
+	 * @param sjVO
+	 * @return
+	 */
+	public boolean googleJoin(SocialJoinVO sjVO) {
+		boolean flag = false;
+		
+		MemberDAO memDAO = MemberDAO.getInstance();
+		flag = memDAO.insertGoogleMember(sjVO) == 1;
+		
+		return flag;
+	}//googleJoin
 	
 	/**
 	 * 아이디 찾기를 위해 입력한 이메일이 DB에 있는지 확인하는 일
