@@ -268,7 +268,7 @@ public class MemberController {
 		if (idToken != null) {
 			Payload payload = idToken.getPayload();
 			
-			if (dupId(payload.getSubject()).contains("false")) { //회원가입이 안 되어 있는 경우
+			if (dupId((String) payload.get("email")).contains("false")) { //회원가입이 안 되어 있는 경우
 				SocialJoinVO sjVO = new SocialJoinVO();
 				sjVO.setId((String) payload.get("email"));
 				sjVO.setAuth_email((String) payload.get("email"));
