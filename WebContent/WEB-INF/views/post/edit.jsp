@@ -24,15 +24,23 @@
     	
     	/* 태그 동작 */
         $("#post_tag").keydown(function (key) {
-          let $div = $("<div class='tag' >" + $("#post_tag").val() + "</div>");
+          let $div = $("<div class='tag tag-init'>" + $("#post_tag").val() + "</div>");
           let $tag = $("<input type='hidden' name='tags' value='" + $("#post_tag").val() +"' />")
+          
           if (key.keyCode == 13 || key.keyCode == 32) {
             if ($("#post_tag").val() != false) {
            	  $("#post_form").append($tag);
               $("#post_tag").before($div);
               $("#post_tag").val("");
             }
-          }
+            
+            //태그 입력 시 animation 효과
+            var new_tag = document.querySelectorAll(".tag-init");
+            setTimeout(function(){
+          	  new_tag[new_tag.length-1].classList.add('tag-fade')
+            })
+          }//if keycode
+
           
           if (key.keyCode == 8) {
         	  $("[class='tag']:last").remove();
@@ -119,9 +127,9 @@
         <div class="title_line"></div>
         <div class="tag_area" id="tag_area">
          	<c:forEach var="tag" items="${ post_data.tag_name }">
-  			<div class="tag">${ tag }</div>
+  				<div class="tag">${ tag }</div>
   			</c:forEach>
-          <input type="text" class="post_tag" id="post_tag" placeholder="태그를 입력해주세요" />
+          	<input type="text" class="post_tag" id="post_tag" placeholder="태그를 입력해주세요" />
         </div>
       </div>
       <div id="editor" class="editor"></div>
