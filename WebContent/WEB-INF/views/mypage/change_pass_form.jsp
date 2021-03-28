@@ -50,7 +50,6 @@
 	    });
 	})
 </script>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mypage/style.css" />
     <h3>바꿀 비밀번호 입력</h3>
 	    <div class="social">
 	      <div class="input">
