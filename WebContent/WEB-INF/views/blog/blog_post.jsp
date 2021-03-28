@@ -69,7 +69,7 @@ $(function(){
 	$("#removePost").click(function(){
 		if(${ not empty sessionScope.id }){
 			$.ajax({
-				url:"remove/${post_detail.post_num}",
+				url:"remove.do?post=${post_detail.post_num}",
 				type:"POST",
 				dataType:"JSON",
 				error:function(xhr){
@@ -93,10 +93,14 @@ $(function(){
 	/* 좋아요 눌렀을 때 */
 	$("#postLike").click(function(){
 		if(${ not empty sessionScope.id }){
-			if(${like_flag}){
-				url="like/remove/${post_detail.post_num}"
+			var url=''
+			var like_flag=''
+			if(!$("#like_flag_hid").val()){
+				url="/like/remove.do?post=${post_detail.post_num}";
+				like_flag=false;
 			}else{
-				url="like/add/${post_detail.post_num}"
+				url="/like/add.do?post=${post_detail.post_num}";
+				like_flag=true;
 			}//end else
 			$.ajax({
 				url:url,
@@ -125,6 +129,7 @@ $(function(){
 						
 						$("#postLike").html(heart)
 						$("#postLikeCnt").html(heartCnt)
+						$("#like_flag_hid").val(like_flag)
 			      	}else{
 			      		alert("문제가 발생하였습니다. 다시 시도해주세요.")
 			      	}//end else
@@ -142,10 +147,10 @@ $(function(){
 			var url="";
 			var text="";
 			if(${follow_flag}){
-				url="팔로우 취소";
+				url="${post_profile.id}/unfollow.do";
 				text="unfollow";
 			}else{
-				url="팔로우 추가";
+				url="${post_profile.id}/follow.do";
 				text="follow";
 			}//end else
 			$.ajax({
@@ -157,7 +162,7 @@ $(function(){
 					console.log(xhr.status+" / "+xhr.statusText);
 				},
 				success:function(jsonObj){
-			      	if(jsonObj.flag=="success"){
+			      	if(jsonObj.follow_result){
 						$("#btn_follow").text(text);
 			      	}else{
 			      		alert("문제가 발생하였습니다. 다시 시도해주세요.");
@@ -175,7 +180,7 @@ $(function(){
 		if(${ not empty sessionScope.id }){
 			var comm=$("#commAddCont").val()
 			$.ajax({
-				url:"comm/add/${post_detail.post_num}",
+				url:"/comm/add.do?post=${post_detail.post_num}",
 				type:"POST",
 				data:{comm_content:comm},
 				dataType:"JSON",
@@ -241,7 +246,7 @@ function commRemoveClk(comm_num){
 	if(${ not empty sessionScope.id }){
 		if(confirm("댓글을 삭제하시겠습니까?")){
 			$.ajax({
-				url:"comm/remove/"+comm_num,
+				url:"/comm/remove.do?comm="+comm_num,
 				type:"POST",
 				dataType:"JSON",
 				error:function(xhr){
@@ -288,7 +293,7 @@ function commModifyBtn(comm_num){
 		if(confirm("댓글을 수정하시겠습니까?")){
 			var comm=$("#comm_modify_"+comm_num).val()
 			$.ajax({
-				url:"comm/modify/"+comm_num,
+				url:"/comm/modify.do?comm="+comm_num,
 				type:"POST",
 				data:{comm_content:comm},
 				dataType:"JSON",
@@ -321,6 +326,7 @@ function commModifyBtn(comm_num){
 	<section class="section_main">
 		<!-- 왼쪽의 좋아요/댓글/공유 -->
 		<div class="post_side_tab">
+			<input id="like_flag_hid" type="hidden" value="${ like_flag }"/>
 			<ul>
 				<li id="postLike" class="postLike"><c:choose>
 						<c:when test="${ like_flag }">
@@ -387,11 +393,14 @@ function commModifyBtn(comm_num){
 
 			<!-- 작성자 프로필 -->
 			<div class="writer_info">
-				<img src="${ post_profile.profile_img } }">
+				<a href="/${ post_profile.id }/blog.do">
+				<img src="${ post_profile.profile_img }">
+				</a>
 				<div class="info">
 					<div class="w_nickname">
+						<a href="/${ post_profile.id }/blog.do">
 						<span class="nickname"><c:out
-								value="${ post_profile.nickname }" /></span>
+								value="${ post_profile.nickname }" /></span></a>
 						<c:if test="${ sessionScope.id!=post_profile.id }">
 							<span id="btn_follow" class="btn_follow"> <c:if
 									test="${ follow_flag }">
@@ -441,7 +450,7 @@ function commModifyBtn(comm_num){
 							<img src="${ comm.profile_img }">
 							<div>
 								<span class="c_writer"><a
-									href="/rgrg_user/rgrg/${ comm.id }/blog"><c:out
+									href="/${ comm.id }/blog.do"><c:out
 											value="${ comm.nickname }" /></a></span> <span><c:out
 										value="${ comm.input_date }" /></span>
 							</div>
