@@ -7,7 +7,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>마이페이지</title>
+    <title>Co-doing</title>
     <script src="https://kit.fontawesome.com/7a3682f726.js" crossorigin="anonymous"></script>
     <!-- Google CDN -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>

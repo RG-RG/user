@@ -5,7 +5,7 @@
 <html lang="en">
   <head lang="en">
     <meta charset="UTF-8" />
-    <title>게시글 작성</title>
+    <title>Co-doing</title>
 
 
     <!-- Google CDN -->
