@@ -1,6 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -17,7 +15,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mypage/style.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/common_header_footer.css" />
-    
+
     <script type="text/javascript">
       $(function () {
         let display_profile = document.getElementById("display_profile");
@@ -114,13 +112,36 @@
         $("#img_upload_btn").click(function () {
           $("#profile_img").click();
         });
-        
-        $("#img_delete_btn").click(function (){
+
+        $("#img_delete_btn").click(function () {
+          $.ajax({
+            url: "modify_profile_img.do",
+            dataType: "JSON",
+            type: "POST",
+            data: "profile_img=default.png",
+            error: function (xhr) {
+              alert("에러");
+              console.log(xhr.status + " / " + xhr.statusText);
+            },
+            success: function (jsonObj) {
+              if (jsonObj.result === "success") {
+                console.log("성공");
+              }
+            },
+          });
+        });
+
+        /* 이미지 업로드 */
+        $("#profile_img").change(function () {
+          let temp = $("#profile_img").val().split("\\");
+
+          if (temp[temp.length - 1].endsWith("jpg") || temp[temp.length - 1].endsWith("png") || temp[temp.length - 1].endsWith("jpeg")) {
+            let profile_img = temp[temp.length - 1];
             $.ajax({
               url: "modify_profile_img.do",
               dataType: "JSON",
               type: "POST",
-              data: "profile_img=default.png",
+              data: "profile_img=" + profile_img,
               error: function (xhr) {
                 alert("에러");
                 console.log(xhr.status + " / " + xhr.statusText);
@@ -131,59 +152,40 @@
                 }
               },
             });
-        })
 
-        /* 이미지 업로드 */
-        $("#profile_img").change(function () {
-          let temp = $("#profile_img").val().split("\\");
-          
-          if(temp[temp.length - 1].endsWith("jpg") || temp[temp.length - 1].endsWith("png") || temp[temp.length - 1].endsWith("jpeg")) {
-        	  
-          
-	          let profile_img = temp[temp.length - 1];
-	          $.ajax({
-	            url: "modify_profile_img.do",
-	            dataType: "JSON",
-	            type: "POST",
-	            data: "profile_img=" + profile_img,
-	            error: function (xhr) {
-	              alert("에러");
-	              console.log(xhr.status + " / " + xhr.statusText);
-	            },
-	            success: function (jsonObj) {
-	              if (jsonObj.result === "success") {
-	                console.log("성공");
-	              }
-	            },
-	          });
-	
-	          let form = new FormData(document.getElementById("image_upload_form"));
-	          console.log(form);
-	          $.ajax({
-	            url: "upload_img_file.do",
-	            enctype: "/multipart/form-data",
-	            data: form,
-	            dataType: "json",
-	            processData: false,
-	            contentType: false,
-	            type: "POST",
-	            success: function (data) {
-	              if (data.result.code === "success") {
-	                console.log("성공");
-	              } else {
-	                console.log("실패");
-	              }
-	            },
-	            error: function (error) {
-	              alert(error.responseText);
-	            },
-	          });
+            let form = new FormData(document.getElementById("image_upload_form"));
+            console.log(form);
+            $.ajax({
+              url: "upload_img_file.do",
+              enctype: "/multipart/form-data",
+              data: form,
+              dataType: "json",
+              processData: false,
+              contentType: false,
+              type: "POST",
+              success: function (data) {
+                if (data.result.code === "success") {
+                  console.log("성공");
+                } else {
+                  console.log("실패");
+                }
+              },
+              error: function (error) {
+                alert(error.responseText);
+              },
+            });
           } else {
-        	  alert("다른 형식의 파일을 선택해주세요");
+            alert("다른 형식의 파일을 선택해주세요");
           }
         });
-        
       }); //ready
+
+      /* 이메일 유효성검사 */
+      function chkEmail(str) {
+        var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+        if (regExp.test(str)) return true;
+        else return false;
+      } //chkEmail
 
       /* 닉네임, 상태메세지 업데이트 */
       function saveProfile() {
@@ -231,6 +233,11 @@
         let newGithub = document.getElementById("github_input").value;
         let newWebsite = document.getElementById("website_input").value;
         let newEmail = document.getElementById("visible_email_input").value;
+
+        if (chkEmail(newEmail)) {
+          alert("이메일 형식으로 입력해주세요");
+          return;
+        }
 
         $.ajax({
           url: "modify_social.do",
@@ -324,7 +331,7 @@
       }
 
       function mng_menu(url) {
-        console.log(url+" 관리 페이지 이동");
+        console.log(url + " 관리 페이지 이동");
         var ajaxOption = {
           url: url,
           async: true,
@@ -340,18 +347,16 @@
           $("#mng_form").html(data);
         });
       }
-
-      
     </script>
   </head>
   <body style="font-family: IBMPlexSansKR-Regular">
     <jsp:include page="../common/common_header.jsp" />
     <c:if test="${ empty member_data }">
-		<script>
-			alert("로그인 후 이용 가능합니다.");
-			history.back();
-		</script>
-	</c:if>
+      <script>
+        alert("로그인 후 이용 가능합니다.");
+        history.back();
+      </script>
+    </c:if>
     <main>
       <section class="profile">
         <div class="img_area">
@@ -495,7 +500,7 @@
               <form id="delete_form" class="edit_form" style="display: none">
                 <div class="col-xs-10">
                   <div class="input">
-                    <input type="text" class="form-control" id="delete_input" placeholder="비밀번호를 입력해주세요"/>
+                    <input type="text" class="form-control" id="delete_input" placeholder="비밀번호를 입력해주세요" />
                   </div>
                 </div>
                 <div class="btn_wrapper">
