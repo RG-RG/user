@@ -25,7 +25,7 @@ public class UserMainController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/main/main", method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value = "/main.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String main(Model model, String sort, String search) {
 		int int_page = 1;
 

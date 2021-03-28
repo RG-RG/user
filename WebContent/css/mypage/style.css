@@ -5,12 +5,12 @@ main {
   margin-right: auto;
   width: 768px;
   padding-bottom: 5rem;
+  font-size: 1.4rem;
 }
 
 /* 이미지, 닉네임, 상태메세지 부분 */
 .profile {
   display: flex;
-  height: 13.75rem;
 }
 
 /* 이미지 변경 부분 */
@@ -32,6 +32,7 @@ main {
 }
 /* 이미지 업로드 버튼 */
 .upload_img_btn {
+  width: 11rem;
   display: inline-flex;
   -webkit-box-align: center;
   align-items: center;
@@ -44,12 +45,11 @@ main {
   background: #333;
   color: white;
   border-radius: 4px;
-  padding: 0px 1.25rem;
-  height: 2rem;
-  font-size: 1rem;
+  padding: .5rem 1.25rem;
 }
 /* 이미지 삭제 버튼 */
 .delete_img_btn {
+  width: 11rem;
   display: inline-flex;
   -webkit-box-align: center;
   align-items: center;
@@ -59,11 +59,10 @@ main {
   cursor: pointer;
   outline: none;
   border: none;
-  background: none;
+  background: #a8a8a8;
+  color: white;
   border-radius: 4px;
-  padding: 0px 1.25rem;
-  height: 2rem;
-  font-size: 1rem;
+  padding: .5rem 1.25rem;
 }
 /* 프로필 이미지 영역 버튼들 */
 .img_area button + button {
@@ -77,18 +76,17 @@ main {
 }
 /* 닉네임 */
 .text_area h2 {
-  font-size: 2.25rem;
+  font-size: 2.5rem;
   margin: 0px;
-  line-height: 1.5;
+  line-height: 3rem;
   color: rgb(52, 58, 64);
   font-weight: bold;
 }
 /* 상태메세지 */
 .text_area p {
-  font-size: 1rem;
-  margin-top: 0.25rem;
-  margin-bottom: 0.5rem;
-  line-height: 1.5;
+  margin-top: .7rem;
+  margin-bottom: .7rem;
+  line-height: 1.5rem;
   color: rgb(134, 142, 150);
 }
 #profile_form .row {
@@ -110,7 +108,6 @@ main {
   border-radius: 4px;
   padding: 0px 1.25rem;
   height: 2rem;
-  font-size: 1rem;
 }
 /* navi + 관리 내용 영역 */
 .mgn_content {
@@ -120,7 +117,7 @@ main {
 }
 .mgn_content h3 {
   display: block;
-  font-size: 1.17em;
+  font-size: 1.3em;
   margin-block-start: 1em;
   margin-block-end: 1em;
   margin-inline-start: 0px;
@@ -178,7 +175,6 @@ form .mb-3 {
 /* 멤버 개인 데이터 */
 .contents {
   flex: 1 1 0%;
-  font-size: 1rem;
   color: rgb(73, 80, 87);
   line-height: 1.5;
 }
@@ -199,7 +195,6 @@ form .mb-3 {
   padding: 0px;
   border: none;
   display: inline;
-  font-size: 1rem;
   line-height: 1.5;
   color: #333;
   text-decoration: underline;
@@ -222,7 +217,6 @@ form .mb-3 {
   border-radius: 4px;
   padding: 0px 1.25rem;
   height: 2rem;
-  font-size: 1rem;
 }
 /* 토글버튼 */
 #email_toggle {
@@ -276,6 +270,5 @@ input:checked + .toggle:after {
   border-radius: 4px;
   padding: 0.8rem 1.25rem;
   height: 2.3rem;
-  font-size: 1rem;
   margin-left: 1rem;
 }
