@@ -134,6 +134,12 @@ $(function(){
 		});//ajax
 	});//blur
 	
+	$("#nickname").keydown(function(evt){
+		if (evt.which == 13) {
+			$("#pass").focus();
+		}//end if
+	});//keydown
+	
 	$("#pass").keyup(function(evt){
 		if( $("#pass").val().length < 8 ){
 			$("#passLenStatus").css('color', '#D32F2F');
