@@ -31,7 +31,7 @@
             <li><input type="text" class="search_input" id="search_input" onkeypress="handleEnter()"><button id="search_btn"><i class="fas fa-search"></i></button></li>
             <!-- 로그인 됐을 때 : 로그아웃 -->
 			<c:if test="${ not empty sessionScope.id }">
-				<li><span><a href="/member/logout.do">로그아웃</a></span></li>
+				<li><span><a href="/logout.do">로그아웃</a></span></li>
 			</c:if>
         </ul>
     </section>
