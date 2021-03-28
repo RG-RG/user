@@ -6,11 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RGRG</title>
+<title>Co-doing</title>
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
-<link rel="stylesheet" href="http://localhost/rgrg_user/css/reset.css">
-<link rel="stylesheet" href="http://localhost/rgrg_user/css/member/style.css"> 
-<link rel="stylesheet" href="http://localhost/rgrg_user/css/common/common_header_footer.css">
+<link rel="stylesheet" href="http://localhost/css/reset.css">
+<link rel="stylesheet" href="http://localhost/css/member/style.css"> 
+<link rel="stylesheet" href="http://localhost/css/common/common_header_footer.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 <style type="text/css">
 .section_main{ margin:0 auto; width: 70rem; margin-top: 18rem }
@@ -40,7 +40,7 @@ $(function(){
 		var id = $("#id").val();
 		if( evt.which == 13 || evt.which == 9 ){
 			$.ajax({
-				url : "dup_id",
+				url : "/dup_id.do",
 				type : "GET",
 				data : "id="+id,
 				dataType : "JSON",
@@ -66,7 +66,7 @@ $(function(){
  	$("#id").blur(function(){
 		var id = $("#id").val();
 		$.ajax({
-			url : "dup_id",
+			url : "/dup_id.do",
 			type : "GET",
 			data : "id="+id,
 			dataType : "JSON",
@@ -89,7 +89,7 @@ $(function(){
 		var auth_email = $("#auth_email").val();
 		if( evt.which == 13 || evt.which == 9 ){
 			$.ajax({
-				url : "dup_email",
+				url : "/dup_email.do",
 				type : "GET",
 				data : "auth_email="+auth_email,
 				dataType : "JSON",
@@ -115,7 +115,7 @@ $(function(){
 	$("#auth_email").blur(function(evt){
 		var auth_email = $("#auth_email").val();
 		$.ajax({
-			url : "dup_email",
+			url : "/dup_email.do",
 			type : "GET",
 			data : "auth_email="+auth_email,
 			dataType : "JSON",
@@ -246,10 +246,10 @@ function chkNull(){
     <section class="section_main">
     	<div id="container">
         	<div id="containerTitle">
-        		RGRG와 함께 블로그를 시작해보세요.
+        		Co-doing과 함께 블로그를 시작해보세요.
         	</div>
         	<div id="containerContent">
-        		<form id="memberForm" action="join" method="post">
+        		<form id="memberForm" action="/join.do" method="post">
 	  				<div class="input-group mb-3">
 					  <span class="input-group-text" id="idLabel">아이디</span>
 					  <input type="text" id="id" name="id" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="회원님이 사용할 아이디를 입력해주세요.">
@@ -285,6 +285,6 @@ function chkNull(){
     
     <jsp:include page="../common/common_footer.jsp"/>
 </body>
-<script src="http://localhost/rgrg_user/js/control_navbar.js"></script>
+<script src="http://localhost/js/control_navbar.js"></script>
 
 </html>

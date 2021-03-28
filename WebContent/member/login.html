@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="google-signin-client_id" content="393175765493-5uqkkubl0sgc92q6cjced49oalplj70r.apps.googleusercontent.com">
-<title>RGRG</title>
+<title>Co-doing</title>
 <style type="text/css">
 #containerTitle{ text-align: center; font-size: 5rem; font-weight: bold; margin-top: 4rem }
 #containerContent{ margin-top: 5rem }
@@ -28,8 +28,8 @@
 <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 <script src="https://apis.google.com/js/platform.js" async defer></script>
-<link rel="stylesheet" href="http://localhost/rgrg_user/css/reset.css">
-<link rel="stylesheet" href="http://localhost/rgrg_user/css/member/style.css">
+<link rel="stylesheet" href="http://localhost/css/reset.css">
+<link rel="stylesheet" href="http://localhost/css/member/style.css">
 <script type="text/javascript">
 $(function(){
 	$("#id").keydown(function(evt){
@@ -62,7 +62,7 @@ function chkNull(){
 	var id = $("#id").val();
 	var pass = $("#pass").val();
 	$.ajax({
-		url : "/rgrg_user/rgrg/member/login",
+		url : "/login.do",
 		type : "POST",
 		data : "id="+id+"&pass="+pass,
 		dataType : "JSON",
@@ -74,17 +74,16 @@ function chkNull(){
 				alert("아이디와 비밀번호가 일치하지 않습니다.");
 				return;
 			} else {
-				location.href="/rgrg_user/rgrg/main/main";
+				location.href="/main.do";
 			}//end else
 		}//success
 	});//ajax
-	//$("#loginForm").submit();
 }//chkNull
 
 //카카오 로그인 버튼 클릭
 function kakaoLogin() {
     $.ajax({
-        url: '/rgrg_user/rgrg/member/kakao_login_form',
+        url: '/kakao_login_form.do',
         type: 'GET',
         async: false,
         dataType: 'TEXT',
@@ -100,7 +99,7 @@ function onSignIn(googleUser) {
 	  var id_token = googleUser.getAuthResponse().id_token;
 	  $("#googleBtn").click(function(){
 		  $.ajax({
-			  url: '/rgrg_user/rgrg/member/google_login',
+			  url: '/google_login.do',
 			  type: 'POST',
 			  data: 'idtoken=' + id_token, 
 			  dataType: 'JSON',
@@ -109,7 +108,7 @@ function onSignIn(googleUser) {
 			  },
 			  success: function(json) {
 				  if (json.login_result == "success"){
-					  location.href = "/rgrg_user/rgrg/main/main";
+					  location.href = "/main.do";
 				  }//end if
 	          }//success
 		  });//ajax
@@ -124,7 +123,7 @@ function onSignIn(googleUser) {
 			Co-doing
 		</div>
 		<div id="containerContent">
-			<form id="loginForm" action="/rgrg_user/rgrg/member/login" method="POST">
+			<form id="loginForm" action="/login.do" method="POST">
 			<div id="idDiv">
 				<div class="input-group mb-3">
 				  <input type="text" id="id" name="id" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="아이디">
@@ -137,8 +136,8 @@ function onSignIn(googleUser) {
 			</div>
 			</form>
 			<div id="findDiv">
-				<span><a href="/rgrg_user/rgrg/member/find_id_form" id="findId">아이디 찾기 / </a></span>
-				<span><a href="/rgrg_user/rgrg/member/find_pass_form" id="findPass">비밀번호 찾기</a></span>
+				<span><a href="/find_id_form.do" id="findId">아이디 찾기 / </a></span>
+				<span><a href="/find_pass_form.do" id="findPass">비밀번호 찾기</a></span>
 			</div>
 			<div id="loginDiv">
 				<div id="buttons">
@@ -149,7 +148,7 @@ function onSignIn(googleUser) {
         	</div>
 			<div id="joinDiv">
 				<span id="joinLabel">회원이 아니신가요?&nbsp;&nbsp;</span>
-				<span><a href="/rgrg_user/rgrg/member/join_clause" id="joinBtn">회원가입</a></span>
+				<span><a href="/join_clause.do" id="joinBtn">회원가입</a></span>
 			</div>
 		</div>
 	</div>

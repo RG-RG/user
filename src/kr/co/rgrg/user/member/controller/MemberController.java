@@ -76,7 +76,7 @@ public class MemberController {
 	 * 회원가입 이용약관 폼
 	 * @return
 	 */
-	@RequestMapping(value="member/join_clause", method=GET)
+	@RequestMapping(value="join_clause.do", method=GET)
 	public String joinClause() {
 		return "member/join_clause";
 	}//joinClause
@@ -85,7 +85,7 @@ public class MemberController {
 	 * 일반 회원가입 폼을 불러오는 일
 	 * @return
 	 */
-	@RequestMapping(value="member/join_form", method=GET)
+	@RequestMapping(value="join_form.do", method=GET)
 	public String joinForm() {
 		return "member/join_form";
 	}//joinForm
@@ -96,7 +96,7 @@ public class MemberController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="member/join", method=POST)
+	@RequestMapping(value="join.do", method=POST)
 	public String join(JoinVO jVO, HttpServletRequest request) {
 		jVO.setPass(passEncoder.encode(jVO.getPass()));
 		boolean joinFlag = new MemberService().join(jVO);
@@ -109,7 +109,7 @@ public class MemberController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value="member/dup_id", method=GET)
+	@RequestMapping(value="dup_id.do", method=GET)
 	@ResponseBody
 	public String dupId(String id) {
 		String json = "";
@@ -122,7 +122,7 @@ public class MemberController {
 	 * @param auth_email
 	 * @return
 	 */
-	@RequestMapping(value="member/dup_email", method=GET)
+	@RequestMapping(value="dup_email.do", method=GET)
 	@ResponseBody
 	public String dupEmail(String auth_email) {
 		String json = "";
@@ -136,7 +136,7 @@ public class MemberController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="member/login", method=POST)
+	@RequestMapping(value="login.do", method=POST)
 	@ResponseBody
 	public String login(LoginVO lVO, Model model) {
 		LoginDomain ld = null;
@@ -165,12 +165,12 @@ public class MemberController {
 	 * 카카오 로그인 폼을 불러오는 일
 	 * @return
 	 */
-	@RequestMapping(value="member/kakao_login_form", method=GET)
+	@RequestMapping(value="kakao_login_form.do", method=GET)
 	@ResponseBody
 	public String KakaoLoginForm() {
 		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaa");
 		String url = "https://kauth.kakao.com/oauth/authorize?client_id=d6ec4bf19e500ff83a89cb9c5a00ebc5";
-		url += "&redirect_uri=http://localhost/rgrg_user/rgrg/member/get_kakao_info&response_type=code";
+		url += "&redirect_uri=http://localhost/get_kakao_info&response_type=code";
 		return url;
 	}//KakaoLoginForm
 	
@@ -178,7 +178,7 @@ public class MemberController {
 	 * 카카오 로그인 토큰을 가져오는 일
 	 * @return
 	 */
-	@RequestMapping(value="member/get_kakao_token", method=GET)
+	@RequestMapping(value="get_kakao_token.do", method=GET)
 	public String getKakaoToken(HttpServletRequest request, String code) {
 		System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbb");
 		String accessToken = "";
@@ -189,7 +189,7 @@ public class MemberController {
 		MultiValueMap<String, Object> params = new LinkedMultiValueMap<String, Object>();
 		params.set("grant_type", "authorization_code");
 		params.set("client_id", "d6ec4bf19e500ff83a89cb9c5a00ebc5");
-		params.set("redirect_uri", "http://localhost/rgrg_user/rgrg/member/get_kakao_info");
+		params.set("redirect_uri", "http://localhost/get_kakao_info");
 		params.set("code", code);
 		
 		HttpEntity<MultiValueMap<String, Object>> restRequest = new HttpEntity<>(params, headers);
@@ -204,7 +204,7 @@ public class MemberController {
 	 * 카카오 사용자 아이디를 가져오는 일
 	 * @return
 	 */
-	@RequestMapping(value="member/get_kakao_id", method=GET)
+	@RequestMapping(value="get_kakao_id.do", method=GET)
 	public String getKakaoId(String accessToken) {
 		System.out.println("cccccccccccccccccccccccccccc");
 		String kakaoId = "";
@@ -230,7 +230,7 @@ public class MemberController {
 	 * 카카오 로그인 정보를 조회하는 일
 	 * @return
 	 */
-	@RequestMapping(value="member/get_kakao_info", method=GET)
+	@RequestMapping(value="get_kakao_info.do", method=GET)
 	public String getKakaoInfo(HttpServletRequest request, HttpServletResponse response, String code) {
 		System.out.println("ddddddddddddddddddddddddd");
 		
@@ -253,7 +253,7 @@ public class MemberController {
 	 * @throws IOException 
 	 * @throws GeneralSecurityException 
 	 */
-	@RequestMapping(value="member/google_login", method=POST)
+	@RequestMapping(value="google_login.do", method=POST)
 	@ResponseBody
 	public String googleLogin(String idtoken, Model model) throws GeneralSecurityException, IOException {
 		HttpTransport transport = Utils.getDefaultTransport();
@@ -296,13 +296,13 @@ public class MemberController {
 	 * @param ss
 	 * @return
 	 */
-	@RequestMapping(value="member/logout", method=GET)
+	@RequestMapping(value="logout.do", method=GET)
 	public ModelAndView logout(SessionStatus ss) {
 		ModelAndView mav = new ModelAndView();
 		ss.setComplete();
 		
 		RedirectView rv = new RedirectView();
-		rv.setUrl("/rgrg_user/rgrg/main/main");
+		rv.setUrl("/main");
 		rv.setExposeModelAttributes(false);
 		mav.setView(rv);
 		return mav;
@@ -313,7 +313,7 @@ public class MemberController {
 	 * @param mVO
 	 * @return
 	 */
-	@RequestMapping(value="member/send_mail", method=GET)
+	@RequestMapping(value="send_mail.do", method=GET)
 	@ResponseBody
 	public String sendMail(MailVO mVO) {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -344,7 +344,7 @@ public class MemberController {
 	 * 아이디 찾기 폼을 불러오는 일
 	 * @return
 	 */
-	@RequestMapping(value="member/find_id_form", method=GET)
+	@RequestMapping(value="find_id_form.do", method=GET)
 	public String findIdForm() {
 		return "member/find_id_form";
 	}//findIdForm
@@ -354,7 +354,7 @@ public class MemberController {
 	 * @param auth_email
 	 * @return
 	 */
-	@RequestMapping(value="member/find_id_chk", method=GET)
+	@RequestMapping(value="find_id_chk.do", method=GET)
 	@ResponseBody
 	public String findIdChkEmail(String auth_email) {
 		String json = "";
@@ -369,7 +369,7 @@ public class MemberController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="member/find_id", method=POST)
+	@RequestMapping(value="find_id.do", method=POST)
 	public String findId(String auth_email, HttpServletRequest request, Model model) {
 		String id = "";
 		id = new MemberService().findId(auth_email);
@@ -381,7 +381,7 @@ public class MemberController {
 	 * 비밀번호 찾기 폼을 보여주는 일
 	 * @return
 	 */
-	@RequestMapping(value="member/find_pass_form", method=GET)
+	@RequestMapping(value="find_pass_form.do", method=GET)
 	public String findPassForm() {
 		return "member/find_pass_form";
 	}//findPassForm
@@ -391,7 +391,7 @@ public class MemberController {
 	 * @param fpVO
 	 * @return
 	 */
-	@RequestMapping(value="member/find_pass_chk", method=GET)
+	@RequestMapping(value="find_pass_chk.do", method=GET)
 	@ResponseBody
 	public String findPassChkEmail(FindPassVO fpVO) {
 		String json = "";
@@ -403,7 +403,7 @@ public class MemberController {
 	 * 비밀번호 변경 폼을 보여주는 일
 	 * @return
 	 */
-	@RequestMapping(value="member/modify_pass_form", method = POST)
+	@RequestMapping(value="modify_pass_form.do", method = POST)
 	public String modifyPassForm() {
 		return "member/modify_pass_form";
 	}//modifyPassForm
@@ -414,7 +414,7 @@ public class MemberController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="member/modify_pass", method=POST)
+	@RequestMapping(value="modify_pass.do", method=POST)
 	public ModelAndView modifyPass(UpdatePassVO upVO, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		
@@ -424,7 +424,7 @@ public class MemberController {
 		boolean passFlag = new MemberService().modifyPass(upVO);
 
 		RedirectView rv = new RedirectView();
-		rv.setUrl("/rgrg_user/rgrg/main/main");
+		rv.setUrl("/main");
 		rv.setExposeModelAttributes(false);
 		mav.setView(rv);
 		return mav;

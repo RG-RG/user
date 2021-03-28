@@ -6,11 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RGRG</title>
+<title>Co-doing</title>
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
-<link rel="stylesheet" href="http://localhost/rgrg_user/css/reset.css">
-<link rel="stylesheet" href="http://localhost/rgrg_user/css/member/style.css"> 
-<link rel="stylesheet" href="http://localhost/rgrg_user/css/common/common_header_footer.css">
+<link rel="stylesheet" href="http://localhost/css/reset.css">
+<link rel="stylesheet" href="http://localhost/css/member/style.css"> 
+<link rel="stylesheet" href="http://localhost/css/common/common_header_footer.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 <style type="text/css">
 .section_main{ margin:0 auto; width: 70rem; margin-top: 27rem }
@@ -28,7 +28,7 @@
 <script type="text/javascript">
 $(function(){
 	$(".btn-secondary").click(function(){
-		location.href="/rgrg_user/rgrg/main/main";
+		location.href="/main.do";
 	});//click
 });//ready
 </script>
@@ -39,10 +39,10 @@ $(function(){
     <section class="section_main">
     	<div id="container">
         	<div id="containerTitle">
-        		RGRG 가입이 완료되었습니다.
+        		Co-doing 가입이 완료되었습니다.
         	</div>
         	<div id="containerContent">
-        		<span id="msg">RGRG에서 다른 글들을 살펴보고, 회원님의 글을 자유롭게 작성해보세요.</span>
+        		<span id="msg">Co-doing에서 다른 글들을 살펴보고, 회원님의 글을 자유롭게 작성해보세요.</span>
 				<div id="buttons">
 					<button type="button" class="btn btn-secondary">메인으로</button>
 				</div>
@@ -52,6 +52,6 @@ $(function(){
     
     <jsp:include page="../common/common_footer.jsp"/>
 </body>
-<script src="http://localhost/rgrg_user/js/control_navbar.js"></script>
+<script src="http://localhost/js/control_navbar.js"></script>
 
 </html>

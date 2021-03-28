@@ -6,11 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RGRG</title>
+<title>Co-doing</title>
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
-<link rel="stylesheet" href="http://localhost/rgrg_user/css/reset.css">
-<link rel="stylesheet" href="http://localhost/rgrg_user/css/member/style.css"> 
-<link rel="stylesheet" href="http://localhost/rgrg_user/css/common/common_header_footer.css">
+<link rel="stylesheet" href="http://localhost/css/reset.css">
+<link rel="stylesheet" href="http://localhost/css/member/style.css"> 
+<link rel="stylesheet" href="http://localhost/css/common/common_header_footer.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 <style type="text/css">
 .section_main{ margin:0 auto; width: 70rem; margin-top: 18rem }
@@ -83,7 +83,7 @@ $(function(){
 		
 		//이메일 확인 및 인증번호 확인
 		$.ajax({
-			url : "find_pass_chk",
+			url : "/find_pass_chk.do",
 			type : "GET",
 			data : "id="+id+"&auth_email="+auth_email,
 			dataType : "JSON",
@@ -96,7 +96,7 @@ $(function(){
 				}else{
 					alert("이메일로 인증번호를 발송했습니다.");
 					$.ajax({
-						url : "send_mail",
+						url : "/send_mail.do",
 						type : "GET",
 						data : "from=codoingofficial@gmail.com&to="+auth_email,
 						dataType : "JSON",
@@ -162,7 +162,7 @@ function chkEmail(str) {
         		<hr id="titleLine">
         	</div>
         	<div id="containerContent">
-        		<form id="findPassForm" action="modify_pass_form" method="POST">
+        		<form id="findPassForm" action="/modify_pass_form.do" method="POST">
         		<div id="idDiv">
 					<label for="exampleFormControlInput1" class="form-label">아이디</label>
 					<div class="mb-3">
@@ -193,6 +193,6 @@ function chkEmail(str) {
     
     <jsp:include page="../common/common_footer.jsp"/>
 </body>
-<script src="http://localhost/rgrg_user/js/control_navbar.js"></script>
+<script src="http://localhost/js/control_navbar.js"></script>
 
 </html>

@@ -7,20 +7,17 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.co.rgrg.user.follow.dao.FollowDAO;
 import kr.co.rgrg.user.follow.domain.FollowDomain;
 import kr.co.rgrg.user.follow.service.FollowService;
 import kr.co.rgrg.user.follow.vo.FollowVO;
 import kr.co.rgrg.user.pagination.FollowRangeVO;
 import kr.co.rgrg.user.pagination.PaginationService;
-import kr.co.rgrg.user.pagination.RangeVO;
 
 @Controller
 public class FollowController {
@@ -32,7 +29,7 @@ public class FollowController {
 	 * @param page
 	 * @return
 	 */
-	@RequestMapping(value="{url_id}/follow/get_follower", method= {GET, POST})
+	@RequestMapping(value="{url_id}/get_follower.do", method= {GET, POST})
 	public String getFollower(@PathVariable("url_id") String url_id, HttpSession session, Model model) {
 		int current_page = 1;
 		FollowRangeVO frVO = new FollowRangeVO(current_page);
@@ -56,7 +53,7 @@ public class FollowController {
 	 * @param page
 	 * @return
 	 */
-	@RequestMapping(value="{url_id}/follow/get_more_follower", method= POST, produces="application/text; charset=UTF-8")
+	@RequestMapping(value="{url_id}/get_more_follower.do", method= POST, produces="application/text; charset=UTF-8")
 	@ResponseBody
 	public String getMoreFollower(@PathVariable("url_id") String url_id, HttpSession session, String page) {
 		String json = "";
@@ -81,7 +78,7 @@ public class FollowController {
 	 * @param param_page
 	 * @return
 	 */
-	@RequestMapping(value="{url_id}/follow/get_following", method={GET, POST})
+	@RequestMapping(value="{url_id}/get_following.do", method={GET, POST})
 	public String getFollowing(@PathVariable("url_id") String url_id, HttpSession session, Model model, String page) {
 		int current_page = 1;
 		FollowRangeVO frVO = new FollowRangeVO(current_page);
@@ -105,7 +102,7 @@ public class FollowController {
 	 * @param page
 	 * @return
 	 */
-	@RequestMapping(value="{url_id}/follow/get_more_following", method= POST, produces="application/text; charset=UTF-8")
+	@RequestMapping(value="{url_id}/get_more_following.do", method= POST, produces="application/text; charset=UTF-8")
 	@ResponseBody
 	public String getMoreFollowing(@PathVariable("url_id") String url_id, HttpSession session, String page) {
 		String json = "";
@@ -129,7 +126,7 @@ public class FollowController {
 	 * @param fVO
 	 * @return
 	 */
-	@RequestMapping(value="{url_id}/follow/follow", method=POST)
+	@RequestMapping(value="{url_id}/follow.do", method=POST)
 	@ResponseBody
 	public String follow(@PathVariable("url_id") String url_id, HttpSession session, FollowVO fVO) {
 		String json = "";
@@ -147,7 +144,7 @@ public class FollowController {
 	 * @param fVO
 	 * @return
 	 */
-	@RequestMapping(value="{url_id}/follow/unfollow", method=POST)
+	@RequestMapping(value="{url_id}/unfollow.do", method=POST)
 	@ResponseBody
 	public String unfollow(@PathVariable("url_id") String url_id, HttpSession session, Model model, FollowVO fVO) {
 		String json = "";

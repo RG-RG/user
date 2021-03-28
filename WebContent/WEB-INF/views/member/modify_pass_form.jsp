@@ -6,11 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RGRG</title>
+<title>Co-doing</title>
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
-<link rel="stylesheet" href="http://localhost/rgrg_user/css/reset.css">
-<link rel="stylesheet" href="http://localhost/rgrg_user/css/member/style.css"> 
-<link rel="stylesheet" href="http://localhost/rgrg_user/css/common/common_header_footer.css">
+<link rel="stylesheet" href="http://localhost/css/reset.css">
+<link rel="stylesheet" href="http://localhost/css/member/style.css"> 
+<link rel="stylesheet" href="http://localhost/css/common/common_header_footer.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 <style type="text/css">
 .section_main{ margin:0 auto; width: 70rem; margin-top: 18rem }
@@ -116,7 +116,7 @@ function chkNull(){
         		<hr id="titleLine">
         	</div>
         	<div id="containerContent">
-        		<form id="modifyPassForm" action="modify_pass" method="POST">
+        		<form id="modifyPassForm" action="/modify_pass.do" method="POST">
         		<input type="hidden" id="id" name="id" value="${ param.id }">
         		<input type="hidden" id="auth_email" name="auth_email" value="${ param.auth_email }">
   				<div class="input-group mb-3">
@@ -138,6 +138,6 @@ function chkNull(){
     
     <jsp:include page="../common/common_footer.jsp"/>
 </body>
-<script src="http://localhost/rgrg_user/js/control_navbar.js"></script>
+<script src="http://localhost/js/control_navbar.js"></script>
 
 </html>
