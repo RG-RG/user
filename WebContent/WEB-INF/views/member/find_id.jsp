@@ -47,7 +47,7 @@ $(function(){
         	</div>
         	<div id="containerContent">
         		<div id="result">
-		        	회원님의 아이디는 <b>${ id }</b> 입니다.
+		        	회원님의 아이디는 <b>${ id_result }</b> 입니다.
         		</div>
 				<div id="buttons">
 				  <button type="button" class="btn btn-secondary" id="mainBtn">메인으로</button>
