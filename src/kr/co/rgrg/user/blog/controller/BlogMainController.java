@@ -49,6 +49,8 @@ public class BlogMainController {
 			
 			BlogMainVO bmVO=new BlogMainVO();
 			bmVO.setId(url_id);
+			bmVO.setHidden_flag(false);
+			prVO.setHidden_flag(false);
 			if(!url_id.equals(login_id)) {
 				bmVO.setHidden_flag(true);
 				prVO.setHidden_flag(true);
