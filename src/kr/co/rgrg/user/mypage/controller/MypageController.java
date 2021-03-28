@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
@@ -57,7 +58,7 @@ public class MypageController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="/rgrg/mypage/index", method= {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="/mypage.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String getMypage(HttpSession session, Model model) {
 		String id = (String)session.getAttribute("id");
 		System.out.println(id + "======================================");
@@ -71,7 +72,7 @@ public class MypageController {
 		return "mypage/mypage";
 	}
 	
-	@RequestMapping(value="/mypage/change_info_form", method=RequestMethod.GET)
+	@RequestMapping(value="/change_info_form.do", method=RequestMethod.GET)
 	public String getChangeInfo(HttpSession session, Model model) {
 		String id = (String)session.getAttribute("id");
 		
@@ -90,7 +91,7 @@ public class MypageController {
 	 * @param upiVO
 	 * @return
 	 */
-	@RequestMapping(value="/mypage/modify_profile_img.do", method=RequestMethod.POST)
+	@RequestMapping(value="/modify_profile_img.do", method=RequestMethod.POST)
 	@ResponseBody
 	public String modifyProfileImg(HttpSession session , UpdateProfileImgVO upiVO) throws Exception{
 		String id = (String)session.getAttribute("id");
@@ -107,7 +108,7 @@ public class MypageController {
 		return result;
 	}
 	
-	@RequestMapping(value="/mypage/upload_img_file", method=RequestMethod.POST, produces="text/plain")
+	@RequestMapping(value="/upload_img_file.do", method=RequestMethod.POST, produces="text/plain")
 	@ResponseBody
 	public ModelAndView upload(HttpSession session, MultipartHttpServletRequest request) throws Exception{
 		String id = (String)session.getAttribute("id");
@@ -150,7 +151,7 @@ public class MypageController {
 	 * @param upVO
 	 * @return
 	 */
-	@RequestMapping(value="/mypage/modify_profile.do", method=RequestMethod.POST, produces="application/json;charset=UTF-8")
+	@RequestMapping(value="/modify_profile.do", method=RequestMethod.POST, produces="application/json;charset=UTF-8")
 	@ResponseBody
 	public String modifyProfile(HttpSession session, UpdateProfileVO upVO) {
 		String id = (String)session.getAttribute("id");
@@ -170,7 +171,7 @@ public class MypageController {
 	 * @param ubtVO
 	 * @return
 	 */
-	@RequestMapping(value="/mypage/modify_title.do", method=RequestMethod.POST, produces="application/json;charset=UTF-8")
+	@RequestMapping(value="/modify_title.do", method=RequestMethod.POST, produces="application/json;charset=UTF-8")
 	@ResponseBody
 	public String modifyBlogTitle(HttpSession session, UpdateBlogTitleVO ubtVO) {
 		String id = (String)session.getAttribute("id");
@@ -190,7 +191,7 @@ public class MypageController {
 	 * @param uwVO
 	 * @return
 	 */
-	@RequestMapping(value="/mypage/modify_social.do", method=RequestMethod.POST, produces="application/json;charset=UTF-8")
+	@RequestMapping(value="/modify_social.do", method=RequestMethod.POST, produces="application/json;charset=UTF-8")
 	@ResponseBody
 	public String modifySocial(HttpSession session, UpdateSocialDataVO usVO) {
 		String id = (String)session.getAttribute("id");
@@ -210,7 +211,7 @@ public class MypageController {
 	 * @param ueVO
 	 * @return
 	 */
-	@RequestMapping(value="/mypage/modify_email.do", method=RequestMethod.POST, produces="application/json;charset=UTF-8")
+	@RequestMapping(value="/modify_email.do", method=RequestMethod.POST, produces="application/json;charset=UTF-8")
 	@ResponseBody
 	public String modifyEmail(HttpSession session, UpdateEmailVO ueVO) {
 		String id = (String)session.getAttribute("id");
@@ -230,7 +231,7 @@ public class MypageController {
 	 * @param uefVO
 	 * @return
 	 */
-	@RequestMapping(value="/mypage/modify_email_flag.do", method=RequestMethod.POST, produces="application/json;charset=UTF-8")
+	@RequestMapping(value="/modify_email_flag.do", method=RequestMethod.POST, produces="application/json;charset=UTF-8")
 	@ResponseBody
 	public String modifyEmailFlag(HttpSession session, UpdateEmailFlagVO uefVO) {
 		String id = (String)session.getAttribute("id");
@@ -244,7 +245,7 @@ public class MypageController {
 		return result;
 	}
 	
-	@RequestMapping(value="/mypage/remove_member.do", method=RequestMethod.POST, produces="application/json;charset=UTF-8")
+	@RequestMapping(value="/remove_member.do", method=RequestMethod.POST, produces="application/json;charset=UTF-8")
 	@ResponseBody
 	public String removeMemberChk(HttpSession session, PassChkVO pcVO) {
 		String id = (String)session.getAttribute("id");
@@ -258,13 +259,13 @@ public class MypageController {
 		return result;
 	}
 	
-	@RequestMapping(value="/mypage/modify_pass_chk_form.do", method=RequestMethod.GET)
+	@RequestMapping(value="/modify_pass_chk_form.do", method=RequestMethod.GET)
 	public String getModifyPassChkForm() {
 		
 		return "mypage/change_pass_chk";
 	}
 	
-	@RequestMapping(value="/mypage/modify_pass_chk.do", method=RequestMethod.POST)
+	@RequestMapping(value="/modify_pass_chk.do", method=RequestMethod.POST)
 	@ResponseBody
 	public String modifyPassChk(PassChkVO pcVO, HttpSession session) {
 		String id = (String)session.getAttribute("id");
@@ -292,7 +293,7 @@ public class MypageController {
 		return result;
 	}
 	
-	@RequestMapping(value="/mypage/modify_pass_form.do", method=RequestMethod.POST)
+	@RequestMapping(value="/mypage_modify_pass_form.do", method=RequestMethod.POST)
 	public String ModifyPassForm() {
 		System.out.println("비밀번호 바꾸기 jsp");
 		return "mypage/change_pass_form";
@@ -305,7 +306,7 @@ public class MypageController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="/mypage/modify_pass.do", method=RequestMethod.POST)
+	@RequestMapping(value="/mypage_modify_pass.do", method=RequestMethod.POST)
 	@ResponseBody
 	public String modifyPass(UpdatePassVO upVO, HttpSession session, Model model) {
 		String id = (String)session.getAttribute("id");
@@ -323,11 +324,29 @@ public class MypageController {
 		
 		return result;
 	}
-	
-	@RequestMapping(value="/mypage/analytics.do", method=RequestMethod.GET)
-	public String getStatistics(HttpSession session, Model model) {
-		HelloAnalytics h = new HelloAnalytics();
-		h.getResult();
+
+	@RequestMapping(value="/analytics_form.do", method=RequestMethod.GET)
+	public String getStatisticsForm(HttpSession session, Model model) {
+		String id = (String)session.getAttribute("id");
+		
 		return "mypage/analytics";
+	}
+	
+	@RequestMapping(value="/analytics.do", method=RequestMethod.GET)
+	@ResponseBody
+	public String getStatistics(HttpSession session, Model model, HttpServletRequest request) {
+		String id = (String)session.getAttribute("id");
+		
+		String startDate = request.getParameter("startDate");
+		String endDate = request.getParameter("endDate");
+		
+		String analyticsResult = HelloAnalytics.getResult(id, startDate, endDate);
+		
+		String result = analyticsResult;
+		
+		System.out.println(result);
+		
+		
+		return result;
 	}
 }

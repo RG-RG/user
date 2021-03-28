@@ -37,7 +37,7 @@
       function change_pass_form() {
  	      console.log("비밀번호 변경 페이지 이동");
           var ajaxOption = {
-            url: "modify_pass_form.do",
+            url: "mypage_modify_pass_form.do",
             async: true,
             type: "POST",
             dataType: "html",
