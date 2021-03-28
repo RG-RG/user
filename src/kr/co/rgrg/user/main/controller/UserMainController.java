@@ -1,12 +1,15 @@
 package kr.co.rgrg.user.main.controller;
 
+import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,19 +28,21 @@ public class UserMainController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/main.do", method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value = "/main.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String main(Model model, String sort, String search) {
 		int int_page = 1;
 
 		if (sort == null) { // null¿œ ∞ÊøÏ ±‚∫ª∞™¿∏∑Œ input_date∏¶ ¡ˆ¡§«ÿ¡‹
 			sort = "input_date";
-		};
+		}
+		;
 
 		RangeVO rVO = new RangeVO(int_page, sort, "");
 
 		if (search != null) {
 			rVO.setColumn_value(search);
-		};
+		}
+		;
 
 		List<UserMainDomain> main_list = new UserMainService().getUserMainList(rVO);
 		model.addAttribute("main_list", main_list);
@@ -49,32 +54,44 @@ public class UserMainController {
 		model.addAttribute("cur_page", int_page);
 		model.addAttribute("end_num", rVO.getEnd_num());
 		model.addAttribute("total_cnt", total_cnt);
-		
-		System.out.println("--------------------------"+ rVO.getEnd_num() +"//"+ total_cnt+"//"+int_page);
+
+		System.out.println("--------------------------" + rVO.getEnd_num() + "//" + total_cnt + "//" + int_page);
 
 		return "main/main";
 	}
 
-	@RequestMapping(value = "/main/main/{param_page}", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@RequestMapping(value = "main/more.do", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String see_more(@PathVariable("param_page") String param_page, String sort, String search) {
+	public void see_more(String cur_page, String sort, String search, HttpServletResponse response)
+			throws IOException {
+		
 		String json = null;
-		int page = 1;
-		if (param_page != null && !"".equals(param_page)) {
-			page = Integer.parseInt(param_page);
-			// page∞° null¿Ã æ∆¥“∞ÊøÏ int∑Œ πŸ≤„¡‹
-		}
-//		System.out.println("----------------------------------"+page);
 
-		RangeVO rVO = new RangeVO(page, sort, "");
+		try {
+			int page = 1;
+			if (cur_page != null && !"".equals(cur_page)) {
+				page = Integer.parseInt(cur_page);
+				// page∞° null¿Ã æ∆¥“∞ÊøÏ int∑Œ πŸ≤„¡‹
+			}
+			System.out.println("----------------------------------" + page);
 
-		if (search != null) {
-			rVO.setColumn_value(search);
-		}
-		;
-//		System.out.println("----------------------------------"+rVO);
-		json = new UserMainService().getUserMoreList(rVO, page);
+			RangeVO rVO = new RangeVO(page, sort, "");
 
-		return json;
-	}
+			if (search != null) {
+				rVO.setColumn_value(search);
+			}
+			;
+			System.out.println("----------------------------------" + rVO);
+			json = new UserMainService().getUserMoreList(rVO, page);
+
+		} catch (Exception e) {
+			// catch
+		} // end catch
+		
+		response.setHeader("Content-Type", "application/xml");
+		response.setContentType("text/xml;charset=UTF-8");
+		response.setCharacterEncoding("utf-8");
+		response.getWriter().print(json);
+	} // see_more
+
 }

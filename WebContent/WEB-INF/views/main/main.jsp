@@ -30,7 +30,7 @@
 	
 	function more_page(page){
 		$.ajax({
-			url:"main/"+page,
+			url:"main/more.do?cur_page="+page,
 			type:"POST",
 			dataType:"JSON",
 			error:function(xhr){
@@ -51,10 +51,10 @@
 						
 						output += '<div class="post">';
 							output += '<div class="post_img" style="background-image: url('+ list.thumbnail +')"></div>'
-							output += '<div class="post_title"><a href="../'+ list.id +'/blog/post/'+ list.post_num +'">'+ list.post_title +'</a></div>'
+							output += '<div class="post_title"><a href="../'+ list.id +'/blog/post.do?post='+ list.post_num +'">'+ list.post_title +'</a></div>'
 							output += '<div class="post_content">'+ cur_content +'</div>'
 							output += '<div class="post_info">'
-								output +='<span class="post_writer"><a href="../'+ list.id +'/blog">by. '+ list.id +'</a></span> ・ <span class="post_date">'+ list.input_date.substring(0,16) +'</span>'
+								output +='<span class="post_writer"><a href="../'+ list.id +'/blog.do">by. '+ list.id +'</a></span> ・ <span class="post_date">'+ list.input_date.substring(0,16) +'</span>'
 							output +='</div>';
 						output +='</div>';
 					});//each
@@ -63,7 +63,7 @@
 					//더보기 버튼
 					var more=''
 					if(jsonObj.total_cnt > jsonObj.end_num) {
-						more='<span id="more_btn" class="more_btn" onclick="more_page('+(page+1)+')">더 보기</span>'
+						more='<span id="more_btn" class="more_btn" onclick="more_page('+(jsonObj.cur_page+1)+')">더 보기</span>'
 					}
 					
 					$("#more_div").html(more)
@@ -93,13 +93,13 @@
         <c:forEach var="userMain" items="${ main_list }">
         <div class="post">
             <div class="post_img" style="background-image: url(${ userMain.thumbnail })"></div>
-            <div class="post_title"><a href="../${ userMain.id }/blog/post/${ userMain.post_num }">${ userMain.post_title }</a></div>
+            <div class="post_title"><a href="../${ userMain.id }/blog.do?post=${ userMain.post_num }">${ userMain.post_title }</a></div>
             <div class="post_content"> 
             	<c:if test="${ fn:length(userMain.post_content) <= 20 }">${ userMain.post_content }</c:if>
             	<c:if test="${ fn:length(userMain.post_content) > 20 }">${ userMain.post_content.substring(0,20).concat('···') }</c:if>
             </div>
             <div class="post_info">
-                <span class="post_writer"><a href="../${ userMain.id }/blog">by. ${ userMain.id }</a></span> ・ <span class="post_date">${ userMain.input_date.substring(0, 16) }</span>
+                <span class="post_writer"><a href="../${ userMain.id }/blog.do">by. ${ userMain.id }</a></span> ・ <span class="post_date">${ userMain.input_date.substring(0, 16) }</span>
             </div>
         </div>
         </c:forEach>
