@@ -8,13 +8,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>사용자 - 내 보관함</title>
+    <title>보관함</title>
     <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 
-    <link rel="stylesheet" href="http://localhost/rgrg_user/css/reset.css">
-    <link rel="stylesheet" href="http://localhost/rgrg_user/css/blog/like_post.css">
-    <link rel="stylesheet" href="http://localhost/rgrg_user/css/common/common_header_footer.css">
-    <link rel="stylesheet" href="http://localhost/rgrg_user/css/common/see_more_btn.css">
+    <link rel="stylesheet" href="http://localhost/css/reset.css">
+    <link rel="stylesheet" href="http://localhost/css/blog/like_post.css">
+    <link rel="stylesheet" href="http://localhost/css/common/common_header_footer.css">
+    <link rel="stylesheet" href="http://localhost/css/common/see_more_btn.css">
 </head>
 <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> -->
 
@@ -119,5 +119,5 @@ function moreLike(next_page){
 	<c:import url="../common/common_footer.jsp" />
 </body>
 
-    <script src="http://localhost/rgrg_user/js/control_navbar.js"></script>
+    <script src="http://localhost/js/control_navbar.js"></script>
 </html>

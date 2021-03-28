@@ -145,7 +145,7 @@ public class FollowService {
 		FollowDAO fDAO = FollowDAO.getInstance();
 		flag = fDAO.insertFollow(fVO) > 0;
 		JSONObject json = new JSONObject();
-		json.put("follow_result", flag);
+		json.put("result", flag);
 		
 		return json.toJSONString();
 	}//follow
@@ -161,7 +161,7 @@ public class FollowService {
 		FollowDAO fDAO = FollowDAO.getInstance();
 		flag = fDAO.deleteFollow(fVO) != 0;
 		JSONObject json = new JSONObject();
-		json.put("unfollow_result", flag);
+		json.put("result", flag);
 		
 		return json.toJSONString();
 	}//unfollow

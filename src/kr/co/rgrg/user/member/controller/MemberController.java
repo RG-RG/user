@@ -302,7 +302,7 @@ public class MemberController {
 		ss.setComplete();
 		
 		RedirectView rv = new RedirectView();
-		rv.setUrl("/main");
+		rv.setUrl("/main.do");
 		rv.setExposeModelAttributes(false);
 		mav.setView(rv);
 		return mav;
@@ -373,7 +373,7 @@ public class MemberController {
 	public String findId(String auth_email, HttpServletRequest request, Model model) {
 		String id = "";
 		id = new MemberService().findId(auth_email);
-		model.addAttribute("id", id);
+		model.addAttribute("id_result", id);
 		return "member/find_id";
 	}//findId
 	
@@ -424,7 +424,7 @@ public class MemberController {
 		boolean passFlag = new MemberService().modifyPass(upVO);
 
 		RedirectView rv = new RedirectView();
-		rv.setUrl("/main");
+		rv.setUrl("/main.do");
 		rv.setExposeModelAttributes(false);
 		mav.setView(rv);
 		return mav;

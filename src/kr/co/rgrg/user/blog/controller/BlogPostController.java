@@ -67,14 +67,14 @@ public class BlogPostController {
 		return "blog/blog_post";
 	}//viewPostDetail
 	
-	@RequestMapping(value="*/blog/post/like/add", method=RequestMethod.POST)
+	@RequestMapping(value="/like/add.do", method=RequestMethod.POST)
 	@ResponseBody
-	public String addLikePost(HttpSession session, @PathVariable("url_post_num") String url_post_num) {
+	public String addLikePost(HttpSession session, String post) {
 		String json=null;
 		
 		String login_id=(String)session.getAttribute("id");
 		try {
-			int post_num=Integer.parseInt(url_post_num);
+			int post_num=Integer.parseInt(post);
 			LikePostVO lpVO=new LikePostVO();
 			lpVO.setId(login_id);
 			lpVO.setPost_num(post_num);
@@ -85,13 +85,13 @@ public class BlogPostController {
 		return json;
 	}//addLikePost
 	
-	@RequestMapping(value="*/blog/post/like/remove/{url_post_num}", method=RequestMethod.POST)
+	@RequestMapping(value="/like/remove.do", method=RequestMethod.POST)
 	@ResponseBody
-	public String removeLikePost(HttpSession session, @PathVariable("url_post_num") String url_post_num) {
+	public String removeLikePost(HttpSession session, String post) {
 		String json=null;
 		String login_id=(String)session.getAttribute("id");
 		try {
-			int post_num=Integer.parseInt(url_post_num);
+			int post_num=Integer.parseInt(post);
 			LikePostVO lpVO=new LikePostVO();
 			lpVO.setId(login_id);
 			lpVO.setPost_num(post_num);
@@ -102,14 +102,13 @@ public class BlogPostController {
 		return json;
 	}//removeLikePost
 	
-	@RequestMapping(value="rgrg/{url_id}/blog/post/remove/{url_post_num}", method=RequestMethod.POST)
+	@RequestMapping(value="/{url_id}/blog/post/remove.do", method=RequestMethod.POST)
 	@ResponseBody
-	public String removePost(HttpSession session, @PathVariable("url_id") String url_id,
-			@PathVariable("url_post_num") String url_post_num) {
+	public String removePost(HttpSession session, @PathVariable("url_id") String url_id, String post) {
 		String json=null;
 		String login_id=(String)session.getAttribute("id");
 		try {
-			int post_num=Integer.parseInt(url_post_num);
+			int post_num=Integer.parseInt(post);
 			if(url_id.equals(login_id)) {
 				PostDeleteVO pdVO=new PostDeleteVO();
 				pdVO.setId(login_id);
@@ -125,12 +124,12 @@ public class BlogPostController {
 	//¥Ò±€
 	
 	//¥Ò±€ ¿€º∫
-	@RequestMapping(value="*/blog/post/comm/add/{url_post_num}", method=RequestMethod.POST, produces="application/json;charset=UTF-8")
+	@RequestMapping(value="/comm/add.do", method=RequestMethod.POST, produces="application/json;charset=UTF-8")
 	@ResponseBody
-	public String addComm(HttpSession session,@PathVariable("url_post_num") String url_post_num, AddCommVO acVO) {
+	public String addComm(HttpSession session, String post, AddCommVO acVO) {
 		String json=null;
 		try {
-			int post_num=Integer.parseInt(url_post_num);
+			int post_num=Integer.parseInt(post);
 			String login_id=(String)session.getAttribute("id");
 			acVO.setPost_num(post_num);
 			acVO.setId(login_id);
@@ -142,12 +141,12 @@ public class BlogPostController {
 	}//addComm
 	
 	//¥Ò±€ ºˆ¡§
-	@RequestMapping(value="*/blog/post/comm/modify/{url_comm_num}", method=RequestMethod.POST)
+	@RequestMapping(value="/comm/modify.do", method=RequestMethod.POST)
 	@ResponseBody
-	public String modifyComm(@PathVariable("url_comm_num") String url_comm_num, ModifyCommVO mcVO) {
+	public String modifyComm(String comm, ModifyCommVO mcVO) {
 		String json=null;
 		try {
-			int comm_num=Integer.parseInt(url_comm_num);
+			int comm_num=Integer.parseInt(comm);
 			mcVO.setComm_num(comm_num);
 			json=new BlogPostService().modifyComm(mcVO);
 		} catch (Exception e) {
@@ -158,13 +157,13 @@ public class BlogPostController {
 	}//modifyComm
 	
 	//¥Ò±€ ªË¡¶
-	@RequestMapping(value="*/blog/post/comm/remove/{url_comm_num}", method=RequestMethod.POST)
+	@RequestMapping(value="/comm/remove.do", method=RequestMethod.POST)
 	@ResponseBody
-	public String removeComm(HttpSession session, @PathVariable("url_comm_num") String url_comm_num) {
+	public String removeComm(HttpSession session, String comm) {
 		String json=null;
 		String login_id=(String)session.getAttribute("id");
 		try {
-			int comm_num=Integer.parseInt(url_comm_num);
+			int comm_num=Integer.parseInt(comm);
 			RemoveCommVO rcVO=new RemoveCommVO();
 			rcVO.setComm_num(comm_num);
 			rcVO.setId(login_id);
