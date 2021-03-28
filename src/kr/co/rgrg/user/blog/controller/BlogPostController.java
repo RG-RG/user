@@ -27,17 +27,17 @@ import kr.co.rgrg.user.blog.vo.RemoveCommVO;
 @Controller
 public class BlogPostController {
 	
-	@RequestMapping(value="{url_id}/blog/post/{url_post_num}", method= {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="{url_id}/blog/post.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String viewPostDetail(Model model, HttpSession session,
-			@PathVariable("url_id") String url_id, @PathVariable("url_post_num") String url_post_num) {
+			@PathVariable("url_id") String url_id, String post) {
 		
 		try {
 			String session_id=(String)session.getAttribute("id");
-			System.out.println(session_id);
 			if(session_id==null) {
 				session_id="";
 			}//end if
-			int post_num=Integer.parseInt(url_post_num);
+			
+			int post_num=Integer.parseInt(post);
 			BlogPostService bps=new BlogPostService();
 			PostDetailDomain pdDomain=bps.getPostDetail(post_num);
 			PostProfileDomain ppDomain=bps.getPostProfile(post_num);
@@ -67,7 +67,7 @@ public class BlogPostController {
 		return "blog/blog_post";
 	}//viewPostDetail
 	
-	@RequestMapping(value="*/blog/post/like/add/{url_post_num}", method=RequestMethod.POST)
+	@RequestMapping(value="*/blog/post/like/add", method=RequestMethod.POST)
 	@ResponseBody
 	public String addLikePost(HttpSession session, @PathVariable("url_post_num") String url_post_num) {
 		String json=null;

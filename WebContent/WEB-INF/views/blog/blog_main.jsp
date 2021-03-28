@@ -12,13 +12,13 @@ if(${ empty blog_profile}){
 </script>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>my Blog main</title>
+    <title>${ blog_profile.blog_name }</title>
     <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 
-    <link rel="stylesheet" href="http://localhost/rgrg_user/css/blog/reset.css">
-    <link rel="stylesheet" href="http://localhost/rgrg_user/css/blog/myBlog_main.css">
-    <link rel="stylesheet" href="http://localhost/rgrg_user/css/common/common_header_footer.css">
-    <link rel="stylesheet" href="http://localhost/rgrg_user/css/common/see_more_btn.css">
+    <link rel="stylesheet" href="http://localhost/css/blog/reset.css">
+    <link rel="stylesheet" href="http://localhost/css/blog/myBlog_main.css">
+    <link rel="stylesheet" href="http://localhost/css/common/common_header_footer.css">
+    <link rel="stylesheet" href="http://localhost/css/common/see_more_btn.css">
 </head>
 
 <!-- Google CDN -->
@@ -34,13 +34,13 @@ $(function(){
 function morePost(next_page, search_word, search_tag){
 	var param=""
 	if(search_word!=''){
-		param="?search="+search_word
+		param="&search="+search_word
 	}//end if
 	if(search_tag!=''){
-		param="?tag="+search_tag
+		param="&tag="+search_tag
 	}//end if
 	$.ajax({
-		url:"blog/more/"+next_page+param,
+		url:"/${ blog_profile.id }/blog/more.do?cur_page="+next_page+param,
 		type:"POST",
 		dataType:"JSON",
 		/* contentType: "application/json;charset=UTF-8", */
@@ -59,13 +59,13 @@ function morePost(next_page, search_word, search_tag){
 	                } 
 					output+='<div class="post">';
 					output+='<div class="post_img"><img src="https://cdn.pixabay.com/photo/2015/09/05/22/33/'+list.thumbnail+'"></div>';
-					output+='<div class="post_title"  onclick="javascript:location.href =\'blog/post/'+list.post_num+'\'">';
+					output+='<div class="post_title"  onclick="javascript:location.href =\'/${ blog_profile.id }/blog/post.do?post='+list.post_num+'\'">';
 					output+=list.post_title;
 					output+='</div>';
 					output+='<div class="post_content">'+ cur_content +'</div>';
 					output+='<div class="post_tags">';
-					$.each(list.tag_name, function(idx2, tag_list){
-						output+='#'+tag_list.tag_name;
+					$.each(list.tag_list, function(idx2, list2){
+						output+='#'+list2.tag_name;
 					});//each
 					output+='</div>';
 					output+='<div class="post_info">';
@@ -108,7 +108,7 @@ function searchBtn(){
 	if(text.trim().length==0){
 		alert("검색어를 입력해주세요");
 	}else{
-		location.href="blog?search="+text;
+		location.href="blog.do?search="+text;
 	}//end else
 }//searchBtn
 
@@ -155,7 +155,7 @@ function searchBtn(){
                 <span>전체 (<c:out value="${ blog_profile.post_cnt }"/>)</span>
                 <ul>
                 <c:forEach var="tag" items="${ tag_list }">
-                    <li onclick="javascript:location.href='blog?tag=${ tag.tag_name }'"><c:out value="${ tag.tag_name }"/>(<c:out value="${ tag.tag_cnt }"/>)</li>
+                    <li onclick="javascript:location.href='blog.do?tag=${ tag.tag_name }'"><c:out value="${ tag.tag_name }"/>(<c:out value="${ tag.tag_cnt }"/>)</li>
                 </c:forEach>
                 </ul>
             </div>
@@ -169,12 +169,11 @@ function searchBtn(){
 	            <c:forEach var="post" items="${ post_list }">
 	                <div class="post">
 	                    <div class="post_img"><img src="${ post.thumbnail }"></div>
-	                    <div class="post_title"  onclick="javascript:location.href ='blog/post/${ post.post_num }'">
+	                    <div class="post_title"  onclick="javascript:location.href ='/${ blog_profile.id }/blog/post.do?post=${ post.post_num }'">
 	                    <c:out value="${ post.post_title }"/>
 	                    </div>
 	                    
 	                     <div class="post_content">
-	                       <%-- <c:out value="${ post.post_content.substring(0,4).concat('...') }"/> --%>
 	                          <c:if test="${ fn:length(post.post_content) <= 20 }">${ post.post_content }</c:if>
 	                     <c:if test="${ fn:length(post.post_content) > 20 }">${ post.post_content.substring(0,20).concat('···') }</c:if>
 	                    </div>
@@ -205,6 +204,6 @@ function searchBtn(){
    	<!--푸터 -->
 	<c:import url="../common/common_footer.jsp" />
 </body>
-<script src="http://localhost/rgrg_user/js/control_navbar.js"></script>
+<script src="http://localhost/js/control_navbar.js"></script>
 
 </html>

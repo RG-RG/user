@@ -7,14 +7,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>블로그 글 보기</title>
+<title>${ post_detail.post_title }</title>
 
 <link rel="stylesheet"
-	href="http://localhost/rgrg_user/css/blog/reset.css">
+	href="http://localhost/css/blog/reset.css">
 <link rel="stylesheet"
-	href="http://localhost/rgrg_user/css/blog/blog_post.css">
+	href="http://localhost/css/blog/blog_post.css">
 <link rel="stylesheet"
-	href="http://localhost/rgrg_user/css/common/common_header_footer.css">
+	href="http://localhost/css/common/common_header_footer.css">
 
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.css">
@@ -468,6 +468,6 @@ function commModifyBtn(comm_num){
 	<!--푸터 -->
 	<c:import url="../common/common_footer.jsp" />
 </body>
-<script src="http://localhost/rgrg_user/js/control_navbar.js"></script>
+<script src="http://localhost/js/control_navbar.js"></script>
 
 </html>

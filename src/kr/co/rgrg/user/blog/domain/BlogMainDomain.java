@@ -1,7 +1,7 @@
 package kr.co.rgrg.user.blog.domain;
 
 public class BlogMainDomain {
-	private String id, profile_img, nickname, statement_msg, visible_email, github, website;
+	private String id, blog_name, profile_img, nickname, statement_msg, visible_email, github, website;
 	private int follower_cnt, following_cnt, post_cnt;
 	
 	public String getId() {
@@ -9,6 +9,12 @@ public class BlogMainDomain {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public String getBlog_name() {
+		return blog_name;
+	}
+	public void setBlog_name(String blog_name) {
+		this.blog_name = blog_name;
 	}
 	public String getProfile_img() {
 		return profile_img;
