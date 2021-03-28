@@ -34,7 +34,11 @@ public class FollowController {
 		int current_page = 1;
 		FollowRangeVO frVO = new FollowRangeVO(current_page);
 		frVO.setColumn_value(url_id); //팔로워 목록을 조회할 아이디
-		frVO.setColumn_value2((String)session.getAttribute("id")); //현재 세션에 저장되어 있는 아이디
+		if ((String)session.getAttribute("id") != null && !"".equals((String)session.getAttribute("id"))) {
+			frVO.setColumn_value2((String)session.getAttribute("id")); //현재 세션에 저장되어 있는 아이디
+		} else {
+			frVO.setColumn_value2("");
+		}//end else
 		
 		List<FollowDomain> follower_list = new FollowService().getFollowerList(frVO);
 		model.addAttribute("follower_list", follower_list);
@@ -64,7 +68,11 @@ public class FollowController {
 		}//end if
 		FollowRangeVO frVO = new FollowRangeVO(current_page);
 		frVO.setColumn_value(url_id); //팔로워 목록을 조회할 아이디
-		frVO.setColumn_value2((String)session.getAttribute("id")); //현재 세션에 저장되어 있는 아이디
+		if ((String)session.getAttribute("id") != null && !"".equals((String)session.getAttribute("id"))) {
+			frVO.setColumn_value2((String)session.getAttribute("id")); //현재 세션에 저장되어 있는 아이디
+		} else {
+			frVO.setColumn_value2("");
+		}//end else
 		
 		json = new FollowService().getMoreFollowerList(frVO);
 		
@@ -83,7 +91,11 @@ public class FollowController {
 		int current_page = 1;
 		FollowRangeVO frVO = new FollowRangeVO(current_page);
 		frVO.setColumn_value(url_id); //팔로잉 목록을 조회할 아이디
-		frVO.setColumn_value2((String)session.getAttribute("id")); //현재 세션에 저장되어 있는 아이디
+		if ((String)session.getAttribute("id") != null && !"".equals((String)session.getAttribute("id"))) {
+			frVO.setColumn_value2((String)session.getAttribute("id")); //현재 세션에 저장되어 있는 아이디
+		} else {
+			frVO.setColumn_value2("");
+		}//end else
 		
 		List<FollowDomain> following_list = new FollowService().getFollowingList(frVO);
 		model.addAttribute("following_list", following_list);
@@ -113,7 +125,11 @@ public class FollowController {
 		}//end if
 		FollowRangeVO frVO = new FollowRangeVO(current_page);
 		frVO.setColumn_value(url_id); //팔로워 목록을 조회할 아이디
-		frVO.setColumn_value2((String)session.getAttribute("id")); //현재 세션에 저장되어 있는 아이디
+		if ((String)session.getAttribute("id") != null && !"".equals((String)session.getAttribute("id"))) {
+			frVO.setColumn_value2((String)session.getAttribute("id")); //현재 세션에 저장되어 있는 아이디
+		} else {
+			frVO.setColumn_value2("");
+		}//end else
 		
 		json = new FollowService().getMoreFollowingList(frVO);
 		

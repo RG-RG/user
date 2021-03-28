@@ -45,6 +45,11 @@ function moveBlog(id){
 }//moveBlog
 
 function follow(id){
+	if(${empty sessionScope.id}){
+		alert("로그인이 필요합니다.");
+		return
+	}//end if
+	
 	var text = $("#followBtn"+id).text();
 	
 	if (text == "팔로우"){
@@ -85,6 +90,11 @@ function follow(id){
 }//follow
 
 function unfollow(id){
+	if(${empty sessionScope.id}){
+		alert("로그인이 필요합니다.");
+		return
+	}//end if
+	
 	var text = $("#unfollowBtn"+id).text();
 	
 	if (text == "팔로우"){
