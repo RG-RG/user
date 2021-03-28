@@ -10,9 +10,9 @@
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-<link rel="stylesheet" href="http://localhost/css/reset.css">
-<link rel="stylesheet" href="http://localhost/css/member/style.css">
-<link rel="stylesheet" href="http://localhost/css/common/common_header_footer.css">
+<link rel="stylesheet" href="../../../css/reset.css">
+<link rel="stylesheet" href="../../../css/member/style.css">
+<link rel="stylesheet" href="../../../css/common/common_header_footer.css">
 
 <!-- Google CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -76,6 +76,6 @@ $(function(){
     
     <jsp:include page="../common/common_footer.jsp"/>
 </body>
-<script src="http://localhost/js/control_navbar.js"></script>
+<script src="../../../js/control_navbar.js"></script>
 
 </html>

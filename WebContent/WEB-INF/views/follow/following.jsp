@@ -8,9 +8,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Co-doing</title>
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
-<link rel="stylesheet" href="http://localhost/css/reset.css">
-<link rel="stylesheet" href="http://localhost/css/follow/style.css"> 
-<link rel="stylesheet" href="http://localhost/css/common/common_header_footer.css">
+<link rel="stylesheet" href="../../../css/reset.css">
+<link rel="stylesheet" href="../../../css/follow/style.css"> 
+<link rel="stylesheet" href="../../../css/common/common_header_footer.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 <style type="text/css">
 .section_main{ margin:0 auto; width: 70rem; margin-top: 8rem }
@@ -244,6 +244,6 @@ function moreView(url_id, page){
     
     <jsp:include page="../common/common_footer.jsp"/>
 </body>
-<script src="http://localhost/js/control_navbar.js"></script>
+<script src="../../../js/control_navbar.js"></script>
 
 </html>
