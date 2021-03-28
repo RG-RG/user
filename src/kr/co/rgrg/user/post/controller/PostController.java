@@ -35,21 +35,21 @@ public class PostController {
 	 * @param session
 	 * @return
 	 */
-	@RequestMapping(value="/post/post_form.do", method= RequestMethod.GET)
+	@RequestMapping(value="/post_form.do", method= RequestMethod.GET)
 	public String writePostForm(HttpSession session, Model model) {
 		String id = (String)session.getAttribute("id");
 		
 		if (id != null) {
 			model.addAttribute("temp_post_flag", new PostService().searchPublishPost(id));			
 		} else {
-			return "redirect:main/main";
+			return "redirect:main.do";
 		}
 		model.addAttribute("id", id);
 
 		return "post/edit";
 	}
 	
-	@RequestMapping(value="/post/temp_post_form.do", method= RequestMethod.POST)
+	@RequestMapping(value="/temp_post_form.do", method= RequestMethod.POST)
 	public String getTempPostForm(Model model, HttpSession session) {
 		String id = (String)session.getAttribute("id");
 		
@@ -68,7 +68,7 @@ public class PostController {
 	 * 출간하기 form
 	 * @return
 	 */
-	@RequestMapping(value="/post/post_publish.do", method= RequestMethod.POST)
+	@RequestMapping(value="/post_publish.do", method= RequestMethod.POST)
 	public String publishPost() {
 		
 		return "post/edit_publish";
@@ -80,12 +80,12 @@ public class PostController {
 	 * @param session
 	 * @return
 	 */
-	@RequestMapping(value="/post/new_post.do", method= RequestMethod.POST)
+	@RequestMapping(value="/new_post.do", method= RequestMethod.POST)
 	public String saveNewPost(PostVO pVO, HttpSession session, MultipartFile thumbnail_img, MultipartHttpServletRequest request, Model model) throws Exception {
 		String id = (String)session.getAttribute("id");
 		
 		if(id != null) {
-			pVO.setId("user1");
+			pVO.setId(id);
 			PostService ps = new PostService();
 			
 			String upload_result = "";
@@ -112,7 +112,7 @@ public class PostController {
 			}
 		}
 		
-		return "redirect:/rgrg/main/main";
+		return "redirect:main.do";
 	}
 	
 
@@ -123,7 +123,7 @@ public class PostController {
 	 * @param session
 	 * @return
 	 */
-	@RequestMapping(value="/post/get_modify_post.do", method= RequestMethod.GET)
+	@RequestMapping(value="/get_modify_post.do", method= RequestMethod.GET)
 	public String getModifyPost(String post_num, Model model,HttpSession session) {
 		String id = (String)session.getAttribute("id");
 		
@@ -143,12 +143,12 @@ public class PostController {
 	 * @param session
 	 * @return
 	 */
-	@RequestMapping(value="/post/save_modify_post.do", method= RequestMethod.POST)
+	@RequestMapping(value="/save_modify_post.do", method= RequestMethod.POST)
 	public String saveModifyPost(ModifyPostVO mpVO, MultipartFile thumbnail_img, MultipartHttpServletRequest request, HttpSession session, Model model) {
 		String id = (String)session.getAttribute("id");
 		
 		if (id != null) {
-			mpVO.setId("user1");
+			mpVO.setId(id);
 			PostService ps = new PostService();
 			// result에 따라 어디로 이동할지
 			
@@ -175,7 +175,7 @@ public class PostController {
 			
 		}
 		
-		return "redirect:/rgrg/main/main";
+		return "redirect:main.do";
 	}
 	
 	/**
@@ -184,7 +184,7 @@ public class PostController {
 	 * @param session
 	 * @return
 	 */
-	@RequestMapping(value="/post/cancel.do", method= RequestMethod.GET)
+	@RequestMapping(value="/cancel.do", method= RequestMethod.GET)
 	public String cancelPost(String post_num, HttpSession session) {
 		String id = (String)session.getAttribute("id");
 		boolean result = false;
@@ -194,6 +194,6 @@ public class PostController {
 		
 		logger.info("게시글 삭제 결과 : " + result);
 		
-		return "redirect:/main/main";
+		return "redirect:main.do";
 	}
 }

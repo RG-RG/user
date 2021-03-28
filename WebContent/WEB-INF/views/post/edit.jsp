@@ -70,11 +70,11 @@
 		  		//임시저장 게시글 삭제하는 부분, 게시글 삭제 url로 ajax
 		  		// ajax되는지도 확인해야됨
 		  		if(temp_flag === true) {
-		  			$("#post_form").attr("action", "/rgrg_user/rgrg/post/temp_post_form.do")
+		  			$("#post_form").attr("action", "temp_post_form.do")
 					$("#post_form").submit();
 		  		} else {
 
-		  			$("#post_form").attr("action", "/rgrg_user/rgrg/${id}/blog/post/remove/${post_data.post_num}")
+		  			$("#post_form").attr("action", "cancel.do")
 					$("#post_form").submit();
 		  		}
 		  </c:if>
@@ -103,7 +103,7 @@
 				  }
 				  $("#post_form").submit();
 			  } else {
-				  location.href = "/rgrg_user/rgrg/main/main"
+				  location.href = "main.do"
 			  }
 		  })
     });
@@ -114,7 +114,7 @@
       }
     </script>
   </head>
-  <body>
+  <body style="font-family: IBMPlexSansKR-Regular">
 <c:if test="${ empty id }">
 	<script>
 		alert("로그인 후 이용 가능합니다.");
@@ -162,7 +162,7 @@
 
       </script>
     </section>
-    <form action="/rgrg_user/rgrg/post/post_publish.do" method="post" id="post_form">
+    <form action="post_publish.do" method="post" id="post_form">
 	<c:if test="${ post_data.post_num ne null }">
     	<input type="hidden" name="post_num" value="${ post_data.post_num }"/>
     </c:if>
