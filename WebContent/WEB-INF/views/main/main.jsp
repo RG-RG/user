@@ -7,13 +7,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>사용자화면 - 메인</title>
+    <title>Co-doing</title>
     <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 
-    <link rel="stylesheet" href="http://localhost/rgrg_user/css/reset.css">
-    <link rel="stylesheet" href="http://localhost/rgrg_user/css/main/user_main.css">
-    <link rel="stylesheet" href="http://localhost/rgrg_user/css/common/common_header_footer.css">
-    <link rel="stylesheet" href="http://localhost/rgrg_user/css/common/see_more_btn.css">
+    <link rel="stylesheet" href="http://localhost/css/reset.css">
+    <link rel="stylesheet" href="http://localhost/css/main/user_main.css">
+    <link rel="stylesheet" href="http://localhost/css/common/common_header_footer.css">
+    <link rel="stylesheet" href="http://localhost/css/common/see_more_btn.css">
 
 <!-- Google CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -116,5 +116,5 @@
 	<c:import url="../common/common_footer.jsp" />
 </body>
 
-    <script src="http://localhost/rgrg_user/js/control_navbar.js"></script>
+    <script src="http://localhost/js/control_navbar.js"></script>
 </html>

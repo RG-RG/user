@@ -15,23 +15,23 @@
         </div>
         <ul class="nav_bar">
         	<!-- 로고, 닫힘버튼 -->
-            <li><span><a href="/rgrg_user/rgrg/main/main">Co-doing</a></span><span class="navBtn btn_nav_close"><i class="fas fa-chevron-left"></i></span></li>
+            <li><span><a href="/main.do">Co-doing</a></span><span class="navBtn btn_nav_close"><i class="fas fa-chevron-left"></i></span></li>
             <!-- 로그인 안됐을 때 : 로그인, 회원가입 -->
        		<c:if test="${ empty sessionScope.id }">
-				<li><span><a href="/rgrg_user/member/login.html" rel="modal:open">LOGIN</a></span> / <span><a href="/rgrg_user/member/login.html" rel="modal:open">JOIN</a></span></li>
+				<li><span><a href="/login.html" rel="modal:open">LOGIN</a></span> / <span><a href="/rgrg_user/member/login.html" rel="modal:open">JOIN</a></span></li>
 			</c:if>
             <!-- 로그인 됐을 때 : 내 블로그, 보관함, 마이페이지 -->
 			<c:if test="${ not empty sessionScope.id }">
-				<li><span><a href="/rgrg_user/rgrg/${ sessionScope.id }/blog">내 블로그(<c:out value="${ sessionScope.id }"/>)</a></span> / <span> <a href="../like/list">내 보관함</a></span></li>
-				<li><span><a href="/rgrg_user/rgrg/mypage/index">마이 페이지</a></span></li>
+				<li><span><a href="/${ sessionScope.id }/blog">내 블로그(<c:out value="${ sessionScope.id }"/>)</a></span> / <span> <a href="../like/list">내 보관함</a></span></li>
+				<li><span><a href="/mypage/index.do">마이 페이지</a></span></li>
 			</c:if>
             
-            <li><a href="/rgrg_user/rgrg/main/main?sort=view_cnt">조회순 보기</a></li>
-            <li><a href="/rgrg_user/rgrg/main/main?sort=input_date">최신순 보기</a></li>
+            <li><a href="/main?sort=view_cnt">조회순 보기</a></li>
+            <li><a href="/main?sort=input_date">최신순 보기</a></li>
             <li><input type="text" class="search_input" id="search_input" onkeypress="handleEnter()"><button id="search_btn"><i class="fas fa-search"></i></button></li>
             <!-- 로그인 됐을 때 : 로그아웃 -->
 			<c:if test="${ not empty sessionScope.id }">
-				<li><span><a href="/rgrg_user/rgrg/member/logout">로그아웃</a></span></li>
+				<li><span><a href="/member/logout.do">로그아웃</a></span></li>
 			</c:if>
         </ul>
     </section>
