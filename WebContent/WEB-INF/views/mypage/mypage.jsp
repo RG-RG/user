@@ -159,7 +159,7 @@
 	          let form = new FormData(document.getElementById("image_upload_form"));
 	          console.log(form);
 	          $.ajax({
-	            url: "upload_img_file",
+	            url: "upload_img_file.do",
 	            enctype: "/multipart/form-data",
 	            data: form,
 	            dataType: "json",
@@ -354,7 +354,7 @@
     <main>
       <section class="profile">
         <div class="img_area">
-          <form id="image_upload_form" action="" method="post" enctype="multipart/form-data">
+          <form id="image_upload_form.do" action="" method="post" enctype="multipart/form-data">
             <input type="file" id="profile_img" name="profile_img" style="display: none" />
           </form>
           <img src="/rgrg_user/images/profile/${ member_data.profile_img }" alt="" class="current_img" />
@@ -386,9 +386,9 @@
       </section>
       <section class="mgn_content">
         <section class="navi">
-          <h3 class="menu" onclick="mng_menu('change_info_form')" style="cursor: pointer">정보 관리</h3>
+          <h3 class="menu" onclick="mng_menu('change_info_form.do')" style="cursor: pointer">정보 관리</h3>
           <h3 class="menu" onclick="mng_menu('modify_pass_chk_form.do')" style="cursor: pointer">비밀번호 변경</h3>
-          <h3 class="menu" onclick="mng_menu('change_info_form')" style="cursor: pointer">방문자 통계</h3>
+          <h3 class="menu" onclick="mng_menu('change_info_form.do')" style="cursor: pointer">방문자 통계</h3>
         </section>
         <section class="mng_form" id="mng_form">
           <div class="info blog_title">
@@ -421,7 +421,7 @@
               <div class="edit">
                 <button class="edit_btn" id="edit_social_btn">수정</button>
               </div>
-              <form id="social_form" class="edit_form" style="display: none">
+              <form id="social_form.do" class="edit_form" style="display: none">
                 <div class="new_social">
                   <div class="social">
                     <label for="github_input" class="col-sm-2 col-form-label"><i class="fab fa-github"></i></label>

@@ -27,7 +27,7 @@
 	    	}
 		    	let pass = $("#change_pass").val();
 		        $.ajax({
-			          url: "modify_pass.do",
+			          url: "mypage_modify_pass.do",
 			          dataType: "JSON",
 			          type: "POST",
 			          data: "pass=" + pass,
@@ -40,7 +40,7 @@
 			            if (data.result_flag === true) {
 			              console.log("성공");
 			              alert("비밀번호가 변경되었습니다.")
-			              window.location.href = '/rgrg_user/rgrg/mypage/index';
+			              window.location.href = '/mypage.do';
 			            }else{
 		            	  alert("실패");
 			            }
