@@ -427,7 +427,7 @@
               <div class="edit">
                 <button class="edit_btn" id="edit_social_btn">수정</button>
               </div>
-              <form id="social_form.do" class="edit_form" style="display: none">
+              <form id="social_form" class="edit_form" style="display: none">
                 <div class="new_social">
                   <div class="social">
                     <label for="github_input" class="col-sm-2 col-form-label"><i class="fab fa-github"></i></label>
