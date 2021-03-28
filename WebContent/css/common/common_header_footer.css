@@ -7,7 +7,8 @@
 }
 
 html {
-    font-size: 62.5%
+    font-size: 62.5%;
+    font-family: IBMPlexSansKR-Regular;
 }
 
 @media (min-width:901px) {

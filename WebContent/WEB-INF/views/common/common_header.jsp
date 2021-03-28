@@ -18,7 +18,7 @@
             <li><span><a href="/main.do">Co-doing</a></span><span class="navBtn btn_nav_close"><i class="fas fa-chevron-left"></i></span></li>
             <!-- 로그인 안됐을 때 : 로그인, 회원가입 -->
        		<c:if test="${ empty sessionScope.id }">
-				<li><span><a href="/login.html" rel="modal:open">LOGIN</a></span> / <span><a href="/rgrg_user/member/login.html" rel="modal:open">JOIN</a></span></li>
+				<li><span><a href="/member/login.html" rel="modal:open">LOGIN</a></span> / <span><a href="/member/login.html" rel="modal:open">JOIN</a></span></li>
 			</c:if>
             <!-- 로그인 됐을 때 : 내 블로그, 보관함, 마이페이지 -->
 			<c:if test="${ not empty sessionScope.id }">
