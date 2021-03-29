@@ -98,22 +98,20 @@ function kakaoLogin() {
 function onSignIn(googleUser) {
 	  var profile = googleUser.getBasicProfile();
 	  var id_token = googleUser.getAuthResponse().id_token;
-	  $("#googleBtn").click(function(){
-		  $.ajax({
-			  url: '/google_login.do',
-			  type: 'POST',
-			  data: 'idtoken=' + id_token, 
-			  dataType: 'JSON',
-			  beforeSend : function(xhr){
-				  xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-			  },
-			  success: function(json) {
-				  if (json.login_result == "success"){
-					  location.href = "/main.do";
-				  }//end if
-	          }//success
-		  });//ajax
-	  });//click
+	  $.ajax({
+		  url: '/google_login.do',
+		  type: 'POST',
+		  data: 'idtoken=' + id_token, 
+		  dataType: 'JSON',
+		  beforeSend : function(xhr){
+			  xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		  },
+		  success: function(json) {
+			  if (json.login_result == "success"){
+				  location.href = "/main.do";
+			  }//end if
+          }//success
+	  });//ajax
 }//onSignIn
 
 </script>
