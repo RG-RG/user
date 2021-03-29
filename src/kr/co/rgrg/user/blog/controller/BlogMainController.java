@@ -26,6 +26,7 @@ public class BlogMainController {
 	
 	@RequestMapping(value="/{url_id}/blog.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String getBlogMain(HttpSession session, Model model, @PathVariable("url_id") String url_id, String search, String tag) {
+		session.setAttribute("id", "kim");
 		String login_id=(String)session.getAttribute("id");
 		
 		int page=1;

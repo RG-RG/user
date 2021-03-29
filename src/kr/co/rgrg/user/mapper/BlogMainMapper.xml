@@ -7,7 +7,7 @@
   	<select id="selectProfile" parameterType="kr.co.rgrg.user.blog.vo.BlogMainVO"
   	resultType="kr.co.rgrg.user.blog.domain.BlogMainDomain">
 		select member.id, blog_name, profile_img, nickname, statement_msg, visible_email, github, website,
-				nvl(following_cnt,0), nvl(follower_cnt,0), nvl(post_cnt,0)
+				nvl(following_cnt,0) following_cnt, nvl(follower_cnt,0) follower_cnt, nvl(post_cnt,0) post_cnt
 		from member,
 			(select id, count(following_id) following_cnt from following where id=#{id} group by id) following_t,
 			(select id, count(follower_id) follower_cnt from follower where id=#{id} group by id) follower_t,

@@ -43,7 +43,6 @@ function morePost(next_page, search_word, search_tag){
 		url:"/${ blog_profile.id }/blog/more.do?cur_page="+next_page+param,
 		type:"POST",
 		dataType:"JSON",
-		/* contentType: "application/json;charset=UTF-8", */
 		error:function(xhr){
 			alert("에러");
 			console.log(xhr.status+" / "+xhr.statusText);
@@ -126,8 +125,8 @@ function searchBtn(){
             <div class="profile_comment"><c:out value="${ blog_profile.statement_msg }"/></div>
             <div class="profile_follow">
                 <div>
-                    <span class="f_title"><a href="">팔로워</a></span><span class="f_num"><c:out value="${ blog_profile.follower_cnt }"/></span>
-                    <span class="f_title"><a href="">팔로잉</a></span><span class="f_num"><c:out value="${ blog_profile.following_cnt }"/></span>
+                    <a href="/${ blog_profile.id }/get_follower.do"><span class="f_title">팔로워</span><span class="f_num"><c:out value="${ blog_profile.follower_cnt }"/></span></a>
+                    <a href="/${ blog_profile.id }/get_following.do"><span class="f_title">팔로잉</span><span class="f_num"><c:out value="${ blog_profile.following_cnt }"/></span></a>
                 </div>
                 <div>
                     <a href="${ blog_profile.github }"><i class="fab fa-github"></i></a>
@@ -145,7 +144,7 @@ function searchBtn(){
             </div>
             <div>
             <c:if test="${ sessionScope.id==blog_profile.id }">
-                <span><i class="fas fa-edit"></i>새 글 작성</span>
+                <a href="/post_form.do"><span><i class="fas fa-edit"></i>새 글 작성</span></a>
             </c:if>
             </div>
         </div> <!-- 검색, 새 글 작성 버튼 end -->

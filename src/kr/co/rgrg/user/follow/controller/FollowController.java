@@ -147,7 +147,7 @@ public class FollowController {
 	public String follow(@PathVariable("url_id") String url_id, HttpSession session, FollowVO fVO) {
 		String json = "";
 		fVO.setId((String)session.getAttribute("id"));
-		fVO.setFollowing_id(fVO.getFollowing_id()); //클릭 시 얻어오는 아이디
+		fVO.setFollowing_id(url_id); //클릭 시 얻어오는 아이디
 		json = new FollowService().follow(fVO);
 		
 		return json;
@@ -165,7 +165,7 @@ public class FollowController {
 	public String unfollow(@PathVariable("url_id") String url_id, HttpSession session, Model model, FollowVO fVO) {
 		String json = "";
 		fVO.setId((String)session.getAttribute("id"));
-		fVO.setFollowing_id(fVO.getFollowing_id());  //클릭 시 얻어오는 아이디
+		fVO.setFollowing_id(url_id);  //클릭 시 얻어오는 아이디
 		json = new FollowService().unfollow(fVO);
 		
 		return json;

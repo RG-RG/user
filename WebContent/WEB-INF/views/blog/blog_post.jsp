@@ -93,14 +93,12 @@ $(function(){
 	/* 좋아요 눌렀을 때 */
 	$("#postLike").click(function(){
 		if(${ not empty sessionScope.id }){
-			var url=''
-			var like_flag=''
-			if(!$("#like_flag_hid").val()){
+			if($("#like_flag_hid").val()=="true"){
 				url="/like/remove.do?post=${post_detail.post_num}";
-				like_flag=false;
+				like_flag="false";
 			}else{
 				url="/like/add.do?post=${post_detail.post_num}";
-				like_flag=true;
+				like_flag="true";
 			}//end else
 			$.ajax({
 				url:url,
@@ -116,19 +114,17 @@ $(function(){
  						var heart = '<i class="far fa-heart"></i>'
  						var heartCnt = 0
  						
-						console.log("like flag --- "+ jsonObj.like );
-						
 						if( jsonObj.like == "add" ) {
 							heart = '<i class="like_heart fas fa-heart"></i>'
- 							heartCnt = ( ${post_detail.like_cnt} + 1 )
+ 							heartCnt = Number($("#postLikeCnt").text()) + 1
 						}
 						if( jsonObj.like == "remove" ){
 							heart = '<i class="far fa-heart"></i>'
-							heartCnt = ( ${post_detail.like_cnt} - 1 )
+							heartCnt = Number($("#postLikeCnt").text()) - 1
 						}
 						
 						$("#postLike").html(heart)
-						$("#postLikeCnt").html(heartCnt)
+						$("#postLikeCnt").text(heartCnt)
 						$("#like_flag_hid").val(like_flag)
 			      	}else{
 			      		alert("문제가 발생하였습니다. 다시 시도해주세요.")
@@ -144,13 +140,14 @@ $(function(){
 	/* 팔로우 할 때 */
  	$("#btn_follow").click(function(){
 		if(${ not empty sessionScope.id }){
+			alert($("#btn_follow").text().trim())
 			var url="";
 			var text="";
-			if(${follow_flag}){
-				url="${post_profile.id}/unfollow.do";
+			if($("#btn_follow").text().trim()=="follow"){
+				url="/${post_profile.id}/unfollow.do";
 				text="unfollow";
 			}else{
-				url="${post_profile.id}/follow.do";
+				url="/${post_profile.id}/follow.do";
 				text="follow";
 			}//end else
 			$.ajax({
@@ -329,10 +326,10 @@ function commModifyBtn(comm_num){
 			<input id="like_flag_hid" type="hidden" value="${ like_flag }"/>
 			<ul>
 				<li id="postLike" class="postLike"><c:choose>
-						<c:when test="${ like_flag }">
+						<c:when test="${ like_flag eq 'true' }">
 							<i class="like_heart fas fa-heart"></i>
 						</c:when>
-						<c:when test="${ not like_flag }">
+						<c:when test="${ like_flag eq 'false' }">
 							<i class="far fa-heart"></i>
 						</c:when>
 					</c:choose></li>
@@ -362,7 +359,7 @@ function commModifyBtn(comm_num){
 						<form id="modifyPost"
 							action="${post_profile.id}/blog/post/modify/${post_detail.post_num}"
 							method="post">
-							<span class="btn">수정</span>
+							<a href="/get_modify_post.do?post_num=${post_detail.post_num}"><span class="btn">수정</span></a>
 						</form>
 						<a id="removePost"><span class="btn">삭제</span></a>
 					</c:if>

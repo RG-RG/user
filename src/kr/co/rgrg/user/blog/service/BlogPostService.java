@@ -38,8 +38,8 @@ public class BlogPostService {
 		return list;
 	}//getCommList
 	
-	public Boolean getFollowFlag(FollowerVO fVO) {
-		Boolean flag=false;
+	public boolean getFollowFlag(FollowerVO fVO) {
+		boolean flag=false;
 		String id=BlogPostDAO.getInstance().selectFollowFlag(fVO);
 		if(!"".equals(id) && id!=null) {
 			flag=true;
@@ -47,11 +47,11 @@ public class BlogPostService {
 		return flag;
 	}//getFollowFlag
 	
-	public Boolean getLikeFlag(LikePostVO lpVO) {
-		Boolean flag=false;
+	public String getLikeFlag(LikePostVO lpVO) {
+		String flag="false";
 		String id=BlogPostDAO.getInstance().selectLikePostFlag(lpVO);
 		if(!"".equals(id) && id!=null) {
-			flag=true;
+			flag="true";
 		}//end if
 		return flag;
 	}//getLikeFlag
