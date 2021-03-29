@@ -10,7 +10,7 @@
 		into post 
 		(post_num, thumbnail, post_title, post_content, publish_flag, hidden_flag, input_date, id)  
 		values
-		(${post_num}, #{thumbnail}, #{post_title}, #{post_content}, #{publish_flag}, #{hidden_flag}, sysdate, #{id})
+		(${post_num}, #{thumbnail, jdbcType=VARCHAR}, #{post_title}, #{post_content}, #{publish_flag}, #{hidden_flag}, sysdate, #{id})
 		<if test="tags != null">
 			<foreach collection="tags" item="tag">
 			into tag
