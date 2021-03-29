@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Random;
 
@@ -168,9 +169,8 @@ public class MemberController {
 	@RequestMapping(value="kakao_login_form.do", method=GET)
 	@ResponseBody
 	public String KakaoLoginForm() {
-		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaa");
 		String url = "https://kauth.kakao.com/oauth/authorize?client_id=d6ec4bf19e500ff83a89cb9c5a00ebc5";
-		url += "&redirect_uri=http://localhost/get_kakao_info&response_type=code";
+		url += "&redirect_uri=http://localhost/get_kakao_login_info.do&response_type=code";
 		return url;
 	}//KakaoLoginForm
 	
@@ -178,9 +178,8 @@ public class MemberController {
 	 * 카카오 로그인 토큰을 가져오는 일
 	 * @return
 	 */
-	@RequestMapping(value="get_kakao_token.do", method=GET)
+	@RequestMapping(value="get_kakao_token.do", method=POST)
 	public String getKakaoToken(HttpServletRequest request, String code) {
-		System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbb");
 		String accessToken = "";
 		
 		RestTemplate rt = new RestTemplate();
@@ -189,7 +188,7 @@ public class MemberController {
 		MultiValueMap<String, Object> params = new LinkedMultiValueMap<String, Object>();
 		params.set("grant_type", "authorization_code");
 		params.set("client_id", "d6ec4bf19e500ff83a89cb9c5a00ebc5");
-		params.set("redirect_uri", "http://localhost/get_kakao_info");
+		params.set("redirect_uri", "http://localhost/get_kakao_login_info.do");
 		params.set("code", code);
 		
 		HttpEntity<MultiValueMap<String, Object>> restRequest = new HttpEntity<>(params, headers);
@@ -201,49 +200,58 @@ public class MemberController {
 	}//getKakaoToken
 	
 	/**
-	 * 카카오 사용자 아이디를 가져오는 일
+	 * 카카오 사용자 정보를 가져오는 일
 	 * @return
 	 */
-	@RequestMapping(value="get_kakao_id.do", method=GET)
-	public String getKakaoId(String accessToken) {
-		System.out.println("cccccccccccccccccccccccccccc");
-		String kakaoId = "";
-		
+	@RequestMapping(value="get_kakao_info.do", method= {GET, POST})
+	public JSONObject getKakaoInfo(String accessToken) {
 		RestTemplate rt = new RestTemplate();
-		String url = "https://kauth.kakao.com/v2/user/me";
+		String url = "https://kapi.kakao.com/v2/user/me";
 		HttpHeaders headers = new HttpHeaders();
-		headers.set("Authorization", "bearer" + accessToken);
-		headers.set("KakaoAK", "d6ec4bf19e500ff83a89cb9c5a00ebc5");
-		MultiValueMap<String, Object> params = new LinkedMultiValueMap<String, Object>();
-	    params.add("property_keys", "[\"id\"]");
+		headers.set("Authorization", "Bearer " + accessToken);
 		
-		HttpEntity<MultiValueMap<String, Object>> restRequest = new HttpEntity<>(params, headers);
+		HttpEntity<MultiValueMap<String, Object>> restRequest = new HttpEntity<>(headers);
 		ResponseEntity<JSONObject> apiResponse = rt.postForEntity(url, restRequest, JSONObject.class);
 		JSONObject responseBody = apiResponse.getBody();
 		
-		kakaoId = (String)responseBody.get("id");
-		
-		return kakaoId;
-	}//getKakaoId
+		return responseBody;
+	}//getKakaoInfo
 	
 	/**
 	 * 카카오 로그인 정보를 조회하는 일
 	 * @return
 	 */
-	@RequestMapping(value="get_kakao_info.do", method=GET)
-	public String getKakaoInfo(HttpServletRequest request, HttpServletResponse response, String code) {
-		System.out.println("ddddddddddddddddddddddddd");
-		
+	@RequestMapping(value="get_kakao_login_info.do", method=GET)
+	public String getKakaoLoginInfo(HttpServletRequest request, HttpServletResponse response, String code, Model model) {
 		String accessToken = getKakaoToken(request, code);
-		String kakaoId = getKakaoId(accessToken);
-		if( kakaoId != null && !kakaoId.equals("") ) {
+		JSONObject json = getKakaoInfo(accessToken);
+		System.out.println(json);
+		LinkedHashMap<String, Object> kakaoAccount =  (LinkedHashMap<String, Object>) json.get("kakao_account");
+		String id = (String) kakaoAccount.get("email");
+		
+		if( id != null && !id.equals("") ) { //회원가입이 안 되어 있는 경우
+			LinkedHashMap<String, Object> kakaoProfile =  (LinkedHashMap<String, Object>) kakaoAccount.get("profile");
 			
-			return "redirect:/index.html";
-		} else {
-			System.out.println("NNNNNNNNNNNNNNN");
-		}//end else
-		return "";
-	}//getKakaoInfo
+			SocialJoinVO sjVO = new SocialJoinVO();
+			sjVO.setId(id);
+			sjVO.setAuth_email((String) kakaoAccount.get("email"));
+			sjVO.setNickname((String) kakaoProfile.get("nickname"));
+			sjVO.setBlog_name((String) kakaoProfile.get("nickname"));
+			if ((String) kakaoProfile.get("profile_image_url") != null) {
+				sjVO.setProfile_img((String) kakaoProfile.get("profile_image_url"));
+			} else { //프로필 사진이 없는 경우
+				sjVO.setProfile_img("default.png");
+			}//end else
+			sjVO.setPlatform("kakao");
+			sjVO.setAccess_token(accessToken);
+			
+			new MemberService().socialJoin(sjVO);			
+		}//end if
+		
+		model.addAttribute("id", id);
+		
+		return "redirect:/index.html";
+	}//getKakaoLoginInfo
 	
 	/**
 	 * 구글 로그인을 하는 일
@@ -278,7 +286,7 @@ public class MemberController {
 				sjVO.setPlatform("google");
 				sjVO.setAccess_token(idtoken);
 				
-				new MemberService().googleJoin(sjVO);
+				new MemberService().socialJoin(sjVO);
 			}//end if
 			
 			model.addAttribute("id", (String) payload.get("email"));

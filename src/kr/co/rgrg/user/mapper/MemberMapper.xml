@@ -29,8 +29,8 @@
 		where id = #{ id }
 	</select>
 	
-	<!-- 구글 회원가입을 하는 일 -->
-	<insert id="insertGoogleMember" parameterType="kr.co.rgrg.user.member.vo.SocialJoinVO">
+	<!-- 소셜 회원가입을 하는 일 -->
+	<insert id="insertSocialMember" parameterType="kr.co.rgrg.user.member.vo.SocialJoinVO">
 		insert into member(ID, AUTH_EMAIL, NICKNAME, BLOG_NAME, PROFILE_IMG, PLATFORM, ACCESS_TOKEN)
 		values(#{ id }, #{ auth_email }, #{ nickname }, #{ blog_name }, #{ profile_img }, #{ platform }, #{ access_token })	
 	</insert>

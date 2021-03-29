@@ -74,18 +74,18 @@ public class MemberService {
 	}//login
 	
 	/**
-	 * 구글 회원가입을 하는 일
+	 * 소셜 회원가입을 하는 일
 	 * @param sjVO
 	 * @return
 	 */
-	public boolean googleJoin(SocialJoinVO sjVO) {
+	public boolean socialJoin(SocialJoinVO sjVO) {
 		boolean flag = false;
 		
 		MemberDAO memDAO = MemberDAO.getInstance();
-		flag = memDAO.insertGoogleMember(sjVO) == 1;
+		flag = memDAO.insertSocialMember(sjVO) == 1;
 		
 		return flag;
-	}//googleJoin
+	}//socialJoin
 	
 	/**
 	 * 아이디 찾기를 위해 입력한 이메일이 DB에 있는지 확인하는 일
