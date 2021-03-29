@@ -3,12 +3,18 @@
 /* »ç¿ëÀÚ common header */
 /* in common */
 * {
-    box-sizing: border-box
+    box-sizing: border-box;
 }
 
 html {
-    font-size: 62.5%;
     font-family: IBMPlexSansKR-Regular;
+    font-size: 62.5%;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	font-size: 1.3rem
 }
 
 @media (min-width:901px) {
