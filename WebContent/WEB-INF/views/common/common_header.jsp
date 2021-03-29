@@ -23,14 +23,14 @@
         </div>
         <ul class="nav_bar">
         	<!-- 로고, 닫힘버튼 -->
-            <li><span><a href="/main.do">Co-doing</a></span><span class="navBtn btn_nav_close"><i class="fas fa-chevron-left"></i></span></li>
+            <li><span><a href="/main.do"><img src="http://localhost/rgrg_user/images/codoing2.png" /></a></span><span class="navBtn btn_nav_close"><i class="fas fa-chevron-left"></i></span></li>
             <!-- 로그인 안됐을 때 : 로그인, 회원가입 -->
        		<c:if test="${ empty sessionScope.id }">
 				<li><span><a href="/member/login.html" rel="modal:open">LOGIN</a></span> / <span><a href="/member/login.html" rel="modal:open">JOIN</a></span></li>
 			</c:if>
             <!-- 로그인 됐을 때 : 내 블로그, 보관함, 마이페이지 -->
 			<c:if test="${ not empty sessionScope.id }">
-				<li><span><a href="/${ sessionScope.id }/blog">내 블로그(<c:out value="${ sessionScope.id }"/>)</a></span> / <span> <a href="../like/list">내 보관함</a></span></li>
+				<li><span><a href="/${ sessionScope.id }/blog.do">내 블로그(<c:out value="${ sessionScope.id }"/>)</a></span> / <span> <a href="/like.do">내 보관함</a></span></li>
 				<li><span><a href="/mypage.do">마이 페이지</a></span></li>
 			</c:if>
             

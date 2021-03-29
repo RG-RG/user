@@ -59,6 +59,11 @@ html {
     margin: 2rem 0
 }
 
+.nav_bar img {
+	width: 4rem;
+	height: 4rem;
+}
+
 .nav_bar a {
     padding: .5rem 0;
     color: #fff

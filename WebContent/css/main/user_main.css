@@ -59,7 +59,11 @@ body {
 	color: black;
 }
 
+
+/* 포스트가 하나도 없는 경우 */
 .no_post {
-	text-align: center;
-	padding: 5rem 0;
+    grid-area: span 1/span 3;
+    padding: 20vh 0 10vh;
+    text-align: center;
+    font-size: 1.3rem
 }
