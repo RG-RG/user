@@ -253,7 +253,20 @@ public class MypageController {
 		
 		if(id != null) {
 			pcVO.setId(id);
-			result = new MypageService().removeMemberChk(pcVO);
+			JSONObject json = new JSONObject();
+			
+			try {
+				boolean flag = passEncoder.matches(pcVO.getPass(), new MypageService().searchPass(pcVO));
+				String removeMemberFlag = "fail";
+				if(flag == true) {
+					removeMemberFlag = new MypageService().removeMember(pcVO);
+				}
+				System.out.println(removeMemberFlag);
+				json.put("result", removeMemberFlag);
+			} catch (NullPointerException ne) {
+				json.put("result", "fail");
+			}
+			result = json.toJSONString();
 		}
 		
 		return result;

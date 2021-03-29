@@ -293,7 +293,7 @@
           data: "alarm_flag=" + alarm_flag,
           error: function (xhr) {
             console.log(xhr.status + " / " + xhr.statusText);
-            alert("에러");
+            alert("에러가 발생했습니다. 잠시후 다시 시도해주세요");
           },
           success: function (jsonObj) {
             if (jsonObj.result === "success") {
@@ -305,6 +305,10 @@
 
       /* 탈퇴하기 비밀번호 체크 */
       function deleteMember() {
+    	  let del_chk = confirm("정말로 탈퇴하시겠습니까?");
+    	  if(!del_chk) {
+    		  return;
+    	  }
         let deleteChk = document.getElementById("delete_input").value;
         $.ajax({
           url: "remove_member.do",
@@ -313,14 +317,15 @@
           data: "pass=" + deleteChk,
           error: function (xhr) {
             console.log(xhr.status + " / " + xhr.statusText);
-            alert("에러");
+            alert("탈퇴 중 에러가 발생했습니다. 잠시후 다시 시도해주세요");
           },
           success: function (jsonObj) {
-            if (jsonObj.result === "success") {
+        	  console.log(jsonObj.result)
               console.log("성공");
-            }
           },
         });
+        alert("탈퇴되었습니다.")
+        location.href="logout.do";
       }
 
       function edit_mode(param) {
@@ -354,7 +359,7 @@
     <c:if test="${ empty member_data }">
       <script>
         alert("로그인 후 이용 가능합니다.");
-        history.back();
+        location.href="main.do";
       </script>
     </c:if>
     <main>

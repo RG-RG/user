@@ -162,6 +162,7 @@ public class MypageDAO {
 		
 		SqlSession ss = GetRgrgHandler.getInstance().getSqlSession();
 		result = ss.update("updateMember", id);
+		ss.commit();
 		ss.close();
 		
 		return result;

@@ -6,7 +6,6 @@ import javax.inject.Inject;
 
 import org.json.simple.JSONObject;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import kr.co.rgrg.user.mypage.dao.MypageDAO;
 import kr.co.rgrg.user.mypage.domain.MypageDomain;
@@ -146,17 +145,14 @@ public class MypageService {
 	 * @param pcVO
 	 * @return
 	 */
-	public String removeMemberChk(PassChkVO pcVO) {
-		String result = "false";
-		JSONObject json = new JSONObject();
+	public String removeMember(PassChkVO pcVO) {
+		String result = "fail";
 		MypageDAO mDAO = MypageDAO.getInstance();
-		if(mDAO.selectPass(pcVO).equals(pcVO.getPass())) {
-			if(mDAO.deleteMember(pcVO.getId()) == 1) {
-				result = "true";				
-			}
+		
+		if(mDAO.deleteMember(pcVO.getId()) == 1) {
+			result = "success";				
 		}
 		
-		json.put("result", result);
 		return  result;
 	}
 	
