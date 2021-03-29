@@ -32,7 +32,7 @@ public class LikeService {
 			json.put("cur_page",cur_page);
 			json.put("end_num",rVO.getEnd_num());
 			TotalCntVO tcVO=new TotalCntVO("like_post", "id", rVO.getColumn_value());
-			int total_cnt=new PaginationService().getTotalCnt(tcVO);
+			int total_cnt=new PaginationService().getTotalLikeCnt(tcVO);
 			json.put("total_cnt",total_cnt);
 			
 			JSONArray ja=new JSONArray();

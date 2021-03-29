@@ -4,7 +4,7 @@ public class PostRangeVO {
 	
 	private String id, column_name, column_value;
 	private int start_num, end_num;
-	private Boolean hidden_flag; //hidden_flag=true 이면 숨겨야 함 (기본값 false)
+	private boolean hidden_flag; //hidden_flag=true 이면 숨겨야 함 (기본값 false)
 	
 	public PostRangeVO() {
 	}
@@ -75,11 +75,11 @@ public class PostRangeVO {
 		this.id = id;
 	}
 
-	public Boolean getHidden_flag() {
+	public boolean getHidden_flag() {
 		return hidden_flag;
 	}
 
-	public void setHidden_flag(Boolean hidden_flag) {
+	public void setHidden_flag(boolean hidden_flag) {
 		this.hidden_flag = hidden_flag;
 	}
 	

@@ -29,9 +29,8 @@ $(function(){
 });//ready
 
 function moreLike(next_page){
-	alert(next_page)
 	$.ajax({
-		url:"list/"+next_page,
+		url:"/like/more.do?page="+next_page,
 		type:"POST",
 		dataType:"JSON",
 		error:function(xhr){
@@ -46,10 +45,14 @@ function moreLike(next_page){
 					output+='<div class="post_img">';
 					output+=list.thumbnail;
 					output+='</div>';
-					output+='<div class="post_title" onclick="javascript:location.href=\'/rgrg/'+list.id+'/blog/post/'+list.post_num+'\'">'+list.post_title+'</div>';
-					output+='<div class="post_content">'+list.post_content.substring(0,10).concat('...')+'</div>';
+					output+='<div class="post_title" onclick="javascript:location.href=\'/'+list.id+'/blog/post.do?post='+list.post_num+'\'">'+list.post_title+'</div>';
+					if(list.post_content.length>20){
+						output+='<div class="post_content">'+list.post_content.substring(0,10).concat('...')+'</div>';
+					}else{
+						output+='<div class="post_content">'+list.post_content+'</div>';
+					}//end else
 					output+='<div class="post_info">';
-					output+='<span class="post_writer">by. '+list.nickname+' ・'+list.input_cate+'</span>';
+					output+='<span class="post_writer">by. '+list.nickname+' ・'+list.input_date+'</span>';
 					output+='<span class="post_like">';
 					output+='<span>';
 					output+='💗';
@@ -64,7 +67,7 @@ function moreLike(next_page){
 				
 				var more='';
 				if(jsonObj.end_num<jsonObj.total_cnt){
-					more+='<div onclick="moreLike('+next_page+')" class="more_btn">더 보기</div>';
+					more+='<div onclick="moreLike('+(next_page+1)+')" class="more_btn">더 보기</div>';
 				}//end if
 				$("#main_btn").html(more);
 	      	}else{
@@ -90,10 +93,10 @@ function moreLike(next_page){
 			<c:forEach var="like" items="${ like_list }">
             <div class="post">
                 <div class="post_img"> <!-- 이미지는 여기 넣거나, background image를 CSS로 줘서 해도 됩니당 편한대로..!--> </div>
-                <div class="post_title" onclick="javascript:location.href='/rgrg/${ like.id }/blog/post/${ like.post_num }'"><c:out value="${ like.post_title }"/></div>
+                <div class="post_title" onclick="javascript:location.href='/${ like.id }/blog/post.do?post=${ like.post_num }'"><c:out value="${ like.post_title }"/></div>
                 <div class="post_content">
-            		<c:if test="${ fn:length(like.post_content) <= 20 }">${ like.post_content.concat('···') }</c:if>
-            		<c:if test="${ fn:length(like.post_content) > 20 }">${ like.post_content.substring(0,10).concat('···') }</c:if>
+            		<c:if test="${ fn:length(like.post_content) <= 20 }">${ like.post_content }</c:if>
+            		<c:if test="${ fn:length(like.post_content) > 20 }">${ like.post_content.substring(0,20).concat('···') }</c:if>
                 </div>
                 <div class="post_info">
                     <span class="post_writer">by. <c:out value="${ like.nickname }"/> ・<c:out value="${ like.input_date }"/></span>

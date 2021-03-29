@@ -22,7 +22,7 @@ import kr.co.rgrg.user.pagination.TotalCntVO;
 @Controller
 public class LikeController {
 	
-	@RequestMapping(value="rgrg/like/list", method=RequestMethod.GET)
+	@RequestMapping(value="/like.do", method=RequestMethod.GET)
 	public String getLikeList(HttpSession session, Model model) {
 		
 		int current_page=1;
@@ -37,7 +37,7 @@ public class LikeController {
 		
 		//페이지네이션
 		TotalCntVO tcVO=new TotalCntVO("like_post", "id", login_id);
-		int total_cnt=new PaginationService().getTotalCnt(tcVO);
+		int total_cnt=new PaginationService().getTotalLikeCnt(tcVO);
 		model.addAttribute("cur_page", current_page);
 		model.addAttribute("end_num",rVO.getEnd_num());
 		model.addAttribute("total_cnt", total_cnt);
@@ -45,14 +45,14 @@ public class LikeController {
 		return "like/like";
 	}//getLikeList
 	
-	@RequestMapping(value="rgrg/like/list/{param_page}", method=RequestMethod.POST, produces="application/json;charset=UTF-8")
+	@RequestMapping(value="/like/more.do", method=RequestMethod.POST, produces="application/json;charset=UTF-8")
 	@ResponseBody
-	public void getMoreLikeList(HttpSession session, @PathVariable("param_page") String param_page, HttpServletResponse response) throws IOException {
+	public void getMoreLikeList(HttpSession session, String page, HttpServletResponse response) throws IOException {
 		String json=null;
 		
 		int current_page=1;
-		if(param_page!=null) {
-			current_page=Integer.parseInt(param_page);
+		if(page!=null) {
+			current_page=Integer.parseInt(page);
 		}//end if
 		
 		String login_id=(String)session.getAttribute("id");
@@ -61,7 +61,7 @@ public class LikeController {
 		rVO.setColumn_value(login_id);
 		
 		json=new LikeService().getMoreLikeList(rVO, current_page);
-		
+		System.out.println(json);
 		response.setHeader("Content-Type", "application/xml");
 		response.setContentType("text/xml;charset=UTF-8");
 		response.setCharacterEncoding("utf-8");

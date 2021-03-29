@@ -62,5 +62,15 @@ public class PaginationDAO {
 		return cnt;
 	}//selectTotalPostCnt
 	
+	public int selectTotalLikeCnt(TotalCntVO tcVO) {
+		int cnt=0;
+		
+		SqlSession ss=GetRgrgHandler.getInstance().getSqlSession();
+		cnt=ss.selectOne("selectLikeCnt", tcVO);
+		ss.close();
+		
+		return cnt;
+	}//selectTotalLikeCnt
+	
 	
 }//class
