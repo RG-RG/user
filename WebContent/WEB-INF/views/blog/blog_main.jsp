@@ -15,10 +15,10 @@ if(${ empty blog_profile}){
     <title>${ blog_profile.blog_name }</title>
     <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 
-    <link rel="stylesheet" href="http://localhost/css/blog/reset.css">
-    <link rel="stylesheet" href="http://localhost/css/blog/myBlog_main.css">
-    <link rel="stylesheet" href="http://localhost/css/common/common_header_footer.css">
-    <link rel="stylesheet" href="http://localhost/css/common/see_more_btn.css">
+    <link rel="stylesheet" href="../../../css/blog/reset.css">
+    <link rel="stylesheet" href="../../../css/blog/myBlog_main.css">
+    <link rel="stylesheet" href="../../../css/common/common_header_footer.css">
+    <link rel="stylesheet" href="../../../css/common/see_more_btn.css">
 </head>
 
 <!-- Google CDN -->
@@ -204,6 +204,6 @@ function searchBtn(){
    	<!--푸터 -->
 	<c:import url="../common/common_footer.jsp" />
 </body>
-<script src="http://localhost/js/control_navbar.js"></script>
+<script src="../../../js/control_navbar.js"></script>
 
 </html>

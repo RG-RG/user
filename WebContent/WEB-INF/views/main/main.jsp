@@ -10,10 +10,10 @@
     <title>Co-doing</title>
     <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 
-    <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/main/user_main.css">
-    <link rel="stylesheet" href="../css/common/common_header_footer.css">
-    <link rel="stylesheet" href="../css/common/see_more_btn.css">
+    <link rel="stylesheet" href="../../../css/reset.css">
+    <link rel="stylesheet" href="../../../css/main/user_main.css">
+    <link rel="stylesheet" href="../../../css/common/common_header_footer.css">
+    <link rel="stylesheet" href="../../../css/common/see_more_btn.css">
 
 <!-- Google CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -116,5 +116,5 @@
 	<c:import url="../common/common_footer.jsp" />
 </body>
 
-    <script src="http://localhost/js/control_navbar.js"></script>
+    <script src="../../../js/control_navbar.js"></script>
 </html>
