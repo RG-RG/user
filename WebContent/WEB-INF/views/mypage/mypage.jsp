@@ -203,6 +203,8 @@
           success: function (jsonObj) {
             if (jsonObj.result === "success") {
               console.log("성공");
+              $("#display_profile > h2").innerText(newNickName);
+              $("#display_profile > p").innerText(newStatement);
             }
           },
         });
@@ -223,6 +225,7 @@
           success: function (jsonObj) {
             if (jsonObj.result === "success") {
               console.log("성공");
+              $("#blog_name").innerText(newBlogName);
             }
           },
         });
@@ -251,6 +254,9 @@
           success: function (jsonObj) {
             if (jsonObj.result === "success") {
               console.log("성공");
+              $("#github").innerText(newGithub);
+              $("#website").innerText(newWebsite);
+              $("#visible_email").innerText(newEmail);
             }
           },
         });
@@ -271,6 +277,7 @@
           success: function (jsonObj) {
             if (jsonObj.result === "success") {
               console.log("성공");
+              $("#email").innerText(newEmail);
             }
           },
         });
