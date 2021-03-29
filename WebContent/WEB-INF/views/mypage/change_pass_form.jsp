@@ -20,7 +20,6 @@
 		});
 		
 	    $("#chk_pass_btn").click(function(){
-	    	alert($("#warning").css("display"))
 	    	if($("#warning").css("display") !== "none" || $("#warning_same").css("display") !== "none" || $("#change_pass").val() === "") {
 	    		alert("비밀번호를 확인해주세요");
 	    		return;
@@ -33,16 +32,16 @@
 			          data: "pass=" + pass,
 			          error: function (xhr) {
 			            console.log(xhr.status + " / " + xhr.statusText);
-			            alert("에러");
+			            console.log("에러");
 			          },
 			          success: function (data) {
 			        	
 			            if (data.result_flag === true) {
 			              console.log("성공");
 			              alert("비밀번호가 변경되었습니다.")
-			              window.location.href = '/mypage.do';
+			              location.href = '/mypage.do';
 			            }else{
-		            	  alert("실패");
+		            	  alert("비밀번호 변경에 실패했습니다. 잠시후 다시 시도해주세요");
 			            }
 			          },
 			        });
@@ -53,14 +52,14 @@
     <h3>바꿀 비밀번호 입력</h3>
 	    <div class="social">
 	      <div class="input">
-	        <input type="text" class="form-control chk_pass_input" id="change_pass" placeholder="새로운 비밀번호 입력"/>
+	        <input type="password" class="form-control chk_pass_input" id="change_pass" placeholder="새로운 비밀번호 입력"/>
 	        <span style="color: red; display: none" id="warning" >비밀번호는 8자 이상이어야 합니다</span>
 	      </div>
 	    </div>
 	    <h3>바꿀 비밀번호 확인</h3>
 	    <div class="social">
 	      <div class="input">
-	        <input type="text" class="form-control chk_pass_input" id="change_pass_chk" placeholder="비밀번호 확인"/>
+	        <input type="password" class="form-control chk_pass_input" id="change_pass_chk" placeholder="비밀번호 확인"/>
 	        <span style="color: red; display: none" id="warning_same" >비밀번호가 다릅니다</span>
 	      </div>
 	    </div>

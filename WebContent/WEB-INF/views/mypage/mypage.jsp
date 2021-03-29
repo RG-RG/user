@@ -505,7 +505,7 @@
               <form id="delete_form" class="edit_form" style="display: none">
                 <div class="col-xs-10">
                   <div class="input">
-                    <input type="text" class="form-control" id="delete_input" placeholder="비밀번호를 입력해주세요" />
+                    <input type="password" class="form-control" id="delete_input" placeholder="비밀번호를 입력해주세요" />
                   </div>
                 </div>
                 <div class="btn_wrapper">

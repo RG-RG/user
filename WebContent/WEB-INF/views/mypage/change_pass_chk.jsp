@@ -19,7 +19,7 @@
 	          data: "pass=" + pass,
 	          error: function (xhr) {
 	            console.log(xhr.status + " / " + xhr.statusText);
-	            alert("에러");
+	            console.log("에러");
 	          },
 	          success: function (jsonObj) {
 	            alert("비밀번호 체크 "+jsonObj.result);
@@ -28,7 +28,7 @@
 	              change_pass_form()
 	            }else{
             	  mng_pass();
-            	  alert("실패");
+            	  console.log("실패");
 	            }
 	          },
 	        });
@@ -57,7 +57,7 @@
           <h3>원래 비밀번호 확인</h3>
 		    <div class="social">
 		      <div class="input">
-		        <input type="text" class="form-control chk_pass_input" id="chk_pass_input" placeholder="비밀번호를 입력해주세요"/>
+		        <input type="password" class="form-control chk_pass_input" id="chk_pass_input" placeholder="비밀번호를 입력해주세요"/>
 		      </div>
 	        <button class="chk_pass_btn" id="chk_pass_btn">확인</button>
 		    </div>
