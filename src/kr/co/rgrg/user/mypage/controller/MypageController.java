@@ -345,15 +345,17 @@ public class MypageController {
 		return "mypage/analytics";
 	}
 	
-	@RequestMapping(value="/analytics.do", method=RequestMethod.GET)
+	@RequestMapping(value="/analytics.do", method=RequestMethod.GET, produces="application/json;charset=UTF-8")
 	@ResponseBody
 	public String getStatistics(HttpSession session, Model model, HttpServletRequest request) {
 		String id = (String)session.getAttribute("id");
-		
+
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
-		
-		String analyticsResult = HelloAnalytics.getResult(id, startDate, endDate);
+		String metrics = request.getParameter("metrics");
+		String dimensions = request.getParameter("dimensions");
+
+		String analyticsResult = HelloAnalytics.getResult(id, startDate, endDate, metrics, dimensions);
 		
 		String result = analyticsResult;
 		

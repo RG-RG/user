@@ -272,3 +272,10 @@ input:checked + .toggle:after {
   height: 2.3rem;
   margin-left: 1rem;
 }
+
+/* 조회수 테이블 */
+.view-table {
+	display: grid;
+	grid-template-columns: 100px 1fr 1fr;
+	grid-gap: 10px;
+}

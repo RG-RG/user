@@ -15,7 +15,9 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mypage/style.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/common_header_footer.css" />
-
+	
+	<!-- Chart.js -->
+	<script	src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
     <script type="text/javascript">
       $(function () {
         let display_profile = document.getElementById("display_profile");
@@ -406,7 +408,7 @@
         <section class="navi">
           <h3 class="menu" onclick="mng_menu('change_info_form.do')" style="cursor: pointer">정보 관리</h3>
           <h3 class="menu" onclick="mng_menu('modify_pass_chk_form.do')" style="cursor: pointer">비밀번호 변경</h3>
-          <h3 class="menu" onclick="mng_menu('change_info_form.do')" style="cursor: pointer">방문자 통계</h3>
+          <h3 class="menu" onclick="mng_menu('analytics_form.do')" style="cursor: pointer">방문자 통계</h3>
         </section>
         <section class="mng_form" id="mng_form">
           <div class="info blog_title">
