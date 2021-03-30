@@ -13,8 +13,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mypage/style.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/common_header_footer.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mypage/style.css" />
 	
 	<!-- Chart.js -->
 	<script	src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
@@ -364,23 +364,33 @@
     </script>
   </head>
   <body style="font-family: IBMPlexSansKR-Regular">
+    
+    <!-- 사용자 header, side bar -->
     <jsp:include page="../common/common_header.jsp" />
+    
+    
+    <!-- 로그인 안할 시 마이페이지 접근 불가 -->
     <c:if test="${ empty member_data }">
       <script>
         alert("로그인 후 이용 가능합니다.");
         location.href="main.do";
       </script>
     </c:if>
-    <main>
+    
+    
+    <main class="section_main">
+      <!-- 프로필 영역 -->
       <section class="profile">
+      	<!-- 이미지 변경 부분 -->
         <div class="img_area">
           <form id="image_upload_form.do" action="" method="post" enctype="multipart/form-data">
             <input type="file" id="profile_img" name="profile_img" style="display: none" />
           </form>
-          <img src="/rgrg_user/images/profile/${ member_data.profile_img }" alt="" class="current_img" />
-          <button class="upload_img_btn" id="img_upload_btn">이미지 업로드</button>
-          <button class="delete_img_btn" id="img_delete_btn">이미지 제거</button>
+          <img src="/images/profile/${ member_data.profile_img }" alt="" class="current_img" />
+          <button class="upload_img_btn btns" id="img_upload_btn">이미지 업로드</button>
+          <button class="delete_img_btn btns" id="img_delete_btn">이미지 제거</button>
         </div>
+        
         <div class="text_area">
           <div id="display_profile">
             <h2>${ member_data.nickname }</h2>
@@ -404,6 +414,8 @@
           </form>
         </div>
       </section>
+      
+      <!-- 개인정보 영역 -->
       <section class="mgn_content">
         <section class="navi">
           <h3 class="menu" onclick="mng_menu('change_info_form.do')" style="cursor: pointer">정보 관리</h3>
@@ -411,7 +423,8 @@
           <h3 class="menu" onclick="mng_menu('analytics_form.do')" style="cursor: pointer">방문자 통계</h3>
         </section>
         <section class="mng_form" id="mng_form">
-          <div class="info blog_title">
+        
+           <div class="info blog_title">
             <h3>블로그 제목</h3>
             <div class="block">
               <div class="contents" id="blog_name">${ member_data.blog_name }</div>
@@ -473,7 +486,7 @@
             <div class="block">
               <div class="contents" id="email">${ member_data.auth_email }</div>
               <div class="edit">
-                <button class="edit_btn" id="edit_email_btn">수정</button>
+                <button class="edit_btn btns" id="edit_email_btn">수정</button>
               </div>
               <form id="email_form" class="edit_form" style="display: none">
                 <div class="">
@@ -482,7 +495,7 @@
                   </div>
                 </div>
                 <div class="btn_wrapper">
-                  <button class="save_btn" id="email_save">저장</button>
+                  <button class="save_btn btns" id="email_save">저장</button>
                 </div>
               </form>
             </div>
@@ -508,7 +521,7 @@
             <h3>회원 탈퇴</h3>
             <div class="block">
               <div class="contents">
-                <button color="red" class="delete_mem_btn" id="delete_mem_btn">회원 탈퇴</button>
+                <button color="red" class="delete_mem_btn btns" id="delete_mem_btn">회원 탈퇴</button>
               </div>
               <div></div>
               <form id="delete_form" class="edit_form" style="display: none">
@@ -518,11 +531,13 @@
                   </div>
                 </div>
                 <div class="btn_wrapper">
-                  <button color="red" class="delete_mem_btn" id="delete_save">탈퇴</button>
+                  <button color="red" class="delete_mem_btn btns" id="delete_save">탈퇴</button>
                 </div>
               </form>
             </div>
           </div>
+          
+          
         </section>
       </section>
     </main>

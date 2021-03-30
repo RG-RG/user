@@ -1,276 +1,255 @@
 main {
-  display: block;
-  margin-top: 3rem;
-  margin-left: auto;
-  margin-right: auto;
-  width: 768px;
-  padding-bottom: 5rem;
-  font-size: 1.4rem;
+	display: flex;
+	flex-direction: column;
+	margin: 3rem auto;
+	font-size: 1.3rem;
 }
 
 /* 이미지, 닉네임, 상태메세지 부분 */
-.profile {
-  display: flex;
+.profile, .mgn_content {
+	display: grid;
+	grid-template-columns: 1fr 4fr;
+	margin-top: 2rem;
 }
 
 /* 이미지 변경 부분 */
 .img_area {
-  padding-right: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+	padding-right: 1.5rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 /* 프로필 이미지 */
 .img_area img {
-  object-fit: cover;
-  width: 8rem;
-  height: 8rem;
-  border-radius: 50%;
-  display: block;
-  margin-bottom: 1.25rem;
-  background-color: gray;
+	width: 8rem;
+	height: 8rem;
+	border-radius: 50%;
+	margin-bottom: 1.25rem;
+	background-color: gray;
+	object-fit: fill;
 }
-/* 이미지 업로드 버튼 */
+/* 이미지 업로드 버튼, 삭제 버튼 */
+.btns {
+	cursor: pointer;
+	border: none;
+	color: white;
+	border-radius: 4px;
+	padding: .5rem 1.25rem;
+	font-size: 1.3rem;
+}
 .upload_img_btn {
-  width: 11rem;
-  display: inline-flex;
-  -webkit-box-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  justify-content: center;
-  font-weight: bold;
-  cursor: pointer;
-  outline: none;
-  border: none;
-  background: #333;
-  color: white;
-  border-radius: 4px;
-  padding: .5rem 1.25rem;
+	width: 11rem;
+	background: #333;
 }
-/* 이미지 삭제 버튼 */
 .delete_img_btn {
-  width: 11rem;
-  display: inline-flex;
-  -webkit-box-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  justify-content: center;
-  font-weight: bold;
-  cursor: pointer;
-  outline: none;
-  border: none;
-  background: #a8a8a8;
-  color: white;
-  border-radius: 4px;
-  padding: .5rem 1.25rem;
+	width: 11rem;
+	background: #a8a8a8;
 }
+
 /* 프로필 이미지 영역 버튼들 */
-.img_area button + button {
-  margin-top: 0.5rem;
+.img_area button+button {
+	margin-top: 0.5rem;
 }
 /* 닉네임, 상태메세지 영역 */
 .text_area {
-  flex: 1 1 0%;
-  padding-left: 1.5rem;
-  border-left: 1px solid rgb(233, 236, 239);
+	flex: 1 1 0%;
+	padding: 1.5rem;
+	border-left: 1px solid rgb(233, 236, 239);
 }
 /* 닉네임 */
 .text_area h2 {
-  font-size: 2.5rem;
-  margin: 0px;
-  line-height: 3rem;
-  color: rgb(52, 58, 64);
-  font-weight: bold;
+	font-size: 2.5rem;
+	line-height: 3rem;
+	color: rgb(52, 58, 64);
+	font-weight: bold;
 }
 /* 상태메세지 */
 .text_area p {
-  margin-top: .7rem;
-  margin-bottom: .7rem;
-  line-height: 1.5rem;
-  color: rgb(134, 142, 150);
+	margin: 1.5rem 0;
+	line-height: 1.5rem;
+	color: rgb(134, 142, 150);
 }
+
 #profile_form .row {
-  padding-bottom: 1rem;
+	padding-bottom: 1rem;
+}
+
+.form-control {
+	font-size: 1.3rem;
 }
 
 .save_btn {
-  display: inline-flex;
-  -webkit-box-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  justify-content: center;
-  font-weight: bold;
-  cursor: pointer;
-  outline: none;
-  border: none;
-  background: #333;
-  color: white;
-  border-radius: 4px;
-  padding: 0px 1.25rem;
-  height: 2rem;
+	cursor: pointer;
+	border: none;
+	background: #333;
+	color: white;
+	border-radius: 4px;
+	padding: .6rem 1.25rem;
 }
+
 /* navi + 관리 내용 영역 */
-.mgn_content {
-  display: flex;
-  margin-top: 4rem;
-  height: 600px;
-}
-.mgn_content h3 {
-  display: block;
-  font-size: 1.3em;
-  margin-block-start: 1em;
-  margin-block-end: 1em;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
-  font-weight: bold;
+.mgn_content .menu {
+	display: block;
+	font-size: 1.9rem;
+	margin: 1.3rem 0;
+	font-weight: bold;
 }
 /* 마이페이지 메뉴 영역 */
 .navi {
-  display: flex;
-  flex-direction: column;
-  flex: 0.6;
-  padding-right: 0.5rem;
+	display: flex;
+	flex-direction: column;
+	flex: 0.6;
+	padding-right: 0.5rem;
 }
 
 /* 마이페이지 메뉴 각각 */
 .menu {
-  font-size: 1.2rem;
-  text-align: center;
+	font-size: 1.2rem;
+	text-align: center;
 }
 
 /* 관리 내용 영역 */
 .mng_form {
-  flex: 2;
-  padding-left: 2rem;
-  border-left: 1px solid rgb(233, 236, 239);
+	flex: 2;
+	padding-left: 2rem;
+	border-left: 1px solid rgb(233, 236, 239);
 }
 
 /* 관리 영역의 각각 정보들 */
 .info {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+}
+
+.info h3 {
+	display: block;
+	font-size: 1.6rem;
+	margin: 1.3rem 0;
+	font-weight: bold;
 }
 /* 멤버 데이터 + 수정버튼 영역 */
 .block, .block form {
-  flex: 1 1 0%;
-  display: flex;
-  -webkit-box-align: center;
-  align-items: center;
-  justify-content: space-between;
+	flex: 1 1 0%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 }
 
 form .mb-3 {
-  margin-bottom: 0!important;
+	margin-bottom: 0 !important;
 }
+
 .social_label {
-  width: 2rem;
+	width: 2rem;
 }
+
 .social {
-  display: flex;
-  align-items: center;
+	display: flex;
+	align-items: center;
 }
-.input {
-  width: 20rem;
-}
+
 /* 멤버 개인 데이터 */
 .contents {
-  flex: 1 1 0%;
-  color: rgb(73, 80, 87);
-  line-height: 1.5;
+	flex: 1 1 0%;
+	color: rgb(73, 80, 87);
+	font-size: 1.3rem;
 }
 /* 수정 폼 */
 .edit_form {
-  display: flex;
+	display: flex;
 }
 /* 수정 버튼 영역 */
 .edit {
-  display: flex;
-  -webkit-box-align: center;
-  align-items: center;
-  margin-left: 1rem;
+	display: flex;
+	align-items: center;
+	margin-left: 1rem;
 }
 /* 수정 버튼 */
 .edit_btn {
-  outline: none;
-  padding: 0px;
-  border: none;
-  display: inline;
-  line-height: 1.5;
-  color: #333;
-  text-decoration: underline;
-  background: none;
-  cursor: pointer;
+	outline: none;
+	padding: 0px;
+	border: none;
+	display: inline;
+	line-height: 1.5;
+	color: #333;
+	text-decoration: underline;
+	background: none;
+	cursor: pointer;
 }
 /* 탈퇴 버튼 */
 .delete_mem_btn {
-  display: inline-flex;
-  -webkit-box-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  justify-content: center;
-  font-weight: bold;
-  cursor: pointer;
-  outline: none;
-  border: none;
-  background: rgb(255, 107, 107);
-  color: white;
-  border-radius: 4px;
-  padding: 0px 1.25rem;
-  height: 2rem;
+	border: none;
+	background: rgb(255, 107, 107);
+	color: white;
+	border-radius: 4px;
 }
 /* 토글버튼 */
 #email_toggle {
-  position: absolute;
-  left: -1000%;
+	position: absolute;
+	left: -1000%;
 }
 /* 토글 버튼의 라벨 */
 .toggle {
-  display: block;
-  position: relative;
-  width: 55px;
-  height: 30px;
-  background: #d3d3d3;
-  border-radius: 30px;
-  transition: background 0.4s;
-}
-.toggle:after {
-  content: "";
-  position: absolute;
-  left: 5px;
-  top: 50%;
-  width: 20px;
-  height: 20px;
-  border-radius: 100%;
-  background: #fff;
-  transform: translateY(-50%);
-  box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.1);
-  transition: all 0.4s;
-}
-input:checked + .toggle {
-  background: #4fbe79;
-}
-input:checked + .toggle:after {
-  left: calc(100% - 25px);
-}
-.toggle span {
-  display: none;
+	display: block;
+	position: relative;
+	width: 5rem;
+	height: 2.6rem;
+	background: #d3d3d3;
+	border-radius: 30px;
+	transition: background 0.4s;
 }
 
+.toggle:after {
+	content: "";
+	position: absolute;
+	left: 5px;
+	top: 50%;
+	width: 20px;
+	height: 20px;
+	border-radius: 100%;
+	background: #fff;
+	transform: translateY(-50%);
+	box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.1);
+	transition: all 0.4s;
+}
+
+input:checked+.toggle {
+	background: #4fbe79;
+}
+
+input:checked+.toggle:after {
+	left: calc(100% - 25px);
+}
+
+.toggle span {
+	display: none;
+}
+
+
+
+/* 비밀번호 변경 */
+.pw_title {
+	font-size: 1.6rem;
+	font-weight: 600;
+	margin-top: 1.5rem;
+}
+
+.social {
+	margin-top: 1rem;
+}
 /* 비밀번호 체크 버튼 */
+.chk_pass_btn, .chk_pass_btn2{
+	background-color: #333;
+ 	cursor: pointer;
+	border: none;
+	border-radius: 4px;
+ 	align-items: center;
+}
 .chk_pass_btn {
-  display: inline-flex;
-  -webkit-box-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  justify-content: center;
-  font-weight: bold;
-  cursor: pointer;
-  outline: none;
-  border: none;
-  border-radius: 4px;
-  padding: 0.8rem 1.25rem;
-  height: 2.3rem;
-  margin-left: 1rem;
+ 	margin-left: 1rem;
+}
+.chk_pass_btn2{
+	margin-top: 1.5rem;
 }
 
 /* 조회수 테이블 */

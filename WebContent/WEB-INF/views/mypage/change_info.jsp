@@ -21,6 +21,7 @@
               </form>
             </div>
           </div>
+          
           <div class="info social_data">
             <h3>소셜 정보</h3>
             <div class="block">
@@ -95,6 +96,7 @@
               </div>
             </div>
           </div>
+          
           <div class="info delete">
             <h3>회원 탈퇴</h3>
             <div class="block">
