@@ -112,7 +112,7 @@ function moreLike(next_page){
 					output+='</div>'
 					
 					output+='<div class="post_info">';
-					output+='<span class="post_writer">by. '+list.nickname+' ・'+list.input_date+'</span>';
+					output+='<span class="post_writer">by. <a href="/'+list.id+'/blog.do">'+list.nickname+'</a> ・'+list.input_date+'</span>';
 					output+='<span class="post_like">';
 					output+='<span id="heart'+list.post_num+'"><i class="like_heart fas fa-heart" onclick="clkHeart(\'remove\','+list.post_num+')"></i></span>';
 					output+='<span id="postLikeCnt'+list.post_num+'">'+list.like_cnt+'</span>';
@@ -196,7 +196,7 @@ function clkHeart(flag, post_num){
                 <div class="post_title" onclick="javascript:location.href='/${ like.id }/blog/post.do?post=${ like.post_num }'"><c:out value="${ like.post_title }"/></div>
                 <div id="post_content${ like.post_num }" class="post_content">${ like.post_content }</div>
                 <div class="post_info">
-                    <span class="post_writer">by. <c:out value="${ like.nickname }"/> ・<c:out value="${ like.input_date }"/></span>
+                    <span class="post_writer">by. <a href="/${ like.id }/blog.do"><c:out value="${ like.nickname }"/></a> ・<c:out value="${ like.input_date }"/></span>
                     <span class="post_like">
                         <span id="heart${ like.post_num }"><i class="like_heart fas fa-heart" onclick="clkHeart('remove',${ like.post_num })"></i></span>
                         <span id="postLikeCnt${ like.post_num }"><c:out value="${ like.like_cnt }"/></span>

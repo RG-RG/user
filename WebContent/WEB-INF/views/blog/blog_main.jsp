@@ -25,8 +25,60 @@
 	
 <script type="text/javascript">
 	$(function(){
-		
+		/* 처음 로드 될때 본문 마크다운 자르는 부분 */
+		<c:forEach var="tmp" items="${ post_list }">
+			var temp=parseMd($("#post_content${tmp.post_num}").text())
+			$("#post_content${tmp.post_num}").text(temp)
+		</c:forEach>
+		    
 	});//ready
+
+	/* 마크다운 제거 함수 */
+	function parseMd(md){
+		  //ul
+		  md = md.replace(/^\s*\n\*/gm, '');
+		  md = md.replace(/^(\*.+)\s*\n([^\*])/gm, '');
+		  md = md.replace(/^\*(.+)/gm, '');
+		  //ol
+		  md = md.replace(/^\s*\n\d\./gm, '');
+		  md = md.replace(/^(\d\..+)\s*\n([^\d\.])/gm, '');
+		  md = md.replace(/^\d\.(.+)/gm, '');
+		  //blockquote
+		  md = md.replace(/^\>(.+)/gm, '');
+		  //h
+		  md = md.replace(/[\#]{6}(.+)/g, '');
+		  md = md.replace(/[\#]{5}(.+)/g, '');
+		  md = md.replace(/[\#]{4}(.+)/g, '');
+		  md = md.replace(/[\#]{3}(.+)/g, '');
+		  md = md.replace(/[\#]{2}(.+)/g, '');
+		  md = md.replace(/[\#]{1}(.+)/g, '');
+		  //alt h
+		  md = md.replace(/^(.+)\n\=+/gm, '');
+		  md = md.replace(/^(.+)\n\-+/gm, '');
+		  //images
+		  md = md.replace(/\!\[([^\]]+)\]\(([^\)]+)\)/g, '');
+		  //links
+		  md = md.replace(/[\[]{1}([^\]]+)[\]]{1}[\(]{1}([^\)\"]+)(\"(.+)\")?[\)]{1}/g, '');
+		  //font styles
+		  md = md.replace(/[\*\_]{2}([^\*\_]+)[\*\_]{2}/g, '');
+		  md = md.replace(/[\*\_]{1}([^\*\_]+)[\*\_]{1}/g, '');
+		  md = md.replace(/[\~]{2}([^\~]+)[\~]{2}/g, '');
+		  //pre
+		  md = md.replace(/^\s*\n\`\`\`(([^\s]+))?/gm, '');
+		  md = md.replace(/^\`\`\`\s*\n/gm, '');
+		  //code
+		  md = md.replace(/[\`]{1}([^\`]+)[\`]{1}/g, '');
+		  //p
+		  md = md.replace(/^\s*(\n)?(.+)/gm, function(m){
+		    return  /\<(\/)?(h\d|ul|ol|li|blockquote|pre|img)/.test(m) ? m : ''+m+'';
+		  });
+		  //strip p from pre
+		  md = md.replace(/(\<pre.+\>)\s*\n\<p\>(.+)\<\/p\>/gm, '');
+		  if(md.length>30){
+			  md=md.substring(0,30).concat('...')
+		  }//end if
+		  return md;
+	}//parseMd
 
 	if(${ empty blog_profile}){
 		alert("조회 중 문제가 발생하였습니다. 다시 시도해주세요.")
@@ -54,16 +106,12 @@
 		      	if(jsonObj.flag=="success"){
 					var output='';
 					$.each(jsonObj.post_list, function(idx, list){
-		                var cur_content = list.post_content;
-		                if( list.post_content.length > 50 ) {
-		                   cur_content = cur_content.substring(0,50).concat('···');
-		                } 
 						output+='<div class="post">';
 						output+='<div class="post_img" style="background-image: url('+ list.thumbnail +')"></div>';
 						output+='<div class="post_title"  onclick="javascript:location.href =\'/${ blog_profile.id }/blog/post.do?post='+list.post_num+'\'">';
 						output+=list.post_title;
 						output+='</div>';
-						output+='<div class="post_content">'+ cur_content +'</div>';
+						output+='<div class="post_content">'+ parseMd(list.post_content) +'</div>';
 						output+='<div class="post_tags">';
 						$.each(list.tag_list, function(idx2, list2){
 							output+='#'+list2.tag_name;
@@ -185,12 +233,7 @@
 	                    <div class="post_title"  onclick="javascript:location.href ='/${ blog_profile.id }/blog/post.do?post=${ post.post_num }'">
 	                    <c:out value="${ post.post_title }"/>
 	                    </div>
-	                    
-	                     <div class="post_content">
-	                          <c:if test="${ fn:length(post.post_content) <= 50 }">${ post.post_content }</c:if>
-	                     <c:if test="${ fn:length(post.post_content) > 50 }">${ post.post_content.substring(0,50).concat('···') }</c:if>
-	                    </div>
-	                    
+	                    <div id="post_content${post.post_num}" class="post_content">${ post.post_content }</div>
 	                    <div class="post_tags">
 	                    <c:forEach var="post_tag" items="${ post.tag_name }">
 	                    #<c:out value="${ post_tag }"/>
