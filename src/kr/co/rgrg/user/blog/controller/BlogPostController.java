@@ -66,41 +66,7 @@ public class BlogPostController {
 		
 		return "blog/blog_post";
 	}//viewPostDetail
-	
-	@RequestMapping(value="/like/add.do", method=RequestMethod.POST)
-	@ResponseBody
-	public String addLikePost(HttpSession session, String post) {
-		String json=null;
-		
-		String login_id=(String)session.getAttribute("id");
-		try {
-			int post_num=Integer.parseInt(post);
-			LikePostVO lpVO=new LikePostVO();
-			lpVO.setId(login_id);
-			lpVO.setPost_num(post_num);
-			json=new BlogPostService().addLikePost(lpVO);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}//end catch
-		return json;
-	}//addLikePost
-	
-	@RequestMapping(value="/like/remove.do", method=RequestMethod.POST)
-	@ResponseBody
-	public String removeLikePost(HttpSession session, String post) {
-		String json=null;
-		String login_id=(String)session.getAttribute("id");
-		try {
-			int post_num=Integer.parseInt(post);
-			LikePostVO lpVO=new LikePostVO();
-			lpVO.setId(login_id);
-			lpVO.setPost_num(post_num);
-			json=new BlogPostService().removeLikePost(lpVO);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}//end catch
-		return json;
-	}//removeLikePost
+
 	
 	@RequestMapping(value="/{url_id}/blog/post/remove.do", method=RequestMethod.POST)
 	@ResponseBody
@@ -122,7 +88,6 @@ public class BlogPostController {
 	}//removePost
 	
 	//¥Ò±€
-	
 	//¥Ò±€ ¿€º∫
 	@RequestMapping(value="/comm/add.do", method=RequestMethod.POST, produces="application/json;charset=UTF-8")
 	@ResponseBody

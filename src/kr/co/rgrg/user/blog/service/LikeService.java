@@ -7,6 +7,7 @@ import org.json.simple.JSONObject;
 
 import kr.co.rgrg.user.blog.dao.LikeDAO;
 import kr.co.rgrg.user.blog.domain.LikeDomain;
+import kr.co.rgrg.user.blog.vo.LikePostVO;
 import kr.co.rgrg.user.pagination.PaginationService;
 import kr.co.rgrg.user.pagination.RangeVO;
 import kr.co.rgrg.user.pagination.TotalCntVO;
@@ -55,5 +56,31 @@ public class LikeService {
 		
 		return json.toJSONString();
 	}//getMoreLikeList
+	
+	public String addLikePost(LikePostVO lpVO) {
+		JSONObject json=new JSONObject();
+		json.put("flag", "fail");
+
+		int cnt=LikeDAO.getInstance().insertLikePost(lpVO);
+		if(cnt==1) {
+			json.put("flag", "success");
+			json.put("like", "add");
+		}//end if
+		
+		return json.toJSONString();
+	}//addLikePost
+	
+	public String removeLikePost(LikePostVO lpVO) {
+		JSONObject json=new JSONObject();
+		json.put("flag", "fail");
+		
+		int cnt=LikeDAO.getInstance().deleteLikePost(lpVO);
+		if(cnt==1) {
+			json.put("flag", "success");
+			json.put("like", "remove");
+		}//end if
+		
+		return json.toJSONString();
+	}//removeLikePost
 	
 }//class

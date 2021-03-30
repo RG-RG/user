@@ -19,4 +19,15 @@
 			and like_post.id=#{ column_value })
 		where rnum between #{ start_num } and #{ end_num }
 	</select>
+	
+	<insert id="insertLikePost" parameterType="kr.co.rgrg.user.blog.vo.LikePostVO">
+		insert into like_post(id, post_num)
+		values(#{id}, #{post_num})
+	</insert>
+	
+	<delete id="deleteLikePost" parameterType="kr.co.rgrg.user.blog.vo.LikePostVO">
+		delete like_post
+		where id=#{id} and post_num=#{post_num}
+	</delete>
+	
 </mapper>

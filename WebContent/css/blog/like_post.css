@@ -38,7 +38,7 @@ body {
     background-position: center;
     background-size: cover;
     margin: 0 auto;
-    background-color: #add8e6
+    background-image: url(../../images/post-default2.png)
 }
 
 .main_content .post:hover>.post_img {
@@ -74,4 +74,8 @@ body {
     background-color: #000;
     border-radius: 2.5rem;
     color: #fff
+}
+
+.like_heart, .like_heart path {
+	color: #f55a7d;
 }

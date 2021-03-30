@@ -8,13 +8,13 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.rgrg.user.blog.domain.LikeDomain;
 import kr.co.rgrg.user.blog.service.LikeService;
+import kr.co.rgrg.user.blog.vo.LikePostVO;
 import kr.co.rgrg.user.pagination.PaginationService;
 import kr.co.rgrg.user.pagination.RangeVO;
 import kr.co.rgrg.user.pagination.TotalCntVO;
@@ -69,5 +69,40 @@ public class LikeController {
 		
 		//return json;
 	}//getMoreLikeList
+	
+	@RequestMapping(value="/like/add.do", method=RequestMethod.POST)
+	@ResponseBody
+	public String addLikePost(HttpSession session, String post) {
+		String json=null;
+		
+		String login_id=(String)session.getAttribute("id");
+		try {
+			int post_num=Integer.parseInt(post);
+			LikePostVO lpVO=new LikePostVO();
+			lpVO.setId(login_id);
+			lpVO.setPost_num(post_num);
+			json=new LikeService().addLikePost(lpVO);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}//end catch
+		return json;
+	}//addLikePost
+	
+	@RequestMapping(value="/like/remove.do", method=RequestMethod.POST)
+	@ResponseBody
+	public String removeLikePost(HttpSession session, String post) {
+		String json=null;
+		String login_id=(String)session.getAttribute("id");
+		try {
+			int post_num=Integer.parseInt(post);
+			LikePostVO lpVO=new LikePostVO();
+			lpVO.setId(login_id);
+			lpVO.setPost_num(post_num);
+			json=new LikeService().removeLikePost(lpVO);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}//end catch
+		return json;
+	}//removeLikePost
 	
 }//class

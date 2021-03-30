@@ -230,8 +230,13 @@ $(function(){
 		}//end else
 	});//click
 	
-
-	
+	//본문 내용
+	var content=$("#content_hid").val()
+	const viewer = new toastui.Editor({
+		el: document.querySelector('#viewer'),
+		initialValue: content,
+		viewer: true
+	});
 });//ready
 
 function changeCommCnt(cnt){
@@ -371,14 +376,6 @@ function commModifyBtn(comm_num){
 				<div id="viewer"></div>
 				<input type="hidden" id="content_hid"
 					value="${ post_detail.post_content }" />
-				<script type="text/javascript">
-		         	 var content=$("#content_hid").val()
-			       	 const viewer = new toastui.Editor({
-			       	    el: document.querySelector('#viewer'),
-			       	    initialValue: content,
-			       	    viewer: true
-			       	  });
-	            </script>
 			</div>
 
 			<!-- 태그 -->

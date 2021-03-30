@@ -56,32 +56,6 @@ public class BlogPostService {
 		return flag;
 	}//getLikeFlag
 	
-	public String addLikePost(LikePostVO lpVO) {
-		JSONObject json=new JSONObject();
-		json.put("flag", "fail");
-
-		int cnt=BlogPostDAO.getInstance().insertLikePost(lpVO);
-		if(cnt==1) {
-			json.put("flag", "success");
-			json.put("like", "add");
-		}//end if
-		
-		return json.toJSONString();
-	}//addLikePost
-	
-	public String removeLikePost(LikePostVO lpVO) {
-		JSONObject json=new JSONObject();
-		json.put("flag", "fail");
-		
-		int cnt=BlogPostDAO.getInstance().deleteLikePost(lpVO);
-		if(cnt==1) {
-			json.put("flag", "success");
-			json.put("like", "remove");
-		}//end if
-		
-		return json.toJSONString();
-	}//removeLikePost
-	
 	public String removePost(PostDeleteVO pdVO) {
 		JSONObject json=new JSONObject();
 		json.put("flag", "fail");
