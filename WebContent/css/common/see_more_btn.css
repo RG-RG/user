@@ -11,9 +11,12 @@
     background-color: black;
     color: white;
     border-radius: 2rem;
+    transition: .2s;
 }
 
 .more_btn:hover {
 	cursor: pointer;
-	text-decoration: underline;
+	background-color: #5583AC;
+	border: 0;
+	transition: .2s;
 }

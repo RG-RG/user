@@ -48,12 +48,20 @@
 		and tag_name=#{column_value} and post.id=#{id}
 	</select>
 	
-	
 	<select id="selectMainTotalCnt" parameterType="kr.co.rgrg.user.pagination.RangeVO" resultType="int">
 		select count(*) 
 		from post 
 		where delete_flag='F' and hidden_flag='F' and publish_flag='T' 
 		<if test="column_value!=null and !column_value.equals('')">and (post_title like '%${ column_value }%' or post_content like '%${ column_value }%')</if>
+	</select>
+	
+	<select id="selectLikeCnt" parameterType="kr.co.rgrg.user.pagination.TotalCntVO" resultType="int">
+	select count(*)
+	from like_post, post
+	where like_post.post_num=post.post_num
+		and post.delete_flag='F'
+		and post.hidden_flag='F'
+		and like_post.id=#{column_value}
 	</select>
 	
 </mapper>

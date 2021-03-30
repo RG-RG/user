@@ -57,6 +57,14 @@ public class PaginationService {
 		return cnt;
 	}//getTotalFollowCnt
 	
+	public int getTotalLikeCnt(TotalCntVO tcVO) {
+		int cnt=0;
+		
+		cnt=PaginationDAO.getInstance().selectTotalLikeCnt(tcVO);
+		
+		return cnt;
+	}//getTotalLikeCnt
+	
 	/**
 	 * 한 페이지에서 보여줄 게시글의 수 (10개)
 	 * @return

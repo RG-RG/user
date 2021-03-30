@@ -20,18 +20,74 @@
 
 <!-- Google CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    
+
+<!-- toast ui -->
+<link rel="stylesheet"
+	href="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.min.css" />
+<script
+	src="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.js"></script>
 <script type="text/javascript">
 $(function(){
-	
+
+/* 처음 로드 될때 본문 마크다운 자르는 부분 */
+<c:forEach var="tmp" items="${ like_list }">
+	var temp=parseMd($("#post_content${tmp.post_num}").text())
+	$("#post_content${tmp.post_num}").text(temp)
+</c:forEach>
+	    
 });//ready
 
+/* 마크다운 제거 함수 */
+function parseMd(md){
+	  //ul
+	  md = md.replace(/^\s*\n\*/gm, '');
+	  md = md.replace(/^(\*.+)\s*\n([^\*])/gm, '');
+	  md = md.replace(/^\*(.+)/gm, '');
+	  //ol
+	  md = md.replace(/^\s*\n\d\./gm, '');
+	  md = md.replace(/^(\d\..+)\s*\n([^\d\.])/gm, '');
+	  md = md.replace(/^\d\.(.+)/gm, '');
+	  //blockquote
+	  md = md.replace(/^\>(.+)/gm, '');
+	  //h
+	  md = md.replace(/[\#]{6}(.+)/g, '');
+	  md = md.replace(/[\#]{5}(.+)/g, '');
+	  md = md.replace(/[\#]{4}(.+)/g, '');
+	  md = md.replace(/[\#]{3}(.+)/g, '');
+	  md = md.replace(/[\#]{2}(.+)/g, '');
+	  md = md.replace(/[\#]{1}(.+)/g, '');
+	  //alt h
+	  md = md.replace(/^(.+)\n\=+/gm, '');
+	  md = md.replace(/^(.+)\n\-+/gm, '');
+	  //images
+	  md = md.replace(/\!\[([^\]]+)\]\(([^\)]+)\)/g, '');
+	  //links
+	  md = md.replace(/[\[]{1}([^\]]+)[\]]{1}[\(]{1}([^\)\"]+)(\"(.+)\")?[\)]{1}/g, '');
+	  //font styles
+	  md = md.replace(/[\*\_]{2}([^\*\_]+)[\*\_]{2}/g, '');
+	  md = md.replace(/[\*\_]{1}([^\*\_]+)[\*\_]{1}/g, '');
+	  md = md.replace(/[\~]{2}([^\~]+)[\~]{2}/g, '');
+	  //pre
+	  md = md.replace(/^\s*\n\`\`\`(([^\s]+))?/gm, '');
+	  md = md.replace(/^\`\`\`\s*\n/gm, '');
+	  //code
+	  md = md.replace(/[\`]{1}([^\`]+)[\`]{1}/g, '');
+	  //p
+	  md = md.replace(/^\s*(\n)?(.+)/gm, function(m){
+	    return  /\<(\/)?(h\d|ul|ol|li|blockquote|pre|img)/.test(m) ? m : ''+m+'';
+	  });
+	  //strip p from pre
+	  md = md.replace(/(\<pre.+\>)\s*\n\<p\>(.+)\<\/p\>/gm, '');
+	  if(md.length>30){
+		  md=md.substring(0,30).concat('...')
+	  }//end if
+	  return md;
+}//parseMd
+
 function moreLike(next_page){
-	alert(next_page)
 	$.ajax({
-		url:"list/"+next_page,
+		url:"/like/more.do?page="+next_page,
 		type:"POST",
 		dataType:"JSON",
 		error:function(xhr){
@@ -43,18 +99,23 @@ function moreLike(next_page){
 				var output='';
 				$.each(jsonObj.like_list, function(idx, list){
 					output+='<div class="post">';
-					output+='<div class="post_img">';
-					output+=list.thumbnail;
-					output+='</div>';
-					output+='<div class="post_title" onclick="javascript:location.href=\'/rgrg/'+list.id+'/blog/post/'+list.post_num+'\'">'+list.post_title+'</div>';
-					output+='<div class="post_content">'+list.post_content.substring(0,10).concat('...')+'</div>';
+					output+='<div class="post_img"';
+					if(jsonObj.thumbnail!=null){
+						output+=' style="background-image: url(${ userMain.thumbnail })"';
+					}//end if
+					output+='></div>';
+					output+='<div class="post_title" onclick="javascript:location.href=\'/'+list.id+'/blog/post.do?post='+list.post_num+'\'">'+list.post_title+'</div>';
+					
+					/* 글에서 마크다운 제거 */
+					output+='<div class="post_content">'
+					output+=parseMd(list.post_content)
+					output+='</div>'
+					
 					output+='<div class="post_info">';
-					output+='<span class="post_writer">by. '+list.nickname+' ・'+list.input_cate+'</span>';
+					output+='<span class="post_writer">by. <a href="/'+list.id+'/blog.do">'+list.nickname+'</a> ・'+list.input_date+'</span>';
 					output+='<span class="post_like">';
-					output+='<span>';
-					output+='💗';
-					output+='</span>';
-					output+='<span>'+list.like_cnt+'</span>';
+					output+='<span id="heart'+list.post_num+'"><i class="like_heart fas fa-heart" onclick="clkHeart(\'remove\','+list.post_num+')"></i></span>';
+					output+='<span id="postLikeCnt'+list.post_num+'">'+list.like_cnt+'</span>';
 					output+='</span>';
 					output+='</div>';
 					output+='</div>';
@@ -64,7 +125,7 @@ function moreLike(next_page){
 				
 				var more='';
 				if(jsonObj.end_num<jsonObj.total_cnt){
-					more+='<div onclick="moreLike('+next_page+')" class="more_btn">더 보기</div>';
+					more+='<div onclick="moreLike('+(next_page+1)+')" class="more_btn">더 보기</div>';
 				}//end if
 				$("#main_btn").html(more);
 	      	}else{
@@ -73,6 +134,48 @@ function moreLike(next_page){
 		}//success
 	});//ajax
 }//moreLike
+
+function clkHeart(flag, post_num){
+	if(${ not empty sessionScope.id }){
+		if(flag=="remove"){
+			url="/like/remove.do?post="+post_num;
+		}else{
+			url="/like/add.do?post="+post_num;
+		}//end else
+		$.ajax({
+			url:url,
+			type:"POST",
+			dataType:"JSON",
+			error:function(xhr){
+				alert("에러");
+				console.log(xhr.status+" / "+xhr.statusText);
+			},
+			success:function(jsonObj){
+		      	if(jsonObj.flag=="success"){
+		      		//성공했을 때 디자인 변경 
+					var heart = '<i class="far fa-heart"></i>'
+					var heartCnt = 0
+						
+					if( jsonObj.like == "add" ) {
+						heart = '<i class="like_heart fas fa-heart" onclick="clkHeart(\'remove\','+post_num+')"></i>'
+							heartCnt = Number($("#postLikeCnt"+post_num).text()) + 1
+					}
+					if( jsonObj.like == "remove" ){
+						heart = '<i class="far fa-heart" onclick="clkHeart(\'add\','+post_num+')"></i>'
+						heartCnt = Number($("#postLikeCnt"+post_num).text()) - 1
+					}
+					
+					$("#heart"+post_num).html(heart)
+					$("#postLikeCnt"+post_num).text(heartCnt)
+		      	}else{
+		      		alert("문제가 발생하였습니다. 다시 시도해주세요.")
+		      	}//end else
+			}//success
+		});//ajax
+	}else{
+		alert("로그인 후 다시 시도해주세요.")
+	}//end else
+}//clkHeart
 
 </script>
 <body>
@@ -89,23 +192,19 @@ function moreLike(next_page){
             ajax append도 여기 하면 될 것 같아용 -->
 			<c:forEach var="like" items="${ like_list }">
             <div class="post">
-                <div class="post_img"> <!-- 이미지는 여기 넣거나, background image를 CSS로 줘서 해도 됩니당 편한대로..!--> </div>
-                <div class="post_title" onclick="javascript:location.href='/rgrg/${ like.id }/blog/post/${ like.post_num }'"><c:out value="${ like.post_title }"/></div>
-                <div class="post_content">
-            		<c:if test="${ fn:length(like.post_content) <= 20 }">${ like.post_content.concat('···') }</c:if>
-            		<c:if test="${ fn:length(like.post_content) > 20 }">${ like.post_content.substring(0,10).concat('···') }</c:if>
-                </div>
+	        	<div class="post_img"<c:if test="${ not empty like.thumbnail }"> style="background-image: url(${ userMain.thumbnail })"</c:if>></div>
+                <div class="post_title" onclick="javascript:location.href='/${ like.id }/blog/post.do?post=${ like.post_num }'"><c:out value="${ like.post_title }"/></div>
+                <div id="post_content${ like.post_num }" class="post_content">${ like.post_content }</div>
                 <div class="post_info">
-                    <span class="post_writer">by. <c:out value="${ like.nickname }"/> ・<c:out value="${ like.input_date }"/></span>
+                    <span class="post_writer">by. <a href="/${ like.id }/blog.do"><c:out value="${ like.nickname }"/></a> ・<c:out value="${ like.input_date }"/></span>
                     <span class="post_like">
-                        <span>💗</span>
-                        <span><c:out value="${ like.like_cnt }"/></span>
+                        <span id="heart${ like.post_num }"><i class="like_heart fas fa-heart" onclick="clkHeart('remove',${ like.post_num })"></i></span>
+                        <span id="postLikeCnt${ like.post_num }"><c:out value="${ like.like_cnt }"/></span>
                     </span>
                 </div>
             </div>
 			</c:forEach>
         </div> <!-- main content end -->
-
         <!-- 더보기 버튼 -->
         <div id="main_btn" class="main_btn">
         <c:if test="${ end_num lt total_cnt }">

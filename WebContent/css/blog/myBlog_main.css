@@ -1,236 +1,252 @@
-.blog_post .category ul li:hover,
-.blog_post .post_list .post .post_title:hover {
-    text-decoration: underline;
-    cursor: pointer
+
+.blog_post .category ul li:hover, .blog_post .post_list .post .post_title:hover
+	{
+	text-decoration: underline;
+	cursor: pointer;
 }
 
 .btn_set .btn_search:hover {
-    cursor: pointer
+	cursor: pointer;
 }
 
-body {
-    display: flex;
-    flex-direction: column;
-    font-size: 1.2rem
+.btn {
+	cursor: pointer
 }
 
 .section_main {
-    margin: 0 auto
+	margin: 0 auto
 }
 
 .my_profile {
-    display: -ms-grid;
-    display: grid;
-    -ms-grid-columns: (1fr)[4];
-    grid-template-columns: repeat(4, 1fr);
-    -ms-grid-rows: (1fr)[3];
-    grid-template-rows: repeat(3, 1fr);
-    padding: 0 5rem;
-    font-size: 1.2rem;
-    margin-top: 5rem
+	display: -ms-grid;
+	display: grid;
+	-ms-grid-columns: (1fr)[4];
+	grid-template-columns: repeat(4, 1fr);
+	-ms-grid-rows: (1fr)[3];
+	grid-template-rows: repeat(3, 1fr);
+	padding: 0 3rem;
+	margin-top: 5rem
 }
 
 .my_profile>:nth-child(1) {
-    -ms-grid-row: 1;
-    -ms-grid-column: 1
+	-ms-grid-row: 1;
+	-ms-grid-column: 1
 }
 
 .my_profile>:nth-child(2) {
-    -ms-grid-row: 1;
-    -ms-grid-column: 2
+	-ms-grid-row: 1;
+	-ms-grid-column: 2
 }
 
 .my_profile>:nth-child(3) {
-    -ms-grid-row: 1;
-    -ms-grid-column: 3
+	-ms-grid-row: 1;
+	-ms-grid-column: 3
 }
 
 .my_profile>:nth-child(4) {
-    -ms-grid-row: 1;
-    -ms-grid-column: 4
+	-ms-grid-row: 1;
+	-ms-grid-column: 4
 }
 
 .my_profile>:nth-child(5) {
-    -ms-grid-row: 2;
-    -ms-grid-column: 1
+	-ms-grid-row: 2;
+	-ms-grid-column: 1
 }
 
 .my_profile>:nth-child(6) {
-    -ms-grid-row: 2;
-    -ms-grid-column: 2
+	-ms-grid-row: 2;
+	-ms-grid-column: 2
 }
 
 .my_profile>:nth-child(7) {
-    -ms-grid-row: 2;
-    -ms-grid-column: 3
+	-ms-grid-row: 2;
+	-ms-grid-column: 3
 }
 
 .my_profile>:nth-child(8) {
-    -ms-grid-row: 2;
-    -ms-grid-column: 4
+	-ms-grid-row: 2;
+	-ms-grid-column: 4
 }
 
 .my_profile>:nth-child(9) {
-    -ms-grid-row: 3;
-    -ms-grid-column: 1
+	-ms-grid-row: 3;
+	-ms-grid-column: 1
 }
 
 .my_profile>:nth-child(10) {
-    -ms-grid-row: 3;
-    -ms-grid-column: 2
+	-ms-grid-row: 3;
+	-ms-grid-column: 2
 }
 
 .my_profile>:nth-child(11) {
-    -ms-grid-row: 3;
-    -ms-grid-column: 3
+	-ms-grid-row: 3;
+	-ms-grid-column: 3
 }
 
 .my_profile>:nth-child(12) {
-    -ms-grid-row: 3;
-    -ms-grid-column: 4
+	-ms-grid-row: 3;
+	-ms-grid-column: 4
 }
 
 .my_profile .profile_img {
-    grid-area: span 3/span 1;
-    margin: 0 auto
+	grid-area: span 3/span 1;
+	margin: 0 3rem;
 }
 
 .my_profile .profile_img img {
-    width: 10rem;
-    height: 10rem;
-    border-radius: 50%
+	width: 10rem;
+	height: 10rem;
+	border-radius: 50%;
+	object-fit: fill;
 }
 
-.my_profile .profile_comment,
-.my_profile .profile_follow,
-.my_profile .profile_nickname {
-    grid-area: span 1/span 3;
-    margin: auto 0
+.my_profile .profile_comment, .my_profile .profile_follow, .my_profile .profile_nickname
+	{
+	grid-area: span 1/span 3;
+	margin: auto 0
 }
 
-.my_profile .profile_comment a,
-.my_profile .profile_comment a:hover,
-.my_profile .profile_comment a:visited,
-.my_profile .profile_follow a,
-.my_profile .profile_follow a:hover,
-.my_profile .profile_follow a:visited,
-.my_profile .profile_nickname a,
-.my_profile .profile_nickname a:hover,
-.my_profile .profile_nickname a:visited {
-    color: #000
+.my_profile .profile_comment a, .my_profile .profile_comment a:hover,
+	.my_profile .profile_comment a:visited, .my_profile a, .my_profile  a:hover,
+	.my_profile a:visited, .my_profile .profile_nickname a, .my_profile .profile_nickname a:hover,
+	.my_profile .profile_nickname a:visited {
+	color: #000
 }
 
-.my_profile .profile_comment a:hover,
-.my_profile .profile_follow a:hover,
-.my_profile .profile_nickname a:hover {
-    text-decoration: underline;
-    cursor: pointer
+.my_profile .profile_comment a:hover, .my_profile .profile_follow a:hover,
+	.my_profile .profile_nickname a:hover {
+	text-decoration: underline;
+	cursor: pointer
 }
 
 .my_profile .profile_nickname {
-    font-size: 2rem;
-    font-weight: 600
+	font-size: 2rem;
+	font-weight: 600
 }
 
 .my_profile .profile_comment {
-    line-height: 2rem
+	line-height: 2rem
 }
 
 .my_profile .profile_follow {
-    display: flex;
-    justify-content: space-between
+	display: flex;
+	justify-content: space-between
 }
 
 .my_profile .profile_follow .f_num {
-    font-weight: 600;
-    margin-right: 2rem;
-    margin-left: .5rem
+	font-weight: 600;
+	margin-right: 2rem;
+	margin-left: .5rem
 }
 
-.my_profile .profile_follow svg {
-    font-size: 1.5rem;
-    margin-left: 1rem
+.my_profile svg {
+	font-size: 1.5rem;
+	margin-right: 1rem;
+	transition: .2s;
+}
+
+.my_profile svg:hover {
+	color: #5583AC;
+	transition: .2s;
 }
 
 .btn_set {
-    padding: 2rem 5rem 0;
-    text-align: right
+	padding: 2rem 3rem 0;
+	text-align: right
 }
 
 .btn_set div {
-    margin: 2rem 0
+	margin: 2rem 0
 }
 
 .btn_set .input_search {
-    border: 0;
-    border-bottom: 1px solid #000;
-    padding: .5rem
+	border: 0;
+	border-bottom: 1px solid #000;
+	padding: .5rem
+}
+
+.btn_set .input_search:focus {
+	outline: 0;
+	transition: .2s;
 }
 
 .btn_set .btn_search {
-    border: 0;
-    background-color: #000;
-    color: #fff;
-    padding: .5rem 1rem;
-    border-radius: .5rem
+	border: 0;
+	background-color: #000;
+	color: #fff;
+	padding: .5rem 1rem;
+	border-radius: .5rem;
+}
+
+.btn_set .btn_search:hover {
+	background-color: #5583AC;
+	border: 0;
+	transition: .2s;
 }
 
 .blog_post {
-    display: flex
+	display: flex
 }
 
 .blog_post .category {
-    width: 20%;
-    padding: .5rem
+	width: 20%;
+	padding: .5rem
 }
 
 .blog_post .category span {
-    display: flex;
-    font-weight: 600;
-    font-size: 1.5rem;
-    padding: .5rem 0;
-    border-bottom: 1px solid #000
+	display: flex;
+	font-weight: 600;
+	font-size: 1.5rem;
+	padding: .5rem 0;
+	border-bottom: 1px solid #000
 }
 
 .blog_post .category ul {
-    margin-top: 1rem
+	margin-top: 1rem
 }
 
 .blog_post .category ul li {
-    padding: .7rem 0
+	padding: .7rem 0
 }
 
 .blog_post .post_list {
-    width: 80%;
-    padding: 0 4%
+	width: 80%;
+	padding: 0 4%
 }
 
 .blog_post .post_list .post {
-    margin-bottom: 3.5rem
+	margin-bottom: 3.5rem
 }
 
 .blog_post .post_list .post:hover>.post_img {
-    opacity: .3
+	opacity: .7;
+	transition: .2s;
 }
 
 .blog_post .post_list .post div {
-    margin-bottom: 1rem
+	margin-bottom: 1rem
 }
 
 .blog_post .post_list .post .post_img {
-    overflow: hidden;
-    height: 12rem
-}
-
-.blog_post .post_list .post .post_img img {
-    width: 100%
+	overflow: hidden;
+	height: 12rem;
+	transition: .2s;
+	background-position: center;
+	background-size: cover;
 }
 
 .blog_post .post_list .post .post_title {
-    font-size: 1.6rem;
-    font-weight: 600
+	font-size: 1.6rem;
+	font-weight: 600
 }
 
 .blog_post .post_list .post .post_info span {
-    margin-right: 1rem
+	margin-right: 1rem
+}
+
+.no_post {
+	grid-area: span 1/span 3;
+	padding: 5vh 0 30vh;
+	text-align: center;
+	font-size: 1.3rem
 }

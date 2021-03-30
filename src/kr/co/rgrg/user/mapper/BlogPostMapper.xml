@@ -54,16 +54,6 @@
 		where id=#{id} and post_num=#{post_num}
 	</select>
 	
-	<insert id="insertLikePost" parameterType="kr.co.rgrg.user.blog.vo.LikePostVO">
-		insert into like_post(id, post_num)
-		values(#{id}, #{post_num})
-	</insert>
-	
-	<delete id="deleteLikePost" parameterType="kr.co.rgrg.user.blog.vo.LikePostVO">
-		delete like_post
-		where id=#{id} and post_num=#{post_num}
-	</delete>
-	
 	<update id="updatePostDeletFlag" parameterType="kr.co.rgrg.user.blog.vo.PostDeleteVO">
 		update post
 		set	delete_flag='T', thumbnail = '', post_title='', post_content = '', publish_flag='', hidden_flag=''

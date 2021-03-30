@@ -79,26 +79,6 @@ public class BlogPostDAO {
 		return id;
 	}//selectLikePostFlag
 	
-	public int insertLikePost(LikePostVO lpVO) {
-		
-		SqlSession ss=GetRgrgHandler.getInstance().getSqlSession();
-		int cnt=ss.insert("kr.co.rgrg.user.blogpost.insertLikePost",lpVO);
-		ss.commit();
-		ss.close();
-		
-		return cnt;
-	}//insertLikePost
-	
-	public int deleteLikePost(LikePostVO lpVO) {
-		
-		SqlSession ss=GetRgrgHandler.getInstance().getSqlSession();
-		int cnt=ss.delete("kr.co.rgrg.user.blogpost.deleteLikePost",lpVO);
-		ss.commit();
-		ss.close();
-		
-		return cnt;
-	}//deleteLikePost
-	
 	public int updatePostDeleteFlag(PostDeleteVO pdVO) {
 		
 		SqlSession ss=GetRgrgHandler.getInstance().getSqlSession();

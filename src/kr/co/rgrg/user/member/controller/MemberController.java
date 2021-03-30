@@ -14,7 +14,6 @@ import java.util.Random;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,22 +23,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.social.connect.Connection;
-import org.springframework.social.google.api.Google;
-import org.springframework.social.google.api.impl.GoogleTemplate;
-import org.springframework.social.google.api.plus.Person;
-import org.springframework.social.google.api.plus.PlusOperations;
-import org.springframework.social.google.connect.GoogleConnectionFactory;
-import org.springframework.social.oauth2.AccessGrant;
-import org.springframework.social.oauth2.GrantType;
-import org.springframework.social.oauth2.OAuth2Operations;
-import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
@@ -225,11 +213,10 @@ public class MemberController {
 	public String getKakaoLoginInfo(HttpServletRequest request, HttpServletResponse response, String code, Model model) {
 		String accessToken = getKakaoToken(request, code);
 		JSONObject json = getKakaoInfo(accessToken);
-		System.out.println(json);
-		LinkedHashMap<String, Object> kakaoAccount =  (LinkedHashMap<String, Object>) json.get("kakao_account");
-		String id = (String) kakaoAccount.get("email");
 		
-		if( id != null && !id.equals("") ) { //회원가입이 안 되어 있는 경우
+		String id = Integer.toString((Integer) json.get("id"));
+		if(dupId(id).contains("false")) { //회원가입이 안 되어 있는 경우
+			LinkedHashMap<String, Object> kakaoAccount =  (LinkedHashMap<String, Object>) json.get("kakao_account");
 			LinkedHashMap<String, Object> kakaoProfile =  (LinkedHashMap<String, Object>) kakaoAccount.get("profile");
 			
 			SocialJoinVO sjVO = new SocialJoinVO();
@@ -255,7 +242,7 @@ public class MemberController {
 	
 	/**
 	 * 구글 로그인을 하는 일
-	 * @param code
+	 * @param idtoken
 	 * @param model
 	 * @return
 	 * @throws IOException 
@@ -276,12 +263,13 @@ public class MemberController {
 		if (idToken != null) {
 			Payload payload = idToken.getPayload();
 			
-			if (dupId((String) payload.get("email")).contains("false")) { //회원가입이 안 되어 있는 경우
+			String id = payload.getSubject();
+			if (dupId(id).contains("false")) { //회원가입이 안 되어 있는 경우
 				SocialJoinVO sjVO = new SocialJoinVO();
-				sjVO.setId((String) payload.get("email"));
+				sjVO.setId(id);
 				sjVO.setAuth_email((String) payload.get("email"));
-				sjVO.setNickname((String) payload.get("given_name"));
-				sjVO.setBlog_name((String) payload.get("given_name"));
+				sjVO.setNickname((String) payload.get("name"));
+				sjVO.setBlog_name((String) payload.get("name"));
 				sjVO.setProfile_img((String) payload.get("picture"));
 				sjVO.setPlatform("google");
 				sjVO.setAccess_token(idtoken);
@@ -289,7 +277,7 @@ public class MemberController {
 				new MemberService().socialJoin(sjVO);
 			}//end if
 			
-			model.addAttribute("id", (String) payload.get("email"));
+			model.addAttribute("id", id);
 			json.put("login_result", "success");
 			
 		} else { //유효하지 않은 토큰

@@ -10,10 +10,10 @@
     <title>Co-doing</title>
     <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 
-    <link rel="stylesheet" href="../../../css/reset.css">
-    <link rel="stylesheet" href="../../../css/main/user_main.css">
-    <link rel="stylesheet" href="../../../css/common/common_header_footer.css">
-    <link rel="stylesheet" href="../../../css/common/see_more_btn.css">
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/main/user_main.css">
+    <link rel="stylesheet" href="./css/common/common_header_footer.css">
+    <link rel="stylesheet" href="./css/common/see_more_btn.css">
 
 <!-- Google CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -49,14 +49,20 @@
 							cur_content = cur_content.substring(0,20).concat('···');
 						} 
 						
+						var img_url = '<div class="post_img"></div>';
+						if ( list.thumbnail != null ) {
+							img_url = '<div class="post_img" style="background-image: url('+ list.thumbnail +')"></div>';
+						}
+						
 						output += '<div class="post">';
-							output += '<div class="post_img" style="background-image: url('+ list.thumbnail +')"></div>'
+							output += img_url
 							output += '<div class="post_title"><a href="../'+ list.id +'/blog/post.do?post='+ list.post_num +'">'+ list.post_title +'</a></div>'
 							output += '<div class="post_content">'+ cur_content +'</div>'
 							output += '<div class="post_info">'
 								output +='<span class="post_writer"><a href="../'+ list.id +'/blog.do">by. '+ list.id +'</a></span> ・ <span class="post_date">'+ list.input_date.substring(0,16) +'</span>'
 							output +='</div>';
 						output +='</div>';
+						
 					});//each
 					$("#section_main").append(output);
 					
@@ -92,7 +98,12 @@
         <!-- 포스트 -->
         <c:forEach var="userMain" items="${ main_list }">
         <div class="post">
-            <div class="post_img" style="background-image: url(${ userMain.thumbnail })"></div>
+        	<c:if test="${ empty userMain.thumbnail }">
+        		<div class="post_img"></div>
+        	</c:if>
+        	<c:if test="${ not empty userMain.thumbnail }">
+	            <div class="post_img" style="background-image: url(${ userMain.thumbnail })"></div>
+        	</c:if>
             <div class="post_title"><a href="../${ userMain.id }/blog/post.do?post=${ userMain.post_num }">${ userMain.post_title }</a></div>
             <div class="post_content"> 
             	<c:if test="${ fn:length(userMain.post_content) <= 20 }">${ userMain.post_content }</c:if>
@@ -116,5 +127,5 @@
 	<c:import url="../common/common_footer.jsp" />
 </body>
 
-    <script src="../../../js/control_navbar.js"></script>
+    <script src="./js/control_navbar.js"></script>
 </html>
