@@ -18,6 +18,7 @@
 }
 
 .section_main .post {
+	display:inline-block;
     padding: 0 1rem 3rem
 }
 
@@ -51,6 +52,10 @@
 
 .post a, .post a:visited, .post a:hover {
 	color: black;
+}
+
+.post .post_content, .post .post_title {
+	min-width: 22rem;
 }
 
 

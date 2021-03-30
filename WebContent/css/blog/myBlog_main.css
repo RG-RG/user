@@ -14,7 +14,8 @@
 }
 
 .section_main {
-	margin: 0 auto
+	margin: 0 auto;
+	font-size: 1.3rem;
 }
 
 .my_profile {
@@ -125,7 +126,9 @@
 }
 
 .my_profile .profile_comment {
-	line-height: 2rem
+	line-height: 2rem;
+	color: gray;
+	font-size: 1.5rem;
 }
 
 .my_profile .profile_follow {
@@ -139,13 +142,22 @@
 	margin-left: .5rem
 }
 
+.my_profile .btn_follow{
+	background-color: black;
+	color: white;
+	padding: .75rem 3rem;
+	border-radius: 2rem;
+	transition: .2s;
+}
+
 .my_profile svg {
 	font-size: 1.5rem;
 	margin-right: 1rem;
 	transition: .2s;
 }
 
-.my_profile svg:hover {
+.my_profile svg:hover,
+.btn_set .write_btn:hover {
 	color: #5583AC;
 	transition: .2s;
 }
@@ -178,9 +190,17 @@
 	border-radius: .5rem;
 }
 
-.btn_set .btn_search:hover {
+.btn_set .btn_search:hover,
+.my_profile .btn_follow:hover  {
 	background-color: #5583AC;
 	border: 0;
+	transition: .2s;
+}
+
+.btn_set .write_btn {
+	font-size: 1.5rem;
+	margin-top: 1rem;
+	color: black;
 	transition: .2s;
 }
 
@@ -241,7 +261,8 @@
 }
 
 .blog_post .post_list .post .post_info span {
-	margin-right: 1rem
+	margin-right: .5rem;
+	color: gray;
 }
 
 .no_post {

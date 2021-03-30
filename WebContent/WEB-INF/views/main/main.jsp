@@ -18,70 +18,128 @@
 <!-- Google CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    
+
 <script type="text/javascript">
-	function handleEnter() {
-		var searchText = document.getElementById('search_input').value;
-		if (window.event.keyCode == 13){
-			//console.log(searchText);
-			location.href="main?search="+searchText;
-		}
-	}
+$(function(){
+/* 처음 로드 될때 본문 마크다운 자르는 부분 */
+	<c:forEach var="tmp" items="${ main_list }">
+		var origin_text = $("#post_content${tmp.post_num}").text();
+		console.log(origin_text);
+		var temp = parseMd(origin_text);
+		console.log(temp)
+		$("#post_content${tmp.post_num}").text(temp)
+	</c:forEach>
+});//ready
 	
-	function more_page(page){
-		$.ajax({
-			url:"main/more.do?cur_page="+page,
-			type:"POST",
-			dataType:"JSON",
-			error:function(xhr){
-				alert("에러입니다");
-				console.log(xhr.status+" / "+xhr.statusText);
-			},
-			success:function(jsonObj){
-		      	if(jsonObj.flag=="success"){
-					//성공한 경우 "더보기"한 내용을 붙여주는 곳
-					//반복문으로 돌면서 div를 추가해줘야 함
-					var output = ""
-					$.each(jsonObj.main_list, function(idx, list){
-						
-						var cur_content = list.post_content;
-						if( list.post_content.length > 20 ) {
-							cur_content = cur_content.substring(0,20).concat('···');
-						} 
-						
-						var img_url = '<div class="post_img"></div>';
-						if ( list.thumbnail != null ) {
-							img_url = '<div class="post_img" style="background-image: url('+ list.thumbnail +')"></div>';
-						}
-						
-						output += '<div class="post">';
-							output += img_url
-							output += '<div class="post_title"><a href="../'+ list.id +'/blog/post.do?post='+ list.post_num +'">'+ list.post_title +'</a></div>'
-							output += '<div class="post_content">'+ cur_content +'</div>'
-							output += '<div class="post_info">'
-								output +='<span class="post_writer"><a href="../'+ list.id +'/blog.do">by. '+ list.id +'</a></span> ・ <span class="post_date">'+ list.input_date.substring(0,16) +'</span>'
-							output +='</div>';
-						output +='</div>';
-						
-					});//each
-					$("#section_main").append(output);
+
+/* 마크다운 제거 함수 */
+function parseMd(md){
+	  //ul
+	  md = md.replace(/^\s*\n\*/gm, '');
+	  md = md.replace(/^(\*.+)\s*\n([^\*])/gm, '');
+	  md = md.replace(/^\*(.+)/gm, '');
+	  //ol
+	  md = md.replace(/^\s*\n\d\./gm, '');
+	  md = md.replace(/^(\d\..+)\s*\n([^\d\.])/gm, '');
+	  md = md.replace(/^\d\.(.+)/gm, '');
+	  //blockquote
+	  md = md.replace(/^\>(.+)/gm, '');
+	  //h
+	  md = md.replace(/[\#]{6}(.+)/g, '');
+	  md = md.replace(/[\#]{5}(.+)/g, '');
+	  md = md.replace(/[\#]{4}(.+)/g, '');
+	  md = md.replace(/[\#]{3}(.+)/g, '');
+	  md = md.replace(/[\#]{2}(.+)/g, '');
+	  md = md.replace(/[\#]{1}(.+)/g, '');
+	  //alt h
+	  md = md.replace(/^(.+)\n\=+/gm, '');
+	  md = md.replace(/^(.+)\n\-+/gm, '');
+	  //images
+	  md = md.replace(/\!\[([^\]]+)\]\(([^\)]+)\)/g, '');
+	  //links
+	  md = md.replace(/[\[]{1}([^\]]+)[\]]{1}[\(]{1}([^\)\"]+)(\"(.+)\")?[\)]{1}/g, '');
+	  //font styles
+	  md = md.replace(/[\*\_]{2}([^\*\_]+)[\*\_]{2}/g, '');
+	  md = md.replace(/[\*\_]{1}([^\*\_]+)[\*\_]{1}/g, '');
+	  md = md.replace(/[\~]{2}([^\~]+)[\~]{2}/g, '');
+	  //pre
+	  md = md.replace(/^\s*\n\`\`\`(([^\s]+))?/gm, '');
+	  md = md.replace(/^\`\`\`\s*\n/gm, '');
+	  //code
+	  md = md.replace(/[\`]{1}([^\`]+)[\`]{1}/g, '');
+	  //p
+	  md = md.replace(/^\s*(\n)?(.+)/gm, function(m){
+	    return  /\<(\/)?(h\d|ul|ol|li|blockquote|pre|img)/.test(m) ? m : ''+m+'';
+	  });
+	  //strip p from pre
+	  md = md.replace(/(\<pre.+\>)\s*\n\<p\>(.+)\<\/p\>/gm, '');
+	  
+	  if(md.length>25){
+		  md = md.substring(0,25).concat('...')
+	  }//end if
+	  return md;
+}//parseMd
+	
+function more_page(page){
+	$.ajax({
+		url:"main/more.do?cur_page="+page,
+		type:"POST",
+		dataType:"JSON",
+		error:function(xhr){
+			alert("에러입니다");
+			console.log(xhr.status+" / "+xhr.statusText);
+		},
+		success:function(jsonObj){
+	      	if(jsonObj.flag=="success"){
+				//성공한 경우 "더보기"한 내용을 붙여주는 곳
+				//반복문으로 돌면서 div를 추가해줘야 함
+				var output = ""
+				$.each(jsonObj.main_list, function(idx, list){
 					
-					//더보기 버튼
-					var more=''
-					if(jsonObj.total_cnt > jsonObj.end_num) {
-						more='<span id="more_btn" class="more_btn" onclick="more_page('+(jsonObj.cur_page+1)+')">더 보기</span>'
+					var img_url = '<div class="post_img"></div>';
+					if ( list.thumbnail != null ) {
+						img_url = '<div class="post_img" style="background-image: url('+ list.thumbnail +')"></div>';
 					}
 					
-					$("#more_div").html(more)
-		      	}else{
-		      		alert("문제가 발생하였습니다. 다시 시도해주세요.")
-		      	}//end else
-			}//success
-		});//ajax
+					output += '<div class="post">';
+						output += img_url
+						output += '<div class="post_title"><a href="../'+ list.id +'/blog/post.do?post='+ list.post_num +'">'+ list.post_title +'</a></div>'
+						output += '<div class="post_content" id="post_content'+list.post_num+'">'
+						output += parseMd(list.post_content)
+						output += '</div>'
+						
+						output += '<div class="post_info">'
+							output +='<span class="post_writer"><a href="../'+ list.id +'/blog.do">by. '+ list.id +'</a></span> ・ <span class="post_date">'+ list.input_date.substring(0,16) +'</span>'
+						output +='</div>';
+					output +='</div>';
+					
+				});//each
+				$("#section_main").append(output);
+				
+				//더보기 버튼
+				var more=''
+				if(jsonObj.total_cnt > jsonObj.end_num) {
+					more='<span id="more_btn" class="more_btn" onclick="more_page('+(jsonObj.cur_page+1)+')">더 보기</span>'
+				}
+				
+				$("#more_div").html(more)
+	      	}else{
+	      		alert("문제가 발생하였습니다. 다시 시도해주세요.")
+	      	}//end else
+		}//success
+	});//ajax
+}//more page end
+	
+function handleEnter() {
+	var searchText = document.getElementById('search_input').value;
+	if (window.event.keyCode == 13){
+		//console.log(searchText);
+		location.href="main?search="+searchText;
 	}
+}
 </script>
-</head>
 
+</head>
 <body>
 	<!-- 헤더(사이드바) -->
 	<c:import url="../common/common_header.jsp" />
@@ -105,9 +163,8 @@
 	            <div class="post_img" style="background-image: url(${ userMain.thumbnail })"></div>
         	</c:if>
             <div class="post_title"><a href="../${ userMain.id }/blog/post.do?post=${ userMain.post_num }">${ userMain.post_title }</a></div>
-            <div class="post_content"> 
-            	<c:if test="${ fn:length(userMain.post_content) <= 20 }">${ userMain.post_content }</c:if>
-            	<c:if test="${ fn:length(userMain.post_content) > 20 }">${ userMain.post_content.substring(0,20).concat('···') }</c:if>
+            <div class="post_content" id="post_content${ userMain.post_num }"> 
+            	${ userMain.post_content }
             </div>
             <div class="post_info">
                 <span class="post_writer"><a href="../${ userMain.id }/blog.do">by. ${ userMain.id }</a></span> ・ <span class="post_date">${ userMain.input_date.substring(0, 16) }</span>

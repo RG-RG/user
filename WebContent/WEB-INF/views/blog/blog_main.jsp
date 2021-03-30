@@ -182,7 +182,7 @@
                 <div>
                 	<!-- 본인이 아닐 경우에만 follow 버튼을 보여줌 -->
 					<c:if test="${ post_profile.id != sessionScope.id }">
-						<span id="btn_follow" class="btn_follow"> 
+						<span id="btn_follow" class="btn_follow btn"> 
 							<!-- 팔로우 하는 경우에는 언팔로우를, 아직 팔로우 하지 않은 사람이라면 팔로우를 보여줌 -->
 							<c:if test="${ follow_flag }">unfollow</c:if>
 							<c:if test="${ not follow_flag }">follow</c:if>
@@ -206,7 +206,7 @@
             </div>
             <div>
             <c:if test="${ sessionScope.id==blog_profile.id }">
-                <a href="/post_form.do"><span><i class="fas fa-edit"></i>새 글 작성</span></a>
+                <a href="/post_form.do" class="write_btn"><span><i class="fas fa-edit"></i>새 글 작성</span></a>
             </c:if>
             </div>
         </div> <!-- 검색, 새 글 작성 버튼 end -->
@@ -240,8 +240,8 @@
 	                    </c:forEach>
 	                    </div>
 	                    <div class="post_info">
-		                    <span><c:out value="${ post.input_date }"/></span>
-		                    <span>조회 <c:out value="${ post.view_cnt }"/></span>
+		                    <span><c:out value="${ post.input_date }"/></span> ・
+		                    <span>조회 <c:out value="${ post.view_cnt }"/></span> ・
 		                    <span>댓글 <c:out value="${ post.comment_cnt }"/></span>
 	                    </div>
 	                </div>
