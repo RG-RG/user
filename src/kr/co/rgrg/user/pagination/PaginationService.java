@@ -70,7 +70,7 @@ public class PaginationService {
 	 * @return
 	 */
 	public int pageScale() {
-		int page_scale=3;
+		int page_scale=9;
 		
 		return page_scale;
 	}//pageScale
