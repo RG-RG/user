@@ -16,7 +16,7 @@
 .section_main{ margin:0 auto; width: 70rem; margin-top: 18rem }
 #containerTitle{ font-size: 3rem; font-weight: bold; color: #000000}
 #titleLine{ margin-top: 2rem; border-top: 0.2rem solid #000000 }
-#containerContent{ margin-top: 3rem }
+#containerContent{ margin-top: 4rem }
 #idDiv{ padding-left: 6.2rem }
 .form-label{ font-size: 1.5rem; font-weight: bold }
 .form-control { font-size: 1.5rem; padding: 2.3rem; width: 50rem; margin-top: 0.5rem; display: inline; margin-right: 3rem }

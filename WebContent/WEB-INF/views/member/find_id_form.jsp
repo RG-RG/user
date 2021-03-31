@@ -17,12 +17,12 @@
 #containerTitle{ font-size: 3rem; font-weight: bold; color: #000000}
 #titleLine{ margin-top: 2rem; border-top: 0.2rem solid #000000 }
 #containerContent{ margin-top: 4rem }
-#emailDiv{ padding-left: 6rem }
+#emailDiv{ padding-left: 7rem }
 .form-label{ font-size: 1.5rem; font-weight: bold }
 .form-control { font-size: 1.5rem; padding: 2.3rem; width: 50rem; margin-top: 0.5rem; display: inline; margin-right: 3rem }
 #auth_email, #auth_msg{ vertical-align: middle; }
 #sendBtn, #confirmBtn{ vertical-align: middle; margin-top: 0.3rem }
-#authMsgDiv{ margin-top: 4rem; padding-left: 6rem }
+#authMsgDiv{ margin-top: 4rem; padding-left: 7rem }
 .mb-3{ margin-top: 0.5rem }
 #buttons{ margin:0 auto; margin-top: 7.5rem; width: 12rem }
 .btn-secondary{ width: 12rem; height: 4.5rem; font-size: 1.5rem !important; margin-left: 0rem }
