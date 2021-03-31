@@ -16,11 +16,11 @@
 .section_main{ margin:0 auto; width: 70rem; margin-top: 18rem }
 #containerTitle{ font-size: 3rem; font-weight: bold; color: #000000}
 #titleLine{ margin-top: 2rem; border-top: 0.2rem solid #000000 }
-#containerContent{ margin-top: 6rem }
+#containerContent{ margin-top: 7rem }
 #result{ font-size: 1.8rem; text-align: center; }
 #buttons{ margin:0 auto; margin-top: 8rem; width: 12rem }
-.btn-secondary{ width: 12rem; height: 4.5rem; font-size: 1.5rem !important; background-color: #000000 }
-#container{ margin-bottom: 20rem }
+.btn-secondary{ width: 12rem; height: 4.5rem; font-size: 1.5rem !important; background-color: #000000; margin-left: 0rem }
+#container{ margin-bottom: 25rem }
 </style>
 <!-- Google CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>

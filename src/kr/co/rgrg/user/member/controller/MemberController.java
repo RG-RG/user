@@ -90,8 +90,17 @@ public class MemberController {
 		jVO.setPass(passEncoder.encode(jVO.getPass()));
 		boolean joinFlag = new MemberService().join(jVO);
 		
-		return "member/join";
+		return "member/join_process";
 	}//join
+	
+	/**
+	 * 일반 회원가입 결과를 보여주는 일 - 중복 가입 방지용
+	 * @return
+	 */
+	@RequestMapping(value="join_result.do", method=GET)
+	public String joinResult() {
+		return "member/join";
+	}//joinResult
 	
 	/**
 	 * 아이디 중복을 체크하는 일

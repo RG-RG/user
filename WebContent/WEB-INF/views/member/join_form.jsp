@@ -13,20 +13,17 @@
 <link rel="stylesheet" href="../../../css/common/common_header_footer.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 <style type="text/css">
-.section_main{ margin:0 auto; width: 70rem; margin-top: 18rem }
-#containerTitle{ font-size: 3rem; font-weight: bold; }
-#containerContent{ margin-top: 6rem }
+.section_main{ margin:0 auto; width: 70rem; margin-top: 17.2rem }
+#containerTitle{ font-size: 3rem; font-weight: bold; margin-left: 0.85rem }
+#containerContent{ margin-top: 6.3rem }
 #memberForm{ margin: 0 auto; width: 60rem }
-.mb-3{ margin-top: 2rem; }
 .input-group-text{ background-color: #FFFFFF; border-right: none; font-size: 1.5rem; padding: 2.5rem; height: 1rem; color: #333;}
 .form-control{ border-left: none; height: 5.2rem; font-size: 1.5rem; }
 #idLabel, #mailLabel, #nickLabel{ padding-right: 6.9rem }
 #idStatus, #mailStatus, #nickStatus, #passStatus, #passLenStatus{ font-size: 1.3rem; text-align: right; }
 #passLabel{ padding-right: 5.6rem }
-#buttons{ margin:0 auto; margin-top: 6rem; width: 30rem }
-.btn-secondary{ margin-left: 2rem; }
-.btn-light, .btn-secondary{ width: 12rem; height: 4rem; font-size: 1.3rem !important; }
-#container{ margin-bottom: 20rem }
+#container{ margin-bottom: 0rem }
+#container { margin-bottom: 10rem }
 </style>
 <!-- Google CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
