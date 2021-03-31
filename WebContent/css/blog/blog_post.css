@@ -5,8 +5,7 @@ body {
 
 .section_main .post .comments_list .comment .c_writer_info div:last-child span:hover,
 .section_main .post .post_info .btns span:hover,
-.section_main .post .write_comment .btn_comment:hover,
-.section_main .post .writer_info .w_nickname .btn_follow:hover {
+.section_main .post .writer_info .info .nickname:hover {
     text-decoration: underline;
     cursor: pointer
 }
@@ -15,11 +14,9 @@ body {
 	color: #f55a7d;
 }
 
-.postLike:hover, .postShare:hover {
-    cursor: pointer
-}
-
-.section_main .post .writer_info svg:hover {
+.postLike:hover, .postShare:hover,
+.section_main .post .writer_info svg:hover,
+.section_main .post .writer_info .w_nickname .btn_follow:hover {
     cursor: pointer
 }
 
@@ -55,7 +52,7 @@ body {
 }
 
 .section_main .post .post_title {
-    font-size: 3rem;
+    font-size: 3.2rem;
     font-weight: 600;
     padding: 2rem 0
 }
@@ -63,7 +60,9 @@ body {
 .section_main .post .post_info {
     display: flex;
     justify-content: space-between;
-    font-size: 1.3rem
+    font-size: 1.5rem;
+    color: gray;
+    
 }
 
 .section_main .post .post_info div:first-child {
@@ -75,6 +74,15 @@ body {
     margin: 0 .5rem;
     display: flex;
     align-items: center
+}
+
+.section_main .post .post_info .btns {
+	display: flex;
+}
+
+.section_main .post .post_info .btns a,
+.section_main .post .post_info .btns a:visited {
+    color: gray;
 }
 
 .section_main .post .post_info .btns span {
@@ -102,7 +110,7 @@ body {
     display: grid;
     -ms-grid-columns: 1fr 4fr;
     grid-template-columns: 1fr 4fr;
-    margin-top: 5rem
+    margin-top: 5rem;
 }
 
 .section_main .post .writer_info img {
@@ -114,14 +122,21 @@ body {
 .section_main .post .writer_info .info {
     display: flex;
     flex-direction: column;
-    justify-content: space-between
+    justify-content: space-between;
+    margin-left: 1rem;
+    padding: 1rem 0;
 }
+
+.section_main .post .writer_info .info .w_comment {
+	color: gray;
+}
+
 
 .section_main .post .write_comment .comment_input div,
 .section_main .post .writer_info .w_nickname {
     display: flex;
     justify-content: space-between;
-    align-items: center
+    align-items: center;
 }
 
 .section_main .post .writer_info .w_nickname .nickname {
@@ -129,18 +144,19 @@ body {
     font-weight: 600
 }
 
-.section_main .post .writer_info .w_nickname .btn_follow {
+.btn_follow {
     padding: 1rem 2rem;
     border-radius: 2rem;
     background-color: #e8e8e8
 }
 
 .section_main .post .writer_info .w_comment {
-    line-height: 1.5rem
+    line-height: 1.7rem;
 }
 
 .section_main .post .writer_info svg {
-    margin-right: 1rem
+    margin-right: 1rem;
+    font-size: 1.5rem;
 }
 
 .writer_info a, .comment a {
@@ -152,8 +168,8 @@ body {
     border: 1px solid #d7d7d7;
 }
 
-textarea:focus {
-	outline: 1px solid #bebebe;
+.section_main .post textarea:focus {
+	border: 1px solid #bebebe;
 }
 
 .section_main .post .write_comment {
@@ -161,7 +177,8 @@ textarea:focus {
 }
 
 .section_main .post .write_comment .comment_cnt {
-    font-size: 1.5rem
+    font-size: 1.5rem;
+    font-weight: 600;
 }
 
 .section_main .post .write_comment .comment_input {
@@ -176,18 +193,27 @@ textarea:focus {
     padding: .5rem
 }
 
-.section_main .post .write_comment .btn_comment {
-    background-color: #e8e8e8;
-    padding: 1rem 2rem;
-    border-radius: 1rem
+.section_main .post .write_comment .comment_input input,
+.section_main .post .write_comment .comment_input label {
+	line-height: 1.5rem;
+	vertical-align: middle;
 }
 
+.btn_comment {
+    background-color: #e8e8e8;
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+   	transition: .2s;
+}
+
+
+/* 댓글 목록 */
 .section_main .post .comments_list {
     margin-top: 3rem
 }
 
 .section_main .post .comments_list .comment {
-    margin-bottom: 3rem
+    margin-bottom: 4rem
 }
 
 .section_main .post .comments_list .comment .c_writer_info {
@@ -212,6 +238,10 @@ textarea:focus {
 .section_main .post .comments_list .comment .c_writer_info div:nth-child(2) .c_writer {
     font-size: 1.5rem;
     font-weight: 600
+}
+
+.section_main .post .comments_list .comment .c_writer_info div:nth-child(2) .c_date {
+	color: gray;
 }
 
 .section_main .post .comments_list .comment .c_writer_info div:last-child {
@@ -241,3 +271,34 @@ textarea:focus {
   padding-top: 0;
   transition: all 0.5s;
 }
+
+
+/* 댓글이 없는 경우 */
+.comm_zero {
+	padding: 3rem 0 5rem;
+	text-align: center;
+}
+
+.hidden {
+	display: none;
+}
+
+/* 버튼 hover */
+.color_hover_bg:hover {
+	background-color: #5583AC;
+	color: white;
+	transition: .2s;
+	border: 0;
+	
+}
+.color_hover:hover {
+	color: #5583AC;
+	transition: .2s;
+	border: 0;
+}
+
+color_hover_bg,
+color_hover {
+	transition: .2s;
+}
+

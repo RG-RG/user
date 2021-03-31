@@ -163,9 +163,7 @@ function handleEnter() {
 	            <div class="post_img" style="background-image: url(${ userMain.thumbnail })"></div>
         	</c:if>
             <div class="post_title"><a href="../${ userMain.id }/blog/post.do?post=${ userMain.post_num }">${ userMain.post_title }</a></div>
-            <div class="post_content" id="post_content${ userMain.post_num }"> 
-            	${ userMain.post_content }
-            </div>
+            <div class="post_content" id="post_content${ userMain.post_num }">${ userMain.post_content }</div>
             <div class="post_info">
                 <span class="post_writer"><a href="../${ userMain.id }/blog.do">by. ${ userMain.id }</a></span> ・ <span class="post_date">${ userMain.input_date.substring(0, 16) }</span>
             </div>

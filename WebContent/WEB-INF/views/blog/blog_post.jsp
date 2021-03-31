@@ -187,6 +187,10 @@ $(function(){
 				},
 				success:function(jsonObj){
 			      	if(jsonObj.flag=="success"){
+			      		
+			      		const no_comm = document.querySelector("#comm_zero")
+			      		no_comm.classList.add('hidden');
+			      		
 						var input="";
 						input+='<div id="comm_div_'+jsonObj.comm_num+'" class="comment comment-init">'
 							input+='<div class="c_writer_info">'
@@ -259,10 +263,14 @@ function commRemoveClk(comm_num){
 			      	if(jsonObj.flag=="success"){
 					 	$("#comm_div_"+comm_num).html("");
 					 	commCnt=Number($("#commCnt").text())
-					 	changeCommCnt(commCnt-1);
+					 	
 					 	if(commCnt-1==0){
-					 		$("#comm_zero").text('댓글이 없습니다.');
+				      		const no_comm = document.querySelector("#comm_zero")
+				      		no_comm.classList.remove('hidden');
 					 	}//end if
+					 	
+					 	changeCommCnt(commCnt-1);
+					 	
 			      	}else{
 			      		alert("문제가 발생하였습니다. 다시 시도해주세요.")
 			      	}//end else
@@ -282,7 +290,7 @@ function commModifyClk(comm_num){
 		input+=$("#comm_cont_val_"+comm_num).val()
 		input+='</textarea>';
         input+='<div><input type="checkbox" name="chk_secret" value="true">';
-        input+='<span onclick="commModifyBtn('+comm_num+')" class="btn_comment btn">댓글 수정</span></div>';
+        input+='<span onclick="commModifyBtn('+comm_num+')" class="btn_comment color_hover_bg">댓글 수정</span></div>';
 	}else{
 		$("#commModify"+comm_num).text("수정");
 		input=$("#comm_cont_val_"+comm_num).val()
@@ -337,33 +345,31 @@ function commModifyBtn(comm_num){
 						<c:when test="${ like_flag eq 'false' }">
 							<i class="far fa-heart"></i>
 						</c:when>
-					</c:choose></li>
+					</c:choose>
+				</li>
 				<li id="postLikeCnt"><c:out value="${ post_detail.like_cnt }"/></li>
 				<li><i class="far fa-comment-alt"></i></li>
 				<li id="commCnt"><c:out value="${ post_detail.comment_cnt }" /></li>
-				<li id="shareButton" class="postShare"><i
-					class="fas fa-share-alt"></i></li>
+				<li id="shareButton" class="postShare"><i class="fas fa-share-alt"></i></li>
 			</ul>
 		</div>
 
-		<!-- 우측의 글 본문 -->
+		<!-- 우측의 글 부분 -->
 		<div class="post">
 			<div class="post_title">
 				<c:out value="${ post_detail.post_title }" />
 			</div>
 			<div class="post_info tabs">
 				<div>
-					<span class="writer">by <c:out
-							value="${ post_detail.nickname } " /></span>・ <span class="date"><c:out
-							value="${ post_detail.input_date } " /> </span> <span class="locked"><c:if
-							test="${ post_detail.hidden_flag=='T' }">・<i
-								class="fas fa-lock"></i>비공개</c:if></span>
+					<span class="writer">by <c:out value="${ post_detail.nickname } " /></span>・ 
+					<span class="date"><c:out value="${ post_detail.input_date } " /></span>
+					<span class="locked">
+						<c:if test="${ post_detail.hidden_flag=='T' }">・<i class="fas fa-lock"></i>비공개</c:if>
+					</span>
 				</div>
 				<div class="btns">
 					<c:if test="${ sessionScope.id==post_profile.id }">
-						<form id="modifyPost"
-							action="${post_profile.id}/blog/post/modify/${post_detail.post_num}"
-							method="post">
+						<form id="modifyPost" action="${post_profile.id}/blog/post/modify/${post_detail.post_num}" method="post">
 							<a href="/get_modify_post.do?post_num=${post_detail.post_num}"><span class="btn">수정</span></a>
 						</form>
 						<a id="removePost"><span class="btn">삭제</span></a>
@@ -387,66 +393,64 @@ function commModifyBtn(comm_num){
 
 			<!-- 작성자 프로필 -->
 			<div class="writer_info">
-				<a href="/${ post_profile.id }/blog.do">
-				<img src="${ post_profile.profile_img }">
-				</a>
+				<!-- 이미지 -->
+				<a href="/${ post_profile.id }/blog.do"><img src="${ post_profile.profile_img }"></a>
+				<!-- 옆의 설명 -->
 				<div class="info">
 					<div class="w_nickname">
-						<a href="/${ post_profile.id }/blog.do">
-						<span class="nickname"><c:out
-								value="${ post_profile.nickname }" /></span></a>
+						<a href="/${ post_profile.id }/blog.do"><span class="nickname"><c:out value="${ post_profile.nickname }" /></span></a>
+						<!-- 내가 아니라 다른 사람일 경우 follow 버튼 표시 -->
 						<c:if test="${ sessionScope.id!=post_profile.id }">
-							<span id="btn_follow" class="btn_follow"> <c:if
-									test="${ follow_flag }">
-                    			unfollow
-                    		</c:if> <c:if test="${ not follow_flag }">
-                    			follow
-                    		</c:if>
+							<span id="btn_follow" class="btn_follow color_hover_bg">
+								<c:if test="${ follow_flag }">
+	                    			unfollow
+	                    		</c:if>
+	                    		<c:if test="${ not follow_flag }">
+	                    			follow
+	                    		</c:if>
 							</span>
 						</c:if>
 					</div>
-					<div class="w_comment">
+					<div class="w_comment"> <!-- 상태메세지 -->
 						<c:out value="${ post_profile.statement_msg }" />
 					</div>
-					<div class="w_link">
-						<a href="${ post_profile.github }"><i class="fab fa-github"></i></a>
-						<a href="${ post_profile.website }"><i class="fas fa-link"></i></a>
+					<div class="w_link"> <!-- 외부 링크  -->
+						<a href="${ post_profile.github }"><i class="color_hover fab fa-github"></i></a>
+						<a href="${ post_profile.website }"><i class="color_hover fas fa-link"></i></a>
 					</div>
 				</div>
 			</div>
+			
+			
 			<!-- 댓글 작성 칸 -->
 			<div class="write_comment">
 				<div id="commCnt2" class="comment_cnt">
-					댓글
-					<c:out value="${ post_detail.comment_cnt }" />
+					댓글 <c:out value="${ post_detail.comment_cnt }" />
 				</div>
 				<div class="comment_input">
-					<textarea id="commAddCont" class="c_input" type="text"
-						placeholder="댓글을 입력해주세요."></textarea>
+					<textarea id="commAddCont" class="c_input" type="text" placeholder="댓글을 입력해주세요."></textarea>
 					<div>
-						<span><input type="checkbox" name="chk_secret" value="true">비밀
-							댓글</span> <span id="commAddClk" class="btn_comment btn">댓글 쓰기</span>
+						<span><input type="checkbox" name="chk_secret" id="chk_secret" value="true"><label for="chk_secret">비밀 댓글</label></span>
+						<span id="commAddClk" class="btn_comment color_hover_bg">댓글 쓰기</span>
 					</div>
 				</div>
 			</div>
 			<!-- 댓글 목록 -->
 			<div id="comments_list" class="comments_list">
-
-				<div id="comm_zero" class="comm_zero">
-					<c:if test="${ empty comm_list }">
+				<!-- 댓글이 하나도 없는 경우 -->
+				<%-- <c:if test="${ empty comm_list }">
+				</c:if> --%>
+					<div id="comm_zero" class="comm_zero">
 						댓글이 없습니다.
-					</c:if>
-				</div>
-
+					</div>
+				<!-- 하나의 댓글 -->
 				<c:forEach var="comm" items="${ comm_list }">
 					<div id="comm_div_${ comm.comm_num }" class="comment">
 						<div class="c_writer_info">
 							<img src="${ comm.profile_img }">
 							<div>
-								<span class="c_writer"><a
-									href="/${ comm.id }/blog.do"><c:out
-											value="${ comm.nickname }" /></a></span> <span><c:out
-										value="${ comm.input_date }" /></span>
+								<span class="c_writer"><a href="/${ comm.id }/blog.do"><c:out value="${ comm.nickname }" /></a></span>
+								<span class="c_date"><c:out value="${ comm.input_date }" /></span>
 							</div>
 							<div>
 								<c:if test="${ sessionScope.id==comm.id }">
@@ -457,8 +461,7 @@ function commModifyBtn(comm_num){
 								</c:if>
 							</div>
 						</div>
-						<input type="hidden" id="comm_cont_val_${ comm.comm_num }"
-							value="${ comm.comm_content }" />
+						<input type="hidden" id="comm_cont_val_${ comm.comm_num }" value="${ comm.comm_content }" />
 						<div id="comm_content_${ comm.comm_num }" class="c_content">
 							<c:out value="${ comm.comm_content }" />
 						</div>

@@ -74,8 +74,8 @@
 		  });
 		  //strip p from pre
 		  md = md.replace(/(\<pre.+\>)\s*\n\<p\>(.+)\<\/p\>/gm, '');
-		  if(md.length>30){
-			  md=md.substring(0,30).concat('...')
+		  if(md.length>25){
+			  md=md.substring(0,25).concat('...')
 		  }//end if
 		  return md;
 	}//parseMd
@@ -181,7 +181,7 @@
                 </div>
                 <div>
                 	<!-- 본인이 아닐 경우에만 follow 버튼을 보여줌 -->
-					<c:if test="${ post_profile.id != sessionScope.id }">
+					<c:if test="${ blog_profile.id != sessionScope.id }">
 						<span id="btn_follow" class="btn_follow btn"> 
 							<!-- 팔로우 하는 경우에는 언팔로우를, 아직 팔로우 하지 않은 사람이라면 팔로우를 보여줌 -->
 							<c:if test="${ follow_flag }">unfollow</c:if>
@@ -192,9 +192,9 @@
             </div>
             <div></div>
             <div>
-                <a href="${ blog_profile.github }"><i class="fab fa-github"></i></a>
-                <a href="${ blog_profile.website }"><i class="fas fa-link"></i></a>
-                <a href="${ blog_profile.visible_email }"><i class="fas fa-link"></i></a>
+                <a href="${ blog_profile.github }"><i class="color_hover fab fa-github"></i></a>
+                <a href="${ blog_profile.website }"><i class="color_hover fas fa-link"></i></a>
+                <a href="${ blog_profile.visible_email }"><i class="color_hover fas fa-link"></i></a>
             </div>
         </div> <!-- 프로필화면 end -->
 
@@ -202,11 +202,11 @@
         <div class="btn_set">
             <div>
                 <input type="text" id="search_txt" onkeyup="enterkey()" class="input_search" placeholder="검색어를 입력해주세요">
-                <button onclick="searchBtn()" class="btn_search">검색</button>
+                <button onclick="searchBtn()" class="btn_search color_hover_bg">검색</button>
             </div>
             <div>
             <c:if test="${ sessionScope.id==blog_profile.id }">
-                <a href="/post_form.do" class="write_btn"><span><i class="fas fa-edit"></i>새 글 작성</span></a>
+                <a href="/post_form.do" class="color_hover write_btn"><span><i class="fas fa-edit"></i>새 글 작성</span></a>
             </c:if>
             </div>
         </div> <!-- 검색, 새 글 작성 버튼 end -->

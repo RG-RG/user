@@ -5,12 +5,8 @@
 	cursor: pointer;
 }
 
-.btn_set .btn_search:hover {
+.btn_set .btn_search:hover, .btn {
 	cursor: pointer;
-}
-
-.btn {
-	cursor: pointer
 }
 
 .section_main {
@@ -156,11 +152,6 @@
 	transition: .2s;
 }
 
-.my_profile svg:hover,
-.btn_set .write_btn:hover {
-	color: #5583AC;
-	transition: .2s;
-}
 
 .btn_set {
 	padding: 2rem 3rem 0;
@@ -188,13 +179,6 @@
 	color: #fff;
 	padding: .5rem 1rem;
 	border-radius: .5rem;
-}
-
-.btn_set .btn_search:hover,
-.my_profile .btn_follow:hover  {
-	background-color: #5583AC;
-	border: 0;
-	transition: .2s;
 }
 
 .btn_set .write_btn {
@@ -270,4 +254,19 @@
 	padding: 5vh 0 30vh;
 	text-align: center;
 	font-size: 1.3rem
+}
+
+
+
+.color_hover_bg:hover {
+	background-color: #5583AC;
+	color: white;
+	transition: .2s;
+	border: 0;
+	
+}
+.color_hover:hover {
+	color: #5583AC;
+	transition: .2s;
+	border: 0;
 }
