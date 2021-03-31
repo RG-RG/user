@@ -54,7 +54,7 @@ function follow(id){
 	
 	if (text == "팔로우"){
 		$.ajax({
-			url : "/follow.do",
+			url : "/" + id + "/follow.do",
 			type : "POST",
 			data : "following_id="+id,
 			dataType : "JSON",
@@ -62,7 +62,7 @@ function follow(id){
 				alert("error : " + xhr.status + " / " +xhr.statusText);
 			},
 			success : function(json){
-				if (json.follow_result) {
+				if (json.result) {
 					$("#followBtn"+id).text('언팔로우');
 				} else {
 					alert("오류가 발생했습니다. 잠시 후 다시 실행해주시기 바랍니다.");
@@ -71,7 +71,7 @@ function follow(id){
 		});//ajax
 	} else if (text == "언팔로우"){
 		$.ajax({
-			url : "/unfollow.do",
+			url : "/" + id + "/unfollow.do",
 			type : "POST",
 			data : "following_id="+id,
 			dataType : "JSON",
@@ -79,7 +79,7 @@ function follow(id){
 				alert("error : " + xhr.status + " / " +xhr.statusText);
 			},
 			success : function(json){
-				if (json.unfollow_result) {
+				if (json.result) {
 					$("#followBtn"+id).text('팔로우');
 				} else {
 					alert("오류가 발생했습니다. 잠시 후 다시 실행해주시기 바랍니다.");
@@ -99,7 +99,7 @@ function unfollow(id){
 	
 	if (text == "팔로우"){
 		$.ajax({
-			url : "/follow.do",
+			url : "/" + id + "/follow.do",
 			type : "POST",
 			data : "following_id="+id,
 			dataType : "JSON",
@@ -107,7 +107,7 @@ function unfollow(id){
 				alert("error : " + xhr.status + " / " +xhr.statusText);
 			},
 			success : function(json){
-				if (json.follow_result) {
+				if (json.result) {
 					$("#unfollowBtn"+id).text('언팔로우');
 				} else {
 					alert("오류가 발생했습니다. 잠시 후 다시 실행해주시기 바랍니다.");
@@ -116,7 +116,7 @@ function unfollow(id){
 		});//ajax
 	} else if (text == "언팔로우"){
 		$.ajax({
-			url : "/unfollow.do",
+			url : "/" + id + "/unfollow.do",
 			type : "POST",
 			data : "following_id="+id,
 			dataType : "JSON",
@@ -124,7 +124,7 @@ function unfollow(id){
 				alert("error : " + xhr.status + " / " +xhr.statusText);
 			},
 			success : function(json){
-				if (json.unfollow_result) {
+				if (json.result) {
 					$("#unfollowBtn"+id).text('팔로우');
 				} else {
 					alert("오류가 발생했습니다. 잠시 후 다시 실행해주시기 바랍니다.");
@@ -140,7 +140,7 @@ function moreView(url_id, page){
 	}//end if
 	var next_page = +page + 1;
 	$.ajax({
-		url : "/get_more_following.do",
+		url : "/" + url_id + "/get_more_following.do",
 		type : "POST",
 		data : "page="+next_page,
 		contentType: "application/x-www-form-urlencoded; charset=utf-8",
@@ -163,11 +163,13 @@ function moreView(url_id, page){
 					output += '<p id="nickname">' + list.nickname + '</p></td>';
 				}//end else
 				output += '<td id="followTd">';
-				if (list.following_id == null){
-					output += '<button type="button" class="btn btn-dark" id="followBtn' + list.id + '" onclick="follow(\'' + list.id + '\');" value="follow">팔로우</button>';
-				} else {
-					output += '<button type="button" class="btn btn-dark" id="unfollowBtn' + list.id + '" onclick="unfollow(\'' + list.id + '\');" value="unfollow">언팔로우</button>';
-				}//end else
+				if ( list.id != '${sessionScope.id}' ){
+					if (list.following_id == null){
+						output += '<button type="button" class="btn btn-dark" id="followBtn' + list.id + '" onclick="follow(\'' + list.id + '\');" value="follow">팔로우</button>';
+					} else {
+						output += '<button type="button" class="btn btn-dark" id="unfollowBtn' + list.id + '" onclick="unfollow(\'' + list.id + '\');" value="unfollow">언팔로우</button>';
+					}//end else
+				}//end if
 				output += '</td></tr></tbody></table>';
 			});//each
 			$("#followingListDiv").append(output);
@@ -219,12 +221,14 @@ function moreView(url_id, page){
 							      </td>
 						      </c:if>
 						      <td id="followTd">
+						      <c:if test="${sessionScope.id ne fd.id }">
 						      	<c:if test="${ fd.following_id eq null }">
 							      	<button type="button" class="btn btn-dark" id="followBtn${ fd.id }" onclick="follow('${ fd.id }');" value="follow">팔로우</button>
 						      	</c:if>
 					      		<c:if test="${ fd.following_id eq fd.id }">
 							      	<button type="button" class="btn btn-dark" id="unfollowBtn${ fd.id }" onclick="unfollow('${ fd.id }');" value="unfollow">언팔로우</button>
 					      		</c:if>
+					      	  </c:if>
 						      </td>
 						    </tr>
 						  </tbody>
@@ -234,7 +238,7 @@ function moreView(url_id, page){
         		</div>
         		<div id="moreDiv">
         		<!-- 더보기O : 팔로잉 리스트가 있으면서, list_end가 follower_cnt보다 작거나 같은 경우  -->
-        		<c:if test="${ not empty following_list && list_end le following_cnt }">
+        		<c:if test="${ not empty following_list && list_end lt following_cnt }">
         			<button type="button" class="btn btn-light" onclick="moreView('${ url_id }', '${ param.page }');">더보기</button>
         		</c:if>
         		</div>
