@@ -16,7 +16,7 @@
 .section_main{ margin:0 auto; width: 70rem; margin-top: 18rem }
 #containerTitle{ font-size: 3rem; font-weight: bold; color: #000000}
 #titleLine{ margin-top: 2rem; border-top: 0.2rem solid #000000 }
-#containerContent{ margin-top: 5rem }
+#containerContent{ margin-top: 6.5rem }
 #modifyPassForm{ margin: 0 auto; width: 60rem }
 .mb-3{ margin-top: 2rem; }
 .input-group-text{ background-color: #FFFFFF; border-right: none; font-size: 1.5rem; padding: 2.5rem; height: 1rem; color: #333;}
@@ -25,8 +25,8 @@
 #passLabel{ padding-right: 5.6rem }
 #passLenStatus{ font-size: 1.3rem; text-align: right; }
 #buttons{ margin:0 auto; margin-top: 7rem; width: 12rem }
-.btn-secondary{ width: 12rem; height: 4.5rem; font-size: 1.5rem !important; background-color: #000000 }
-#container{ margin-bottom: 20rem }
+.btn-secondary{ width: 12rem; height: 4.5rem; font-size: 1.5rem !important; background-color: #000000; margin-left: 0rem }
+#container{ margin-bottom: 15.3rem }
 </style>
 <!-- Google CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>

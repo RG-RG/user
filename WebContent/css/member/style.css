@@ -51,12 +51,12 @@ html {
 
 #buttons {
 	margin: 0 auto;
-	margin-top: 6rem;
-	width: 30rem
+	margin-top: 6.7rem;
+	width: 27rem
 }
 
 .btn-secondary {
-	margin-left: 2rem;
+	margin-left: 2.5rem;
 }
 
 .btn-light, .btn-secondary {
@@ -66,5 +66,5 @@ html {
 }
 
 #container {
-	margin-bottom: 20rem
+	margin-bottom: 10.8rem
 }
