@@ -57,50 +57,68 @@
           $("#save_no_publish").click(function(){
           	save_post();
           	$("#publish_flag").val("F");
-          	$("#post_form").attr("action", "new_post.do")
+	      	  if (${not empty post_data.post_num}) {
+	      		console.log("원래 있던거 삭제")
+		        $("#post_form").attr("action", "save_modify_post.do")
+	      	  } else {
+	      		$("#post_form").attr("action", "new_post.do")
+	      	  }
           	$("#post_form").submit();
           })
 
           /* 임시저장 글 이어서 작성할지 */
       <c:if test="${ not empty temp_post_flag }">
-
       		let temp_flag = confirm("임시저장된 게시글이 있습니다. 이어서 작성하시겠습니까?");
 
-      		//임시저장 게시글 삭제하는 부분, 게시글 삭제 url로 ajax
-      		// ajax되는지도 확인해야됨
-      		if(temp_flag === true) {
-      			$("#post_form").attr("action", "temp_post_form.do")
-      	$("#post_form").submit();
+   			
+      		if(temp_flag === false) {
+                $.ajax({
+                    url: "cancel.do?post_num=${ temp_post_flag }&edit=true",
+                    dataType: "json",
+                    processData: false,
+                    contentType: false,
+                    type: "POST",
+                    success: function (data) {
+                      if (data === "success") {
+                        console.log("성공");
+                      } else {
+                        console.log("실패");
+                      }
+                    },
+                    error: function (error) {
+                      console.log(error.responseText);
+                    },
+                  });
       		} else {
-
-      			$("#post_form").attr("action", "cancel.do")
-      	$("#post_form").submit();
+      			location.href = "temp_post_form.do";
       		}
       </c:if>
 
       /* 나기가 버튼 */
       $("#exit").click(function(){
        if ($("#title").val().trim() != "" && editor.getMarkdown().trim() != "") { // 제목과 내용 모두 빈칸이 아닐 때만 확인
-        let flag = confirm("수정중인 글을 저장하시겠습니까?");
-        if(flag) {
-      	  let url = "";
-      	  save_post();
-      	  console.log("저장하기")
-             	$("#publish_flag").val("F");
-      	  if (${empty post_data.post_num}) {
-      		  console.log("새로운 임시저장")
-              	$("#post_form").attr("action", "new_post.do")
-      	  } else {
-      		  console.log("그냥 임시저장")
-      		  $("#post_form").attr("action", "save_modify_post.do");
-      	  }
-        } else {
-      	  if (${not empty post_data.post_num}) {
-      		  console.log("원래 있던거 삭제")
-      		  $("#post_form").attr("action", "cancel.do");
-      	  }
-        }
-        $("#post_form").submit();
+	        let flag = confirm("수정중인 글을 저장하시겠습니까?");
+	        if(flag) {
+	      	  let url = "";
+	      	  save_post();
+	      	  console.log("저장하기")
+	             	$("#publish_flag").val("F");
+	      	  if (${empty post_data.post_num}) {
+	      		  console.log("새로운 임시저장")
+	              	$("#post_form").attr("action", "new_post.do");
+	      	  } else {
+	      		  console.log("수정 중 임시저장")
+	      		  $("#post_form").attr("action", "save_modify_post.do");
+	      	  }
+	        } else {
+	      	  if (${not empty post_data.post_num}) {
+	      		  console.log("원래 있던거 삭제")
+	      		  $("#post_form").attr("action", "cancel.do");
+	      	  }
+	        }
+	        /* alert($("#post_form").attr("action")); */
+	        /* return; */
+	        $("#post_form").submit();
        } else {
         location.href = "main.do"
        }
@@ -134,13 +152,13 @@
       </div>
       <div id="editor" class="editor"></div>
       <div class="btn_wrapper">
-        <button class="post_btn cancel_post" id="exit">나가기</button>
+        <button type="button" class="post_btn cancel_post" id="exit">나가기</button>
         <div class="save_area">
           <div class="save_btn">
-            <button class="post_btn save_post" id="save_content" form="post_form">출간하기</button>
+            <button type="button" class="post_btn save_post" id="save_content" form="post_form">출간하기</button>
           </div>
           <div class="temporary_btn">
-            <button class="post_btn temporary_post" id="save_no_publish" form="post_form">임시저장</button>
+            <button type="button" class="post_btn temporary_post" id="save_no_publish" form="post_form">임시저장</button>
           </div>
         </div>
       </div>

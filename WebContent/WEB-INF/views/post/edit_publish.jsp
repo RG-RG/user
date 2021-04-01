@@ -97,6 +97,13 @@
         $("#cancel").click(function () {
           history.back();
         });
+
+        if(${ param.thumbnail ne null }){
+        	$("#thumbnail_file").attr("src", "${pageContext.request.contextPath}/images/post/${ param.thumbnail }")
+            $("#thumbnail_upload").css("display", "none");
+            $("#icon").css("display", "none");
+            $("#edit_img_link").css("display", "");
+        }
       });
     </script>
   </head>
@@ -126,19 +133,19 @@
                   d="M29.517 40.84c5.666 0 10.274-4.608 10.274-10.271 0-5.668-4.608-10.276-10.274-10.276-5.665 0-10.274 4.608-10.274 10.274 0 5.665 4.609 10.274 10.274 10.274zm0-16.857a6.593 6.593 0 0 1 6.584 6.584 6.593 6.593 0 0 1-6.584 6.584 6.591 6.591 0 0 1-6.584-6.582c0-3.629 2.954-6.586 6.584-6.586zM12.914 73.793a1.84 1.84 0 0 0 1.217-.46l30.095-26.495 19.005 19.004a1.843 1.843 0 0 0 2.609 0 1.843 1.843 0 0 0 0-2.609l-8.868-8.868 16.937-18.548 20.775 19.044a1.846 1.846 0 0 0 2.492-2.72L75.038 31.846a1.902 1.902 0 0 0-1.328-.483c-.489.022-.95.238-1.28.6L54.36 51.752l-8.75-8.75a1.847 1.847 0 0 0-2.523-.081l-31.394 27.64a1.845 1.845 0 0 0 1.22 3.231z"
                 ></path>
               </svg>
-              <img scr="" id="thumbnail_file" class="preview" style="width: " />
-              <button class="thumbnail_upload" id="thumbnail_upload">썸네일 업로드</button>
+              <img src id="thumbnail_file" class="preview" />
+              <button type="button" class="thumbnail_upload" id="thumbnail_upload">썸네일 업로드</button>
               <div id="edit_img_link" style="display: none" class="edit_group">
-                <button class="" id="reupload">재업로드</button>
-                <button class="" id="delete">제거</button>
+                <button type="button" class="" id="reupload">재업로드</button>
+                <button type="button" class="" id="delete">제거</button>
               </div>
             </div>
           </div>
           <div class="show_area">
             <h3>공개 설정</h3>
             <div class="show" id="show">
-              <button type="button" class="display selected" name="flag">전체 공개</button>
-              <button type="button" class="hide" name="flag">비공개</button>
+              <button class="display selected" name="flag">전체 공개</button>
+              <button class="hide" name="flag">비공개</button>
             </div>
           </div>
         </div>
