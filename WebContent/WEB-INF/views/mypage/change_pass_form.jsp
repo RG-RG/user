@@ -64,4 +64,4 @@
 	        <span style="color: red; display: none" id="warning_same" >비밀번호가 다릅니다</span>
 	      </div>
 	    </div>
-	    <button class="chk_pass_btn2 btns" id="chk_pass_btn">확인</button>
+	    <button type="button" class="chk_pass_btn2 btns" id="chk_pass_btn">확인</button>

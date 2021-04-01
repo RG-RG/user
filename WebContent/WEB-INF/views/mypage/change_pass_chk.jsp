@@ -22,7 +22,7 @@
 	            console.log("에러");
 	          },
 	          success: function (jsonObj) {
-	            alert("비밀번호 체크 "+jsonObj.result);
+	            console.log("비밀번호 체크 "+jsonObj.result);
 	            if (jsonObj.result === "success") {
 	              console.log("성공");
 	              change_pass_form()
@@ -34,23 +34,6 @@
 	        });
  	  }
 		
-      function change_pass_form() {
- 	      console.log("비밀번호 변경 페이지 이동");
-          var ajaxOption = {
-            url: "mypage_modify_pass_form.do",
-            async: true,
-            type: "POST",
-            dataType: "html",
-            cache: false,
-          };
-
-          $.ajax(ajaxOption).done(function (data) {
-            // Contents 영역 삭제
-            $("#pass_chk_form").children().remove();
-            // Contents 영역 교체
-            $("#pass_chk_form").html(data);
-          });
-      }
 	</script>
 	
         <div id="pass_chk_form">
@@ -59,6 +42,6 @@
 		      <div class="input">
 		        <input type="password" class="form-control chk_pass_input" id="chk_pass_input" placeholder="비밀번호를 입력해주세요"/>
 		      </div>
-	        <button class="chk_pass_btn" id="chk_pass_btn">확인</button>
+	        <button type="button" class="chk_pass_btn" id="chk_pass_btn">확인</button>
 		    </div>
         </div>
