@@ -52,18 +52,17 @@
 
         /* 이미지 업로드 */
         $("#thumbnail_img").change(function () {
-          let temp = $("#thumbnail_img").val().split("\\");
-
-          if (temp[temp.length - 1].endsWith("jpg") || temp[temp.length - 1].endsWith("png") || temp[temp.length - 1].endsWith("jpeg")) {
-          } else {
-            console.log($("#thumbnail_img").val(), temp);
-            alert("다른 형식의 파일을 선택해주세요");
-          }
-        });
-
-        $("#thumbnail_img").change(function () {
           if (this.files && this.files[0]) {
             var reader = new FileReader();
+            
+            let temp = $("#thumbnail_img").val().split("\\");
+            if (temp[temp.length - 1].endsWith("jpg") || temp[temp.length - 1].endsWith("png") || temp[temp.length - 1].endsWith("jpeg")) {
+            } else {
+              console.log($("#thumbnail_img").val(), temp);
+              alert("jpg, png, jpeg 파일만 업로드 가능합니다. 다른 형식의 파일을 선택해주세요");
+              return;
+            }
+            
             reader.onload = function (data) {
               $("#thumbnail_file").attr("src", data.target.result).width(300);
               $("#thumbnail_upload").css("display", "none");
