@@ -66,7 +66,8 @@
             },
             success: function (jsonObj) {
               if (jsonObj.result === "success") {
-                console.log("성공");
+                console.log("이미지 삭제 성공");
+                $("#show_profile_img").attr("src", "/images/profile/default.png")
               }
             },
           });
@@ -82,14 +83,17 @@
               url: "modify_profile_img.do",
               dataType: "JSON",
               type: "POST",
+              async: false,
               data: "profile_img=" + profile_img,
               error: function (xhr) {
                 alert("에러");
                 console.log(xhr.status + " / " + xhr.statusText);
               },
               success: function (jsonObj) {
+            	  console.log(jsonObj.result, profile_img)
                 if (jsonObj.result === "success") {
                   console.log("성공");
+                  $("#show_profile_img").attr("src", "/images/profile/" + profile_img);
                 }
               },
             });
@@ -101,6 +105,7 @@
               enctype: "/multipart/form-data",
               data: form,
               dataType: "json",
+              async: false,
               processData: false,
               contentType: false,
               type: "POST",
@@ -189,10 +194,10 @@
       <section class="profile">
       	<!-- 이미지 변경 부분 -->
         <div class="img_area">
-          <form id="image_upload_form.do" action="" method="post" enctype="multipart/form-data">
+          <form id="image_upload_form" method="post" enctype="multipart/form-data">
             <input type="file" id="profile_img" name="profile_img" style="display: none" />
           </form>
-          <img src="/images/profile/${ member_data.profile_img }" alt="" class="current_img" />
+          <img src="/images/profile/${ member_data.profile_img }" alt="" class="current_img" id="show_profile_img"/>
           <button type="button" class="upload_img_btn btns" id="img_upload_btn">이미지 업로드</button>
           <button type="button" class="delete_img_btn btns" id="img_delete_btn">이미지 제거</button>
         </div>
