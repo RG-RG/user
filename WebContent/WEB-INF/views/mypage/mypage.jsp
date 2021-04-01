@@ -5,6 +5,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  	<link rel="icon" href="./images/icon/favicon.ico" />
+	<link rel="shortcut icon" href="favicon.ico" />
     <title>Co-doing</title>
     <script src="https://kit.fontawesome.com/7a3682f726.js" crossorigin="anonymous"></script>
     <!-- Google CDN -->

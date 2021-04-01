@@ -3,6 +3,8 @@
 <html lang="en">
   <head lang="en">
     <meta charset="UTF-8" />
+   	<link rel="icon" href="./images/icon/favicon.ico" />
+	<link rel="shortcut icon" href="favicon.ico" />
     <title>Co-doing</title>
 
     <!-- Google CDN -->
