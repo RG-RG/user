@@ -47,7 +47,7 @@
 	<!-- 저장된 게시글 수정하기 -->
 	<update id="updatePost" parameterType="kr.co.rgrg.user.post.vo.ModifyPostVO">
 		update post
-		set	thumbnail = #{thumbnail}, post_title=#{post_title}, post_content = #{post_content}, publish_flag=#{publish_flag}, hidden_flag=#{hidden_flag}
+		set	thumbnail = #{thumbnail, jdbcType=VARCHAR}, post_title=#{post_title}, post_content = #{post_content}, publish_flag=#{publish_flag}, hidden_flag=#{hidden_flag}
 		where post_num = #{post_num} and id = #{id}
 	</update>
 	<select id="selectPost" parameterType="string" resultType="kr.co.rgrg.user.post.domain.PostDomain">
