@@ -10,7 +10,7 @@
 <title>${ post_detail.post_title }</title>
 
 <link rel="stylesheet"
-	href="../../../css/blog/reset.css">
+	href="../../../css/reset.css">
 <link rel="stylesheet"
 	href="../../../css/blog/blog_post.css">
 <link rel="stylesheet"

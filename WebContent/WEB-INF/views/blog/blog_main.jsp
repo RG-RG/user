@@ -229,7 +229,9 @@
 		        
 	            <c:forEach var="post" items="${ post_list }">
 	                <div class="post">
-	                    <div class="post_img" style="background-image: url(${ post.thumbnail })"></div>
+	                    <div class="post_img" 
+	                    <c:if test="${ not empty post.thumbnail }"> style="background-image: url(${ post.thumbnail })"</c:if>>
+	                    </div>
 	                    <div class="post_title"  onclick="javascript:location.href ='/${ blog_profile.id }/blog/post.do?post=${ post.post_num }'">
 	                    <c:out value="${ post.post_title }"/>
 	                    </div>
