@@ -49,7 +49,7 @@ public class PostController {
 		return "post/edit";
 	}
 	
-	@RequestMapping(value="/temp_post_form.do", method= RequestMethod.POST)
+	@RequestMapping(value="/temp_post_form.do", method= {RequestMethod.POST, RequestMethod.GET})
 	public String getTempPostForm(Model model, HttpSession session) {
 		String id = (String)session.getAttribute("id");
 		
@@ -184,16 +184,20 @@ public class PostController {
 	 * @param session
 	 * @return
 	 */
-	@RequestMapping(value="/cancel.do", method= RequestMethod.GET)
-	public String cancelPost(String post_num, HttpSession session) {
+	@RequestMapping(value="/cancel.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public String cancelPost(String post_num, String edit, HttpSession session) {
 		String id = (String)session.getAttribute("id");
 		boolean result = false;
 		if(id != null) {
 			result = new PostService().removePost(id);			
 		}
-		
+		System.out.println(edit + " " + post_num);
 		logger.info("게시글 삭제 결과 : " + result);
-		
+		if ("true".equals(edit)) {
+			if (result) {
+				return "";
+			}
+		}
 		return "redirect:main.do";
 	}
 }
