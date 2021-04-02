@@ -5,21 +5,19 @@
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${ post_detail.post_title }</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>${ post_detail.post_title }</title>
 
-<link rel="stylesheet"
-	href="../../../css/reset.css">
-<link rel="stylesheet"
-	href="../../../css/blog/blog_post.css">
-<link rel="stylesheet"
-	href="../../../css/common/common_header_footer.css">
-
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.css">
-<link rel="stylesheet"
-	href="https://uicdn.toast.com/editor/2.0.0/toastui-editor.min.css">
+   	<link rel="icon" href="../../../images/icon/favicon.ico" />
+	<link rel="shortcut icon" href="favicon.ico" />
+	
+	<link rel="stylesheet" href="../../../css/reset.css">
+	<link rel="stylesheet" href="../../../css/blog/blog_post.css">
+	<link rel="stylesheet" href="../../../css/common/common_header_footer.css">
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.css">
+	<link rel="stylesheet" href="https://uicdn.toast.com/editor/2.0.0/toastui-editor.min.css">
 </head>
 
 
@@ -430,7 +428,6 @@ function commModifyBtn(comm_num){
 				<div class="comment_input">
 					<textarea id="commAddCont" class="c_input" type="text" placeholder="댓글을 입력해주세요."></textarea>
 					<div>
-						<span><input type="checkbox" name="chk_secret" id="chk_secret" value="true"><label for="chk_secret">비밀 댓글</label></span>
 						<span id="commAddClk" class="btn_comment color_hover_bg">댓글 쓰기</span>
 					</div>
 				</div>

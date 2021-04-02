@@ -7,6 +7,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+ 	<link rel="icon" href="./images/icon/favicon.ico" />
+	<link rel="shortcut icon" href="favicon.ico" />
     <title>Co-doing</title>
     <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 	<link rel="icon" href="./images/icon/favicon.ico" />

@@ -10,6 +10,10 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${ blog_profile.blog_name }</title>
+    
+   	<link rel="icon" href="../../../images/icon/favicon.ico" />
+	<link rel="shortcut icon" href="favicon.ico" />
+	
     <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 
 	<!-- Google CDN -->
@@ -192,9 +196,11 @@
             </div>
             <div></div>
             <div>
-                <a href="${ blog_profile.github }"><i class="color_hover fab fa-github"></i></a>
-                <a href="${ blog_profile.website }"><i class="color_hover fas fa-link"></i></a>
-                <a href="${ blog_profile.visible_email }"><i class="color_hover fas fa-link"></i></a>
+                <a href="${ blog_profile.github }" class="color_hover"><i class="svgs fab fa-github"></i></a>
+                <a href="${ blog_profile.website }" class="color_hover"><i class="svgs fas fa-home"></i></a>
+                <a href="mailto:${ blog_profile.visible_email }" class="color_hover">
+                	<i class="fas fa-envelope"></i><c:out value="${ blog_profile.visible_email }"/>
+                </a>
             </div>
         </div> <!-- 프로필화면 end -->
 
@@ -206,7 +212,7 @@
             </div>
             <div>
             <c:if test="${ sessionScope.id==blog_profile.id }">
-                <a href="/post_form.do" class="color_hover write_btn"><span><i class="fas fa-edit"></i>새 글 작성</span></a>
+                <a href="/post_form.do" class="color_hover"><span><i class="fas fa-edit"></i>새 글 작성</span></a>
             </c:if>
             </div>
         </div> <!-- 검색, 새 글 작성 버튼 end -->
@@ -233,7 +239,7 @@
 	                    <c:if test="${ not empty post.thumbnail }"> style="background-image: url(${ post.thumbnail })"</c:if>>
 	                    </div>
 	                    <div class="post_title"  onclick="javascript:location.href ='/${ blog_profile.id }/blog/post.do?post=${ post.post_num }'">
-	                    <c:out value="${ post.post_title }"/>
+	                    	<c:if test="${ post.hidden_flag=='T' }"><i class="fas fa-lock"></i></c:if> <c:out value="${ post.post_title }"/>
 	                    </div>
 	                    <div id="post_content${post.post_num}" class="post_content">${ post.post_content }</div>
 	                    <div class="post_tags">
