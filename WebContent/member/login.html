@@ -9,7 +9,7 @@
 #containerTitle{ text-align: center; font-size: 4.2rem !important; font-weight: bold; margin-top: 4rem }
 #containerContent{ margin-top: 5rem !important }
 #findId, #findPass{ color: #666; font-size: 1.3rem }
-#idDiv{ width: 44rem }
+#modalIdDiv{ width: 44rem }
 .mb-3{ margin-top: 1.3rem !important; margin-bottom: 1rem!important; }
 .form-control{ width: 40rem; margin-right: 3rem; margin-left: 2rem; margin-bottom: 0.2rem; }
 .form-control{ height: 4.7rem; font-size: 1.4rem; display: block; padding: 1.5rem; font-weight: 400; line-height: 1.5; color: #495057; background-color: #fff; background-clip: padding-box; border: 1px solid #ced4da; border-radius: .25rem; transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out }
@@ -17,7 +17,7 @@
 .btn-secondary{ width: 40rem; height: 4.5rem; font-size: 1.5rem !important; color: #fff; border-color: #6c757d; margin-left: 2.1rem !important; margin-top: 0.7rem; cursor: pointer; }
 .btn { display: inline-block; font-weight: 400; text-align: center; vertical-align: middle; user-select: none; border: 1px solid transparent; padding: .375rem .75rem; line-height: 1.5; border-radius: .25rem; transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out; }
 #loginBtn{ background-color: #000000; width: 40rem }
-#kakaoBtn{ width: 40rem; background-image: url('../images/kakao_login_medium_wide.png'); background-repeat: no-repeat; background-size : inherit; background-position: center; background-color: #FEE500 }
+#kakaoBtn{ width: 40rem; background-image: url('/images/kakao_login_medium_wide.png'); background-repeat: no-repeat; background-size : inherit; background-position: center; background-color: #FEE500 }
 #googleBtn{ width: 40rem; margin-top: 1rem; margin-left: 2.1rem }
 #findDiv{ text-align: right; margin-top: 1.3rem; margin-right: 2rem; margin-bottom: 3rem }
 #joinDiv{ text-align: center; margin-top: 5rem; margin-bottom: 10rem; width: 45rem }
@@ -125,12 +125,12 @@ function onSignIn(googleUser) {
 		</div>
 		<div id="containerContent">
 			<form id="loginForm" action="/login.do" method="POST">
-			<div id="idDiv">
+			<div id="modalIdDiv">
 				<div class="input-group mb-3">
 				  <input type="text" id="id" name="id" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="아이디">
 				</div>		
 			</div>		
-			<div id="passDiv">
+			<div id="modalPassDiv">
 				<div class="input-group mb-3">
 				  <input type="password" id="pass" name="pass" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="비밀번호">
 				</div>
