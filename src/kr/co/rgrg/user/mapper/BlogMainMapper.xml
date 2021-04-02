@@ -25,7 +25,7 @@
 	<select id="selectTagList" parameterType="kr.co.rgrg.user.blog.vo.BlogMainVO" resultType="kr.co.rgrg.user.blog.domain.TagDomain">
 		select tag_name, count(tag_name) tag_cnt
 		from tag, post, member
-		where post.post_num=tag.post_num and member.id=post.id and member.id=#{id}
+		where post.post_num=tag.post_num and member.id=post.id and member.id=#{id} and publish_Flag='T' and delete_Flag='F'
 		<if test="hidden_flag.equals(true)">
 		and hidden_flag='F'
 		</if>
@@ -42,7 +42,7 @@
 				from post,comm
 				where post.post_num=comm.post_num and comm.delete_flag='F' and post.id=#{id}
 				group by post.post_num) comm
-			where post.post_num=comm.post_num(+) and delete_flag='F'
+			where post.post_num=comm.post_num(+) and delete_flag='F' and publish_Flag='T'
 			<if test="hidden_flag.equals(true)">
 			and hidden_flag='F'
 			</if>
@@ -63,7 +63,7 @@
 				where post.post_num=comm.post_num and comm.delete_flag='F' and post.id=#{id}
 				group by post.post_num) comm
 			where post.post_num=comm.post_num(+) and post.post_num=tag.post_num
-			and delete_flag='F'
+			and delete_flag='F' and publish_Flag='T'
 			<if test="hidden_flag.equals(true)">
 			and hidden_flag='F'
 			</if>

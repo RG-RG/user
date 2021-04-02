@@ -30,7 +30,7 @@
 	</select>
 	
   	<select id="selectPostProfile" parameterType="int" resultType="kr.co.rgrg.user.blog.domain.PostProfileDomain">
-	  	select member.id, profile_img, nickname, statement_msg, github, website
+	  	select member.id, profile_img, nickname, statement_msg, github, website, visible_email
 		from member, post
 		where member.id=post.id and post_num=#{ post_num }
 	</select>

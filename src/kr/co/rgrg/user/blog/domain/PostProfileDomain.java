@@ -1,7 +1,7 @@
 package kr.co.rgrg.user.blog.domain;
 
 public class PostProfileDomain {
-	private String id, profile_img, nickname, statement_msg, github, website;
+	private String id, profile_img, nickname, statement_msg, github, website, visible_email;
 	
 	public String getId() {
 		return id;
@@ -51,4 +51,11 @@ public class PostProfileDomain {
 		this.website = website;
 	}
 
+	public String getVisible_email() {
+		return visible_email;
+	}
+
+	public void setVisible_email(String visible_email) {
+		this.visible_email = visible_email;
+	}
 }//class

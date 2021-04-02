@@ -229,11 +229,17 @@
             </div>
             <div></div>
             <div>
-                <a href="${ blog_profile.github }" class="color_hover"><i class="svgs fab fa-github"></i></a>
+                <c:if test="${ not empty blog_profile.github }">
+                <a href="https://github.com/${ blog_profile.github }" class="color_hover"><i class="svgs fab fa-github"></i></a>
+                </c:if>
+                <c:if test="${ not empty blog_profile.website }">
                 <a href="${ blog_profile.website }" class="color_hover"><i class="svgs fas fa-home"></i></a>
+                </c:if>
+                <c:if test="${ not empty blog_profile.visible_email }">
                 <a href="mailto:${ blog_profile.visible_email }" class="color_hover">
                 	<i class="fas fa-envelope"></i><c:out value="${ blog_profile.visible_email }"/>
                 </a>
+                </c:if>
             </div>
         </div> <!-- 프로필화면 end -->
 
@@ -252,7 +258,7 @@
         
         <div class="blog_post">
             <div class="category">
-                <span>전체 (<c:out value="${ blog_profile.post_cnt }"/>)</span>
+                <a href="/${ blog_profile.id }/blog.do"><span>전체 (<c:out value="${ blog_profile.post_cnt }"/>)</span></a>
                 <ul>
                 <c:forEach var="tag" items="${ tag_list }">
                     <li onclick="javascript:location.href='blog.do?tag=${ tag.tag_name }'"><c:out value="${ tag.tag_name }"/>(<c:out value="${ tag.tag_cnt }"/>)</li>

@@ -66,22 +66,27 @@ $(function(){
 	
 	$("#removePost").click(function(){
 		if(${ not empty sessionScope.id }){
-			$.ajax({
-				url:"remove.do?post=${post_detail.post_num}",
-				type:"POST",
-				dataType:"JSON",
-				error:function(xhr){
-					alert("에러");
-					console.log(xhr.status+" / "+xhr.statusText);
-				},
-				success:function(jsonObj){
-			      	if(jsonObj.flag=="success"){
-						history.back();
-			      	}else{
-			      		alert("삭제 중 문제가 발생하였습니다. 다시 시도해주세요.")
-			      	}//end else
-				}//success
-			});//ajax
+			if(confirm("글을 삭제 하시겠습니까?")){
+				$.ajax({
+					url:"post/remove.do?post=${post_detail.post_num}",
+					type:"POST",
+					dataType:"JSON",
+					error:function(xhr){
+						alert("에러");
+						console.log(xhr.status+" / "+xhr.statusText);
+					},
+					success:function(jsonObj){
+				      	if(jsonObj.flag=="success"){
+				      		alert("글이 삭제되었습니다.")
+				      		var preUrl=document.referrer
+				      		alert(preUrl)
+				      		location.href=preUrl;
+				      	}else{
+				      		alert("삭제 중 문제가 발생하였습니다. 다시 시도해주세요.")
+				      	}//end else
+					}//success
+				});//ajax
+			}//end if
 		}else{
 			alert("로그인 후 다시 시도해주세요.")
 		}
@@ -193,7 +198,7 @@ $(function(){
 							input+='<div class="c_writer_info">'
 								input+='<img src="'+jsonObj.profile_img+'">'
 							input+='<div>'
-								input+='<span class="c_writer"><a href="/rgrg_user/rgrg/${ comm.id }/blog">'+jsonObj.nickname+'</a></span>'
+								input+='<span class="c_writer"><a href="/'+jsonObj.id+'/blog.do">'+jsonObj.nickname+'</a></span>'
 								input+='<span>'+jsonObj.input_date+'</span>'
 							input+='</div>'
 								input+='<div>'
@@ -264,6 +269,7 @@ function commRemoveClk(comm_num){
 					 	if(commCnt-1==0){
 				      		const no_comm = document.querySelector("#comm_zero")
 				      		no_comm.classList.remove('hidden');
+				      		$("#comm_zero").text("댓글이 없습니다.")
 					 	}//end if
 					 	
 					 	changeCommCnt(commCnt-1);
@@ -412,8 +418,17 @@ function commModifyBtn(comm_num){
 						<c:out value="${ post_profile.statement_msg }" />
 					</div>
 					<div class="w_link"> <!-- 외부 링크  -->
-						<a href="${ post_profile.github }"><i class="color_hover fab fa-github"></i></a>
-						<a href="${ post_profile.website }"><i class="color_hover fas fa-link"></i></a>
+						<c:if test="${ not empty post_profile.github }">
+		                <a href="https://github.com/${ post_profile.github }" class="color_hover"><i class="svgs fab fa-github"></i></a>
+		                </c:if>
+		                <c:if test="${ not empty post_profile.website }">
+		                <a href="${ post_profile.website }" class="color_hover"><i class="svgs fas fa-home"></i></a>
+		                </c:if>
+		                <c:if test="${ not empty post_profile.visible_email }">
+		                <a href="mailto:${ post_profile.visible_email }" class="color_hover">
+		                	<i class="fas fa-envelope"></i><c:out value="${ blog_profile.visible_email }"/>
+		                </a>
+		                </c:if>
 					</div>
 				</div>
 			</div>
@@ -434,11 +449,9 @@ function commModifyBtn(comm_num){
 			<!-- 댓글 목록 -->
 			<div id="comments_list" class="comments_list">
 				<!-- 댓글이 하나도 없는 경우 -->
-				<%-- <c:if test="${ empty comm_list }">
-				</c:if> --%>
-					<div id="comm_zero" class="comm_zero">
-						댓글이 없습니다.
-					</div>
+				<div id="comm_zero" class="comm_zero">
+					<c:if test="${ empty comm_list }">댓글이 없습니다.</c:if>
+				</div>
 				<!-- 하나의 댓글 -->
 				<c:forEach var="comm" items="${ comm_list }">
 					<div id="comm_div_${ comm.comm_num }" class="comment">
