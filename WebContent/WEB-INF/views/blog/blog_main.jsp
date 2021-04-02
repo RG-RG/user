@@ -35,6 +35,39 @@
 			$("#post_content${tmp.post_num}").text(temp)
 		</c:forEach>
 		    
+			
+		/* 팔로우 할 때 */
+	 	$("#btn_follow").click(function(){
+			if(${ not empty sessionScope.id }){
+				var url="";
+				var text="";
+				if($("#btn_follow").text().trim()=="follow"){
+					url="/${blog_profile.id}/follow.do";
+					text="unfollow";
+				}else{
+					url="/${blog_profile.id}/unfollow.do";
+					text="follow";
+				}//end else
+				$.ajax({
+					url:url,
+					type:"POST",
+					dataType:"JSON",
+					error:function(xhr){
+						alert("에러");
+						console.log(xhr.status+" / "+xhr.statusText);
+					},
+					success:function(jsonObj){
+				      	if(jsonObj.result){
+							$("#btn_follow").text(text);
+				      	}else{
+				      		alert("문제가 발생하였습니다. 다시 시도해주세요.");
+				      	}//end else
+					}//success
+				});//ajax
+			}else{
+				alert("로그인 후 다시 시도해주세요.");
+			}//end else
+		});//click
 	});//ready
 
 	/* 마크다운 제거 함수 */

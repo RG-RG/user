@@ -17,7 +17,9 @@ import kr.co.rgrg.user.blog.domain.BlogMainDomain;
 import kr.co.rgrg.user.blog.domain.PostDomain;
 import kr.co.rgrg.user.blog.domain.TagDomain;
 import kr.co.rgrg.user.blog.service.BlogMainService;
+import kr.co.rgrg.user.blog.service.BlogPostService;
 import kr.co.rgrg.user.blog.vo.BlogMainVO;
+import kr.co.rgrg.user.blog.vo.FollowerVO;
 import kr.co.rgrg.user.pagination.PaginationService;
 import kr.co.rgrg.user.pagination.PostRangeVO;
 
@@ -58,6 +60,13 @@ public class BlogMainController {
 		model.addAttribute("blog_profile", bmDomain);
 		model.addAttribute("tag_list", tag_list);
 		model.addAttribute("post_list", post_list);
+		
+		//팔로우
+		FollowerVO fVO=new FollowerVO();
+		fVO.setFollower_id(login_id);
+		fVO.setId(url_id);
+		model.addAttribute("follow_flag", new BlogPostService().getFollowFlag(fVO));
+		
 		//페이지네이션
 		int total_cnt=new PaginationService().getTotalPostCnt(prVO);
 		model.addAttribute("cur_page", page);

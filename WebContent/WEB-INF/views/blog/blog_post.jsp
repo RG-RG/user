@@ -135,17 +135,16 @@ $(function(){
 	});//click
 	
 	
-	/* 팔로우 할 때 */
+	/* 팔로우 */
  	$("#btn_follow").click(function(){
 		if(${ not empty sessionScope.id }){
-			alert($("#btn_follow").text().trim())
 			var url="";
 			var text="";
 			if($("#btn_follow").text().trim()=="follow"){
-				url="/${post_profile.id}/unfollow.do";
+				url="/${post_profile.id}/follow.do";
 				text="unfollow";
 			}else{
-				url="/${post_profile.id}/follow.do";
+				url="/${post_profile.id}/unfollow.do";
 				text="follow";
 			}//end else
 			$.ajax({
@@ -157,7 +156,7 @@ $(function(){
 					console.log(xhr.status+" / "+xhr.statusText);
 				},
 				success:function(jsonObj){
-			      	if(jsonObj.follow_result){
+			      	if(jsonObj.result){
 						$("#btn_follow").text(text);
 			      	}else{
 			      		alert("문제가 발생하였습니다. 다시 시도해주세요.");
