@@ -145,9 +145,11 @@ body {
 }
 
 .btn_follow {
-    padding: 1rem 2rem;
+    padding: 1rem 2.5rem;
     border-radius: 2rem;
-    background-color: #e8e8e8
+    background-color: black;
+    font-size: 1.4rem;
+    color: white;
 }
 
 .section_main .post .writer_info .w_comment {
@@ -200,10 +202,18 @@ body {
 }
 
 .btn_comment {
-    background-color: #e8e8e8;
+    background-color: black;
+    color: white;
     padding: 1rem 2rem;
     border-radius: 1rem;
    	transition: .2s;
+}
+
+.btn_comm_modify {
+	margin-left: .5rem;
+	padding: 1rem 1rem;
+	min-width: 45px;
+	text-align: center;
 }
 
 
@@ -255,9 +265,10 @@ body {
 }
 
 .section_main .post .comments_list .comment .c_content {
-    padding: 0 2rem 0 7rem;
+    padding: 0 1.5rem 0 7rem;
     margin-top: 1rem;
-    line-height: 1.4rem
+    line-height: 1.4rem;
+    display: flex;
 }
 
 /* 댓글 작성시 animation 효과 */

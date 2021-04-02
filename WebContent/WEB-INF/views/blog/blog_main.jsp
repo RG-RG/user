@@ -219,7 +219,7 @@
                 <div>
                 	<!-- 본인이 아닐 경우에만 follow 버튼을 보여줌 -->
 					<c:if test="${ blog_profile.id != sessionScope.id }">
-						<span id="btn_follow" class="btn_follow btn"> 
+						<span id="btn_follow" class="color_hover_bg btn_follow btn"> 
 							<!-- 팔로우 하는 경우에는 언팔로우를, 아직 팔로우 하지 않은 사람이라면 팔로우를 보여줌 -->
 							<c:if test="${ follow_flag }">unfollow</c:if>
 							<c:if test="${ not follow_flag }">follow</c:if>
@@ -256,6 +256,7 @@
             </div>
         </div> <!-- 검색, 새 글 작성 버튼 end -->
         
+        <!-- 태그 목록 보여주는 부분 -->
         <div class="blog_post">
             <div class="category">
                 <a href="/${ blog_profile.id }/blog.do"><span>전체 (<c:out value="${ blog_profile.post_cnt }"/>)</span></a>

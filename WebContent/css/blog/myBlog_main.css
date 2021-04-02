@@ -6,6 +6,7 @@
 
 .btn_set .btn_search:hover, .btn {
 	cursor: pointer;
+	transition: .2s;
 }
 
 .section_main {
@@ -105,7 +106,7 @@
 .my_profile .profile_comment a, .my_profile .profile_comment a:hover,
 	.my_profile .profile_comment a:visited, .my_profile .profile_nickname a,
 	.my_profile .profile_nickname a:hover, .my_profile .profile_nickname a:visited,
-	.f_title
+	.f_title, .blog_post a, .blog_post a:visited, .blog_post a span
 	{
 	color: #000
 }
@@ -138,7 +139,7 @@
 	margin-left: .5rem
 }
 
-.my_profile .btn_follow {
+.btn_follow {
 	background-color: black;
 	color: white;
 	padding: .75rem 3rem;
@@ -243,7 +244,7 @@
 }
 
 /* SVG */
-.color_hover svg {
+.color_hover_bg svg {
 	margin-right: .3rem;
 	font-size: 1.5rem;
 }

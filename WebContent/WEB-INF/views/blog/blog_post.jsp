@@ -285,6 +285,8 @@ function commRemoveClk(comm_num){
 	}//end else
 }//commRemoveClk
 
+
+//댓글 수정
 function commModifyClk(comm_num){
 	var input=""
 	if($("#commModify"+comm_num).text()=="수정"){
@@ -292,8 +294,7 @@ function commModifyClk(comm_num){
  		input='<textarea id="comm_modify_'+comm_num+'" class="c_input" type="text" placeholder="댓글을 입력해주세요." style="width:100%">';
 		input+=$("#comm_cont_val_"+comm_num).val()
 		input+='</textarea>';
-        input+='<div><input type="checkbox" name="chk_secret" value="true">';
-        input+='<span onclick="commModifyBtn('+comm_num+')" class="btn_comment color_hover_bg">댓글 수정</span></div>';
+        input+='<span onclick="commModifyBtn('+comm_num+')" class="btn_comment color_hover_bg btn_comm_modify">수정</span></div>';
 	}else{
 		$("#commModify"+comm_num).text("수정");
 		input=$("#comm_cont_val_"+comm_num).val()
@@ -442,6 +443,7 @@ function commModifyBtn(comm_num){
 				<div class="comment_input">
 					<textarea id="commAddCont" class="c_input" type="text" placeholder="댓글을 입력해주세요."></textarea>
 					<div>
+						<span></span>
 						<span id="commAddClk" class="btn_comment color_hover_bg">댓글 쓰기</span>
 					</div>
 				</div>
