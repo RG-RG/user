@@ -100,6 +100,10 @@ function postViewTable(key, value) {
 		let tag = "<div class='data'>"+ (i+1) +"</div><div class='data'>"+ key[i] +"</div><div class='data'>"+ value[i] +"</div>";
 		$("#viewTable").append(tag);		
 	}
+	
+	if(key.length == 0) {
+		$("#viewTable").html("<div class='data'>첫 글을 작성해보세요!</div>")
+	}
 }
 </script>
 <h3>방문자 수</h3>

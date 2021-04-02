@@ -121,7 +121,7 @@ main {
 	padding-bottom: 1rem;
 }
 
-.info h3 {
+h3 {
 	display: block;
 	font-size: 1.6rem;
 	margin: 1.3rem 0;
@@ -252,9 +252,30 @@ input:checked+.toggle:after {
 	margin-top: 1.5rem;
 }
 
+/* 방문자 수 */
+canvas {
+	margin-bottom: 2rem;
+}
+
 /* 조회수 테이블 */
 .view-table {
 	display: grid;
-	grid-template-columns: 100px 1fr 1fr;
-	grid-gap: 10px;
+	grid-template-columns: 50px minmax(0, 1.4fr) minmax(0, 0.8fr);
+}
+.column, .data {
+	margin: 0 auto;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+.view-table > .column {
+	background-color: #eee;
+	display: inline-grid;
+	place-items: center;
+	margin: 0;
+}
+.view-table > .data {
+	border-bottom: 1px solid #eee;
+	display: inline-grid;
+	place-items: center;
+	margin: 0;
 }
