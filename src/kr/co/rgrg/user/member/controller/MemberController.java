@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -60,6 +61,15 @@ public class MemberController {
 	
 	@Autowired
 	MailSender sender;
+	
+	@Value("${kakao.clientid}")
+	private String kakaoClientId;
+	
+	@Value("${kakao.redirecturi}")
+	private String kakaoRedirectUri;
+	
+	@Value("${google.clientid}")
+	private String googleClientId;
 	
 	/**
 	 * 회원가입 이용약관 폼
@@ -166,8 +176,8 @@ public class MemberController {
 	@RequestMapping(value="kakao_login_form.do", method=GET)
 	@ResponseBody
 	public String KakaoLoginForm() {
-		String url = "https://kauth.kakao.com/oauth/authorize?client_id=d6ec4bf19e500ff83a89cb9c5a00ebc5";
-		url += "&redirect_uri=http://localhost/get_kakao_login_info.do&response_type=code";
+		String url = "https://kauth.kakao.com/oauth/authorize?client_id=" + kakaoClientId;
+		url += "&redirect_uri=" + kakaoRedirectUri + "&response_type=code";
 		return url;
 	}//KakaoLoginForm
 	
@@ -184,8 +194,8 @@ public class MemberController {
 		HttpHeaders headers = new HttpHeaders();
 		MultiValueMap<String, Object> params = new LinkedMultiValueMap<String, Object>();
 		params.set("grant_type", "authorization_code");
-		params.set("client_id", "d6ec4bf19e500ff83a89cb9c5a00ebc5");
-		params.set("redirect_uri", "http://localhost/get_kakao_login_info.do");
+		params.set("client_id", kakaoClientId);
+		params.set("redirect_uri", kakaoRedirectUri);
 		params.set("code", code);
 		
 		HttpEntity<MultiValueMap<String, Object>> restRequest = new HttpEntity<>(params, headers);
@@ -264,7 +274,7 @@ public class MemberController {
 		JsonFactory jsonFactory = Utils.getDefaultJsonFactory();
 		
 		GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory)
-				.setAudience(Collections.singletonList("393175765493-5uqkkubl0sgc92q6cjced49oalplj70r.apps.googleusercontent.com")).build();
+				.setAudience(Collections.singletonList(googleClientId)).build();
 		
 		JSONObject json = new JSONObject();
 		
