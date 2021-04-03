@@ -79,7 +79,7 @@ $(function(){
 				      	if(jsonObj.flag=="success"){
 				      		alert("글이 삭제되었습니다.")
 				      		var preUrl=document.referrer
-				      		alert(preUrl)
+				      		//alert(preUrl)
 				      		location.href=preUrl;
 				      	}else{
 				      		alert("삭제 중 문제가 발생하였습니다. 다시 시도해주세요.")
@@ -451,9 +451,11 @@ function commModifyBtn(comm_num){
 			<!-- 댓글 목록 -->
 			<div id="comments_list" class="comments_list">
 				<!-- 댓글이 하나도 없는 경우 -->
-				<div id="comm_zero" class="comm_zero">
-					<c:if test="${ empty comm_list }">댓글이 없습니다.</c:if>
-				</div>
+				<c:if test="${ empty comm_list }">
+					<div id="comm_zero" class="comm_zero">
+						댓글이 없습니다.
+					</div>
+				</c:if>
 				<!-- 하나의 댓글 -->
 				<c:forEach var="comm" items="${ comm_list }">
 					<div id="comm_div_${ comm.comm_num }" class="comment">

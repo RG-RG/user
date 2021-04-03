@@ -13,10 +13,10 @@
 		(${post_num}, #{thumbnail, jdbcType=VARCHAR}, #{post_title}, #{post_content}, #{publish_flag}, #{hidden_flag}, sysdate, #{id})
 		<if test="tags != null">
 			<foreach collection="tags" item="tag">
-			into tag
-			(post_num, tag_name)
-			values
-			(${post_num}, #{tag})
+				into tag
+				(post_num, tag_name)
+				values
+				( ${post_num}, TRIM(#{tag}) )
 			
 			</foreach>
 		</if>
