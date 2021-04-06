@@ -32,11 +32,17 @@ public class HelloAnalytics {
 	private static final String APPLICATION_NAME = "Hello Analytics Reporting";
 	private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
 	static String path = HelloAnalytics.class.getResource("").getPath();
-	private static final String KEY_FILE_LOCATION = "C:\\Users\\doyeon\\git\\user\\WebContent\\images\\co-doing-05efd00e575b.json";
+	private static final String KEY_FILE_LOCATION = path + "../../../../../../../../key/co-doing-05efd00e575b.json";
 	private static final String VIEW_ID = "239719938";
+//	@Value("${google.analytics.key")
+//	private static String KEY_FILE_LOCATION;
+	
+//	@Value("${google.analytics.viewid}")
+//	private static String VIEW_ID;
 
 	public static String getResult(String id, String startDate, String endDate, String metrics, String dimension) {
 		try {
+			System.out.println(VIEW_ID + " " + KEY_FILE_LOCATION);
 			AnalyticsReporting service = initializeAnalyticsReporting();
 
 			GetReportsResponse response = getReport(service, startDate, endDate, id, metrics, dimension);
@@ -140,9 +146,6 @@ public class HelloAnalytics {
 				List<DateRangeValues> metrics = row.getMetrics();
 
 				for (int i = 0; i < dimensionHeaders.size() && i < dimensions.size(); i++) {
-//					if (!dimensions.get(i).contains(id)) {
-//						break;
-//					}
 					System.out.println(dimensionHeaders.get(i) + ": " + dimensions.get(i));
 				}
 
