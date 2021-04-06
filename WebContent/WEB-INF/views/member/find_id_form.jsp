@@ -158,7 +158,7 @@ function chkEmail(str) {
         		<div id="emailDiv">
 					<label for="exampleFormControlInput1" class="form-label">이메일</label>
 					<div class="mb-3">
-					  <input type="email" class="form-control" id="auth_email" name="auth_email" placeholder="가입하신 이메일을 입력해주세요.">
+					  <input type="email" class="form-control" id="auth_email" name="auth_email" placeholder="가입하신 이메일을 입력해주세요." autocomplete="off">
 					  <button type="button" class="btn btn-secondary" id="sendBtn">인증번호 전송</button>
 					</div>
         		</div>
@@ -166,7 +166,7 @@ function chkEmail(str) {
         		<div id="authMsgDiv">
 				<label for="exampleFormControlInput1" class="form-label">인증번호</label>
 					<div class="mb-3">
-					  <input type="text" class="form-control" id="auth_msg" placeholder="메일로 발송된 인증번호를 입력해주세요.">
+					  <input type="text" class="form-control" id="auth_msg" placeholder="메일로 발송된 인증번호를 입력해주세요." autocomplete="off">
 					  <button type="button" class="btn btn-secondary" id="confirmBtn">확인</button>
 					</div>
         		</div>

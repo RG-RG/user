@@ -257,17 +257,17 @@ function chkNull(){
         		<form id="memberForm" action="/join.do" method="post">
 	  				<div class="input-group mb-3">
 					  <span class="input-group-text" id="idLabel">아이디</span>
-					  <input type="text" id="id" name="id" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="회원님이 사용할 아이디를 입력해주세요.">
+					  <input type="text" id="id" name="id" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="회원님이 사용할 아이디를 입력해주세요." autocomplete="off">
 					</div>
 					<div id="idStatus"></div>
 	  				<div class="input-group mb-3">
 					  <span class="input-group-text" id="mailLabel">이메일</span>
-					  <input type="text" id="auth_email" name="auth_email" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="중요한 알림을 수신할 이메일을 입력해주세요.">
+					  <input type="text" id="auth_email" name="auth_email" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="중요한 알림을 수신할 이메일을 입력해주세요." autocomplete="off">
 					</div>
 					<div id="mailStatus"></div>
 	  				<div class="input-group mb-3">
 					  <span class="input-group-text" id="nickLabel">닉네임</span>
-					  <input type="text" id="nickname" name="nickname" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="회원님을 나타내는 닉네임을 입력해주세요.">
+					  <input type="text" id="nickname" name="nickname" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="회원님을 나타내는 닉네임을 입력해주세요." autocomplete="off">
 					</div>
 	  				<div class="input-group mb-3">
 					  <span class="input-group-text" id="passLabel">비밀번호</span>
