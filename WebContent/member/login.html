@@ -6,17 +6,18 @@
 <meta name="google-signin-client_id" content="393175765493-5uqkkubl0sgc92q6cjced49oalplj70r.apps.googleusercontent.com">
 <title>Co-doing</title>
 <style type="text/css">
+.blocker .modal{ height: 65rem !important }
 #containerTitle{ text-align: center; font-size: 4.2rem !important; font-weight: bold; margin-top: 4rem }
 #containerContent{ margin-top: 5rem !important }
 #findId, #findPass{ color: #666; font-size: 1.3rem }
 #modalIdDiv{ width: 44rem }
 .mb-3{ margin-top: 1.3rem !important; margin-bottom: 1rem!important; }
-.form-control{ width: 40rem; margin-right: 3rem; margin-left: 2rem; margin-bottom: 0.2rem; }
+.form-control{ width: 40rem; margin-right: 2rem; margin-left: 2rem; margin-bottom: 0.2rem; font-family: IBMPlexSansKR-Regular }
 .form-control{ height: 4.7rem; font-size: 1.4rem; display: block; padding: 1.5rem; font-weight: 400; line-height: 1.5; color: #495057; background-color: #fff; background-clip: padding-box; border: 1px solid #ced4da; border-radius: .25rem; transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out }
 #buttons{ margin:0 auto; margin-top: 4rem !important; width: 45rem !important }
 .btn-secondary{ width: 40rem; height: 4.5rem; font-size: 1.5rem !important; color: #fff; border-color: #6c757d; margin-left: 2.1rem !important; margin-top: 0.7rem; cursor: pointer; }
 .btn { display: inline-block; font-weight: 400; text-align: center; vertical-align: middle; user-select: none; border: 1px solid transparent; padding: .375rem .75rem; line-height: 1.5; border-radius: .25rem; transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out; }
-#loginBtn{ background-color: #000000; width: 40rem }
+#loginBtn{ background-color: #000000; width: 40rem; font-family: IBMPlexSansKR-Regular }
 #kakaoBtn{ width: 40rem; background-image: url('/images/kakao_login_medium_wide.png'); background-repeat: no-repeat; background-size : inherit; background-position: center; background-color: #FEE500 }
 #googleBtn{ width: 40rem; margin-top: 1rem; margin-left: 2.1rem }
 #findDiv{ text-align: right; margin-top: 1.3rem; margin-right: 2rem; margin-bottom: 3rem }
@@ -35,35 +36,35 @@
 <link rel="stylesheet" href="../../../css/common/common_header_footer.css">
 <script type="text/javascript">
 $(function(){
-	$("#id").keydown(function(evt){
+	$("#modalId").keydown(function(evt){
 		if ( evt.which == 13 ){
-			$("#pass").focus();
+			$("#modalPass").focus();
 		}//end if
 	});//keydown
 
-	$("#pass").keydown(function(evt){
+	$("#modalPass").keydown(function(evt){
 		if ( evt.which == 13 ){
-			chkNull();
+			modalChkNull();
 		}//end if
 	});//keydown
 	
 	$("#loginBtn").click(function(){
-		chkNull();
+		modalChkNull();
 	});//click
 });//ready
 
-function chkNull(){
-	if( $("#id").val().trim() == "" ){
+function modalChkNull(){
+	if( $("#modalId").val().trim() == "" ){
 		alert("아이디를 입력해주세요");
 		return;
 	}//end if
-	if( $("#pass").val().trim() == "" ){
+	if( $("#modalPass").val().trim() == "" ){
 		alert("비밀번호를 입력해주세요");
 		return;
 	}//end if
 	
-	var id = $("#id").val();
-	var pass = $("#pass").val();
+	var id = $("#modalId").val();
+	var pass = $("#modalPass").val();
 	$.ajax({
 		url : "/login.do",
 		type : "POST",
@@ -81,7 +82,7 @@ function chkNull(){
 			}//end else
 		}//success
 	});//ajax
-}//chkNull
+}//modalChkNull
 
 //카카오 로그인 버튼 클릭
 function kakaoLogin() {
@@ -127,12 +128,12 @@ function onSignIn(googleUser) {
 			<form id="loginForm" action="/login.do" method="POST">
 			<div id="modalIdDiv">
 				<div class="input-group mb-3">
-				  <input type="text" id="id" name="id" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="아이디" autocomplete="off">
+				  <input type="text" id="modalId" name="id" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="아이디" autocomplete="off">
 				</div>		
 			</div>		
 			<div id="modalPassDiv">
 				<div class="input-group mb-3">
-				  <input type="password" id="pass" name="pass" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="비밀번호">
+				  <input type="password" id="modalPass" name="pass" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="비밀번호">
 				</div>
 			</div>
 			</form>
