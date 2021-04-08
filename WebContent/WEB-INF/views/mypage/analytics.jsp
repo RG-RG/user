@@ -8,8 +8,8 @@
 <script>
 $(function(){
 	console.log("페이지 로드 됨")
-	queryReports("7daysAgo", "today", "hits", "pageTitle", "포스팅 별 조회수")
  	queryReports("7daysAgo", "today", "hits", "date", "방문자 수") 
+	queryReports("7daysAgo", "today", "hits", "pageTitle", "포스팅 별 조회수")
 })
 function queryReports(startDate, endDate, expression, name, label) {
 	
@@ -102,7 +102,7 @@ function postViewTable(key, value) {
 	}
 	
 	if(key.length == 0) {
-		$("#viewTable").html("<div class='data'>첫 글을 작성해보세요!</div>")
+		$("#viewTable").html("<div class='row'>아직 작성된 글이 없네요!👀<br> 첫 글을 작성해보세요!</div>")
 	}
 }
 </script>
