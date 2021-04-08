@@ -106,7 +106,7 @@ $(function(){
 	  let newWebsite = document.getElementById("website_input").value;
 	  let newEmail = document.getElementById("visible_email_input").value;
 	
-	  if (!chkEmail(newEmail)) {
+	  if (!chkEmail(newEmail) && newEmail !== "") {
 	    alert("이메일 형식으로 입력해주세요");
 	    return;
 	  }
