@@ -25,9 +25,23 @@
 	            console.log("비밀번호 체크 "+jsonObj.result);
 	            if (jsonObj.result === "success") {
 	              console.log("성공");
-	              change_pass_form()
+	              
+	              var ajaxOption = {
+	                url: "mypage_modify_pass_form.do",
+	                async: true,
+	                type: "POST",
+	                dataType: "html",
+	                cache: false,
+	              };
+
+	              $.ajax(ajaxOption).done(function (data) {
+	                // Contents 영역 삭제
+	                $("#mng_form").children().remove();
+	                // Contents 영역 교체
+	                $("#mng_form").html(data);
+	              });
 	            }else{
-            	  mng_pass();
+            	  alert("비밀번호를 확인해주세요")
             	  console.log("실패");
 	            }
 	          },
