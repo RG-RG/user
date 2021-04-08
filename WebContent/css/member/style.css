@@ -42,7 +42,7 @@ html {
 	margin-top: 2rem;
 }
 
-#exampleFormControlTextarea1 {
+#serviceAgreeText, #infoAgreeText {
 	height: 20rem;
 	font-size: 1.4rem;
 	background-color: #FFFFFF;
