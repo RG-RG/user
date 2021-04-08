@@ -138,7 +138,7 @@ function handleEnter() {
 	var searchText = document.getElementById('search_input').value;
 	if (window.event.keyCode == 13){
 		//console.log(searchText);
-		location.href="main?search="+searchText;
+		location.href="main.do?search="+searchText;
 	}
 }
 </script>

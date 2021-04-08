@@ -5,5 +5,12 @@
 <!--  사용자 common footer  -->
 
 <section class="section_footer">
-	copyright rgrg 2021<br> 내용은 수정할게요!
+	
+	Co-doing <br>
+
+	Copyright &copy; GroshinStudy 2021 <br>
+	
+	made with 💖 <br>
+	
+	<a href="https://github.com/RG-RG/user" target="_blank">our source code →→ <i class="social_label fab fa-github"></i></a> <br>
 </section>

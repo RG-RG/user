@@ -123,3 +123,9 @@ body {
     margin-top: 10rem
 }
 
+.section_footer a,
+.section_footer a:visited,
+.section_footer a:hover {
+	color: white;
+}
+

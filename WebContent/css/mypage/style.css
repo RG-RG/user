@@ -247,6 +247,8 @@ input:checked+.toggle:after {
 }
 .chk_pass_btn {
  	margin-left: 1rem;
+ 	color: white;
+ 	padding: 0.7rem 1rem;
 }
 .chk_pass_btn2{
 	margin-top: 1.5rem;

@@ -10,6 +10,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>보관함</title>
     <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+    
+   	<link rel="icon" href="../../../images/icon/favicon.ico" />
+	<link rel="shortcut icon" href="favicon.ico" />
 
     <link rel="stylesheet" href="../../../css/reset.css">
     <link rel="stylesheet" href="../../../css/blog/like_post.css">
