@@ -99,7 +99,7 @@
           history.back();
         });
 
-        if(${ param.thumbnail ne null }){
+        if(${ not empty param.thumbnail }){
         	$("#thumbnail_file").attr("src", "${pageContext.request.contextPath}/images/post/${ param.thumbnail }")
             $("#thumbnail_upload").css("display", "none");
             $("#icon").css("display", "none");
