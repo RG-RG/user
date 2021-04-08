@@ -57,6 +57,10 @@
 
           /* 임시저장 클릭 */
           $("#save_no_publish").click(function(){
+        	  if ($("#title").val().trim() == "" || editor.getMarkdown().trim() == "") { // 제목과 내용 모두 빈칸이 아닐 때만 확인
+        		  alert("저장할 내용이 없습니다.")
+        		  return;
+        	  }
           	save_post();
           	$("#publish_flag").val("F");
 	      	  if (${not empty post_data.post_num}) {
