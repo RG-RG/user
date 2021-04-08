@@ -109,7 +109,7 @@ public class HelloAnalytics {
 		Metric reqMetrics = new Metric().setExpression("ga:" + metrics);
 		Metric sessions = new Metric().setExpression("ga:sessions").setAlias("sessions");
 
-		DimensionFilter filters = new DimensionFilter().setDimensionName("ga:pagePath").setExpressions(Arrays.asList("^/" + id + "/"));
+		DimensionFilter filters = new DimensionFilter().setDimensionName("ga:pagePath").setExpressions(Arrays.asList("^/" + id + "/blog/post.do"));
 		DimensionFilterClause filter = new DimensionFilterClause().setFilters(Arrays.asList(filters));
 		
 		
