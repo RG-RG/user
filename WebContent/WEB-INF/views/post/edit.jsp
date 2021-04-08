@@ -176,39 +176,46 @@
         const content = [].join("\n");
 
         const editor = new toastui.Editor({
-          el: document.querySelector("#editor"),
-          height: "600px",
-          initialEditType: "markdown",
-          previewStyle: "vertical",
-          placeholder: "내용을 입력하세요",
-          hideModeSwitch: true,
-          hooks: {
-            addImageBlobHook(blob, callback) {
-              const formData = new FormData();
-              formData.append("image", blob);
-				console.log(blob)
-	   
-			$.ajax({
-	          url: "https://api.imgbb.com/1/upload?key=446cf7f566319051cb6af82271a8c3fb",
-	          dataType: "JSON",
-	          type: "POST",
-	          timeout: 0,
-	          data: formData,
-	          contentType: false,
-	          mimType: "multipart/form-data",
-	          processData: false,
-	          error: function (xhr) {
-	            console.log(xhr.status + " / " + xhr.statusText);
-	            alert("에러");
-	          },
-	          success: function (jsonObj) {
-	        	  console.log(jsonObj);
-	        	  console.log(jsonObj.data.url);
-	        	  callback(decodeURIComponent(jsonObj.data.url));
-	          },
-	        });           },
-           }
-        });
+        	  el: document.querySelector("#editor"),
+        	  height: "600px",
+        	  initialEditType: "markdown",
+        	  previewStyle: "vertical",
+        	  placeholder: "내용을 입력하세요",
+        	  hideModeSwitch: true,
+        	  hooks: {
+        	    addImageBlobHook(blob, callback) {
+        	      const formData = new FormData();
+        	      formData.append("image", blob);
+        	      console.log(blob);
+        	      var maxSize = 4 * 1024 * 1024; //4MB
+
+        	      if (blob.size > maxSize) {
+        	        alert("이미지는 10MB 이내로 등록 가능합니다. ");
+        	        return;
+        	      }
+
+        	      $.ajax({
+        	        url: "https://api.imgbb.com/1/upload?key=446cf7f566319051cb6af82271a8c3fb",
+        	        dataType: "JSON",
+        	        type: "POST",
+        	        timeout: 0,
+        	        data: formData,
+        	        contentType: false,
+        	        mimType: "multipart/form-data",
+        	        processData: false,
+        	        error: function (xhr) {
+        	          console.log(xhr.status + " / " + xhr.statusText);
+        	          alert("에러");
+        	        },
+        	        success: function (jsonObj) {
+        	          console.log(jsonObj);
+        	          console.log(jsonObj.data.image.url);
+        	          callback(decodeURIComponent(jsonObj.data.image.url));
+        	        },
+        	      });
+        	    },
+        	  },
+        	});
       </script>
     </section>
     <form action="post_publish.do" method="post" id="post_form" enctype="multipart/form-data">
