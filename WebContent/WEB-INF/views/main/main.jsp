@@ -113,7 +113,7 @@ function more_page(page){
 						output += '</div>'
 						
 						output += '<div class="post_info">'
-							output +='<span class="post_writer"><a href="../'+ list.id +'/blog.do">by. '+ list.id +'</a></span> ・ <span class="post_date">'+ list.input_date.substring(0,16) +'</span>'
+							output +='<span class="post_writer"><a href="../'+ list.id +'/blog.do">by. '+ list.id +'</a></span> ・ <span class="post_date">'+ list.input_date +'</span>'
 						output +='</div>';
 					output +='</div>';
 					
@@ -169,7 +169,9 @@ function handleEnter() {
             <div class="post_title"><a href="../${ userMain.id }/blog/post.do?post=${ userMain.post_num }">${ userMain.post_title }</a></div>
             <div class="post_content" id="post_content${ userMain.post_num }">${ userMain.post_content }</div>
             <div class="post_info">
-                <span class="post_writer"><a href="../${ userMain.id }/blog.do">by. ${ userMain.id }</a></span> ・ <span class="post_date">${ userMain.input_date.substring(0, 16) }</span>
+                <span class="post_writer"><a href="../${ userMain.id }/blog.do">by. ${ userMain.nickname }</a></span> ・ 
+                <span class="post_date">${ userMain.input_date }</span>
+                 	 ・ <span class="post_like">💗 ${ userMain.like_cnt }</span>
             </div>
         </div>
         </c:forEach>

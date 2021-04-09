@@ -9,25 +9,33 @@
 	<select id="selectMainList" 
 	parameterType="kr.co.rgrg.user.pagination.RangeVO"
 	resultType="kr.co.rgrg.user.main.domain.UserMainDomain">
-		select post_num, id, post_title, post_content, thumbnail, input_date
+		select post_num, id, nickname, post_title, post_content, thumbnail, to_char(input_date, 'yyyy-mm-dd') input_date, nvl(like_cnt,0) like_cnt
+		
 		from (
 			<choose>
-				<when test="column_name!=null and column_name.equals('view_cnt')">
-					select post_num, id, post_title, post_content, thumbnail, input_date, row_number() over(order by view_cnt desc) rnum
-				</when>
-				<when test="column_name!=null and column_name.equals('input_date')">
-					select post_num, id, post_title, post_content, thumbnail, input_date, row_number() over(order by input_date desc) rnum
+				<when test="column_name!=null and column_name.equals('like_cnt')">
+					select post.post_num, post.id, nickname, post.post_title, post.post_content, post.thumbnail, post.input_date, LIKE_CNT2.like_cnt,
+						row_number() over(order by LIKE_CNT2.like_cnt desc NULLS LAST, post.input_date desc) rnum
 				</when>
 				<otherwise>
-					select post_num, id, post_title, post_content, thumbnail, input_date, row_number() over(order by input_date desc) rnum
+					select post.post_num, post.id, nickname, post.post_title, post.post_content, post.thumbnail, post.input_date, LIKE_CNT2.like_cnt,
+						row_number() over(order by post.input_date desc) rnum
 				</otherwise>
 			</choose>
 				
-			<!-- select post_num, id, post_title, post_content, thumbnail, input_date, row_number() over(order by input_date desc) rnum -->
-			from post
-			where delete_flag='F' and hidden_flag='F' and publish_flag='T' 
-					<if test="column_value!=null and !column_value.equals('')">and (post_title like '%${ column_value }%' or post_content like '%${ column_value }%')</if>
+					<!-- select post_num, id, post_title, post_content, thumbnail, input_date, row_number() over(order by input_date desc) rnum -->
+					from post, member,
+						(select post_num, count(*) as like_cnt from like_post group by post_num) LIKE_CNT2
+					
+					where post.delete_flag='F' and post.hidden_flag='F' and post.publish_flag='T' 
+						and member.id = post.id
+						and post.post_num = LIKE_CNT2.post_num(+)
+						
+					<if test="column_value!=null and !column_value.equals('')">
+						and (post_title like '%${ column_value }%' or post_content like '%${ column_value }%')
+					</if>
 		)
+		
 		where rnum between #{ start_num } and #{ end_num }
 	</select>
   

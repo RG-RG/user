@@ -35,7 +35,7 @@
 			</c:if>
             
             <li><a href="/main.do?sort=input_date">최신순 보기</a></li>
-            <li><a href="/main.do?sort=view_cnt">인기순 보기</a></li>
+            <li><a href="/main.do?sort=like_cnt">인기순 보기</a></li>
             <li><input type="text" class="search_input" id="search_input" onkeypress="handleEnter()"><button id="search_btn"><i class="fas fa-search"></i></button></li>
             <!-- 로그인 됐을 때 : 로그아웃 -->
 			<c:if test="${ not empty sessionScope.id }">
