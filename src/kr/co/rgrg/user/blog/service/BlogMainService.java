@@ -67,7 +67,7 @@ public class BlogMainService {
 				temp.put("post_title", pDomain.getPost_title());
 				temp.put("post_content", pDomain.getPost_content());
 				temp.put("input_date", pDomain.getInput_date());
-				temp.put("comment_cnt", pDomain.getComment_cnt());
+				temp.put("comment_cnt", pDomain.getComm_cnt());
 				temp.put("hidden_flag", pDomain.getHidden_flag());
 				temp.put("view_cnt", pDomain.getView_cnt());
 				JSONArray tempArr=new JSONArray();

@@ -17,6 +17,7 @@
 				where post_num=#{ post_num } and delete_flag='F'
 				group by post_num) comm
 		where post.id=member.id
+		 		and member_flag='T'
 				and post.post_num=like_post.post_num(+)
 				and post.post_num=comm.post_num(+)
 				and post.post_num=#{ post_num }
@@ -32,13 +33,13 @@
   	<select id="selectPostProfile" parameterType="int" resultType="kr.co.rgrg.user.blog.domain.PostProfileDomain">
 	  	select member.id, profile_img, nickname, statement_msg, github, website, visible_email
 		from member, post
-		where member.id=post.id and post_num=#{ post_num }
+		where member.id=post.id and member_flag='T' and post_num=#{ post_num }
 	</select>
 	
   	<select id="selectCommList" parameterType="int" resultType="kr.co.rgrg.user.blog.domain.CommDomain">
 		select comm_num, member.id, profile_img, nickname, comm_content, to_char(comm.input_date, 'yyyy:mm:dd hh24:mi') input_date
 		from member, comm
-		where post_num=#{ post_num } and member.id=comm.id and delete_flag='F'
+		where post_num=#{ post_num } and member.id=comm.id and delete_flag='F' and member_flag='T'
 		order by input_date
 	</select>
 	

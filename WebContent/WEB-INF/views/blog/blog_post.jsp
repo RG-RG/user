@@ -398,7 +398,7 @@ function commModifyBtn(comm_num){
 			<!-- 작성자 프로필 -->
 			<div class="writer_info">
 				<!-- 이미지 -->
-				<a href="/${ post_profile.id }/blog.do"><img src="${ post_profile.profile_img }"></a>
+				<a href="/${ post_profile.id }/blog.do"><img src="/var/webapps/upload/profile/${ post_profile.profile_img }"></a>
 				<!-- 옆의 설명 -->
 				<div class="info">
 					<div class="w_nickname">
@@ -451,11 +451,11 @@ function commModifyBtn(comm_num){
 			<!-- 댓글 목록 -->
 			<div id="comments_list" class="comments_list">
 				<!-- 댓글이 하나도 없는 경우 -->
-				<c:if test="${ empty comm_list }">
-					<div id="comm_zero" class="comm_zero">
+				<div id="comm_zero" class="comm_zero">
+					<c:if test="${ empty comm_list }">
 						댓글이 없습니다.
-					</div>
-				</c:if>
+					</c:if>
+				</div>
 				<!-- 하나의 댓글 -->
 				<c:forEach var="comm" items="${ comm_list }">
 					<div id="comm_div_${ comm.comm_num }" class="comment">

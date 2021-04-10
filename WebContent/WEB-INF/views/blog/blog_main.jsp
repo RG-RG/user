@@ -41,12 +41,15 @@
 			if(${ not empty sessionScope.id }){
 				var url="";
 				var text="";
+				var cnt=Number($("#follower_cnt").text())
 				if($("#btn_follow").text().trim()=="follow"){
 					url="/${blog_profile.id}/follow.do";
 					text="unfollow";
+					cnt=cnt+1
 				}else{
 					url="/${blog_profile.id}/unfollow.do";
 					text="follow";
+					cnt=cnt-1
 				}//end else
 				$.ajax({
 					url:url,
@@ -59,6 +62,7 @@
 					success:function(jsonObj){
 				      	if(jsonObj.result){
 							$("#btn_follow").text(text);
+							$("#follower_cnt").text(cnt)
 				      	}else{
 				      		alert("문제가 발생하였습니다. 다시 시도해주세요.");
 				      	}//end else
@@ -156,8 +160,7 @@
 						output+='</div>';
 						output+='<div class="post_info">';
 						output+='<span>'+list.input_date+'</span>';
-						output+='<span>조회 '+list.view_cnt+'</span>';
-						output+='<span>댓글 '+list.comment_cnt+'</span>';
+						output+='<span>댓글 '+list.comm_cnt+'</span>';
 						output+='</div>';
 						output+='</div>';
 					});//each
@@ -208,12 +211,12 @@
 
         <!-- 프로필 화면 -->
         <div class="my_profile">
-            <div class="profile_img"><img src="${ blog_profile.profile_img }"></div>
+            <div class="profile_img"><img src="/var/webapps/upload/profile/${ blog_profile.profile_img }"></div>
             <div class="profile_nickname"><c:out value="${ blog_profile.nickname }"/></div>
             <div class="profile_comment"><c:out value="${ blog_profile.statement_msg }"/></div>
             <div class="profile_follow">
                 <div>
-                    <a href="/${ blog_profile.id }/get_follower.do"><span class="f_title">팔로워</span></a><span class="f_num"><c:out value="${ blog_profile.follower_cnt }"/></span>
+                    <a href="/${ blog_profile.id }/get_follower.do"><span class="f_title">팔로워</span></a><span id="follower_cnt" class="f_num"><c:out value="${ blog_profile.follower_cnt }"/></span>
                     <a href="/${ blog_profile.id }/get_following.do"><span class="f_title">팔로잉</span></a><span class="f_num"><c:out value="${ blog_profile.following_cnt }"/></span>
                 </div>
                 <div>
@@ -289,8 +292,7 @@
 	                    </div>
 	                    <div class="post_info">
 		                    <span><c:out value="${ post.input_date }"/></span> ・
-		                    <span>조회 <c:out value="${ post.view_cnt }"/></span> ・
-		                    <span>댓글 <c:out value="${ post.comment_cnt }"/></span>
+		                    <span>댓글 <c:out value="${ post.comm_cnt }"/></span>
 	                    </div>
 	                </div>
 	            </c:forEach>
