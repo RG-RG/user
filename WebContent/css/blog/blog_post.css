@@ -105,6 +105,12 @@ body {
     border-radius: 2rem
 }
 
+.tui-editor-contents img {
+	max-width: 500px;
+}
+
+
+/* 작성자 정보 */
 .section_main .post .writer_info {
     display: -ms-grid;
     display: grid;

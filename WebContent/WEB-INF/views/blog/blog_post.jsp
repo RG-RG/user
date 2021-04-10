@@ -12,12 +12,16 @@
    	<link rel="icon" href="../../../images/icon/favicon.ico" />
 	<link rel="shortcut icon" href="favicon.ico" />
 	
-	<link rel="stylesheet" href="../../../css/reset.css">
-	<link rel="stylesheet" href="../../../css/blog/blog_post.css">
-	<link rel="stylesheet" href="../../../css/common/common_header_footer.css">
+	<!-- toast ui -->
+	<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.min.css" />
+	<script src="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.js"></script>
 	
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.css">
 	<link rel="stylesheet" href="https://uicdn.toast.com/editor/2.0.0/toastui-editor.min.css">
+	
+	<link rel="stylesheet" href="../../../css/reset.css">
+	<link rel="stylesheet" href="../../../css/blog/blog_post.css">
+	<link rel="stylesheet" href="../../../css/common/common_header_footer.css">
 </head>
 
 
@@ -35,11 +39,7 @@
 	crossorigin="anonymous"></script>
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 
-<!-- toast ui -->
-<link rel="stylesheet"
-	href="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.min.css" />
-<script
-	src="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.js"></script>
+
 
 <script type="text/javascript">
 	if(${ not empty post_detail_fail}){
