@@ -68,6 +68,19 @@ body {
     margin-top: 0
 }
 
+.close_bar {
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.611);
+    z-index: 900;
+}
+
+.hidden {
+    display: none;
+}
+
 /* .nav_bar li:not(li:first-child) {
     margin: 2rem 0
 } */
@@ -126,9 +139,10 @@ body {
     width: 100%;
     color: #fff;
     line-height: 2rem;
-    padding: 3rem 4rem;
+    padding: 3rem 5rem;
     margin-top: auto;
     font-size: 1.3rem;
+    text-align: end;
 }
 
 .section_footer a,

@@ -42,4 +42,5 @@
 				<li><span><a href="/logout.do">로그아웃</a></span></li>
 			</c:if>
         </ul>
+        <div class="close_bar hidden"></div>
     </section>
