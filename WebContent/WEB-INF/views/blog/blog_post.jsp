@@ -398,7 +398,7 @@ function commModifyBtn(comm_num){
 			<!-- 작성자 프로필 -->
 			<div class="writer_info">
 				<!-- 이미지 -->
-				<a href="/${ post_profile.id }/blog.do"><img src="/var/webapps/upload/profile/${ post_profile.profile_img }"></a>
+				<a href="/${ post_profile.id }/blog.do"><img src="/var/lib/tomcat9/webapps/upload/profile/${ post_profile.profile_img }"></a>
 				<!-- 옆의 설명 -->
 				<div class="info">
 					<div class="w_nickname">

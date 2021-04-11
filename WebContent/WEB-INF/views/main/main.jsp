@@ -109,7 +109,7 @@ function more_page(page){
 					
 					var img_url = '<div class="post_img"></div>';
 					if ( list.thumbnail != null ) {
-						img_url = '<div class="post_img" style="background-image: url('+ list.thumbnail +')"></div>';
+						img_url = '<div class="post_img" style="background-image: url(/var/lib/tomcat9/webapps/upload/post/'+ list.thumbnail +')"></div>';
 					}
 					
 					output += '<div class="post">';
@@ -120,7 +120,7 @@ function more_page(page){
 						output += '</div>'
 						
 						output += '<div class="post_info">'
-							output +='<span class="post_writer"><a href="../'+ list.id +'/blog.do">by. '+ list.id +'</a></span> ・ <span class="post_date">'+ list.input_date +'</span>'
+							output +='<span class="post_writer"><a href="../'+ list.id +'/blog.do">by. '+ list.nickname +'</a></span> ・ <span class="post_date">'+ list.input_date+'</span> ・ <span class="post_like">💗 '+ list.like_cnt +'</span>'
 						output +='</div>';
 					output +='</div>';
 					
@@ -171,7 +171,7 @@ function handleEnter() {
         		<div class="post_img"></div>
         	</c:if>
         	<c:if test="${ not empty userMain.thumbnail }">
-	            <div class="post_img" style="background-image: url(${ userMain.thumbnail })"></div>
+	            <div class="post_img" style="background-image: url(/var/lib/tomcat9/webapps/upload/post/${ userMain.thumbnail })"></div>
         	</c:if>
             <div class="post_title"><a href="../${ userMain.id }/blog/post.do?post=${ userMain.post_num }">${ userMain.post_title }</a></div>
             <div class="post_content" id="post_content${ userMain.post_num }">${ userMain.post_content }</div>
