@@ -30,6 +30,7 @@
 					where post.delete_flag='F' and post.hidden_flag='F' and post.publish_flag='T' 
 						and member.id = post.id
 						and post.post_num = LIKE_CNT2.post_num(+)
+						and member.member_flag='T'
 						
 					<if test="column_value!=null and !column_value.equals('')">
 						and (post_title like '%${ column_value }%' or post_content like '%${ column_value }%')

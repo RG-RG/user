@@ -58,10 +58,12 @@ public class UserMainService {
 				tmp = new JSONObject();
 				tmp.put("post_num", umd.getPost_num());
 				tmp.put("id",umd.getId());
+				tmp.put("nickname", umd.getNickname());
 				tmp.put("post_title",umd.getPost_title());
 				tmp.put("post_content",umd.getPost_content());
 				tmp.put("thumbnail",umd.getThumbnail());
 				tmp.put("input_date",umd.getInput_date());
+				tmp.put("like_cnt",umd.getLike_cnt());
 				
 				ja.add(tmp);
 			}
