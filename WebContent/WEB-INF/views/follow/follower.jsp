@@ -156,7 +156,7 @@ function moreView(url_id, page){
 			$.each(json.follower_list, function(idx, list){
 				output += '<table class="table"><tbody>';
 				output += '<tr><td id="imgTd" onclick="moveBlog(\'' + list.id + '\');">';
-				output += '<img src="/var/webapps/upload/profile/' + list.profile_img + '" class="rounded-circle" id="profile_img"></td>';
+				output += '<img src="/upload/profile/' + list.profile_img + '" class="rounded-circle" id="profile_img"></td>';
 				if (list.statement_msg != null){
 					output += '<td id="infoTd" onclick="moveBlog(\'' + list.id + '\');">';
 					output += '<p id="nickname">' + list.nickname + '</p>';
@@ -210,7 +210,7 @@ function moreView(url_id, page){
 						  <tbody>
 						    <tr>
 						      <td id="imgTd" onclick="moveBlog('${ fd.id }');">
-								  <img src="/var/webapps/upload/profile/${ fd.profile_img }" class="rounded-circle" id="profile_img">
+								  <img src="/upload/profile/${ fd.profile_img }" class="rounded-circle" id="profile_img">
 						      </td>
 						      <c:if test="${ not empty fd.statement_msg }">
 							      <td id="infoTd" onclick="moveBlog('${ fd.id }');">
