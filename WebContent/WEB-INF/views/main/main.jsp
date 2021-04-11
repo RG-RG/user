@@ -24,6 +24,13 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 
 <script type="text/javascript">
+/* 익스플로러 구분 */
+var agent = navigator.userAgent.toLowerCase();
+
+if ( (navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1) ) {
+	alert("크롬 브라우저에 최적화되어 있습니다\n크롬 브라우저를 사용해주세요");
+}
+
 $(function(){
 /* 처음 로드 될때 본문 마크다운 자르는 부분 */
 	<c:forEach var="tmp" items="${ main_list }">
