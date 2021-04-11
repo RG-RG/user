@@ -42,7 +42,7 @@ public class MypageController {
 	private static final Logger logger = LoggerFactory.getLogger(MypageController.class);
 
 	// 업로드된 파일이 저장될 위치
-	private final String PATH = "images\\profile\\";
+	private final String PATH = "/var/lib/tomcat9/webapps/upload/profile/";
 	
 	//json 데이터로 응답을 보내기 위한
 	@Autowired
@@ -125,7 +125,7 @@ public class MypageController {
 				String fileName = mpf.get(i).getOriginalFilename();
 				
 				System.out.println(root_path + PATH + fileName);
-				File file = new File(root_path + PATH + fileName);
+				File file = new File(PATH + fileName);
 				logger.info(file.getAbsolutePath());
 				mpf.get(i).transferTo(file);
 			}

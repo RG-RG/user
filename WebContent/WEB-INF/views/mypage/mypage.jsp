@@ -69,7 +69,7 @@
             success: function (jsonObj) {
               if (jsonObj.result === "success") {
                 console.log("이미지 삭제 성공");
-                $("#show_profile_img").attr("src", "/images/profile/default.png")
+                $("#show_profile_img").attr("src", "/webapps/upload/profile/default.png")
               }
             },
           });
@@ -95,7 +95,7 @@
             	  console.log(jsonObj.result, profile_img)
                 if (jsonObj.result === "success") {
                   console.log("성공");
-                  $("#show_profile_img").attr("src", "/images/profile/" + profile_img);
+                  $("#show_profile_img").attr("src", "/webapps/upload/profile/" + profile_img);
                 }
               },
             });
@@ -119,7 +119,7 @@
                 }
               },
               error: function (error) {
-                alert(error.responseText);
+                console.log(error.responseText);
               },
             });
           } else {
@@ -199,7 +199,7 @@
           <form id="image_upload_form" method="post" enctype="multipart/form-data">
             <input type="file" id="profile_img" name="profile_img" style="display: none" />
           </form>
-          <img src="/images/profile/${ member_data.profile_img }" alt="" class="current_img" id="show_profile_img"/>
+          <img src="/upload/profile/${ member_data.profile_img }" alt="" class="current_img" id="show_profile_img"/>
           <button type="button" class="upload_img_btn btns" id="img_upload_btn">이미지 업로드</button>
           <button type="button" class="delete_img_btn btns" id="img_delete_btn">이미지 제거</button>
         </div>
