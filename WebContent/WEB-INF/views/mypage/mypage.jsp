@@ -69,7 +69,7 @@
             success: function (jsonObj) {
               if (jsonObj.result === "success") {
                 console.log("이미지 삭제 성공");
-                $("#show_profile_img").attr("src", "/webapps/upload/profile/default.png")
+                $("#show_profile_img").attr("src", "/upload/profile/default.png")
               }
             },
           });
@@ -95,7 +95,7 @@
             	  console.log(jsonObj.result, profile_img)
                 if (jsonObj.result === "success") {
                   console.log("성공");
-                  $("#show_profile_img").attr("src", "/webapps/upload/profile/" + profile_img);
+                  $("#show_profile_img").attr("src", "/upload/profile/" + profile_img);
                 }
               },
             });
