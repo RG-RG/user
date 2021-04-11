@@ -106,7 +106,7 @@ function moreLike(next_page){
 				var output='';
 				$.each(jsonObj.like_list, function(idx, list){
 					output+='<div class="post">';
-					output+='<div class="post_img" style="background-image: url(/var/lib/tomcat9/webapps/upload/post/${ userMain.thumbnail })"';
+					output+='<div class="post_img" style="background-image: url(/upload/post/${ userMain.thumbnail })"';
 					output+='></div>';
 					output+='<div class="post_title" onclick="javascript:location.href=\'/'+list.id+'/blog/post.do?post='+list.post_num+'\'">'+list.post_title+'</div>';
 					
@@ -196,7 +196,7 @@ function clkHeart(flag, post_num){
             ajax append도 여기 하면 될 것 같아용 -->
 			<c:forEach var="like" items="${ like_list }">
             <div class="post">
-	        	<div class="post_img" style="background-image: url(/var/lib/tomcat9/webapps/upload/post/${ userMain.thumbnail })"></div>
+	        	<div class="post_img" style="background-image: url(/upload/post/${ userMain.thumbnail })"></div>
                 <div class="post_title" onclick="javascript:location.href='/${ like.id }/blog/post.do?post=${ like.post_num }'"><c:out value="${ like.post_title }"/></div>
                 <div id="post_content${ like.post_num }" class="post_content">${ like.post_content }</div>
                 <div class="post_info">

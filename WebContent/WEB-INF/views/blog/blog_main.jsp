@@ -148,7 +148,7 @@
 					var output='';
 					$.each(jsonObj.post_list, function(idx, list){
 						output+='<div class="post">';
-						output+='<div class="post_img" style="background-image: url(/var/lib/tomcat9/webapps/upload/post/'+ list.thumbnail +')"></div>';
+						output+='<div class="post_img" style="background-image: url(/upload/post/'+ list.thumbnail +')"></div>';
 						output+='<div class="post_title"  onclick="javascript:location.href =\'/${ blog_profile.id }/blog/post.do?post='+list.post_num+'\'">';
 						output+=list.post_title;
 						output+='</div>';
@@ -211,7 +211,7 @@
 
         <!-- 프로필 화면 -->
         <div class="my_profile">
-            <div class="profile_img"><img src="/var/lib/tomcat9/webapps/upload/profile/${ blog_profile.profile_img }"></div>
+            <div class="profile_img"><img src="/upload/profile/${ blog_profile.profile_img }"></div>
             <div class="profile_nickname"><c:out value="${ blog_profile.nickname }"/></div>
             <div class="profile_comment"><c:out value="${ blog_profile.statement_msg }"/></div>
             <div class="profile_follow">
@@ -278,7 +278,7 @@
 		        
 	            <c:forEach var="post" items="${ post_list }">
 	                <div class="post">
-	                    <div class="post_img" style="background-image: url(/var/lib/tomcat9/webapps/upload/post/${ post.thumbnail })"></div>
+	                    <div class="post_img" style="background-image: url(/upload/post/${ post.thumbnail })"></div>
 	                    <div class="post_title"  onclick="javascript:location.href ='/${ blog_profile.id }/blog/post.do?post=${ post.post_num }'">
 	                    	<c:if test="${ post.hidden_flag=='T' }"><i class="fas fa-lock"></i></c:if> <c:out value="${ post.post_title }"/>
 	                    </div>
