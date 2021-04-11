@@ -46,6 +46,9 @@
 		set		member_flag='F', alarm_flag='', website = '', access_token='', platform = '', github='', visible_email='', statement_msg='', profile_img = '', blog_name='', nickname='', auth_email = '', pass=''
 		where	id = #{id}
 	</update>
+	<delete id="deleteMember" parameterType="String">
+		delete from member where id = #{ id }
+	</delete>
 	<update id="updatePass" parameterType="kr.co.rgrg.user.mypage.vo.UpdatePassVO">
 		update	member
 		set		pass = #{pass}
