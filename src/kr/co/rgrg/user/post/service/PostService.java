@@ -18,7 +18,7 @@ public class PostService {
 	private static final Logger logger = LoggerFactory.getLogger(PostService.class);
 
 	// 업로드된 파일이 저장될 위치
-	private final String PATH = "images\\post\\";
+	private final String PATH = "/var/lib/tomcat9/webapps/upload/post/";
 	
 	/**
 	 * 게시글 저장
@@ -69,7 +69,7 @@ public class PostService {
 		logger.info("fileName: {}", fileName);
 		
 		//저장할  file 객체를 생성(껍데기파일)
-		File target = new File(root_path + PATH, fileName);
+		File target = new File(PATH, fileName);
 		
 		try {
 			file.transferTo(target); // 업로드 파일에 tartget이라는 껍데기를 입힘
