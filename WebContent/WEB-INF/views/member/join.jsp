@@ -10,10 +10,13 @@
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 <link rel="icon" href="./images/icon/favicon.ico" />
 <link rel="shortcut icon" href="favicon.ico" />
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
 <link rel="stylesheet" href="../../../css/reset.css">
 <link rel="stylesheet" href="../../../css/member/style.css"> 
 <link rel="stylesheet" href="../../../css/common/common_header_footer.css">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
 <style type="text/css">
 .section_main{ margin:0 auto; width: 80rem; margin-top: 30rem; height: 41.9rem }
 #containerTitle{ font-size: 4rem; font-weight: bold; width: 62rem; margin: 0 auto; }

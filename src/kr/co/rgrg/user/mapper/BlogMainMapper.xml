@@ -35,9 +35,9 @@
 	
 	<select id="selectPostList" parameterType="kr.co.rgrg.user.pagination.PostRangeVO" 
 	resultType="kr.co.rgrg.user.blog.domain.PostDomain">
-		select post_num, thumbnail, post_title, post_content, view_cnt, hidden_flag, to_char(input_date, 'yyyy.mm.dd hh24:mi') input_date, nvl(comm_cnt,0) comm_cnt
+		select post_num, thumbnail, post_title, post_content, hidden_flag, to_char(input_date, 'yyyy.mm.dd hh24:mi') input_date, nvl(comm_cnt,0) comm_cnt
 		from
-			(select post.post_num, thumbnail, post_title, post_content, view_cnt, hidden_flag, input_date, comm_cnt, row_number() over(order by input_date desc) rnum
+			(select post.post_num, thumbnail, post_title, post_content, hidden_flag, input_date, comm_cnt, row_number() over(order by input_date desc) rnum
 			from post,
 				(select post.post_num, count(comm.post_num) comm_cnt
 				from post,comm
@@ -56,8 +56,8 @@
 	
 	<select id="selectPostListTagSearch" parameterType="kr.co.rgrg.user.pagination.PostRangeVO" 
 	resultType="kr.co.rgrg.user.blog.domain.PostDomain">
-		select post_num, thumbnail, post_title, post_content, view_cnt, hidden_flag, to_char(input_date, 'yyyy.mm.dd hh24:mi') input_date, nvl(comm_cnt,0) comm_cnt
-		from (select post.post_num, thumbnail, post_title, post_content, view_cnt, hidden_flag, input_date, comm_cnt, row_number() over(order by input_date desc) rnum
+		select post_num, thumbnail, post_title, post_content, hidden_flag, to_char(input_date, 'yyyy.mm.dd hh24:mi') input_date, nvl(comm_cnt,0) comm_cnt
+		from (select post.post_num, thumbnail, post_title, post_content, hidden_flag, input_date, comm_cnt, row_number() over(order by input_date desc) rnum
 			from post, tag,
 				(select post.post_num, count(comm.post_num) comm_cnt
 				from post,comm
