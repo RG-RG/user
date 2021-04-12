@@ -1,0 +1,27 @@
+@charset "EUC-KR"; 
+
+h1 {
+	font-size: 4.5rem;
+	margin-top: 20vh;
+}
+
+h1, .comment {
+	text-align: center;
+}
+
+.error_msg {
+	font-size: 2.5rem;
+}
+
+p {
+	margin-top: 4rem;
+}
+
+a:hover {
+	border-bottom: 1px solid #000
+}
+
+a, a:visited {
+	color: #000;
+	text-decoration: none
+}
