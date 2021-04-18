@@ -61,7 +61,10 @@
 		where post_num = #{post_num}
 	</select>
 	<!-- 게시글 삭제 -->
-	<update id="deletePost" parameterType="string">
+	<delete id="deletePost" parameterType="string">
+		delete from post where post_num = #{post_num}
+	</delete>
+	<update id="updateDel" parameterType="string">
 		update post
 		set	thumbnail = '', post_title='', post_content = '', publish_flag='', hidden_flag='', delete_flag='T'
 		where publish_flag = 'F' and id = #{id}

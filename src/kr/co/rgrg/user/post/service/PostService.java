@@ -54,11 +54,11 @@ public class PostService {
 	 * @param id
 	 * @return
 	 */
-	public boolean removePost(String id) {
+	public boolean removePost(String post_num) {
 		
 		PostDAO pDAO = PostDAO.getInstance();
 		
-		return pDAO.deletePost(id) == 1;
+		return pDAO.deletePost(post_num) == 1;
 	}
 	
 	public String saveFile(String root_path, MultipartFile file) {
