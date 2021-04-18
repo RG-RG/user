@@ -191,7 +191,7 @@ $(function(){
 			      	if(jsonObj.flag=="success"){
 			      		
 			      		const no_comm = document.querySelector("#comm_zero")
-			      		no_comm.classList.add('hidden');
+			      		//no_comm.classList.add('hidden');
 			      		
 						var input="";
 						input+='<div id="comm_div_'+jsonObj.comm_num+'" class="comment comment-init">'

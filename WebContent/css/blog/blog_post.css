@@ -36,7 +36,8 @@ body {
     top: 30vh;
     font-size: 1.5rem;
     border-radius: 2.5rem;
-    padding: 2rem 0
+    padding: 2rem 0;
+    z-index: -1;
 }
 
 .section_main .post_side_tab ul li {
@@ -306,7 +307,7 @@ body {
 	color: white;
 	transition: .2s;
 	border: 0;
-	
+	cursor: pointer;
 }
 .color_hover:hover {
 	color: #5583AC;

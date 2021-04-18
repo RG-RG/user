@@ -66,6 +66,7 @@ body {
     justify-content: space-between;
     margin-bottom: 5rem;
     margin-top: 0
+    
 }
 
 .close_bar {
@@ -74,7 +75,7 @@ body {
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.611);
-    /* z-index: 9; */
+/*     z-index: 9 */;
 }
 
 .hidden {

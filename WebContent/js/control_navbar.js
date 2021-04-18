@@ -49,7 +49,7 @@ function controlNavBar(){
 
 function scrollNavBar(){
     st = document.documentElement.scrollTop;
-    console.log("scrolling..."+ st);
+    //console.log("scrolling..."+ st);
 
     if (delta < st && count == 1) {
         close_bar.classList.add("hidden");
