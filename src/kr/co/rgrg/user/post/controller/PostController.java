@@ -192,7 +192,7 @@ public class PostController {
 		String id = (String)session.getAttribute("id");
 		boolean result = false;
 		if(id != null) {
-			result = new PostService().removePost(id);			
+			result = new PostService().removePost(post_num);			
 		}
 		System.out.println(edit + " " + post_num);
 		logger.info("게시글 삭제 결과 : " + result);
