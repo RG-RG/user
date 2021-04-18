@@ -29,7 +29,7 @@
 			</c:if>
             <!-- 로그인 됐을 때 : 내 블로그, 보관함, 마이페이지 -->
 			<c:if test="${ not empty sessionScope.id }">
-				<li><span><a href="/${ sessionScope.id }/blog.do">내 블로그(<c:out value="${ sessionScope.id }"/>)</a></span> / <span> <a href="/like.do">내 보관함</a></span></li>
+				<li><span><a href="/${ sessionScope.id }/blog.do">내 블로그</a></span> / <span> <a href="/like.do">내 보관함</a></span></li>
 				<li><span><a href="/mypage.do">마이 페이지</a></span> / <span><a href="/post_form.do">새 글 작성</a></span></li>
 				<li></li>
 			</c:if>
