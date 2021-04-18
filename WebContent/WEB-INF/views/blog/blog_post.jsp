@@ -451,11 +451,11 @@ function commModifyBtn(comm_num){
 			<!-- 댓글 목록 -->
 			<div id="comments_list" class="comments_list">
 				<!-- 댓글이 하나도 없는 경우 -->
-				<div id="comm_zero" class="comm_zero">
-					<c:if test="${ empty comm_list }">
+				<c:if test="${ empty comm_list }">
+					<div id="comm_zero" class="comm_zero">
 						댓글이 없습니다.
-					</c:if>
-				</div>
+					</div>
+				</c:if>
 				<!-- 하나의 댓글 -->
 				<c:forEach var="comm" items="${ comm_list }">
 					<div id="comm_div_${ comm.comm_num }" class="comment">
