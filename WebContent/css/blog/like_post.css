@@ -63,6 +63,11 @@ body {
     justify-content: space-between
 }
 
+.post_info a, .post_info a:visited, .post_info a:hover{
+	color: black;
+}
+
+
 .main_btn {
     justify-content: center;
     margin-top: 5rem
