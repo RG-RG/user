@@ -100,7 +100,7 @@
         });
 
         if(${ not empty param.thumbnail }){
-        	$("#thumbnail_file").attr("src", "${pageContext.request.contextPath}/images/post/${ param.thumbnail }")
+        	$("#thumbnail_file").attr("src", "${pageContext.request.contextPath}/upload/post/${ param.thumbnail }")
             $("#thumbnail_upload").css("display", "none");
             $("#icon").css("display", "none");
             $("#edit_img_link").css("display", "");
