@@ -83,7 +83,7 @@ $(function(){
 	    dataType: "JSON",
 	    type: "POST",
 	    async: false,
-	    data: "blog_name=" + newBlogName,
+	    data: "blog_name=" + encodeURLComponent(newBlogName),
 	    error: function (xhr) {
 	      console.log(xhr.status + " / " + xhr.statusText);
 	      alert("에러");
@@ -116,7 +116,7 @@ $(function(){
 	    dataType: "JSON",
 	    type: "POST",
 	    async: false,
-	    data: "github=" + newGithub + "&website=" + newWebsite + "&visible_email=" + newEmail,
+	    data: "github=" + encodeURLComponent(newGithub) + "&website=" + encodeURLComponent(newWebsite) + "&visible_email=" + encodeURLComponent(newEmail),
 	    error: function (xhr) {
 	      console.log(xhr.status + " / " + xhr.statusText);
 	      alert("에러");
