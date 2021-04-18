@@ -139,7 +139,7 @@
           dataType: "JSON",
           type: "POST",
           async: false,
-          data: "nickname=" + encodeURLComponent(newNickname) + "&statement_msg=" + encodeURLComponent(newStatement),
+          data: "nickname=" + encodeURIComponent(newNickname) + "&statement_msg=" + encodeURIComponent(newStatement),
           error: function (xhr) {
             alert("에러");
             console.log(xhr.status + " / " + xhr.statusText);
