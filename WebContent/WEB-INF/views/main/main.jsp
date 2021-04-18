@@ -10,6 +10,10 @@
     
     <title>Co-doing</title>
     
+    <meta property="og:image" content="./images/post-default.png">
+    <meta property="og:title" content="Co-doing">
+    <meta property="og:description" content="made by.Groshin study💕">
+    
 	<link rel="icon" href="./images/icon/favicon.ico" />
 	<link rel="shortcut icon" href="favicon.ico" />
 
