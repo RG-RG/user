@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Co-doing</title>
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
-<link rel="icon" href="./images/icon/favicon.ico" />
+<link rel="icon" href="../../../../images/icon/favicon.ico" />
 <link rel="shortcut icon" href="favicon.ico" />
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -159,11 +159,11 @@ function moreView(url_id, page){
 				output += '<tr><td id="imgTd" onclick="moveBlog(\'' + list.id + '\');">';
 				output += '<img src="/upload/profile/' + list.profile_img + '" class="rounded-circle" id="profile_img"></td>';
 				if (list.statement_msg != null){
-					output += '<td id="infoTd" onclick="moveBlog(\'' + list.id + '\');">';
+					output += '<td id="infoTd" style="padding-top: 1.5rem" onclick="moveBlog(\'' + list.id + '\');">';
 					output += '<p id="nickname">' + list.nickname + '</p>';
 					output += '<p id="statement_msg">' + list.statement_msg + '</p></td>';
 				} else {
-					output += '<td id="infoTd" style="padding-top: 2rem" onclick="moveBlog(\'' + list.id + '\');">';
+					output += '<td id="infoTd" style="padding-top: 2.35rem" onclick="moveBlog(\'' + list.id + '\');">';
 					output += '<p id="nickname">' + list.nickname + '</p></td>';
 				}//end else
 				output += '<td id="followTd">';
@@ -214,13 +214,13 @@ function moreView(url_id, page){
 								  <img src="/upload/profile/${ fd.profile_img }" class="rounded-circle" id="profile_img">
 						      </td>
 						      <c:if test="${ not empty fd.statement_msg }">
-							      <td id="infoTd" onclick="moveBlog('${ fd.id }');">
+							      <td id="infoTd" style="padding-top: 1.5rem" onclick="moveBlog('${ fd.id }');">
 							      	<p id="nickname">${ fd.nickname }</p>
 								    <p id="statement_msg">${ fd.statement_msg }</p>
 							      </td>
 						      </c:if>
 						      <c:if test="${ fd.statement_msg eq null }">
-							      <td id="infoTd" style="padding-top: 2rem" onclick="moveBlog('${ fd.id }');">
+							      <td id="infoTd" style="padding-top: 2.35rem" onclick="moveBlog('${ fd.id }');">
 							      	<p id="nickname">${ fd.nickname }</p>
 							      </td>
 						      </c:if>
