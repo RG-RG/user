@@ -90,8 +90,10 @@ public class PostController {
 			
 			String upload_result = "";
 			boolean post_result = false;
+			System.out.println("넘어온 썸네일 사진: " + thumbnail_img);
+			System.out.println("넘어온 썸네일 사진: " + pVO.getThumbnail());
 			try {
-				if(thumbnail_img != null) {
+				if(!"".equals(pVO.getThumbnail())) {
 					System.out.println("썸네일 사진이 있음");
 					
 					String root_path = request.getSession().getServletContext().getRealPath("/");  
@@ -154,8 +156,9 @@ public class PostController {
 			
 			String upload_result = "";
 			boolean post_result = false;
+			System.out.println("넘어온 썸네일 사진: " + thumbnail_img);
 			try {
-				if(thumbnail_img != null) {
+				if(!"".equals(mpVO.getThumbnail())) {
 					String root_path = request.getSession().getServletContext().getRealPath("/");  
 					upload_result = ps.saveFile(root_path, thumbnail_img);
 					mpVO.setThumbnail(upload_result);				
