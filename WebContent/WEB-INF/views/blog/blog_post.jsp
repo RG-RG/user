@@ -196,7 +196,7 @@ $(function(){
 						var input="";
 						input+='<div id="comm_div_'+jsonObj.comm_num+'" class="comment comment-init">'
 							input+='<div class="c_writer_info">'
-								input+='<img src="'+jsonObj.profile_img+'">'
+								input+='<img src="/upload/profile/'+jsonObj.profile_img+'">'
 							input+='<div>'
 								input+='<span class="c_writer"><a href="/'+jsonObj.id+'/blog.do">'+jsonObj.nickname+'</a></span>'
 								input+='<span>'+jsonObj.input_date+'</span>'
@@ -460,7 +460,7 @@ function commModifyBtn(comm_num){
 				<c:forEach var="comm" items="${ comm_list }">
 					<div id="comm_div_${ comm.comm_num }" class="comment">
 						<div class="c_writer_info">
-							<img src="${ comm.profile_img }">
+							<img src="/upload/profile/${ comm.profile_img }">
 							<div>
 								<span class="c_writer"><a href="/${ comm.id }/blog.do"><c:out value="${ comm.nickname }" /></a></span>
 								<span class="c_date"><c:out value="${ comm.input_date }" /></span>
