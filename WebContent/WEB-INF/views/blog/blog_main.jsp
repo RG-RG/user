@@ -240,7 +240,7 @@
                 </c:if>
                 <c:if test="${ not empty blog_profile.visible_email }">
                 <a href="mailto:${ blog_profile.visible_email }" class="color_hover">
-                	<i class="fas fa-envelope"></i><c:out value="${ blog_profile.visible_email }"/>
+                	<i class="fas fa-envelope"></i> <span><c:out value="${ blog_profile.visible_email }"/></span>
                 </a>
                 </c:if>
             </div>
