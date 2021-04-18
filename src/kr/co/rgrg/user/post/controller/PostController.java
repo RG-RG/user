@@ -99,6 +99,8 @@ public class PostController {
 					String root_path = request.getSession().getServletContext().getRealPath("/");  
 					upload_result = ps.saveFile(root_path, thumbnail_img);
 					pVO.setThumbnail(upload_result);				
+				}else {
+					pVO.setThumbnail("post-default2.png");					
 				}
 				
 				post_result = ps.savePost(pVO);
@@ -162,8 +164,9 @@ public class PostController {
 					String root_path = request.getSession().getServletContext().getRealPath("/");  
 					upload_result = ps.saveFile(root_path, thumbnail_img);
 					mpVO.setThumbnail(upload_result);				
+				}else {
+					mpVO.setThumbnail("post-default2.png");					
 				}
-				
 				post_result = ps.modifyPost(mpVO);
 				System.out.println(post_result);
 			} catch (NullPointerException e) {
