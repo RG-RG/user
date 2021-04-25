@@ -22,6 +22,7 @@
 #containerTitle{ font-size: 3rem; font-weight: bold; margin-left: 0.85rem }
 #containerContent{ margin-top: 6.3rem }
 #memberForm{ margin: 0 auto; width: 60rem }
+#memberForm div {z-index: -1;}
 .input-group-text{ background-color: #FFFFFF; border-right: none; font-size: 1.5rem; padding: 2.5rem; height: 1rem; color: #333;}
 .form-control{ border-left: none; height: 5.2rem; font-size: 1.5rem; }
 #idLabel, #mailLabel, #nickLabel{ padding-right: 6.9rem }
