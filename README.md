@@ -11,7 +11,7 @@
 ### 참여 인원 및 업무 분장
 + 해당 업무분장은 [관리자 프로젝트](https://github.com/RG-RG/admin)를 포함하고 있습니다.
 
-![image](https://user-images.githubusercontent.com/41753758/122941018-f3536b00-d3af-11eb-9449-95bb38bd1f9f.png)
+![image](https://user-images.githubusercontent.com/41753758/122946940-be95e280-d3b4-11eb-8099-6f0ce3f64e68.png)
 
 ## 개발환경
 + 개발언어
